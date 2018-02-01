@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.text.dao.ArticleDao">
+
+    <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xh_blog_text_Article(text,title,created_id,updated_id,is_publish)values(#{text},#{title},#{createdId},#{createdId},#{publish})
+    </insert>
+
+    <select id="findById" resultType="Article">
+        select * from xh_blog_text_Article where id = #{id} and isDelte = 0
+    </select>
+
+    <select id="findByParam" resultType="Article">
+        select * from xh_blog_text_Article
+        <where>
+            and isDelte = 0
+            <if test="param != null">
+                <if test="param.title != null">
+                    and title = #{param.title}
+                </if>
+                <if test="param.publish != null">
+                    and is_publish = #{param.publish}
+                </if>
+                <if test="param.isPrivate != null">
+                    and is_private = #{param.isPrivate}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <update id="updateById" parameterType="Article">
+        update xh_blog_text_Article
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="text!=null">
+                text = #{text},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updatedId != null">
+                updated_id = #{updatedId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

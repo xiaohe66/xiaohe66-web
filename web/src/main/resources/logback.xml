@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <property name="DEV_HOME" value="D:/javalogs/xh" />
+
+    <appender name="out" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>[%thread] %d{HH:mm:ss} %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file_debug"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/debug/xh_blog_debug.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %-5level %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${DEV_HOME}/debug/archived/xh_blog_debug.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="file_error"
+              class="ch.qos.logback.core.FileAppender">
+        <file>${DEV_HOME}/error/xh_web_error.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %-5level %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <loger name="cn.xh.web" level="error" additivity="false">
+        <appender-ref ref="file_error"/>
+    </loger>
+
+    <root level="debug">
+        <appender-ref ref="out"/>
+        <appender-ref ref="file_debug" />
+    </root>
+
+</configuration>

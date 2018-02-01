@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.category.dao.CategoryDao">
+
+    <insert id="add" parameterType="Category" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        <!--
+        insert into xh_blog_text_Article(text,title,created_id,updated_id)values(#{text},#{title},#{createdId},#{createdId})-->
+    </insert>
+
+    <select id="searchById" resultType="Category">
+        select * from xh_blog_common_category where id = #{id}
+    </select>
+
+    <select id="searchByParam" resultType="Category">
+        select * from xh_blog_common_category
+        <where>
+            <if test="param != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="searchByPid" resultType="Category">
+        select * from xh_blog_common_category where pid = #{pid}
+    </select>
+
+</mapper>

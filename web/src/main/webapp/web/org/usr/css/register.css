@@ -1,0 +1,15 @@
+.content{
+    text-align: center;
+}
+.register_tab{
+    margin:20px auto 0;
+}
+.register_tab tr{
+    height: 50px;
+    line-height: 50px;
+}
+.register_tab input{
+    height: 40px;
+    border-radius: 4px;
+    border: solid 1px #04d0ff;
+}
