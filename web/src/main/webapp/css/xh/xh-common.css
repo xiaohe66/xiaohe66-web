@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: "微软雅黑", serif;
+}
+
+body {
+    background: #e3e3e3;
+    cursor: url("/image/pointer_default.png"), default;
+}
+
+li {
+    list-style: none;
+}
+.barrage{
+    position: fixed;
+    z-index: 99999;
+    text-align: center;
+}
+a,
+.btn{
+    cursor: url("/image/pointer_link.png"),default;
+}
+
+.btn {
+    border-radius: 4px;
+    margin: 0 10px;
+    padding: 0 20px;
+    width: 100px;
+    color: #fff;
+    background: #04d0ff;
+    font-size: 16px;
+    line-height: 30px;
+    display: inline-block;
+    text-decoration: none;
+}
+.w25 {
+    width: 25%;
+}
+
+.w50 {
+    width: 50%;
+}
+
+.w75 {
+    width: 75%;
+}
+
+
+.mt20 {
+    margin-top: 20px;
+}
+
+/*---以上通用css----*/
+/*---以下布局css----*/
+
+.c {
+    margin: 40px auto 0;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);
+    width: 1000px;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+/*----以上布局css--*/
+/*----以下top css--*/
+.t {
+
+}
+.t_link{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+    background: #e5e5e5;
+    text-align: right;
+    padding: 0 30px;
+    z-index: 10;
+    box-shadow: 0 0 6px rgba(100, 100, 100, 0.5);
+    box-sizing: border-box;
+}
+.t_link a {
+    line-height: 40px;
+    text-decoration: none;
+    color: #000;
+}
+
+.t_link a:hover {
+    text-decoration: underline;
+}
+.t_link .portrait{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 40px;
+    background: url("/favicon.ico");
+}
+/*---以上top css---*/

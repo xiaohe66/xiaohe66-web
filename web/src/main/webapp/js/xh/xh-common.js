@@ -3,7 +3,6 @@
  * @time    17-11-02 002
  */
 (function($){
-
     $.extend({
         log : function(msg){
             try{
