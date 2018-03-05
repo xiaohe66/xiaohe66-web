@@ -6,8 +6,8 @@
 }
 
 body {
-    background: #e3e3e3;
-    cursor: url("/image/pointer_default.png"), default;
+    background: #fff;
+    /*cursor: url("/image/pointer_default.png"), default;*/
 }
 
 li {
@@ -20,20 +20,28 @@ li {
 }
 a,
 .btn{
-    cursor: url("/image/pointer_link.png"),default;
+    /*cursor: url("/image/pointer_link.png"),default;*/
 }
 
 .btn {
     border-radius: 4px;
     margin: 0 10px;
     padding: 0 20px;
-    width: 100px;
+    width: 66px;
     color: #fff;
     background: #04d0ff;
     font-size: 16px;
-    line-height: 30px;
+    line-height: 40px;
     display: inline-block;
     text-decoration: none;
+    text-align: center;
+}
+.inp{
+    border:1px solid #bbb;
+    height: 40px;
+    line-height: 40px;
+    width: 100px;
+    padding-left: 10px;
 }
 .w25 {
     width: 25%;
@@ -52,12 +60,24 @@ a,
     margin-top: 20px;
 }
 
+.tab{
+
+}
+.tab li{
+    display: inline-block;
+    line-height: 30px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.tab li:hover{
+    background-color: #1e88e5;
+}
 /*---以上通用css----*/
 /*---以下布局css----*/
 
 .c {
     margin: 40px auto 0;
-    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);
+    /*box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);*/
     width: 1000px;
     box-sizing: border-box;
     background: #fff;
@@ -66,36 +86,83 @@ a,
 /*----以上布局css--*/
 /*----以下top css--*/
 .t {
-
-}
-.t_link{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 40px;
-    border-bottom: 1px solid #ccc;
-    background: #e5e5e5;
-    text-align: right;
-    padding: 0 30px;
-    z-index: 10;
-    box-shadow: 0 0 6px rgba(100, 100, 100, 0.5);
+    z-index: 100;
     box-sizing: border-box;
-}
-.t_link a {
-    line-height: 40px;
-    text-decoration: none;
     color: #000;
 }
+.t_t{
+    border-bottom: 1px solid #c5c5c5;
+    padding-right: 30px;
+    background: #f1f1f1;
+    text-align: right;
+}
+.t_t a {
+    line-height: 28px;
+    margin-right: 10px;
+    text-decoration: none;
+}
 
-.t_link a:hover {
+.t_t a:hover {
     text-decoration: underline;
 }
-.t_link .portrait{
+.t_t .portrait{
     display: inline-block;
     width: 32px;
     height: 32px;
     line-height: 40px;
     background: url("/favicon.ico");
+}
+.t_c{
+    background: rgba(255,255,255,0.3);
+    border-bottom: 1px solid #c5c5c5;
+    position: relative;
+    /*box-shadow: 0 0 6px rgba(100, 100, 100, 0.5);*/
+}
+.t_c .tab,
+.t_c .tab li,
+.logo{
+    line-height: 70px;
+}
+.t_c .tab{
+    float: right;
+    margin-right: 100px;
+}
+.t_c .tab li{
+    width: 84px;
+    font-weight: bold;
+    text-align: center;
+}
+.logo{
+    font-weight: bold;
+    font-size: 32px;
+    margin-left: 30px;
+}
+.search{
+    position: absolute;
+    top:50%;
+    margin-top: -20px;
+    margin-left: 300px;
+    height: 40px;
+    border: 1px solid #04d0ff;
+}
+.search_type,
+.search .inp{
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+
+.search_type{
+    width: 56px;
+    height: 40px;
+    color: #c5c5c5;
+}
+
+.search .inp{
+    width: 400px;
 }
 /*---以上top css---*/
