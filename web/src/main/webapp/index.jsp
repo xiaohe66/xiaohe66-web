@@ -9,47 +9,227 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>主页</title>
+    <title>乱七八糟导航</title>
     <link type="text/css" rel="stylesheet" href="/css/xh/xh-common.css"/>
     <link type="text/css" rel="stylesheet" href="/css/index.css"/>
 
     <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/js/xh/xh-common.js"></script>
     <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
-    <script>
-        $(function () {
-            $(".btn").click(function () {
-                var val = $(".inp").val();
-                if(val === undefined || val === ""){
-                    alert("请输入");
-                    return;
-                }
-                window.open($(".search_type").val()+val);
-            });
-        });
-    </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
 <div class="c">
-    <%--<div class="c_c">
-        <div class="d_search">
-            <select class="search_type">
-                <option value="https://www.baidu.com/s?wd=">百度</option>
-                <option value="https://www.google.com/search?q=">谷歌</option>
-            </select>
-            <input class="inp" placeholder="请输入">
-            <a href="javascript:void(0);" class="btn">搜索</a>
+    <div class="c_u">
+        <div class="left">
+            <div class="module1">
+                <div class="title">快速导航</div>
+                <div class="body fast_link">
+                    <table cellspacing="10px">
+                        <thead>
+                        <tr>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                            <td><a href="javascript:void(0);">链接</a></td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="module2">
+                <div class="title">最新文章</div>
+                <div class="body">
+                    <div class="item">
+                        <div>
+                            <div class="fl">
+                                <img class="head_img" src="" alt="头像">
+                            </div>
+                            <div class="u_r">
+                                <div class="u_r_u">
+                                    <div class="fr">
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                    </div>
+                                    <div class="title">发现生活的美</div>
+                                </div>
+                                <div class="u_r_d">
+                                    <span>斯文仔</span>
+                                    <span>2018-03-06</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <div class="fl">
+                                <img class="head_img" src="" alt="头像">
+                            </div>
+                            <div class="u_r">
+                                <div class="u_r_u">
+                                    <div class="fr">
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                    </div>
+                                    <div class="title">发现生活的美</div>
+                                </div>
+                                <div class="u_r_d">
+                                    <span>斯文仔</span>
+                                    <span>2018-03-06</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <div class="fl">
+                                <img class="head_img" src="" alt="头像">
+                            </div>
+                            <div class="u_r">
+                                <div class="u_r_u">
+                                    <div class="fr">
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                    </div>
+                                    <div class="title">发现生活的美</div>
+                                </div>
+                                <div class="u_r_d">
+                                    <span>斯文仔</span>
+                                    <span>2018-03-06</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <div class="fl">
+                                <img class="head_img" src="" alt="头像">
+                            </div>
+                            <div class="u_r">
+                                <div class="u_r_u">
+                                    <div class="fr">
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                    </div>
+                                    <div class="title">发现生活的美</div>
+                                </div>
+                                <div class="u_r_d">
+                                    <span>斯文仔</span>
+                                    <span>2018-03-06</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <div class="fl">
+                                <img class="head_img" src="" alt="头像">
+                            </div>
+                            <div class="u_r">
+                                <div class="u_r_u">
+                                    <div class="fr">
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                        <span>123</span>
+                                        <img src="">
+                                    </div>
+                                    <div class="title">发现生活的美</div>
+                                </div>
+                                <div class="u_r_d">
+                                    <span>斯文仔</span>
+                                    <span>2018-03-06</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d_dynamic">
-            <ul>
-                <li class="">
-                    <div class="title">发表了一篇文章</div>
-                    <div class="desc">今天天气不错</div>
-                </li>
-            </ul>
+        <div class="right">
+            <div class="module1">
+                <div class="title">站长</div>
+                <div class="body master">
+                    <img src="" class="head_img" alt="站长">
+                    <p>小何</p>
+                    <p>一个梦想成为大佬的屌丝程序员</p>
+                </div>
+            </div>
+            <div class="module1">
+                <div class="title">资源下载</div>
+                <div class="body source">
+
+                </div>
+            </div>
+            <div class="module1">
+                <div class="title">文章分类</div>
+                <div class="body category">
+
+                </div>
+            </div>
         </div>
-    </div>--%>
+    </div>
 </div>
 <div class="f">
 

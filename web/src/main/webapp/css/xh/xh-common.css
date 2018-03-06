@@ -1,12 +1,12 @@
 * {
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "微软雅黑", serif;
 }
 
 body {
-    background: #fff;
+    background: #f6f6f6;
     /*cursor: url("/image/pointer_default.png"), default;*/
 }
 
@@ -30,7 +30,7 @@ a,
     width: 66px;
     color: #fff;
     background: #04d0ff;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 40px;
     display: inline-block;
     text-decoration: none;
@@ -60,6 +60,13 @@ a,
     margin-top: 20px;
 }
 
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+
 .tab{
 
 }
@@ -73,17 +80,6 @@ a,
     background-color: #1e88e5;
 }
 /*---以上通用css----*/
-/*---以下布局css----*/
-
-.c {
-    margin: 40px auto 0;
-    /*box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);*/
-    width: 1000px;
-    box-sizing: border-box;
-    background: #fff;
-}
-
-/*----以上布局css--*/
 /*----以下top css--*/
 .t {
     position: fixed;
@@ -117,7 +113,7 @@ a,
     background: url("/favicon.ico");
 }
 .t_c{
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.8);
     border-bottom: 1px solid #c5c5c5;
     position: relative;
     /*box-shadow: 0 0 6px rgba(100, 100, 100, 0.5);*/
@@ -135,6 +131,7 @@ a,
     width: 84px;
     font-weight: bold;
     text-align: center;
+    font-size: 16px;
 }
 .logo{
     font-weight: bold;
@@ -166,3 +163,20 @@ a,
     width: 400px;
 }
 /*---以上top css---*/
+/*---以下content布局css----*/
+
+.c {
+    margin: 120px 120px 0;
+    /*box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);*/
+    width: 1126px;
+    box-sizing: border-box;
+}
+
+/*----以上content布局css--*/
+/*----以下foot布局css*/
+.f{
+    margin-top: 20px;
+    background: #e5e5e5;
+    height: 80px;
+}
+/*----以上foot布局css*/

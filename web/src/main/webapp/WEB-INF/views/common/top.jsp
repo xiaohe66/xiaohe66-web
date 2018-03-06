@@ -36,21 +36,16 @@
         </ul>
         <p class="logo">xiaohe66</p>
         <div class="search">
-            <%--<ul class="search_type">
-                <li>百度</li>
-                <li>谷歌</li>
-            </ul>--%>
             <select class="search_type">
                 <option value="https://www.baidu.com/s?wd=">百度</option>
                 <option value="https://www.google.com/search?q=">谷歌</option>
             </select>
             <input class="inp" placeholder="搜索">
-            <%--<a href="javascript:void(0);" class="btn">搜索</a>--%>
         </div>
     </div>
     <script>
         $(function () {
-            var inp = $(".inp");
+            var inp = $(".search .inp");
             inp.blur(function () {
                 inp.attr("val",inp.val());
                 inp.val("");
@@ -71,6 +66,11 @@
                     }
                     window.open($(".search_type").val()+inp.val());
                 }
+            });
+            var top = $(".t");
+
+            $("body").scroll(function(e) {
+                //todo:滚动逻辑，实现top下滚动时隐藏，上滚动时显示
             });
         });
     </script>
