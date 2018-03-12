@@ -45,12 +45,12 @@ public abstract class BasePoDetailed extends BasePo {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 
     @Override

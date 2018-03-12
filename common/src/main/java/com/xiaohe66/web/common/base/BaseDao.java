@@ -2,6 +2,7 @@ package com.xiaohe66.web.common.base;
 
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,52 +28,57 @@ public interface BaseDao<T extends BasePo>{
      * 通用根据id删除方法(硬删除，数据库不留数据)
      * @param id 待删除的数据库id
      */
-    void delOfHard(long id);
+    void delByIdOfHard(long id);
 
     /**
      * 通用根据id删除方法(软删除，数据库保留数据)
      * @param id 待删除的数据库id
+     * @param currentUsrId 当前登录用户id
+     * @param updateTime 删除时间
      */
-    void delOfSoft(long id);
+    void delById(@Param("id") long id,@Param("currentUsrId") long currentUsrId,@Param("updateTime") Date updateTime);
 
     /**
      * 通用根据参数删除方法(硬删除，数据库不留数据)
      * @param param 传入mybatis的参数
      * @return long 删除的数量
      */
-    long delOfHard(@Param("param") BaseParam param);
+    long delByParamOfHard(@Param("param") BaseParam param);
 
     /**
      * 通用根据参数删除方法(软删除，数据库保留数据)
      * @param param 传入mybatis的参数
+     * @param currentUsrId 当前登录用户id
+     * @param updateTime 删除时间
+     *
      * @return long 删除的数量
      */
-    long delOfSoft(@Param("param") BaseParam param);
+    long delByParam(@Param("param") BaseParam param,@Param("currentUsrId") long currentUsrId,@Param("updateTime") Date updateTime);
 
     /**
      * 通用更新方法
      * @param po 更新后的实体
      */
-    void update(T po);
+    void updateById(T po);
 
     /**
      * 通用更新方法，根据参数更新
      * @param po 更新后的实体
      * @param param 更新的参数
      */
-    void update(T po,@Param("param")  BaseParam param);
+    void updateByParam(T po,@Param("param")  BaseParam param);
 
     /**
      * 通用根据id查询方法
      * @param id 查询id
      * @return 对应实体
      */
-    T searchById(Long id);
+    T findById(Long id);
 
     /**
      * 通用根据参数查询方法
      * @param param 查询参数
      * @return 对应实体list
      */
-    List<T> searchByParam(@Param("param") BaseParam param);
+    List<T> findByParam(@Param("param") BaseParam param);
 }

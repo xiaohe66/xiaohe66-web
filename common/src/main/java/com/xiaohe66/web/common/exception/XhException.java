@@ -15,12 +15,18 @@ import com.xiaohe66.web.common.data.CodeEnum;
 public class XhException extends RuntimeException{
     private CodeEnum code;
 
+
     public XhException(CodeEnum code){
         this.code = code;
     }
 
     public XhException(CodeEnum code, String message) {
         super(message);
+        this.code = code;
+    }
+
+    public XhException(CodeEnum code,Throwable cause) {
+        super(cause);
         this.code = code;
     }
 

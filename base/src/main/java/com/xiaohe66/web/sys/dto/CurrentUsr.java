@@ -1,6 +1,6 @@
 package com.xiaohe66.web.sys.dto;
 
-import com.xiaohe66.web.org.usr.dto.UsrDto;
+import com.xiaohe66.web.org.dto.UsrDto;
 
 /**
  * @author xiaohe

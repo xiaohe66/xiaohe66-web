@@ -1,7 +1,7 @@
 package com.xiaohe66.web.resolver;
 
 import com.xiaohe66.web.common.data.StrEnum;
-import com.xiaohe66.web.org.usr.dto.UsrDto;
+import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

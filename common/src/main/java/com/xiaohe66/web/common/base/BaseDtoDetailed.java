@@ -47,12 +47,12 @@ public abstract class BaseDtoDetailed extends BaseDto{
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 
     @Override

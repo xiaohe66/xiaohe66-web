@@ -7,4 +7,5 @@ package com.xiaohe66.web.common.base;
  * @time 17-10-28 028
  */
 public interface BaseParam {
+
 }

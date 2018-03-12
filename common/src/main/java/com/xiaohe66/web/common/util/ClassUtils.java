@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author xh
@@ -28,11 +30,16 @@ public class ClassUtils {
      */
     public static <T extends BaseDto> T convert(Class<T> targetCls, BasePo sourceObj){
 
+        //源为null，则返回null
+        if (sourceObj == null) {
+            return null;
+        }
+
         /*
         * 判断参数是否为null
         * */
-        if(targetCls == null || sourceObj == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"targetCls or sourceObj is null");
+        if(targetCls == null){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"targetCls is null");
         }
 
         /*
@@ -49,6 +56,27 @@ public class ClassUtils {
         convert(targetObj,sourceObj);
 
         return targetObj;
+    }
+
+    /**
+     * 不同类的同名同类型属性复制
+     *
+     * @param targetCls 目标类的Class对象<br>
+     *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
+     * @param sourceObjList 源类的实例集合
+     * @param <T> 目标类
+     * @return 目标类的实例集合
+     */
+    public static <T extends BaseDto> List<T> convertList(Class<T> targetCls, List<? extends BasePo> sourceObjList){
+        if(sourceObjList == null){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"list is null");
+        }
+        List<T> targetObjList  = new ArrayList<T>();
+        for (BasePo basePo : sourceObjList) {
+            T targetObj = convert(targetCls,basePo);
+            targetObjList.add(targetObj);
+        }
+        return targetObjList;
     }
 
     /**
