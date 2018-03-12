@@ -1,15 +1,16 @@
 package com.xiaohe66.web.sys.po;
 
-import com.xiaohe66.web.common.base.BasePo;
+import com.xiaohe66.web.common.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-11-07 007
  */
-public class SysCfg extends BasePo {
+public class SysCfg extends BasePoDetailed {
 
     private String cfgKey;
     private String cfgVal;
+    private String cfgDesc;
 
     public String getCfgKey() {
         return cfgKey;
@@ -27,11 +28,25 @@ public class SysCfg extends BasePo {
         this.cfgVal = cfgVal;
     }
 
+    public String getCfgDesc() {
+        return cfgDesc;
+    }
+
+    public void setCfgDesc(String cfgDesc) {
+        this.cfgDesc = cfgDesc;
+    }
+
     @Override
     public String toString() {
-        return "{" + "\"cfgKey\":\"" + cfgKey + "\""
+        return "{" + "\"createId\":\"" + createId + "\""
+                + ", \"cfgKey\":\"" + cfgKey + "\""
+                + ", \"createTime\":" + createTime
                 + ", \"cfgVal\":\"" + cfgVal + "\""
                 + ", \"id\":\"" + id + "\""
+                + ", \"updateId\":\"" + updateId + "\""
+                + ", \"cfgDesc\":\"" + cfgDesc + "\""
+                + ", \"updateTime\":" + updateTime
+                + ", \"isDelete\":\"" + isDelete + "\""
                 + "}";
     }
 }

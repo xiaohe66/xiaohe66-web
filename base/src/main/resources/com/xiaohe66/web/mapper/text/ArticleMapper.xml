@@ -3,33 +3,34 @@
 <mapper namespace="com.xiaohe66.web.text.dao.ArticleDao">
 
     <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_blog_text_Article(text,title,created_id,updated_id,is_publish)values(#{text},#{title},#{createdId},#{createdId},#{publish})
+        insert into xh_web_text_article(text,title,create_id,update_id,secret_level)
+        values(#{text},#{title},#{createId},#{createId},#{secretLevel})
     </insert>
 
     <select id="findById" resultType="Article">
-        select * from xh_blog_text_Article where id = #{id} and isDelte = 0
+        select * from xh_web_text_article where id = #{id} and is_delete = 0
     </select>
 
     <select id="findByParam" resultType="Article">
-        select * from xh_blog_text_Article
+        select * from xh_web_text_article
         <where>
-            and isDelte = 0
+            and is_delete = 0
             <if test="param != null">
                 <if test="param.title != null">
                     and title = #{param.title}
                 </if>
-                <if test="param.publish != null">
-                    and is_publish = #{param.publish}
+                <if test="param.secretLevel != null">
+                    and publish_state = #{param.secretLevel}
                 </if>
-                <if test="param.isPrivate != null">
-                    and is_private = #{param.isPrivate}
+                <if test="param.publishState != null">
+                    and secret_level = #{param.publishState}
                 </if>
             </if>
         </where>
     </select>
 
     <update id="updateById" parameterType="Article">
-        update xh_blog_text_Article
+        update xh_web_text_article
         <set>
             <if test="title!=null">
                 title = #{title},
@@ -37,13 +38,38 @@
             <if test="text!=null">
                 text = #{text},
             </if>
-            <if test="updatedTime != null">
-                updated_time = #{updatedTime},
+            <if test="updateTime != null">
+                update_time = #{updateTime},
             </if>
-            <if test="updatedId != null">
-                updated_id = #{updatedId},
+            <if test="updateId != null">
+                update_id = #{updateId},
             </if>
         </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByParam" parameterType="Article">
+        update xh_web_text_article
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="text!=null">
+                text = #{text},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delById">
+        update xh_web_text_article
+        set is_delete = 1,update_id = #{currentUsrId},update_time = #{updateTime}
         where id = #{id}
     </update>
 

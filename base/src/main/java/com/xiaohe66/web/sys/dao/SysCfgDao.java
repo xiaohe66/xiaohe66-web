@@ -13,5 +13,5 @@ public interface SysCfgDao extends BaseDao<SysCfg>{
      * @param cfgKey cfgKey
      * @return cfgValue
      */
-    String searchValByKey(String cfgKey);
+    String findValByKey(String cfgKey);
 }

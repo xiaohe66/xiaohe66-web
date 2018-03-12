@@ -6,8 +6,16 @@
 
     </insert>
 
-    <select id="searchValByName" resultType="String">
-        select cfg_val from xh_blog_sys_cfg where cfg_key = #{cfgKey}
+    <select id="findById" resultType="SysCfg">
+        select * from xh_web_sys_cfg where id = #{id}
+    </select>
+
+    <select id="findValByName" resultType="String">
+        select cfg_val from xh_web_sys_cfg where cfg_key = #{cfgKey}
+    </select>
+
+    <select id="findValByKey">
+
     </select>
 
 </mapper>

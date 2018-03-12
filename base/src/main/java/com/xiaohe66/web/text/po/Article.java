@@ -10,24 +10,8 @@ public class Article extends BasePoDetailed {
 
     private String text;
     private String title;
-    private Integer isPrivate;
-    private Boolean isPublish;
-
-    public Integer getIsPrivate() {
-        return isPrivate;
-    }
-
-    public void setIsPrivate(Integer isPrivate) {
-        this.isPrivate = isPrivate;
-    }
-
-    public Boolean getPublish() {
-        return isPublish;
-    }
-
-    public void setPublish(Boolean publish) {
-        isPublish = publish;
-    }
+    private Integer publishState;
+    private Integer secretLevel;
 
     public String getText() {
         return text;
@@ -45,6 +29,22 @@ public class Article extends BasePoDetailed {
         this.title = title;
     }
 
+    public Integer getPublishState() {
+        return publishState;
+    }
+
+    public void setPublishState(Integer publishState) {
+        this.publishState = publishState;
+    }
+
+    public Integer getSecretLevel() {
+        return secretLevel;
+    }
+
+    public void setSecretLevel(Integer secretLevel) {
+        this.secretLevel = secretLevel;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
@@ -53,9 +53,9 @@ public class Article extends BasePoDetailed {
                 + ", \"title\":\"" + title + "\""
                 + ", \"id\":\"" + id + "\""
                 + ", \"updateId\":\"" + updateId + "\""
-                + ", \"isPrivate\":\"" + isPrivate + "\""
+                + ", \"publishState\":\"" + publishState + "\""
                 + ", \"updateTime\":" + updateTime
-                + ", \"isPublish\":\"" + isPublish + "\""
+                + ", \"secretLevel\":\"" + secretLevel + "\""
                 + ", \"isDelete\":\"" + isDelete + "\""
                 + "}";
     }

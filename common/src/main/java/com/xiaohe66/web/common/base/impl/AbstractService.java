@@ -71,12 +71,13 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param id 待删除的数据库id
      */
     @Override
-    public void delOfHard(Long id){
+    public void delByIdOfHard(Long id){
         daoNotNullCheck();
         if(id == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
         }
-        baseDao.delOfHard(id);
+
+        baseDao.delByIdOfHard(id);
     }
 
     /**
@@ -84,12 +85,12 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param id 待删除的数据库id
      */
     @Override
-    public void delOfSoft(Long id){
+    public void delById(Long id,Long currentUsrId){
         daoNotNullCheck();
         if(id == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
         }
-        baseDao.delOfSoft(id);
+        baseDao.delById(id,currentUsrId,new Date(System.currentTimeMillis()));
     }
 
 
@@ -99,11 +100,11 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @return long 删除的数量
      */
     @Override
-    public long delOfHard(BaseParam param){
+    public long delByParamOfHard(BaseParam param){
         if (param == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"param is null");
         }
-        return baseDao.delOfHard(param);
+        return baseDao.delByParamOfHard(param);
     }
 
     /**
@@ -112,11 +113,11 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @return long 删除的数量
      */
     @Override
-    public long delOfSoft(BaseParam param){
+    public long delByParam(BaseParam param,Long currentUsrId){
         if (param == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"param is null");
         }
-        return baseDao.delOfSoft(param);
+        return baseDao.delByParam(param,currentUsrId,new Date(System.currentTimeMillis()));
     }
 
     /**
@@ -125,7 +126,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param currentUsrId 当前登录用户id
      */
     @Override
-    public void update(T po,Long currentUsrId) {
+    public void updateById(T po, Long currentUsrId) {
         daoNotNullCheck();
         if(po == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"po is null");
@@ -138,7 +139,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
             poDetailed.setUpdateId(currentUsrId);
             poDetailed.setUpdateTime(new Date());
         }
-        baseDao.update(po);
+        baseDao.updateById(po);
     }
 
     /**
@@ -147,12 +148,12 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @return 对应id实体
      */
     @Override
-    public T searchById(Long id) {
+    public T findById(Long id) {
         daoNotNullCheck();
         if(id == null){
             throw new NullPointerException("id is null");
         }
-        return baseDao.searchById(id);
+        return baseDao.findById(id);
     }
 
     /**
@@ -162,7 +163,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param currentUsrId 当前登录用户id
      */
     @Override
-    public void update(T po, BaseParam param,Long currentUsrId) {
+    public void updateByParam(T po, BaseParam param, Long currentUsrId) {
         if (po == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"po is null");
         }
@@ -177,16 +178,16 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
             basePoDetailed.setUpdateId(currentUsrId);
             basePoDetailed.setUpdateTime(new Date());
         }
-        baseDao.update(po,param);
+        baseDao.updateByParam(po,param);
     }
     /**
      * 通用根据参数查询方法
      * @param param 传入mybatis的参数
      */
     @Override
-    public List<T> searchByParam(BaseParam param) {
+    public List<T> findByParam(BaseParam param) {
         daoNotNullCheck();
-        return baseDao.searchByParam(param);
+        return baseDao.findByParam(param);
     }
 
     private void daoNotNullCheck(){

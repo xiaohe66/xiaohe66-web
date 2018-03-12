@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiaohe66.web.comm.category.dao.CategoryDao">
+<mapper namespace="com.xiaohe66.web.text.dao.TextCategoryDao">
 
-    <insert id="add" parameterType="Category" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_common_category
+    <insert id="add" parameterType="TextCategory" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xh_web_text_category
         (create_id,create_time,update_id,update_time,category_name,category_desc,pid)
         values
         (#{createId},#{createTime},#{updateId},#{updateTime},#{categoryName},#{categoryDesc},#{pid})
     </insert>
 
-    <select id="findById" resultType="Category">
-        select * from xh_web_common_category where is_delete = 0 and id = #{id}
+    <select id="findById" resultType="TextCategory">
+        select * from xh_web_text_category where is_delete = 0 and id = #{id}
     </select>
 
-    <select id="findByParam" resultType="Category">
-        select * from xh_web_common_category
+    <select id="findByParam" resultType="TextCategory">
+        select * from xh_web_text_category
         <where>
             <if test="param != null">
 
@@ -22,12 +22,12 @@
         </where>
     </select>
 
-    <select id="findByPid" resultType="Category">
-        select * from xh_web_common_category where pid = #{pid}
+    <select id="findByPid" resultType="TextCategory">
+        select * from xh_web_text_category where pid = #{pid}
     </select>
 
-    <update id="updateById" parameterType="Category">
-        update xh_web_common_category
+    <update id="updateById" parameterType="TextCategory">
+        update xh_web_text_category
         <set>
             <if test="updateId != null">
                 update_id = #{updateId},
@@ -48,8 +48,8 @@
         where id = #{id}
     </update>
 
-    <update id="delById" parameterType="Category">
-        update xh_web_common_category set is_delete = 1 where id = #{id}
+    <update id="delById" parameterType="TextCategory">
+        update xh_web_text_category set is_delete = 1 where id = #{id}
     </update>
 
 </mapper>
