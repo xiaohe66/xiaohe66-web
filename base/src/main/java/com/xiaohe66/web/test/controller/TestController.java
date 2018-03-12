@@ -6,7 +6,7 @@ import com.xiaohe66.web.common.annotation.Put;
 import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.exception.XhException;
-import com.xiaohe66.web.org.usr.po.Usr;
+import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.sys.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

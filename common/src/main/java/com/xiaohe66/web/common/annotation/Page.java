@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.lang.annotation.*;
 
 /**
- * Restful风格
  * 使用该注解的Controller方法当作页面请求
  *
  * @author xh
@@ -17,7 +16,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @RequestMapping
-@Deprecated
+//@Deprecated
 public @interface Page {
 
     @AliasFor(annotation = RequestMapping.class)

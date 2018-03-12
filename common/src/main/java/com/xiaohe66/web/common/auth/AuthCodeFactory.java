@@ -1,19 +1,22 @@
-package com.xiaohe66.web.common.data;
+package com.xiaohe66.web.common.auth;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 import java.util.Random;
 
 /**
  * @author xiaohe
  * @time 17-11-12 012
  */
-public class AuthCode {
+public class AuthCodeFactory {
+
+    private static AuthCodeFactory authCodeFactory = new AuthCodeFactory();
 
     /**
      * 验证码字符集
      */
-    private static final char[] CHARS = {
+    private final char[] CHARS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
             'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -47,28 +50,13 @@ public class AuthCode {
      * 字体
      */
     private String fontName = null;
-    /**
-     * 验证码图片
-     */
-    private String authCodeStr = null;
-    /**
-     * 验证码图片
-     */
-    private BufferedImage authCodeImg = null;
+
 
     private static final Random RAN = new Random();
 
-    /**
-     * 创建默认属性的验证码对象
-     * 验证码位数    4
-     * 干扰线数量    6
-     * 验证码宽度    80
-     * 验证码高度    40
-     * 字体颜色     白色
-     * 字体大小     30
-     */
-    public AuthCode(){
-        this.createValidateCode();
+
+    public static AuthCodeFactory getInstance(){
+        return authCodeFactory;
     }
 
     /**
@@ -80,9 +68,10 @@ public class AuthCode {
      * @param fontColor 字体颜色，如果传入null，则使用默认的白色
      * @param fontSize 字体大小，如果传入null，则使用默认大小30
      * @param fontName 字体名称，如果传入null，则使用默认字体
+     * todo:暂时使自定义属性的验证码无法创建，该逻辑待修改
      */
-    public AuthCode(int width, int height, int size, int lines, Color fontColor,
-                    Integer fontSize, String fontName){
+    private AuthCode createAuthCode(int width, int height, int size, int lines, Color fontColor,
+                                    Integer fontSize, String fontName){
         this.width = width;
         this.height = height;
         this.size = size;
@@ -96,13 +85,19 @@ public class AuthCode {
         if(fontName != null) {
             this.fontName = fontName;
         }
-        this.createValidateCode();
+        return this.createAuthCode();
     }
 
     /**
-     * 生成随机验证码及图片
+     * 创建默认属性的验证码对象
+     * 验证码位数    4
+     * 干扰线数量    6
+     * 验证码宽度    80
+     * 验证码高度    40
+     * 字体颜色     白色
+     * 字体大小     30
      */
-    private void createValidateCode() {
+    public AuthCode createAuthCode() {
         StringBuilder stringBuilder = new StringBuilder();
         // 1.创建空白图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -141,9 +136,7 @@ public class AuthCode {
             graphic.fillOval(ran.nextInt(width),ran.nextInt(height),2,2);
         }
 
-        //保存回验证码和图片
-        this.authCodeImg = image;
-        this.authCodeStr = stringBuilder.toString();
+        return new AuthCode(image,stringBuilder.toString(),new Date());
     }
 
     /**
@@ -155,24 +148,6 @@ public class AuthCode {
 
     private int nextColorVal(){
         return RAN.nextInt(256);
-    }
-
-    /**
-     * 获取验证码图片
-     * @return
-     *      验证码图片
-     */
-    public BufferedImage getImage() {
-        return authCodeImg;
-    }
-
-    /**
-     * 获取验证码字符
-     * @return
-     *      验证码字符
-     */
-    public String getAuthCodeStr() {
-        return authCodeStr;
     }
 
 }

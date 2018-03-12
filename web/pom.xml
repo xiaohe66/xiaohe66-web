@@ -135,18 +135,6 @@
         </dependency>
         <!-- springframe end -->
 
-        <!--aspectj start-->
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-        </dependency>
-        <!--aspectj end-->
-
         <!--c3p0-->
         <dependency>
             <groupId>com.mchange</groupId>
@@ -226,10 +214,10 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>base</artifactId>
-            <version>1.0</version>
         </dependency>
         <!-- json end -->
 

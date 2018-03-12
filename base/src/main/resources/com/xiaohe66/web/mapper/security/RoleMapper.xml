@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.security.dao.RoleDao">
+
+    <select id="findById" resultType="Role">
+        select * from xh_web_security_role where id = #{id}
+    </select>
+
+    <select id="findRoleNameByUsrId" resultType="Role">
+        select r.role_name from xh_web_security_role r
+        join xh_web_security_usr_role ur on r.id = ur.role_id
+        where ur.usr_id = #{usrId}
+    </select>
+
+</mapper>
