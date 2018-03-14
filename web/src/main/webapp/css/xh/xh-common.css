@@ -23,7 +23,7 @@ a,
     /*cursor: url("/image/pointer_link.png"),default;*/
 }
 
-.btn {
+.btn{
     border-radius: 4px;
     margin: 0 10px;
     padding: 0 20px;
@@ -35,13 +35,22 @@ a,
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    border: none;
+    cursor: pointer;
 }
-.inp{
+.inp,input{
     border:1px solid #bbb;
-    height: 40px;
-    line-height: 40px;
-    width: 100px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    width: 250px;
     padding-left: 10px;
+}
+input[type=checkbox],
+input[type=radio]{
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
 }
 .w25 {
     width: 25%;
@@ -70,6 +79,19 @@ a,
 .tab{
 
 }
+.border1{
+    border: 1px solid #c5c5c5;
+}
+#mask{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    display: none;
+}
 .tab li{
     display: inline-block;
     line-height: 30px;
@@ -78,6 +100,44 @@ a,
 }
 .tab li:hover{
     background-color: #1e88e5;
+}
+.circle{
+    border-radius: 4px;
+}
+.module1,
+.module2>.title,
+.item{
+    border: 1px solid #c5c5c5;
+    background: #fff;
+    border-radius: 4px;
+}
+.module1 .title{
+    border-bottom: 1px solid #c5c5c5;
+}
+.module1 .body{
+    padding: 10px;
+}
+.body p{
+    margin-top: 10px;
+}
+.item:hover{
+    background: #e1f1ff;
+    cursor: pointer;
+}
+.head_img{
+    width: 200px;
+    height: 200px;
+}
+.head_img:hover{
+    cursor: pointer;
+}
+.title{
+    padding-left: 10px;
+    font-size: 16px;
+    line-height: 30px;
+}
+.master{
+    text-align: center;
 }
 /*---以上通用css----*/
 /*----以下top css--*/
@@ -120,7 +180,7 @@ a,
 }
 .t_c .tab,
 .t_c .tab li,
-.logo{
+.logo a{
     line-height: 70px;
 }
 .t_c .tab{
@@ -133,10 +193,12 @@ a,
     text-align: center;
     font-size: 16px;
 }
-.logo{
+.logo a{
     font-weight: bold;
     font-size: 32px;
     margin-left: 30px;
+    text-decoration: none;
+    color: #000;
 }
 .search{
     position: absolute;
@@ -145,12 +207,14 @@ a,
     margin-left: 300px;
     height: 40px;
     border: 1px solid #04d0ff;
+    border-radius: 4px;
 }
 .search_type,
 .search .inp{
     border: 0;
     outline: none;
     background: transparent;
+    width: 400px;
 }
 
 .search_type{
@@ -159,9 +223,6 @@ a,
     color: #c5c5c5;
 }
 
-.search .inp{
-    width: 400px;
-}
 /*---以上top css---*/
 /*---以下content布局css----*/
 
@@ -170,6 +231,24 @@ a,
     /*box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);*/
     width: 1126px;
     box-sizing: border-box;
+}
+.left{
+    width: 73%;
+    box-sizing: border-box;
+    /*background: #a9a9a9;*/
+}
+.right{
+    width: 25%;
+    height: 400px;
+    /*background: #333333;*/
+    position: absolute;
+    right: 0;
+    top:0;
+    box-sizing: border-box;
+}
+.left>div,
+.right>div{
+    margin-bottom: 10px;
 }
 
 /*----以上content布局css--*/
@@ -180,3 +259,52 @@ a,
     height: 80px;
 }
 /*----以上foot布局css*/
+
+/*---login---*/
+#login_body{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 380px;
+    height: 300px;
+    margin-top: -150px;
+    margin-left: -190px;
+    z-index: 201;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    text-align: left;
+    padding: 0 10px 30px;
+    box-sizing: border-box;
+    display: none;
+}
+#login_body li{
+    margin-top: 30px;
+}
+#login_body span{
+    display: inline-block;
+    width: 60px;
+    text-align: right;
+    padding-right: 20px;
+}
+#login_body input{
+    height: 40px;
+}
+#login_body .login{
+    text-align: center;
+}
+#login_body .btn{
+    width: 200px;
+}
+.verify input{
+    width: 120px;
+}
+.verify img{
+    /*float: right;*/
+    width: 120px;
+    height: 40px;
+    margin-left: 6px;
+    vertical-align: top;
+    margin-right: 5px;
+}
+/*---login---*/
