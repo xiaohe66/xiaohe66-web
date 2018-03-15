@@ -1,11 +1,11 @@
-package com.xiaohe66.web.comm.category.service;
+package com.xiaohe66.web.comm.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.exception.XhException;
-import com.xiaohe66.web.comm.category.dao.CategoryDao;
-import com.xiaohe66.web.comm.category.po.Category;
+import com.xiaohe66.web.comm.dao.CategoryDao;
+import com.xiaohe66.web.comm.po.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

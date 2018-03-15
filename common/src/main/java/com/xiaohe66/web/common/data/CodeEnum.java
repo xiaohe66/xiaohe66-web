@@ -28,6 +28,8 @@ public enum CodeEnum {
     ,NOT_LOGGED_IN(603,"用户未登录")
     ,NOT_PERMISSION(604,"权限不足")
 
+    ,IO_EXCEPTION(701,"IO异常")
+
     ;
 
     CodeEnum(int code,String desc){

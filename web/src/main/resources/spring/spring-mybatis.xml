@@ -33,7 +33,7 @@
         给包中的类注册别名，注册后可以直接使用类名
         属性可以配置多个，可以用,;\t\n进行分割。但是不支持Ant风格的路径。如：com.xiaohe66.web.**.po
          -->
-        <property name="typeAliasesPackage" value="com.xiaohe66.web.comm.category.po
+        <property name="typeAliasesPackage" value="com.xiaohe66.web.comm.po
                                                     com.xiaohe66.web.org.po
                                                     com.xiaohe66.web.security.po
                                                     com.xiaohe66.web.sys.po

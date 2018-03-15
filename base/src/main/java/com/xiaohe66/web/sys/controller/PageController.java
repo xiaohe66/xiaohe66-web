@@ -18,19 +18,4 @@ import java.util.List;
 @Controller
 public class PageController {
 
-    private static final String INDEX_PAGE_HTML = "index";
-    @Autowired
-    private ArticleService articleService;
-
-    @RequestMapping("/index")
-    public String index(Model model){
-        List<Article> list = articleService.indexList();
-        model.addAttribute("list",list);
-        return INDEX_PAGE_HTML;
-    }
-
-    @RequestMapping("/")
-    public String index(){
-        return "redirect:/index";
-    }
 }

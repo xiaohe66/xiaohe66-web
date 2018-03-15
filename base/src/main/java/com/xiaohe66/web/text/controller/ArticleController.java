@@ -56,6 +56,12 @@ public class ArticleController {
         return ARTICLE_DETAIL_PAGE_URL;
     }
 
+    @Page("/list")
+    public String list(Model model,Long lookUsrId){
+        model.addAttribute("list",ClassUtils.convertList(DtoArticle.class,articleService.findByUsrId(lookUsrId)));
+        return "/text/article/article_detail";
+    }
+
     @Post
     public Result add(CurrentUsr currentUsr,Article article){
         if (article.getSecretLevel() == null) {

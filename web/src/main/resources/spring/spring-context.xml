@@ -32,15 +32,7 @@
     </mvc:annotation-driven>
 
     <!-- 导入配置 -->
-    <!--<context:property-placeholder location="classpath:db.properties"/>-->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:db.properties</value>
-            </list>
-        </property>
-    </bean>
+    <context:property-placeholder location="classpath:*.properties"/>
 
     <bean id="springUtils" class="com.xiaohe66.web.common.util.SpringUtils"/>
 

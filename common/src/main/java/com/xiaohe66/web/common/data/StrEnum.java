@@ -17,7 +17,7 @@ public enum StrEnum {
     ,CONTENT_TYPE_IMAGE_PNG("image/png")
     ,FILE_TYPE_PNG("png")
 
-
+    ,CFG_KEY_XIAO_HE_USR_ID("XIAO_HE_USR_ID")
 
 
     ;

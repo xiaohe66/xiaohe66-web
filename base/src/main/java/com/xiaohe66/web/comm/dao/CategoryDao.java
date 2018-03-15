@@ -1,7 +1,7 @@
-package com.xiaohe66.web.comm.category.dao;
+package com.xiaohe66.web.comm.dao;
 
 import com.xiaohe66.web.common.base.BaseDao;
-import com.xiaohe66.web.comm.category.po.Category;
+import com.xiaohe66.web.comm.po.Category;
 
 import java.util.List;
 

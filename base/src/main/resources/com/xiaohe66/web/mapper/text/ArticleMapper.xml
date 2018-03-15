@@ -25,6 +25,9 @@
                 <if test="param.publishState != null">
                     and secret_level = #{param.publishState}
                 </if>
+                <if test="param.createId != null">
+                    and create_id = #{param.createId}
+                </if>
             </if>
         </where>
     </select>

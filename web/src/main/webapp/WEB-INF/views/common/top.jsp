@@ -12,15 +12,15 @@
     <ul>
         <li>
             <span>账号</span>
-            <input placeholder="账号">
+            <input id="usrName" placeholder="账号">
         </li>
         <li>
             <span>密码</span>
-            <input placeholder="密码">
+            <input id="usrPwd" placeholder="密码">
         </li>
         <li  class="verify">
             <span>验证码</span>
-            <input placeholder="验证码">
+            <input id="authCode" placeholder="验证码">
             <img src="">
         </li>
         <li class="login">
@@ -30,15 +30,8 @@
 </div>
 <div class="t">
     <div class="t_t">
-        <a href="/editor">写文章</a>
-        <a href="javascript:void(0)">小何</a>
-        <a href="javascript:showLogin()">登录</a>
-        <a href="javascript:void(0);">注册</a>
-        <%--<span class="portrait"></span>--%>
-
-        <%--<a href="/index" class="home">首页</a>--%>
-        <%--<shiro:guest>
-            <a href="/org/usr/index">登录</a>
+        <shiro:guest>
+            <a href="javascript:showLogin();">登录</a>
             |
             <a href="/org/usr/register">注册</a>
         </shiro:guest>
@@ -47,7 +40,7 @@
             <a href="/text/article/add">写文章</a>
             |
             <a href="javascript:logout();">注销</a>
-        </shiro:authenticated>--%>
+        </shiro:authenticated>
     </div>
     <div class="t_c">
         <ul class="tab">
@@ -56,7 +49,7 @@
             <%--<li>github</li>--%>
             <li>留言</li>
         </ul>
-        <p class="logo"><a href="/index">xiaohe66</a></p>
+        <p class="logo"><a href="/">xiaohe66</a></p>
         <div class="search">
             <select class="search_type">
                 <option value="https://www.baidu.com/s?wd=">百度</option>
@@ -105,13 +98,41 @@
                     lock = true;
                 });
             });
+
+            var login = function () {
+                var usrName = $("#usrName").val();
+                var usrPwd = $("#usrPwd").val();
+
+                $.post("/org/usr/login",{
+                    usrName:usrName,
+                    usrPwd:usrPwd
+                },function (data) {
+                   location.reload();
+                });
+            };
+
+            $(".login a").click(login);
+
+            $("#usrPwd").keyup(function (e) {
+                if(e.keyCode === 13){
+                    login();
+                }
+            });
+            
         });
+
+        function logout() {
+            $.del("/org/usr/login",{},function (data) {
+                location.reload();
+            });
+        }
         
         function showLogin() {
             $("#login_body").show();
             $.mask(function () {
                $("#login_body").hide();
             });
+            $("#usrName").focus();
         }
     </script>
 </div>

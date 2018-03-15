@@ -1,8 +1,8 @@
-package com.xiaohe66.web.comm.category.controller;
+package com.xiaohe66.web.comm.controller;
 
-import com.xiaohe66.web.comm.category.dto.CategoryDto;
-import com.xiaohe66.web.comm.category.po.Category;
-import com.xiaohe66.web.comm.category.service.CategoryService;
+import com.xiaohe66.web.comm.dto.CategoryDto;
+import com.xiaohe66.web.comm.po.Category;
+import com.xiaohe66.web.comm.service.CategoryService;
 import com.xiaohe66.web.common.annotation.*;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.sys.dto.CurrentUsr;

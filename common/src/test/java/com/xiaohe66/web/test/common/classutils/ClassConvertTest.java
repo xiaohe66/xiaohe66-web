@@ -17,9 +17,10 @@ public class ClassConvertTest {
 //        ClassUtils.convert(null,new Obj1());
     }
 
-    @Test(expected = XhException.class)
+    @Test
     public void test2(){
-        ClassUtils.convert(Obj2.class,null);
+        Obj2 obj2 = ClassUtils.convert(Obj2.class,null);
+        assertEquals(null,obj2);
     }
 
     @Test

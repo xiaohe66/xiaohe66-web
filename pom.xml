@@ -13,6 +13,7 @@
         <module>common</module>
         <module>base</module>
         <module>web</module>
+        <!--<module>code-factory</module>-->
     </modules>
 
     <build>
@@ -45,6 +46,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>4.11</junit.version>
 
         <slf4j.version>1.7.7</slf4j.version>
         <logback.version>1.1.2</logback.version>
@@ -71,13 +73,19 @@
                 <version>${com.xiaohe66.web.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>base</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+            </dependency>
+
             <!-- xh end -->
 
             <!--junit4-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -201,19 +209,31 @@
                 <version>${spring.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
             <!-- spring end -->
 
             <!--aspectj start-->
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
-                <version>1.8.6</version>
+                <version>1.8.9</version>
             </dependency>
 
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
                 <version>1.8.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>3.2.4</version>
             </dependency>
             <!--aspectj end-->
 
@@ -245,7 +265,7 @@
                 <artifactId>mybatis</artifactId>
                 <version>3.3.0</version>
             </dependency>
-            <!--mybatis spring整合-->
+
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
@@ -257,12 +277,13 @@
                 <artifactId>pagehelper</artifactId>
                 <version>4.1.6</version>
             </dependency>
+            <!--mybatis end-->
 
             <!--mysql driver-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.6</version>
+                <version>5.1.17</version>
             </dependency>
 
             <!--jstl-->
@@ -291,6 +312,7 @@
                 <version>${shiro.version}</version>
             </dependency>
 
+
             <!--<dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-ehcache</artifactId>
@@ -299,7 +321,7 @@
             <!-- shiro end -->
 
             <!--  activiti -->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-engine</artifactId>
                 <version>${activiti.version}</version>
@@ -315,7 +337,7 @@
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-bpmn-model</artifactId>
                 <version>${activiti.version}</version>
-            </dependency>
+            </dependency>-->
 
             <!--  activiti end -->
 

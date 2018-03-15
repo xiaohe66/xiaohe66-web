@@ -40,13 +40,22 @@ public class SysCfgService extends AbstractService<SysCfg>{
     }
 
     public void refresh(){
-
+        cfgList = sysCfgDao.findByParam(null);
     }
 
     public String findValByKey(String cfgKey){
         if(StrUtils.isOneEmpty(cfgKey)){
             throw new XhException(CodeEnum.PARAM_ERR,"cfgKey="+cfgKey);
         }
-        return sysCfgDao.findValByKey(cfgKey);
+        if(!isInit){
+            refresh();
+            isInit = true;
+        }
+        for (SysCfg sysCfg : cfgList) {
+            if (cfgKey.equals(sysCfg.getCfgKey())) {
+                return sysCfg.getCfgVal();
+            }
+        }
+        return null;
     }
 }

@@ -1,10 +1,13 @@
 package com.xiaohe66.web.text.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
+import com.xiaohe66.web.common.data.StrEnum;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.XhData;
 import com.xiaohe66.web.common.exception.XhException;
+import com.xiaohe66.web.common.util.StrUtils;
+import com.xiaohe66.web.sys.service.SysCfgService;
 import com.xiaohe66.web.text.dao.ArticleDao;
 import com.xiaohe66.web.text.param.ArticleParam;
 import com.xiaohe66.web.text.po.Article;
@@ -24,6 +27,9 @@ public class ArticleService extends AbstractService<Article>{
 
 
     private ArticleDao articleDao;
+
+    @Autowired
+    private SysCfgService sysCfgService;
 
     public ArticleService(){}
 
@@ -66,5 +72,17 @@ public class ArticleService extends AbstractService<Article>{
             throw new XhException(CodeEnum.NOT_PERMISSION,"this article not is current usr article");
         }
         super.updateById(entity, currentUsrId);
+    }
+
+    public List<Article> findByUsrId(Long usrId){
+        if(Check.isOneNull(usrId)){
+            //默认显示站长的列表
+            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            usrId = StrUtils.toLong(usrIdStr);
+        }
+        ArticleParam param = new ArticleParam();
+        param.setCreateId(usrId);
+
+        return articleDao.findByParam(param);
     }
 }

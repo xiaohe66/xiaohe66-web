@@ -1,17 +1,18 @@
-package com.xiaohe66.web.comm.category.po;
+package com.xiaohe66.web.comm.dto;
 
-
-import com.xiaohe66.web.common.base.BasePoDetailed;
+import com.xiaohe66.web.common.base.BaseDtoDetailed;
 
 /**
  * @author xiaohe
- * @time 17-11-11 011
+ * @time 17-11-12 012
  */
-public class Category extends BasePoDetailed {
+public class CategoryDto extends BaseDtoDetailed {
 
     private String categoryName;
     private String categoryDesc;
     private String pid;
+
+    public CategoryDto(){}
 
     public String getCategoryName() {
         return categoryName;
@@ -40,14 +41,14 @@ public class Category extends BasePoDetailed {
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
-                + ",\"categoryName\":\"" + categoryName + "\""
-                + ",\"createTime\":" + createTime
                 + ",\"id\":\"" + id + "\""
-                + ",\"categoryDesc\":\"" + categoryDesc + "\""
+                + ",\"createTime\":" + createTime
                 + ",\"updateId\":\"" + updateId + "\""
                 + ",\"updateTime\":" + updateTime
-                + ",\"pid\":\"" + pid + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
+                + ",\"categoryName\":\"" + categoryName + "\""
+                + ",\"categoryDesc\":\"" + categoryDesc + "\""
+                + ",\"pid\":\"" + pid + "\""
                 + "}";
     }
 }
