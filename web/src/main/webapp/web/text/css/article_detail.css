@@ -1,0 +1,49 @@
+.c{
+    position: relative;
+}
+
+.left{
+    padding: 30px 40px;
+    background: #fff;
+    /*margin: 30px;*/
+}
+
+.c_u p{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.c_u .desc,
+.c_u .fr{
+    color: #bbb;
+}
+.c_u .desc>span{
+    margin-right: 24px;
+}
+.c_u img{
+    width: 16px;
+    height: 16px;
+    margin-left: 18px;
+}
+.c_u img,
+.c_u .fr span{
+    vertical-align: middle;
+}
+
+.c_c{
+    border-top: 1px solid #c5c5c5;
+    min-height: 500px;
+    padding-top: 20px;
+}
+
+.right{
+}
+.category{
+    margin-left: 20px;
+}
+.category a{
+    line-height: 24px;
+    text-decoration: none;
+}
+.category a:hover{
+    text-decoration: underline;
+}

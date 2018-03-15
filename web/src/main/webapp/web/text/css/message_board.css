@@ -1,0 +1,49 @@
+.c{
+    position: relative;
+    min-height: 600px;
+}
+.hint{
+    height: 80px;
+    /*line-height: 100px;*/
+    background: #fff;
+}
+.msg{
+    font-size: 20px;
+    text-align: center;
+}
+.msg a{
+    font-size: 20px;
+    text-decoration: none;
+}
+.editor{
+    border-top: 1px solid #c5c5c5;
+    background: #fff;
+}
+
+.item{
+    margin-top: 10px;
+    min-height: 100px;
+    padding: 10px;
+}
+.item:hover{
+    cursor: default;
+}
+.item .head_img{
+    width: 80px;
+    height: 80px;
+}
+.fl p{
+    text-align: center;
+    padding: 6px 0;
+}
+.u_r{
+    margin-left: 90px;
+}
+.u_r_d,
+.desc{
+    margin-top: 6px;
+}
+.u_r_d span{
+    color: #bbb;
+    margin-right: 20px;
+}
