@@ -5,31 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="024cf941-01a9-4db1-bf33-cfd396dacb63" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_11.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_17.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_3_0_RELEASE.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/controller/PageController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/controller/PageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/SysCfgService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/SysCfgService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/ArticleController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/ArticleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/category/CategoryMapper.xml" afterPath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/category/CategoryMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/text/ArticleMapper.xml" afterPath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/text/ArticleMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/test/Resources/application-conf-test.xml" afterPath="$PROJECT_DIR$/base/src/test/Resources/application-conf-test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/test/Resources/db.sql" afterPath="$PROJECT_DIR$/base/src/test/Resources/db.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/StrEnum.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/StrEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/test/java/com/xiaohe66/web/test/common/classutils/ClassConvertTest.java" afterPath="$PROJECT_DIR$/common/src/test/java/com/xiaohe66/web/test/common/classutils/ClassConvertTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/spring/spring-context.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/spring/spring-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/spring/spring-mvc.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/spring/spring-mvc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/spring/spring-mybatis.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/spring/spring-mybatis.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/top.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/top.jsp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/controller/CategoryController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CategoryController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/dao/CategoryDao.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/dao/CategoryDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/dto/CategoryDto.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/dto/CategoryDto.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/po/Category.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/po/Category.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/po/Comment.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/po/Comment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/po/File.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/po/XhFile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/category/service/CategoryService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CategoryService.java" />
     </list>
     <list id="12667389-c278-4d13-8478-084ec6f5a797" name="idea" comment="" />
     <list id="614e05d8-2b0b-4b05-80c9-3d96c5cca8eb" name="not commit" comment="" />
@@ -1891,7 +1875,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517496341109</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="idea">
+      <created>1521125802416</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1521125802416</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1927,7 +1918,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="204520000" />
+    <option name="totallyTimeSpent" value="204567000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -2021,7 +2012,8 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="初始导入" />
-    <option name="LAST_COMMIT_MESSAGE" value="初始导入" />
+    <MESSAGE value="idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="idea" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2048,6 +2040,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
