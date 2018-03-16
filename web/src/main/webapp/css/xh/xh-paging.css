@@ -1,0 +1,27 @@
+.paging>div{
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 0 4px;
+    background: #fff;
+}
+.paging>div:hover{
+    background: #e1f1ff;
+    cursor: pointer;
+}
+.paging input{
+    width: 36px;
+    margin: 0 4px;
+    padding-left: 4px;
+}
+.paging>div.disable{
+    color: #bbb;
+}
+.paging>div.disable:hover{
+    background: #fff;
+    cursor: default;
+}
+.paging>div.active{
+    background: #e1f1ff;
+}
