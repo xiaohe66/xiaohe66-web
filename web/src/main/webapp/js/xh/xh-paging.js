@@ -57,7 +57,7 @@
                     return;
                 }
                 current = page>max?max:page<1?1:page;
-                showPage();
+                ev();
             }
         };
 
@@ -99,6 +99,10 @@
             $this.find(".page").click(function () {
                 toPage($(this).text());
             });
+        };
+
+        var ev = function () {
+            showPage();
             event(current);
         };
 
@@ -106,19 +110,19 @@
 
         first.click(function () {
             current=1;
-            showPage(this);
+            ev(this);
         });
         prev.click(function () {
             --current;
-            showPage(this);
+            ev(this);
         });
         next.click(function () {
             ++current;
-            showPage(this);
+            ev(this);
         });
         last.click(function () {
             current=max;
-            showPage(this);
+            ev(this);
         });
         inp.keyup(function (e) {
             if(e.keyCode === 13){

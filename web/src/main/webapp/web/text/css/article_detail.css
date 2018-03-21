@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.left{
+.l{
     padding: 30px 40px;
     background: #fff;
     /*margin: 30px;*/
@@ -35,8 +35,6 @@
     padding-top: 20px;
 }
 
-.right{
-}
 .category{
     margin-left: 20px;
 }

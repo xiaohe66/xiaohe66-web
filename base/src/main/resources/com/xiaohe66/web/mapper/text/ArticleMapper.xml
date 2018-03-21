@@ -3,8 +3,8 @@
 <mapper namespace="com.xiaohe66.web.text.dao.ArticleDao">
 
     <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_text_article(text,title,create_id,update_id,secret_level)
-        values(#{text},#{title},#{createId},#{createId},#{secretLevel})
+        insert into xh_web_text_article(text,title,create_id,update_id,secret_level,sys_category_id)
+        values(#{text},#{title},#{createId},#{createId},#{secretLevel},#{sysCategoryId})
     </insert>
 
     <select id="findById" resultType="Article">
@@ -30,6 +30,7 @@
                 </if>
             </if>
         </where>
+        order by create_time desc
     </select>
 
     <update id="updateById" parameterType="Article">

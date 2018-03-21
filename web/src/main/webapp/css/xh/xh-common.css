@@ -24,6 +24,7 @@ a,
 }
 a{
     text-decoration: none;
+    color: #000;
 }
 
 .btn{
@@ -234,12 +235,12 @@ input[type=radio]{
     width: 1126px;
     box-sizing: border-box;
 }
-.left{
+.l{
     width: 73%;
     box-sizing: border-box;
     /*background: #a9a9a9;*/
 }
-.right{
+.r{
     width: 25%;
     height: 400px;
     /*background: #333333;*/
@@ -248,8 +249,8 @@ input[type=radio]{
     top:0;
     box-sizing: border-box;
 }
-.left>div,
-.right>div{
+.l>div,
+.r>div{
     margin-bottom: 10px;
 }
 
@@ -268,7 +269,8 @@ input[type=radio]{
     top: 50%;
     left: 50%;
     width: 380px;
-    height: 300px;
+    /*height: 300px;*/
+    height: 260px;
     margin-top: -150px;
     margin-left: -190px;
     z-index: 201;
@@ -297,6 +299,9 @@ input[type=radio]{
 }
 #login_body .btn{
     width: 200px;
+}
+.verify{
+    display: none;
 }
 .verify input{
     width: 120px;

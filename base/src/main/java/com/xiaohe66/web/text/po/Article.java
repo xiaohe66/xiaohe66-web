@@ -12,6 +12,7 @@ public class Article extends BasePoDetailed {
     private String title;
     private Integer publishState;
     private Integer secretLevel;
+    private Long sysCategoryId;
 
     public String getText() {
         return text;
@@ -45,18 +46,27 @@ public class Article extends BasePoDetailed {
         this.secretLevel = secretLevel;
     }
 
+    public Long getSysCategoryId() {
+        return sysCategoryId;
+    }
+
+    public void setSysCategoryId(Long sysCategoryId) {
+        this.sysCategoryId = sysCategoryId;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
-                + ", \"text\":\"" + text + "\""
-                + ", \"createTime\":" + createTime
-                + ", \"title\":\"" + title + "\""
-                + ", \"id\":\"" + id + "\""
-                + ", \"updateId\":\"" + updateId + "\""
-                + ", \"publishState\":\"" + publishState + "\""
-                + ", \"updateTime\":" + updateTime
-                + ", \"secretLevel\":\"" + secretLevel + "\""
-                + ", \"isDelete\":\"" + isDelete + "\""
+                + ",\"text\":\"" + text + "\""
+                + ",\"createTime\":" + createTime
+                + ",\"title\":\"" + title + "\""
+                + ",\"id\":\"" + id + "\""
+                + ",\"updateId\":\"" + updateId + "\""
+                + ",\"publishState\":\"" + publishState + "\""
+                + ",\"updateTime\":" + updateTime
+                + ",\"secretLevel\":\"" + secretLevel + "\""
+                + ",\"isDelete\":\"" + isDelete + "\""
+                + ",\"sysCategoryId\":\"" + sysCategoryId + "\""
                 + "}";
     }
 }

@@ -1,16 +1,14 @@
 package com.xiaohe66.web.text.dto;
 
-import com.xiaohe66.web.common.base.BaseDtoDetailed;
+import com.xiaohe66.web.common.base.BaseDto;
 
 /**
  * @author xiaohe
  * @time 17-11-12 012
  */
-public class TextCategoryDto extends BaseDtoDetailed {
+public class TextCategoryDto extends BaseDto {
 
     private String categoryName;
-    private String categoryDesc;
-    private String pid;
 
     public TextCategoryDto(){}
 
@@ -22,33 +20,10 @@ public class TextCategoryDto extends BaseDtoDetailed {
         this.categoryName = categoryName;
     }
 
-    public String getCategoryDesc() {
-        return categoryDesc;
-    }
-
-    public void setCategoryDesc(String categoryDesc) {
-        this.categoryDesc = categoryDesc;
-    }
-
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
-    }
-
     @Override
     public String toString() {
-        return "{" + "\"createId\":\"" + createId + "\""
+        return "{" + "\"categoryName\":\"" + categoryName + "\""
                 + ",\"id\":\"" + id + "\""
-                + ",\"createTime\":" + createTime
-                + ",\"updateId\":\"" + updateId + "\""
-                + ",\"updateTime\":" + updateTime
-                + ",\"isDelete\":\"" + isDelete + "\""
-                + ",\"categoryName\":\"" + categoryName + "\""
-                + ",\"categoryDesc\":\"" + categoryDesc + "\""
-                + ",\"pid\":\"" + pid + "\""
                 + "}";
     }
 }

@@ -12,49 +12,41 @@
     <title>详情</title>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/xh/xh-common.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/editor/wangEditor.min.css"/>">
     <link rel="stylesheet" type="text/css" href="<c:url value="/web/text/css/article_detail.css"/>">
 
     <script type="text/javascript" src="<c:url value="/js/jquery/jquery-3.1.1.min.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/js/xh/xh-common.js"/>"></script>
     <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
+    <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
     <script type="text/javascript" src="/web/text/js/article_detail.js"></script>
 
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
 <div class="c">
-    <div class="left border1">
+    <div class="l border1">
 
         <div class="c_u">
-            <p>标题</p>
+            <p>${article.title}</p>
             <div class="fr">
                 <img src="/icon/eye.png">
-                <span>50234</span>
+                <span>0</span>
                 <%--<img src="/icon/praise.png">
                 <span>1023</span>
                 <img src="/icon/comment.png">
                 <span>304</span>--%>
+                <a href="/text/article/editor?id=${article.id}">编辑</a>
             </div>
             <div class="desc">
-                发布时间：
-                <span>2018-03-13</span>
-                系统分类：
-                <span>技术文章</span>
-                作者分类：
-                <span>好文</span>
+                <span>${article.createTime}</span>
+                <span>${article.sysCategoryName}</span>
+                <span>${article.perCategoryNames}</span>
             </div>
         </div>
-        <div class="c_c">
-            <div>
-                <p>测试数据测试</p>
-                <p>测试数据测试</p>
-                <p>测试数据测试</p>
-                <p>测试数据测试</p>
-                <p>测试数据测试</p>
-            </div>
-        </div>
+        <div class="c_c editor">${article.text}</div>
     </div>
-    <div class="right">
+    <div class="r">
         <div class="module1">
             <div class="title">作者</div>
             <div class="body master">

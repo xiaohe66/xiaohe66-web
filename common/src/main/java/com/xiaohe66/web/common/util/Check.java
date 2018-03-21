@@ -10,6 +10,13 @@ public class Check {
         return obj == null;
     }
 
+    public static boolean isNotNull(Object obj){
+        return obj != null;
+    }
+
+    public static boolean isNotEmpty(Object[] obj){
+        return obj != null && obj.length != 0;
+    }
 
     public static boolean isAllNotNull(Object... objects){
         if(objects == null){

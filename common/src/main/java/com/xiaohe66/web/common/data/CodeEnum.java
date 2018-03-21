@@ -13,6 +13,7 @@ public enum CodeEnum {
 
     ,NULL_EXCEPTION(501,"传入对象为空")
     ,NOT_IMPLEMENTED(502,"抽象方法未实现，请重写后再使用")
+    ,DISABLE_FUNCTION(503,"该方法已被禁用")
 
     //51* 格式转换类 ---
     ,NUMBER_FORMAT_EXCEPTION(510,"无法转换为数字类型")

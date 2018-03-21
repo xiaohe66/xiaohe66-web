@@ -16,8 +16,11 @@
     <select id="findByParam" resultType="TextCategory">
         select * from xh_web_text_category
         <where>
+            and is_delete = 0
             <if test="param != null">
-
+                <if test="param.createId != null">
+                    and create_id = #{param.createId}
+                </if>
             </if>
         </where>
     </select>
@@ -51,5 +54,17 @@
     <update id="delById" parameterType="TextCategory">
         update xh_web_text_category set is_delete = 1 where id = #{id}
     </update>
+
+    <select id="findNamesByArticleId" resultType="String">
+        select group_concat(c.category_name separator '、') from xh_web_text_category c
+        join xh_web_text_article_category_link l on c.id = l.category_id
+        where l.article_id = #{articleId}
+    </select>
+
+    <select id="findByArticleId" resultType="TextCategory">
+        select c.* from xh_web_text_category c
+        join xh_web_text_article_category_link l on c.id = l.category_id
+        where l.article_id = #{articleId}
+    </select>
 
 </mapper>

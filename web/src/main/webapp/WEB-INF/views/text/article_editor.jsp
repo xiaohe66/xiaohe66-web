@@ -12,12 +12,14 @@
     <title>编辑</title>
 
     <link rel="stylesheet" type="text/css" href="/css/xh/xh-common.css">
+    <link rel="stylesheet" type="text/css" href="/css/editor/wangEditor.min.css">
     <link rel="stylesheet" type="text/css" href="/web/text/css/article_editor.css">
 
     <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
     <script type="text/javascript" src="/js/xh/xh-common.js"></script>
     <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
+    <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
     <script type="text/javascript" src="/web/text/js/article_editor.js"></script>
 </head>
 <body>
@@ -25,6 +27,8 @@
 <div class="c">
     <c:if test="${not empty article}">
         <input id="id" type="hidden" value="${article.id}">
+        <input id="sysCategoryId" type="hidden" value="${article.sysCategoryId}">
+        <input id="perCategoryIds" type="hidden" value="${article.perCategoryIds}">
     </c:if>
     <div>
         <label>
@@ -41,19 +45,12 @@
                 <span>系统分类</span>
                 <div>
                     <%--<p><a href="javascript:void(0);">添加新分类</a></p>--%>
-                    <div class="category border1">
-                        <label>
-                        <input type="radio" name="category">
-                        技术文档
-                        </label>
-                        <label>
-                            <input type="radio" name="category">
-                            心情琐事
-                        </label>
-                        <label>
-                            <input type="radio" name="category">
-                            生活科普
-                        </label>
+                    <div class="category border1" id="sysCategory">
+                        <c:forEach items="${sysCategoryList}" var="item">
+                            <label><input type="radio" name="category"
+                                <c:if test="${not empty article && article.sysCategoryName.equals(item.categoryName)}">checked="checked"</c:if>
+                                          value="${item.id}">${item.categoryName}</label>
+                        </c:forEach>
                     </div>
                 </div>
             </li>
@@ -61,15 +58,14 @@
                 <span>个人分类</span>
                 <div>
                     <p><a href="javascript:addCategory();">添加新分类</a></p>
-                    <div class="category border1" id="categoryPerson">
-                        <%--<label>
-                            <input type="checkbox">
-                            mysql
-                        </label>--%>
+                    <div class="category border1" id="perCategory">
+                        <c:forEach items="${perCategoryList}" var="item">
+                            <label><input type="checkbox" value="${item.id}">${item.categoryName}</label>
+                        </c:forEach>
                     </div>
                 </div>
             </li>
-            <li>
+            <%--<li>
                 <span>是否公开</span>
                 <div>
                     <div class="category circle">
@@ -87,7 +83,7 @@
                         </label>
                     </div>
                 </div>
-            </li>
+            </li>--%>
         </ul>
         <div class="btn_d">
             <a class="btn">保存草稿</a>

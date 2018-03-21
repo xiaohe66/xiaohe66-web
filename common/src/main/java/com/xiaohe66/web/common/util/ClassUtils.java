@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -160,23 +161,40 @@ public class ClassUtils {
                     continue;
                 }
 
-                //类型不同，跳出
-                if(!targetOperandField.getType().equals(sourceOperandField.getType())){
-                    continue;
+                Class<?> targetOperandFieldType = targetOperandField.getType();
+                Class<?> sourceOperandFieldType = sourceOperandField.getType();
+                //字段类型相同
+                if(targetOperandFieldType.equals(sourceOperandFieldType)){
+                    try {
+                        //将accessible的值设置为true后，会取消java的访问检查，即可访问私有(private)属性
+                        sourceOperandField.setAccessible(true);
+                        val = sourceOperandField.get(sourceObj);
+
+                        //设置该属性的值，包括私有属性
+                        targetOperandField.setAccessible(true);
+                        targetOperandField.set(targetObj,val);
+
+                    } catch (IllegalAccessException e) {
+                        LOGGER.error("set value err",e);
+                    }
+                }
+                //字段类型不同，且是Date和String类型
+                else if(Date.class.equals(sourceOperandFieldType)&&String.class.equals(targetOperandFieldType)){
+
+                    try {
+                        //将accessible的值设置为true后，会取消java的访问检查，即可访问私有(private)属性
+                        sourceOperandField.setAccessible(true);
+                        val = sourceOperandField.get(sourceObj);
+
+                        //设置该属性的值，包括私有属性
+                        targetOperandField.setAccessible(true);
+                        targetOperandField.set(targetObj,DateUtils.formatDateTime((Date) val));
+
+                    } catch (IllegalAccessException e) {
+                        LOGGER.error("set value err",e);
+                    }
                 }
 
-                try {
-                    //将accessible的值设置为true后，会取消java的访问检查，即可访问私有(private)属性
-                    sourceOperandField.setAccessible(true);
-                    val = sourceOperandField.get(sourceObj);
-
-                    //设置该属性的值，包括私有属性
-                    targetOperandField.setAccessible(true);
-                    targetOperandField.set(targetObj,val);
-
-                } catch (IllegalAccessException e) {
-                    LOGGER.error("set value err",e);
-                }
             }
             sourceOperandCls = sourceOperandCls.getSuperclass();
         }

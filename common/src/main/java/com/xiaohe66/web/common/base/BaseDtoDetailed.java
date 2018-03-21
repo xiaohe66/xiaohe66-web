@@ -10,9 +10,9 @@ import java.util.Date;
  */
 public abstract class BaseDtoDetailed extends BaseDto{
     protected Long createId;
-    protected Date createTime;
+    protected String createTime;
     protected Long updateId;
-    protected Date updateTime;
+    protected String updateTime;
     protected Boolean isDelete;
 
     public Long getCreateId() {
@@ -23,11 +23,11 @@ public abstract class BaseDtoDetailed extends BaseDto{
         this.createId = createId;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -39,11 +39,11 @@ public abstract class BaseDtoDetailed extends BaseDto{
         this.updateId = updateId;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

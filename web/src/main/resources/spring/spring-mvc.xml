@@ -12,7 +12,7 @@
 
 
     <!-- 开启切面，该配置要放在mvc的配置文件中，否则无法切入到切入点-->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
 
     <!-- 开启注解 -->
     <!--<context:annotatconfnfig/>-->
