@@ -1,4 +1,4 @@
-package com.xiaohe66.web.comm.po;
+package com.xiaohe66.web.org.po;
 
 import com.xiaohe66.web.common.base.BasePoDetailed;
 
