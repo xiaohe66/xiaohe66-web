@@ -1,0 +1,53 @@
+.c{
+    min-height: 500px;
+    position: relative;
+}
+.menu{
+    text-align: center;
+}
+.menu li{
+    line-height: 40px;
+}
+.menu li:hover{
+    background: #e1f1ff;
+    cursor: pointer;
+}
+.active{
+    background: #e1f1ff;
+}
+.r{
+
+}
+.c_c{
+    min-height: 400px;
+}
+#category_tab{
+    width: 100%;
+    table-collapse:collapse;
+    border-bottom: 1px solid #c5c5c5;
+}
+#category_tab td,#category_tab th{
+    text-align: center;
+    border-top: 1px solid #c5c5c5;
+    height: 40px;
+}
+.r>P{
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 22px;
+}
+.name a{
+    margin-left: 10px;
+}
+.add input{
+    margin-right: 10px;
+}
+.add a{
+    width: 60px;
+    line-height: 30px;
+
+}
+#paging{
+    text-align: center;
+    margin: 20px 0;
+}
