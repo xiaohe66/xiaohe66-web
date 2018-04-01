@@ -98,13 +98,13 @@ input[type=radio]{
     z-index: 200;
     display: none;
 }
-.tab li{
+.tab a{
     display: inline-block;
     line-height: 30px;
     padding: 0 5px;
     cursor: pointer;
 }
-.tab li:hover{
+.tab a:hover{
     background-color: #1e88e5;
 }
 .module1,
@@ -182,7 +182,7 @@ input[type=radio]{
     /*box-shadow: 0 0 6px rgba(100, 100, 100, 0.5);*/
 }
 .t_c .tab,
-.t_c .tab li,
+.t_c .tab a,
 .logo a{
     line-height: 70px;
 }
@@ -190,7 +190,7 @@ input[type=radio]{
     float: right;
     margin-right: 100px;
 }
-.t_c .tab li{
+.t_c .tab a{
     width: 84px;
     font-weight: bold;
     text-align: center;

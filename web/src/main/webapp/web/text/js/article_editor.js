@@ -11,7 +11,26 @@ $(function(){
     var E = window.wangEditor;
     editor = new E(".tool",".editor");
     editor.customConfig.zIndex = 0;
-
+    editor.customConfig.uploadImgServer = "/org/usr/file";
+    editor.customConfig.customUploadImg = function (files, insert) {
+        calculate(files[0],function (md5) {
+            var formData = new FormData();
+            formData.append("file",files[0]);
+            formData.append("md5",md5);
+            $.ajax({
+                url: "/org/usr/file",
+                data: formData,
+                type: "post",
+                cache: false,
+                dataType: "text",
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    insert("/comm/file/img/"+JSON.parse(data).data);
+                }
+            });
+        });
+    };
     editor.customConfig.menus = [
         'head',  // 标题
         'bold',  // 粗体

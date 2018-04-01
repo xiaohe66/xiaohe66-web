@@ -16,7 +16,7 @@
         </li>
         <li>
             <span>密码</span>
-            <input id="usrPwd" placeholder="密码">
+            <input id="usrPwd" type="password" placeholder="密码">
         </li>
         <li  class="verify">
             <span>验证码</span>
@@ -43,12 +43,13 @@
         </shiro:authenticated>
     </div>
     <div class="t_c">
-        <ul class="tab">
-            <li>个人中心</li>
-            <li>文章</li>
+        <div class="tab">
+            <a>个人中心</a>
+            <a>文章</a>
             <%--<li>github</li>--%>
-            <li>留言</li>
-        </ul>
+            <a href="/text/messageBoard/index">留言</a>
+            <a href="/about">关于</a>
+        </div>
         <p class="logo"><a href="/">xiaohe66</a></p>
         <div class="search">
             <select class="search_type">

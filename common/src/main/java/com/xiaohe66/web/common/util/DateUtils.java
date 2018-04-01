@@ -47,4 +47,13 @@ public class DateUtils {
             return DATE_TIME_FORMAT.format(date);
         }
     }
+
+    /***
+     *
+     * @param format    日期格式表达式
+     * @return  当前时间的对应表达式的字符串
+     */
+    public static String format(String format){
+        return new SimpleDateFormat(format).format(new Date());
+    }
 }

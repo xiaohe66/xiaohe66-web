@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/js/xh/xh-common.js"></script>
     <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
     <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
+    <script type="text/javascript" src="/js/spark-md5.min.js"></script>
     <script type="text/javascript" src="/web/text/js/article_editor.js"></script>
 </head>
 <body>
