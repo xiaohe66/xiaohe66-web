@@ -1,0 +1,28 @@
+li{
+    margin-top: 6px;
+}
+.c_c{
+    margin: 0 auto;
+    width: 700px;
+    padding: 10px 20px;
+    background: #fff;
+}
+.c_c>P{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+.c_c>div{
+    margin-top: 20px;
+}
+.c_c>div>p{
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.func{
+    margin-top: 10px;
+}
+.func ul{
+    margin-left: 10px;
+}
