@@ -6,11 +6,11 @@ import com.xiaohe66.web.common.base.BasePoDetailed;
  * @author xiaohe
  * @time 17-11-11 011
  */
-public class XhFile extends BasePoDetailed {
+public class UsrFile extends BasePoDetailed {
 
     private String fileName;
-    private String fileUrl;
     private String fileDesc;
+    private Long fileId;
 
     public String getFileName() {
         return fileName;
@@ -20,12 +20,12 @@ public class XhFile extends BasePoDetailed {
         this.fileName = fileName;
     }
 
-    public String getFileUrl() {
-        return fileUrl;
+    public Long getFileId() {
+        return fileId;
     }
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
     }
 
     public String getFileDesc() {
@@ -41,10 +41,10 @@ public class XhFile extends BasePoDetailed {
         return "{" + "\"createId\":\"" + createId + "\""
                 + ",\"fileName\":\"" + fileName + "\""
                 + ",\"createTime\":" + createTime
-                + ",\"fileUrl\":\"" + fileUrl + "\""
+                + ",\"fileDesc\":\"" + fileDesc + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"updateId\":\"" + updateId + "\""
-                + ",\"fileDesc\":\"" + fileDesc + "\""
+                + ",\"fileId\":\"" + fileId + "\""
                 + ",\"updateTime\":" + updateTime
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";

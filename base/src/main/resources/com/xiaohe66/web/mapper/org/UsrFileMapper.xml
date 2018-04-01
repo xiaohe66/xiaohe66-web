@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.org.dao.UsrFileDao">
+
+    <insert id="add" parameterType="UsrFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xh_web_org_usr_file
+        (create_id,update_id,file_name,file_desc,file_id)
+        values
+        (#{createId},#{updateId},#{fileName},#{fileDesc},#{fileId})
+    </insert>
+
+    <select id="findByCommonFileId" resultType="UsrFile">
+        select * from xh_web_org_usr_file where is_delete = 0 and file_id = #{commonFileId}
+    </select>
+
+</mapper>
