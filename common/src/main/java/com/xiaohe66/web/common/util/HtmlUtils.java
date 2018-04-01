@@ -39,6 +39,10 @@ public class HtmlUtils {
         return html.trim();
     }
 
+    public static String delScriptTag(String html){
+        return SCRIPT_PATTERN.matcher(html).replaceAll("").trim();
+    }
+
 
     /**
      * 返回包含html标签的文本摘要，先清楚html标签，再返回摘要

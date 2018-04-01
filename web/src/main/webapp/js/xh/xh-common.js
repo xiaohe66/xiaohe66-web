@@ -35,6 +35,12 @@
                 }
             });
         },
+        getPaging : function (url,num,size,data,success,error) {
+            $.http("get",url,data,{
+                pageSize:size,
+                pageNum:num
+            },success,error);
+        },
         get : function(url,data,success,error){
             return $.http("get",url,data,{},success,error);
         },

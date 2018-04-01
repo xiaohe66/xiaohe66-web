@@ -187,8 +187,10 @@ public class ClassUtils {
                         val = sourceOperandField.get(sourceObj);
 
                         //设置该属性的值，包括私有属性
-                        targetOperandField.setAccessible(true);
-                        targetOperandField.set(targetObj,DateUtils.formatDateTime((Date) val));
+                        if(val != null){
+                            targetOperandField.setAccessible(true);
+                            targetOperandField.set(targetObj,DateUtils.formatDateTime((Date) val));
+                        }
 
                     } catch (IllegalAccessException e) {
                         LOGGER.error("set value err",e);

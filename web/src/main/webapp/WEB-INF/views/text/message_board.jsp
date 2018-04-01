@@ -6,10 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
-    <title>留言板</title>
+    <title>${usr.usrName}的留言板</title>
     <link type="text/css" rel="stylesheet" href="/css/xh/xh-common.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
     <link type="text/css" rel="stylesheet" href="/web/text/css/message_board.css"/>
 
     <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
@@ -17,52 +20,53 @@
     <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
     <script type="text/javascript" src="/js/xh/xh-common.js"></script>
     <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
+    <script type="text/javascript" src="/js/xh/xh-paging.js"></script>
     <script type="text/javascript" src="/web/text/js/message_board.js"></script>
 </head>
 <body>
+<%-- 留言 --%>
+<input type="hidden" id="usrId" value="${usr.id}">
+<input type="hidden" id="size" value="${size}">
 <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
 <div class="c">
-    <div class="left">
-        <div class="hint border1">
+    <div class="l">
+        <shiro:guest>
+        <div class="msg border1">
             <p class="title">发表留言</p>
-            <p class="msg"><a href="javascript:showLogin();">登录</a>后才能留言</p>
+            <p class="hint"><a href="javascript:showLogin();">登录</a>后才能留言</p>
         </div>
-        <div id="edit" class="border1">
-            <div class="tool"></div>
-            <div class="editor"></div>
-        </div>
-        <div class="item">
-            <div>
-                <div class="fl">
-                    <img class="head_img" src="" alt="头像">
-                </div>
-                <div class="u_r">
-                    <div class="u_r_d">
-                        <span>斯文仔</span>
-                        <span>2018-03-06</span>
-                        <span>1楼</span>
-                    </div>
-                    <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
-                </div>
+        </shiro:guest>
+        <shiro:authenticated>
+        <div class="msg border1">
+            <p class="title">发表留言</p>
+            <div class="edit">
+                <textarea></textarea>
             </div>
+            <a class="btn">发表留言</a>
         </div>
-        <div class="item">
-            <div>
-                <div class="fl">
-                    <img class="head_img" src="" alt="头像">
-                </div>
-                <div class="u_r">
-                    <div class="u_r_d">
-                        <span>斯文仔</span>
-                        <span>2018-03-06</span>
-                        <span>1楼</span>
+        </shiro:authenticated>
+        <div class="content">
+            <c:forEach items="${list}" var="item" end="5" varStatus="statu">
+                <div class="item">
+                    <div>
+                        <div class="fl">
+                            <img class="head_img" src="" alt="头像">
+                        </div>
+                        <div class="u_r">
+                            <div class="u_r_d">
+                                <span>${item.usrName}</span>
+                                <span>${item.createTime}</span>
+                                <span>${item.id}楼</span>
+                            </div>
+                            <div class="desc">${item.msg}</div>
+                        </div>
                     </div>
-                    <div class="desc">简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。</div>
                 </div>
-            </div>
+            </c:forEach>
         </div>
+        <div id="paging"></div>
     </div>
-    <div class="right">
+    <div class="r">
         <div class="module1">
             <div class="title">作者</div>
             <div class="body master">

@@ -2,24 +2,33 @@
     position: relative;
     min-height: 600px;
 }
-.hint{
-    height: 80px;
-    /*line-height: 100px;*/
-    background: #fff;
-}
 .msg{
+    min-height: 80px;
+    background: #fff;
+    padding: 10px;
+}
+.msg .btn{
+    line-height: 36px;
+}
+.hint{
     font-size: 20px;
     text-align: center;
 }
-.msg a{
+.hint a{
     font-size: 20px;
     text-decoration: none;
+    color: blue;
 }
-.editor{
-    border-top: 1px solid #c5c5c5;
-    background: #fff;
+.edit{
+    padding: 10px;
 }
-
+.edit textarea{
+    width: 100%;
+    resize: none;
+    height: 150px;
+    border-radius: 4px;
+    background: #f6f6f6;
+}
 .item{
     margin-top: 10px;
     min-height: 100px;
@@ -32,6 +41,10 @@
     width: 80px;
     height: 80px;
 }
+#paging{
+    text-align: center;
+}
+
 .fl p{
     text-align: center;
     padding: 6px 0;
