@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class XhPagingAsp {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(XhPagingAsp.class);
+
+    private static final int DEFAULT_PAGE_NUM = 1;
+    private static final int DEFAULT_PAGE_SIZE = 5;
 
     @Pointcut("@annotation(com.xiaohe66.web.common.annotation.Paging)")
     private void pagingPointCut(){}
@@ -32,14 +34,13 @@ public class XhPagingAsp {
     @Before("pagingPointCut()")
     public void beforeAdvice(){
         HttpServletRequest request = SpringUtils.getRequest();
+
         String pageSizeStr = request.getHeader(StrEnum.PAGING_SIZE_KEY.data());
-        if(StrUtils.isOneEmpty(pageSizeStr)){
-            return;
-        }
+        int size = StrUtils.isEmpty(pageSizeStr)?DEFAULT_PAGE_SIZE:StrUtils.toInt(pageSizeStr);
+
         String pageNumStr = request.getHeader(StrEnum.PAGING_NUM_KEY.data());
-        if(StrUtils.isOneEmpty(pageNumStr)){
-            return;
-        }
-        PageHelper.startPage(StrUtils.toInt(pageNumStr),StrUtils.toInt(pageSizeStr));
+        int num = StrUtils.isEmpty(pageNumStr)?DEFAULT_PAGE_NUM:StrUtils.toInt(pageNumStr);
+
+        PageHelper.startPage(num,size,true);
     }
 }
