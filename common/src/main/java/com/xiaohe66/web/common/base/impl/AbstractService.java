@@ -195,4 +195,14 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
             throw new XhException(CodeEnum.NULL_EXCEPTION,"baseDao not init");
         }
     }
+
+    /**
+     * 数量统计
+     * @return  返回表的数据数量
+     */
+    @Override
+    public Long count() {
+        daoNotNullCheck();
+        return baseDao.count();
+    }
 }

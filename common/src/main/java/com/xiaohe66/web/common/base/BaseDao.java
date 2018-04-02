@@ -81,4 +81,10 @@ public interface BaseDao<T extends BasePo>{
      * @return 对应实体list
      */
     List<T> findByParam(@Param("param") BaseParam param);
+
+    /**
+     * 数据统计
+     * @return  返回表的数据数量
+     */
+    Long count();
 }
