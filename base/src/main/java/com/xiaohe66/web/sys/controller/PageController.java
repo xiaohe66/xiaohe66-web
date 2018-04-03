@@ -19,6 +19,8 @@ import java.util.List;
 @Controller
 public class PageController {
 
+    public static final String RIGHT_PAGE_URL = "common/right";
+
     @Page("/about")
     public String about(){
         return "about";

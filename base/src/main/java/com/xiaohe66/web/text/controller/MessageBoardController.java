@@ -8,6 +8,7 @@ import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.service.UsrService;
+import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
 import com.xiaohe66.web.text.dto.MessageBoardDto;
@@ -29,6 +30,9 @@ public class MessageBoardController {
     @Autowired
     private MessageBoardService messageBoardService;
 
+    @Autowired
+    private UsrService usrService;
+
     @Page("/index")
     public String index(Model model){
         return index(model,null);
@@ -36,11 +40,14 @@ public class MessageBoardController {
 
     @Page("/index/{usrId}")
     public String index(Model model,@PathVariable("usrId") Long usrId){
-        model.addAttribute("usr",messageBoardService.lookAtUsr(usrId));
+        UsrDto usrDto = usrService.lookAtUsr(usrId);
+        model.addAttribute("usrDto",usrDto);
         List list = messageBoardService.findByUsrId(usrId);
         model.addAttribute("list",list);
         model.addAttribute("size",list.size());
-        return "text/message_board";
+        model.addAttribute("title",usrDto.getUsrName()+"的留言板");
+        model.addAttribute("page","text/message_board");
+        return PageController.RIGHT_PAGE_URL;
     }
 
     @Post

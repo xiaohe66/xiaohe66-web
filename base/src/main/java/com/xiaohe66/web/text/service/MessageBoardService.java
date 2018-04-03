@@ -68,19 +68,6 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
     }
 
     /**
-     * 获取被查看用户的信息
-     * @param usrId     被查看的用户id，若传入null，则默认使用站长的
-     * @return  UsrDto
-     */
-    public UsrDto lookAtUsr(Long usrId){
-        if(Check.isNull(usrId)){
-            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
-            usrId = StrUtils.toLong(usrIdStr);
-        }
-        return ClassUtils.convert(UsrDto.class,usrService.findById(usrId));
-    }
-
-    /**
      * 根据被留言的用户id查询
      * @param usrId 被留言的用户id，默认为站长
      * @return  List<MessageBoardDto>

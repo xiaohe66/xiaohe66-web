@@ -5,8 +5,10 @@ import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.StrEnum;
 import com.xiaohe66.web.common.exception.XhException;
+import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.dao.UsrDao;
+import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.security.service.RoleService;
 import com.xiaohe66.web.sys.service.SysCfgService;
@@ -32,6 +34,9 @@ public class UsrService extends AbstractService<Usr> {
 
     @Autowired
     private SysCfgService sysCfgService;
+
+    @Autowired
+    private UsrFileService usrFileService;
 
     public UsrService(){
 
@@ -72,5 +77,23 @@ public class UsrService extends AbstractService<Usr> {
             throw new XhException(CodeEnum.PARAM_ERR,"roleIds is null or size is 0");
         }
         usrDao.addUsrRoles(usrId,roleIds);
+    }
+
+    /**
+     * 获取被查看用户的信息
+     * @param usrId     被查看的用户id，若传入null，则默认使用站长的
+     * @return  UsrDto
+     */
+    public UsrDto lookAtUsr(Long usrId){
+        if(Check.isNull(usrId)){
+            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            usrId = StrUtils.toLong(usrIdStr);
+        }
+        Usr usr = findById(usrId);
+        UsrDto usrDto = ClassUtils.convert(UsrDto.class,usr);
+
+        Long fileId = usrFileService.findById(usr.getImgFileId()).getFileId();
+        usrDto.setImgUrl("/comm/file/img/"+fileId);
+        return usrDto;
     }
 }

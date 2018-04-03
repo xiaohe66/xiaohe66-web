@@ -13,4 +13,8 @@
         select * from xh_web_org_usr_file where is_delete = 0 and file_id = #{commonFileId}
     </select>
 
+    <select id="findById" resultType="UsrFile">
+        select * from xh_web_org_usr_file where is_delete = 0 and id = #{id}
+    </select>
+
 </mapper>

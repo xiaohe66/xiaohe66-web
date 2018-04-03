@@ -1,6 +1,5 @@
-.c{
-    position: relative;
-    min-height: 600px;
+.l>div.item{
+    margin-bottom: 10px;
 }
 .item{
     padding: 16px 40px;

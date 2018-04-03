@@ -10,6 +10,8 @@ import com.xiaohe66.web.common.base.BasePoDetailed;
 public class Usr extends BasePoDetailed {
     private String usrName;
     private String usrPwd;
+    private String signature;
+    private Long imgFileId;
 
     public String getUsrName() {
         return usrName;
@@ -27,16 +29,34 @@ public class Usr extends BasePoDetailed {
         this.usrPwd = usrPwd;
     }
 
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public Long getImgFileId() {
+        return imgFileId;
+    }
+
+    public void setImgFileId(Long imgFileId) {
+        this.imgFileId = imgFileId;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
-                + ", \"usrName\":\"" + usrName + "\""
-                + ", \"createTime\":" + createTime
-                + ", \"usrPwd\":\"" + usrPwd + "\""
-                + ", \"id\":\"" + id + "\""
-                + ", \"updateId\":\"" + updateId + "\""
-                + ", \"updateTime\":" + updateTime
-                + ", \"isDelete\":\"" + isDelete + "\""
+                + ",\"usrName\":\"" + usrName + "\""
+                + ",\"createTime\":" + createTime
+                + ",\"usrPwd\":\"" + usrPwd + "\""
+                + ",\"id\":\"" + id + "\""
+                + ",\"updateId\":\"" + updateId + "\""
+                + ",\"signature\":\"" + signature + "\""
+                + ",\"updateTime\":" + updateTime
+                + ",\"imgFileId\":\"" + imgFileId + "\""
+                + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";
     }
 }

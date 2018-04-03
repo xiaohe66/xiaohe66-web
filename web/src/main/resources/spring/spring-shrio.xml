@@ -41,8 +41,7 @@
                 /text/messageBoard/index/** = anon
                 /text/messageBoard = anon
                 /text/article/detail = anon
-                /text/article/list = anon
-                /text/article = anon
+                /text/article/** = anon
 
                 /authCode/** = anon
                 /org/usr/** = anon

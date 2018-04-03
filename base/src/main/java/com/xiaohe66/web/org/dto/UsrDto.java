@@ -10,6 +10,8 @@ import com.xiaohe66.web.org.po.Usr;
 public class UsrDto extends BaseDto {
 
     private String usrName;
+    private String signature;
+    private String imgUrl;
 
     public UsrDto(){
 
@@ -27,10 +29,28 @@ public class UsrDto extends BaseDto {
         this.usrName = usrName;
     }
 
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     @Override
     public String toString() {
-        return "{" + "\"id\":\"" + id + "\""
-                + ", \"usrName\":\"" + usrName + "\""
+        return "{" + "\"usrName\":\"" + usrName + "\""
+                + ",\"id\":\"" + id + "\""
+                + ",\"signature\":\"" + signature + "\""
+                + ",\"imgUrl\":\"" + imgUrl + "\""
                 + "}";
     }
 }

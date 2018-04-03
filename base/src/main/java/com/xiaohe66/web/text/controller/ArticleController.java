@@ -8,6 +8,9 @@ import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.XhData;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.ClassUtils;
+import com.xiaohe66.web.org.dto.UsrDto;
+import com.xiaohe66.web.org.service.UsrService;
+import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
 import com.xiaohe66.web.text.dto.DtoArticle;
@@ -45,6 +48,9 @@ public class ArticleController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private UsrService usrService;
+
     @Page("/add")
     public String index(CurrentUsr currentUsr,Model model){
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsr.getId());
@@ -71,19 +77,31 @@ public class ArticleController {
         return ARTICLE_EDITOR_PAGE_URL;
     }
 
-    @Page("/detail")
-    public String detail(Model model,Long id){
-        model.addAttribute("article",articleService.findDtoById(id));
-        return ARTICLE_DETAIL_PAGE_URL;
+    @Page("/detail/{id}")
+    public String detail(Model model,@PathVariable("id") Long id){
+        DtoArticle dtoArticle = articleService.findDtoById(id);
+        model.addAttribute("article",dtoArticle);
+        model.addAttribute("title",dtoArticle.getTitle());
+        model.addAttribute("page",ARTICLE_DETAIL_PAGE_URL);
+        model.addAttribute("usrDto",usrService.lookAtUsr(dtoArticle.getCreateId()));
+        return PageController.RIGHT_PAGE_URL;
     }
 
     @Page("/list")
-    public String list(Model model,Long lookUsrId){
-        List<DtoArticle> dtoArticleList = articleService.findDtoByUsrId(lookUsrId);
+    public String list(Model model){
+        return list(model,null);
+    }
+
+    @Page("/list/{usrId}")
+    public String list(Model model,@PathVariable("usrId") Long usrId){
+        UsrDto usrDto = usrService.lookAtUsr(usrId);
+        List<DtoArticle> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId());
         model.addAttribute("list",dtoArticleList);
         model.addAttribute("size",dtoArticleList.size());
-        model.addAttribute("lookUsrId",lookUsrId);
-        return ARTICLE_LIST_PAGE_URL;
+        model.addAttribute("usrDto",usrDto);
+        model.addAttribute("title",usrDto.getUsrName()+"的文章");
+        model.addAttribute("page",ARTICLE_LIST_PAGE_URL);
+        return PageController.RIGHT_PAGE_URL;
     }
 
     @Post

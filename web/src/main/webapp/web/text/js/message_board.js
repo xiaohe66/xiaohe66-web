@@ -37,6 +37,11 @@ $(function () {
             alert("留言不能超过1000字");
         }
 
+        if($(this).hasClass("on")){
+            return;
+        }
+
+        $(this).addClass("on");
         $.post("/text/messageBoard",{
             usrId:$("#usrId").val(),
             msg:val

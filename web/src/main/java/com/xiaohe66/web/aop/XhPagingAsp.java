@@ -26,7 +26,7 @@ public class XhPagingAsp {
     private static final Logger LOGGER = LoggerFactory.getLogger(XhPagingAsp.class);
 
     private static final int DEFAULT_PAGE_NUM = 1;
-    private static final int DEFAULT_PAGE_SIZE = 5;
+    private static final int DEFAULT_PAGE_SIZE = 10;
 
     @Pointcut("@annotation(com.xiaohe66.web.common.annotation.Paging)")
     private void pagingPointCut(){}

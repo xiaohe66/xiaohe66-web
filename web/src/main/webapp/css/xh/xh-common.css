@@ -234,6 +234,8 @@ input[type=radio]{
     /*box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);*/
     width: 1126px;
     box-sizing: border-box;
+    position: relative;
+    min-height: 1030px;
 }
 .l{
     width: 73%;
@@ -251,7 +253,11 @@ input[type=radio]{
 }
 .l>div,
 .r>div{
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+}
+.source,
+.category{
+    height: 280px;
 }
 
 /*----以上content布局css--*/
