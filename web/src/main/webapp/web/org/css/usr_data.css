@@ -1,0 +1,9 @@
+.left li{
+    margin-top: 20px;
+}
+.left span{
+    margin-right: 20px;
+}
+.right{
+    float: right;
+}
