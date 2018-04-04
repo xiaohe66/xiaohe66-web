@@ -1,0 +1,24 @@
+.c{
+    min-height: 580px;
+    position: relative;
+}
+.menu{
+    text-align: center;
+    background: #fff;
+}
+.menu a{
+    display: block;
+    line-height: 40px;
+    color: #000;
+}
+.menu a:hover{
+    background: #e1f1ff;
+    cursor: pointer;
+}
+.r{
+    background: #fff;
+    padding: 10px 20px 20px;
+}
+.c_c{
+    min-height: 460px;
+}
