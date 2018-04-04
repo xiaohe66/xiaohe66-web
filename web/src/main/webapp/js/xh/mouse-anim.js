@@ -27,5 +27,35 @@ $(function () {
             div.remove();
         });
     });
+    var lastTop,lastLeft;
+    $(document).on("mousemove","body",function (e) {
+        var top = e.pageY - $(this).scrollTop();
+        var left = e.pageX;
+
+        var topDistance = top-lastTop;
+        var leftDistance = left-lastLeft;
+        var distance = 15;
+        if(topDistance>-distance&&topDistance<distance&&leftDistance>-distance&&leftDistance<distance){
+            return;
+        }
+        lastTop = top;
+        lastLeft = left;
+
+        var index = Math.floor(Math.random()*4+1);
+        var img = $("<img class='barrage' src='/icon/star"+index+".png'>");
+
+        $("body").append(img);
+        img.css({
+            "top":+top+"px",
+            "left":left+"px",
+            "color":"rgb("+random()+","+random()+","+random()+")"
+        });
+        img.animate({
+            "top":top+100+"px",
+            "opacity":0.5
+        },1000,function(){
+            img.remove();
+        });
+    });
 
 });
