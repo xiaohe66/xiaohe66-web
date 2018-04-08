@@ -4,11 +4,15 @@
 (function($){
 
     var close;
+    var closeOn = true;
     var mask = $("<div id=\"mask\"></div>");
+    var hint = $("<div id=\"hint\"></div>");
 
     var maskClose = function () {
-        mask.hide();
-        close();
+        if(close){
+            mask.hide();
+            close();
+        }
     };
 
     $(function () {
@@ -20,7 +24,18 @@
             close = closeFunc;
             mask.show();
         },
-        maskClose : maskClose
+        maskClose : maskClose,
+        hint : function (msg) {
+            closeOn = false;
+            hint.text(msg);
+            mask.append(hint);
+            mask.show();
+        },
+        hintClose : function () {
+            closeOn = true;
+            mask.html("");
+            mask.hide();
+        }
     });
 
 })(jQuery);

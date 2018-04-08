@@ -5,7 +5,7 @@
  * @date 18-03-28 028
  */
 $(function () {
-
+    var url = "/text/category";
     /*$("#paging").paging(2,1,function (page) {
         console.log(page);
     });*/
@@ -13,9 +13,13 @@ $(function () {
         if(confirm("确定要删除吗")){
             var tr = $(this).parent().parent();
             var id = tr.attr("categoryId");
-            console.log(id);
-            tr.remove();
-            showHideAdd();
+
+            $.hint("删除中，请稍候...");
+            $.del(url+"/"+id,function (data) {
+                $.hintClose();
+                tr.remove();
+                showHideAdd();
+            });
         }
     });
 
@@ -36,18 +40,34 @@ $(function () {
     });
 
     $(document).on("click",".save",function () {
-        var td = $(this).parent();
+        save($(this));
+    });
+    $(document).on("keydown","#category_tab input",function (e) {
+        if(e.keyCode === 13){
+            save($(this));
+        }
+    });
+
+    function save($this) {
+        var td = $this.parent();
         var newName = td.find("input").val();
         if(newName === undefined || newName.length===0){
             alert("请输入名称");
             return;
         }
+        var id = td.parent().attr("categoryId");
         //保存新分类名
-
-        //更新ui
-        td.html(newName);
-        td.parent().removeClass("on");
-    });
+        $.hint("保存中，请稍候...");
+        $.put(url,{
+            categoryName:newName,
+            id:id
+        },function (data) {
+            //更新ui
+            $.hintClose();
+            td.html(newName);
+            td.parent().removeClass("on");
+        });
+    }
 
     $(document).on("click",".cancel",function () {
         var td = $(this).parent();
@@ -61,18 +81,24 @@ $(function () {
         if(val === undefined || val.length === 0){
             return;
         }
-        var tbody = $("#category_tab").find("tbody");
-        var tr = $("<tr></tr>");
-        tr.append("<td class='name'>"+val+"</td>");
-        tr.append("<td>"+"2018-03-29 17:58:44"+"</td>");
-        tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>" +
-            "<a href=\"javascript:void(0);\" class=\"del\">删除</a></td>");
 
-        tr.attr("categoryId",1);
+        $.hint("保存中，请稍候...");
+        $.post(url,{categoryName:val},function (data) {
+            var tbody = $("#category_tab").find("tbody");
+            var tr = $("<tr></tr>");
+            tr.append("<td class='name'>"+val+"</td>");
+            tr.append("<td>"+data.createTime+"</td>");
+            tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>" +
+                "<a href=\"javascript:void(0);\" class=\"del\">删除</a></td>");
 
-        inp.val("");
-        tbody.append(tr);
-        showHideAdd();
+            tr.attr("categoryId",data.id);
+
+            inp.val("");
+            $.hintClose();
+            tbody.append(tr);
+            showHideAdd();
+        });
+
     });
 
 });

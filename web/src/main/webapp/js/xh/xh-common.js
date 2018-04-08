@@ -50,8 +50,8 @@
         put : function(url,data,success,error){
             return $.http("put",url,data,{},success,error);
         },
-        del : function(url,data,success,error){
-            return $.http("delete",url,data,{},success,error);
+        del : function(url,success,error){
+            return $.http("delete",url,{},{},success,error);
         }
     });
 })(jQuery);

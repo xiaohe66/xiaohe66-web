@@ -44,15 +44,17 @@
             <if test="categoryDesc != null">
                 category_desc = #{categoryDesc},
             </if>
-            <if test="pid != null">
+            <!--<if test="pid != null">
                 pid = #{pid},
-            </if>
+            </if>-->
         </set>
         where id = #{id}
     </update>
 
     <update id="delById" parameterType="TextCategory">
-        update xh_web_text_category set is_delete = 1 where id = #{id}
+        update xh_web_text_category
+        set is_delete = 1,update_id = #{currentUsrId},update_time = #{updateTime}
+        where id = #{id}
     </update>
 
     <select id="findNamesByArticleId" resultType="String">

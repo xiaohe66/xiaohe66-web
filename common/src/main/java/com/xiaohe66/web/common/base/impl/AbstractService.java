@@ -37,6 +37,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
         if(po instanceof BasePoDetailed){
             BasePoDetailed poDetailed = ((BasePoDetailed) po);
             poDetailed.setCreateId(currentUsrId);
+            poDetailed.setCreateTime(new Date());
             poDetailed.setUpdateId(currentUsrId);
         }
         baseDao.add(po);

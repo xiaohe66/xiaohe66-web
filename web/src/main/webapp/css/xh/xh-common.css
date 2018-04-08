@@ -92,8 +92,11 @@ input[type=radio]{
     border: 1px solid #c5c5c5;
     border-radius: 4px;
 }
-#mask{
+#mask,
+#hint{
     position: fixed;
+}
+#mask{
     top:0;
     left: 0;
     width: 100%;
@@ -101,6 +104,20 @@ input[type=radio]{
     background: rgba(0,0,0,0.7);
     z-index: 200;
     display: none;
+}
+#hint{
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 140px;
+    line-height: 140px;
+    margin-top: -70px;
+    margin-left: -150px;
+    background: #fff;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 24px;
 }
 .tab a{
     display: inline-block;

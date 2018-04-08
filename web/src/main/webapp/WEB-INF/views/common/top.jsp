@@ -123,7 +123,7 @@
         });
 
         function logout() {
-            $.del("/org/usr/login",{},function (data) {
+            $.del("/org/usr/login",function (data) {
                 location.reload();
             });
         }

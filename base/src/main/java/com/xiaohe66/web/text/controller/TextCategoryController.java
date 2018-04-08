@@ -31,6 +31,7 @@ public class TextCategoryController {
         List<TextCategory> textCategoryList = categoryService.findByUsrId(currentUsr.getId());
         model.addAttribute("list",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
         model.addAttribute("page",CATEGORY_MANAGEMENT_PAGE_URL);
+        model.addAttribute("title","分类管理");
 
         return PageController.USR_ZONE_PAGE_URL;
     }
@@ -44,7 +45,7 @@ public class TextCategoryController {
     @Post
     public Result add(CurrentUsr currentUsr,TextCategory textCategory){
         categoryService.add(textCategory,currentUsr.getId());
-        return Result.ok(textCategory.getId());
+        return Result.ok(ClassUtils.convert(TextCategoryDto.class,textCategory));
     }
 
     @Put
