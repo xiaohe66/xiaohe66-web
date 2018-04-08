@@ -17,4 +17,17 @@
         select * from xh_web_org_usr_file where is_delete = 0 and id = #{id}
     </select>
 
+    <select id="findByParam" resultType="UsrFile">
+        select * from xh_web_org_usr_file
+        <where>
+            is_delete = 0
+            <if test="param.id != null">
+                and id = #{param.id}
+            </if>
+            <if test="param.createId != null">
+                and create_id = #{param.createId}
+            </if>
+        </where>
+    </select>
+
 </mapper>

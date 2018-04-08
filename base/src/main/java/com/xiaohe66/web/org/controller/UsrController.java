@@ -5,12 +5,15 @@ import com.xiaohe66.web.common.util.SpringUtils;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.security.service.LoginService;
+import com.xiaohe66.web.sys.controller.PageController;
+import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -27,6 +30,8 @@ public class UsrController{
 
     private static final String REGISTER_PAGE_URL = "org/register";
 
+    private static final String USR_DATA_PAGE_URL = "org/usr_data";
+
     @Autowired
     private LoginService loginService;
 
@@ -38,6 +43,12 @@ public class UsrController{
     @Page("/register")
     public String register(){
         return REGISTER_PAGE_URL;
+    }
+
+    @Page("/me")
+    public String me(Model model, CurrentUsr currentUsr){
+        model.addAttribute("page",USR_DATA_PAGE_URL);
+        return PageController.USR_ZONE_PAGE_URL;
     }
 
     @Get("/login")

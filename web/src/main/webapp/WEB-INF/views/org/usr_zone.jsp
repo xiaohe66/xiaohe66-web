@@ -21,14 +21,14 @@
 <div class="c">
     <div class="l l2">
         <div class="menu border1">
-            <a href="/">个人资料</a>
-            <a href="/">文章管理</a>
-            <a href="/">文件管理</a>
-            <a href="/">分类管理</a>
+            <a href="/org/usr/me">个人资料</a>
+            <%--<a href="/">文章管理</a>--%>
+            <a href="/org/usr/file/index">文件管理</a>
+            <a href="/text/category/index">分类管理</a>
         </div>
     </div>
     <div class="r r2 border1">
-        <jsp:include page="/WEB-INF/views/org/file_list.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/views/${page}.jsp"></jsp:include>
         <%--<jsp:include page="/WEB-INF/views/org/category_management.jsp"></jsp:include>--%>
         <%--<jsp:include page="/WEB-INF/views/org/usr_data.jsp"></jsp:include>--%>
     </div>

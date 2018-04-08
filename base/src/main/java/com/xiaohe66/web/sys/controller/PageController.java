@@ -21,6 +21,8 @@ public class PageController {
 
     public static final String RIGHT_PAGE_URL = "common/right";
 
+    public static final String USR_ZONE_PAGE_URL = "org/usr_zone";
+
     @Page("/about")
     public String about(){
         return "about";

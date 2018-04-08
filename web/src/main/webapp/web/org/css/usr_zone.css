@@ -11,6 +11,9 @@
     line-height: 40px;
     color: #000;
 }
+.c_c table a{
+    color: blue;
+}
 .menu a:hover{
     background: #e1f1ff;
     cursor: pointer;

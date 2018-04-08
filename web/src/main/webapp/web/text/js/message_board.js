@@ -10,7 +10,7 @@ $(function () {
 
     var maxPage = Math.ceil(parseInt($("#size").val())/5);
     $("#paging").paging(maxPage,1,function (page) {
-        $.getPaging("/text/messageBoard",page,5,{
+        $.getPaging("/text/messageBoard",page,10,{
             usrId:$("#usrId").val()
         },function (arr) {
             div.html("");

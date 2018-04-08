@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
 <link type="text/css" rel="stylesheet" href="/web/org/css/file_list.css"/>
 <script type="text/javascript" src="/js/xh/xh-paging.js"></script>
@@ -29,14 +30,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr usrFileId="1">
-            <td class="name">Intellij.zip</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
+        <c:forEach items="${list}" var="item">
+            <tr usrFileId="${item.id}">
+                <td class="name">${item.fileName}</td>
+                <td>${item.createTime}</td>
+                <td>
+                    <a href="javascript:void(0);" class="rename">重命名</a>
+                    <a href="javascript:void(0);" class="del">删除</a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>

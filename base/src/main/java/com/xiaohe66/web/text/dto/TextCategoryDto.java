@@ -1,12 +1,12 @@
 package com.xiaohe66.web.text.dto;
 
-import com.xiaohe66.web.common.base.BaseDto;
+import com.xiaohe66.web.common.base.BaseDtoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-11-12 012
  */
-public class TextCategoryDto extends BaseDto {
+public class TextCategoryDto extends BaseDtoDetailed {
 
     private String categoryName;
 

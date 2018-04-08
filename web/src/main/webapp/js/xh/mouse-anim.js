@@ -51,8 +51,8 @@ $(function () {
             "color":"rgb("+random()+","+random()+","+random()+")"
         });
         img.animate({
-            "top":top+100+"px",
-            "opacity":0.5
+            "top":top+120+"px",
+            "opacity":0.6
         },1000,function(){
             img.remove();
         });

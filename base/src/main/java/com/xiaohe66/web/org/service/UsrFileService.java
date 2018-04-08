@@ -6,14 +6,18 @@ import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.Check;
+import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.dao.UsrFileDao;
+import com.xiaohe66.web.org.dto.UsrFileDto;
+import com.xiaohe66.web.org.param.UsrFileParam;
 import com.xiaohe66.web.org.po.UsrFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author xh
@@ -77,6 +81,16 @@ public class UsrFileService extends AbstractService<UsrFile>{
             throw new XhException(CodeEnum.NULL_EXCEPTION,"commonFileId is null");
         }
         return usrFileDao.findByCommonFileId(commonFileId);
+    }
+
+    public List<UsrFileDto> findDtoByUsrId(Long usrId){
+        if(Check.isOneNull(usrId)){
+            throw new XhException(CodeEnum.NULL_EXCEPTION);
+        }
+        UsrFileParam param = new UsrFileParam();
+        param.setCreateId(usrId);
+
+        return ClassUtils.convertList(UsrFileDto.class,this.findByParam(param));
     }
 
 }

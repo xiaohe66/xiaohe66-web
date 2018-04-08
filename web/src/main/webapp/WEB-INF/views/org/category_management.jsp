@@ -29,78 +29,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr categoryId="1">
-            <td class="name">java</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">mysql</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
-        <tr categoryId="1">
-            <td class="name">spring</td>
-            <td>2018-03-22 18:23:23</td>
-            <td>
-                <a href="javascript:void(0);" class="rename">重命名</a>
-                <a href="javascript:void(0);" class="del">删除</a>
-            </td>
-        </tr>
+        <c:forEach items="${list}" var="item">
+            <tr categoryId="${item.id}">
+                <td class="name">${item.categoryName}</td>
+                <td>${item.createTime}</td>
+                <td>
+                    <a class="rename">重命名</a>
+                    <a class="del">删除</a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>

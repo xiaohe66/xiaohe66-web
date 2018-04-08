@@ -36,7 +36,7 @@
             <a href="/org/usr/register">注册</a>
         </shiro:guest>
         <shiro:authenticated>
-            <a class="usrName" style="margin-right:20px;">${usr.usrName}</a>
+            <a href="/org/usr/me" class="usrName">${usr.usrName}</a>
             <a href="/text/article/add">写文章</a>
             |
             <a href="javascript:logout();">注销</a>
