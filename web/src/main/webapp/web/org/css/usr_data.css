@@ -1,9 +1,38 @@
+.r>P{
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 22px;
+}
 .left li{
     margin-top: 20px;
 }
 .left span{
+    vertical-align: top;
     margin-right: 20px;
 }
 .right{
     float: right;
+    margin-top: 20px;
+    margin-right: 50px;
+}
+.right>div{
+    text-align: center;
+}
+.down{
+    margin-top: 20px;
+    margin-left: 40px;
+    /*text-align: center;*/
+}
+.down .btn{
+    line-height: 30px;
+}
+.left input,
+.signature{
+    width: 400px;
+}
+.signature{
+    height: 90px;
+    resize: none;
+    padding-left: 10px;
+    line-height: 30px;
 }

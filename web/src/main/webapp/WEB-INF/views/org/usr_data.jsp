@@ -8,8 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link type="text/css" rel="stylesheet" href="/web/org/css/usr_data.css"/>
 <script type="text/javascript" src="/web/org/js/usr_data.js"></script>
+<p>文件管理</p>
 <div class="right">
     <img src="" class="head_img">
+    <div>
+        <a class="btn" href="javascript:void(0);">更换头像</a>
+    </div>
 </div>
 <div class="left">
     <ul>
@@ -27,8 +31,10 @@
         </li>
         <li>
             <span>签名</span>
-            <input placeholder="请输入签名">
+            <textarea class="signature border1" placeholder="请输入签名"></textarea>
         </li>
     </ul>
 </div>
-<div class="down"></div>
+<div class="down">
+    <a class="btn">保存</a>
+</div>
