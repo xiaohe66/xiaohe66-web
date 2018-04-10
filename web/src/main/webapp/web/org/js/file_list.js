@@ -15,17 +15,30 @@ $(function () {
         }
     });
 
-    $(".add a").click(function () {
-        var val = "文件名";
+    $(".add input").change(function () {
+        var val = $(this).val();
+        //上传的逻辑
+
+        //成功到的逻辑
+        var data = {categoryName:"文件名",type:".rar",createTime:"2018-03-29 17:58:44"};
         var tbody = $("#file_tab").find("tbody");
         var tr = $("<tr></tr>");
-        tr.append("<td class='name'>" + val + "</td>");
-        tr.append("<td>" + "2018-03-29 17:58:44" + "</td>");
-        tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>" +
+        tr.append("<td><a class='name'>" + data.categoryName + "</a></td>");
+        tr.append("<td>" + data.type + "</td>");
+        tr.append("<td>" + data.createTime + "</td>");
+        tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>\n" +
             "<a href=\"javascript:void(0);\" class=\"del\">删除</a></td>");
 
         tr.attr("usrFileId", 1);
-        tbody.append(tr);
+        tbody.prepend(tr);
+
+        if(tbody.find("tr").length >= 12){
+            tbody.find("tr:last").remove();
+        }
+    });
+    
+    $(".add a").click(function () {
+        $(".add input").click();
     });
 
     $(document).on("click", ".rename", function () {
