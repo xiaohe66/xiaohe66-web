@@ -12,7 +12,7 @@
     </select>
 
     <select id="findByMd5" resultType="CommonFile">
-        select * from xh_web_comm_file where md5 = #{md5}
+        select * from xh_web_comm_file where md5 = #{md5} and file_url is not null
     </select>
 
     <update id="updateById" parameterType="CommonFile">

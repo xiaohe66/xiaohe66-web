@@ -76,6 +76,13 @@ public class CommonFileService extends AbstractService<CommonFile>{
             String fileUrl = File.separator+folderName+File.separator + md5;
             //上传
             File serverFile = new File(fileHomeUrl+fileUrl);
+            File parentFile = serverFile.getParentFile();
+
+            //文件夹不存在时创建
+            if(!serverFile.getParentFile().exists()){
+                parentFile.mkdirs();
+            }
+
             FileOutputStream fileOutputStream = null;
             BufferedOutputStream stream = null;
             try{

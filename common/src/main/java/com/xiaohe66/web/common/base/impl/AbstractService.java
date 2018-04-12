@@ -100,8 +100,8 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param param 传入mybatis的参数
      * @return long 删除的数量
      */
-    @Override
-    public long delByParamOfHard(BaseParam param){
+//    @Override
+    protected long delByParamOfHard(BaseParam param){
         if (param == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"param is null");
         }
@@ -113,8 +113,8 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param param 传入mybatis的参数
      * @return long 删除的数量
      */
-    @Override
-    public long delByParam(BaseParam param,Long currentUsrId){
+//    @Override
+    protected long delByParam(BaseParam param,Long currentUsrId){
         if (param == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"param is null");
         }
@@ -163,8 +163,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param param 传入mybatis的参数
      * @param currentUsrId 当前登录用户id
      */
-    @Override
-    public void updateByParam(T po, BaseParam param, Long currentUsrId) {
+    protected void updateByParam(T po, BaseParam param, Long currentUsrId) {
         if (po == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"po is null");
         }
@@ -185,8 +184,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * 通用根据参数查询方法
      * @param param 传入mybatis的参数
      */
-    @Override
-    public List<T> findByParam(BaseParam param) {
+    protected List<T> findByParam(BaseParam param) {
         daoNotNullCheck();
         return baseDao.findByParam(param);
     }

@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author xh
  * @date 18-03-25 025
  */
-@XhController("/comm/file")
+//@XhController("/comm/file")
 public class CommonFileController {
 
     @Autowired

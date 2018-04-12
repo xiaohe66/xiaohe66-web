@@ -107,7 +107,7 @@ public class ArticleService extends AbstractService<Article>{
         super.updateById(article, currentUsrId);
 
         //删除个人分类关联
-        articleCategoryLinkService.delByParamOfHard(new ArticleCategoryLink(dbArticle.getId()));
+        articleCategoryLinkService.delByArticleId(dbArticle.getId());
         if(Check.isNotEmpty(perCategoryIds)){
             List<ArticleCategoryLink> linkList = new ArrayList<>(perCategoryIds.length);
             for (Long perCategoryId : perCategoryIds) {

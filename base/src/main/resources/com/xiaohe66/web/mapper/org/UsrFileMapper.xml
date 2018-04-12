@@ -4,9 +4,9 @@
 
     <insert id="add" parameterType="UsrFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into xh_web_org_usr_file
-        (create_id,update_id,file_name,file_desc,file_id)
+        (create_id,create_time,update_id,file_name,file_desc,file_type,file_id)
         values
-        (#{createId},#{updateId},#{fileName},#{fileDesc},#{fileId})
+        (#{createId},#{createTime},#{updateId},#{fileName},#{fileDesc},#{fileType},#{fileId})
     </insert>
 
     <select id="findByCommonFileId" resultType="UsrFile">
@@ -28,6 +28,21 @@
                 and create_id = #{param.createId}
             </if>
         </where>
+        order by create_time desc
     </select>
+
+    <update id="updateById" parameterType="UsrFile">
+        update xh_web_org_usr_file
+        <set>
+            <if test="fileName != null">
+                file_name = #{fileName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delById">
+        update xh_web_org_usr_file set is_delete = 1 where id = #{id}
+    </update>
 
 </mapper>

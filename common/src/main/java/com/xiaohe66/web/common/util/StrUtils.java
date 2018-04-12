@@ -167,4 +167,13 @@ public class StrUtils {
     public static String nullToStr(String str){
         return str == null ? "" : str;
     }
+
+    /**
+     * 去除字符串中的空格，当传入的字符串为null时，返回空
+     * @param str 待清除空格的字符串
+     * @return  返回清除空格后的字符串，当传入的字符串为null时，返回空
+     */
+    public static String trim(String str){
+        return str == null ? "" : str.trim();
+    }
 }

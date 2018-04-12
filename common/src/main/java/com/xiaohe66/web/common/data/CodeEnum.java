@@ -18,6 +18,7 @@ public enum CodeEnum {
     //51* 格式转换类 ---
     ,NUMBER_FORMAT_EXCEPTION(510,"无法转换为数字类型")
     ,DATE_FORMAT_EXCEPTION(511,"无法转换为日期类型")
+    ,IMAGE_FORMAT_EXCEPTION(512,"无法转换为图片")
 
     //40* 资源
     ,RESOURCE_NOT_FOUND(401,"资源没有找到")
@@ -30,6 +31,12 @@ public enum CodeEnum {
     ,NOT_PERMISSION(604,"权限不足")
 
     ,IO_EXCEPTION(701,"IO异常")
+    ,RUNTIME_EXCEPTION(702,"运行时异常")
+
+    //非法
+    ,ILLEGAL_CHAR_EXCEPTION(801,"非法字符")
+
+
 
     ;
 

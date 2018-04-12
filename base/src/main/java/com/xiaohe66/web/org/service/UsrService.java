@@ -92,8 +92,7 @@ public class UsrService extends AbstractService<Usr> {
         Usr usr = findById(usrId);
         UsrDto usrDto = ClassUtils.convert(UsrDto.class,usr);
 
-        Long fileId = usrFileService.findById(usr.getImgFileId()).getFileId();
-        usrDto.setImgUrl("/comm/file/img/"+fileId);
+        usrDto.setImgUrl("/org/usr/file/img/"+usr.getImgFileId());
         return usrDto;
     }
 }

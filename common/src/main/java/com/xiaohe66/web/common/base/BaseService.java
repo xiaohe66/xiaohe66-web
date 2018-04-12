@@ -36,20 +36,20 @@ public interface BaseService<T extends BasePo> {
      */
     void delById(Long id,Long currentUsrId);
 
-    /**
+    /*
      * 通用根据参数删除方法(硬删除，数据库不留数据)
      * @param param 传入mybatis的参数
      * @return long 删除的数量
      */
-    long delByParamOfHard(BaseParam param);
+//    long delByParamOfHard(BaseParam param);
 
-    /**
+    /*
      * 通用根据参数删除方法(软删除，数据库保留数据)
      * @param param 传入mybatis的参数
      * @param currentUsrId 当前登录用户id
      * @return long 删除的数量
      */
-    long delByParam(BaseParam param,Long currentUsrId);
+//    long delByParam(BaseParam param,Long currentUsrId);
 
     /**
      * 通用更新方法
@@ -58,13 +58,13 @@ public interface BaseService<T extends BasePo> {
      */
     void updateById(T po, Long currentUsrId);
 
-    /**
+    /*
      * 通用更新方法，根据参数更新
      * @param po 更新后的实体
      * @param param 更新的参数
      * @param currentUsrId 当前操作者id
      */
-    void updateByParam(T po, BaseParam param, Long currentUsrId);
+//    void updateByParam(T po, BaseParam param, Long currentUsrId);
 
     /**
      * 通用根据id查询方法
@@ -73,12 +73,12 @@ public interface BaseService<T extends BasePo> {
      */
     T findById(Long id);
 
-    /**
+    /*
      * 通用根据参数查询方法
      * @param param 查询参数
      * @return 对应实体list
      */
-    List<T> findByParam(BaseParam param);
+//    List<T> findByParam(BaseParam param);
 
     /**
      * 数据统计

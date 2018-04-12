@@ -3,7 +3,8 @@
     table-collapse:collapse;
     border-bottom: 1px solid #c5c5c5;
 }
-#file_tab td,#file_tab th{
+#file_tab td,
+#file_tab th{
     text-align: center;
     border-top: 1px solid #c5c5c5;
     height: 40px;
@@ -13,16 +14,12 @@
     font-weight: bold;
     font-size: 22px;
 }
-.name a{
-    margin-left: 10px;
-}
 .add input{
-    margin-right: 10px;
+    display: none;
 }
 .add a{
     width: 60px;
     line-height: 30px;
-
 }
 #paging{
     text-align: center;

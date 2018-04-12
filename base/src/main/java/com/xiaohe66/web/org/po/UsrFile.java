@@ -10,7 +10,15 @@ public class UsrFile extends BasePoDetailed {
 
     private String fileName;
     private String fileDesc;
+    private String fileType;
     private Long fileId;
+
+    public UsrFile(){}
+
+    public UsrFile(Long id,String fileName) {
+        super.id = id;
+        this.fileName = fileName;
+    }
 
     public String getFileName() {
         return fileName;
@@ -36,6 +44,14 @@ public class UsrFile extends BasePoDetailed {
         this.fileDesc = fileDesc;
     }
 
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
@@ -44,8 +60,9 @@ public class UsrFile extends BasePoDetailed {
                 + ",\"fileDesc\":\"" + fileDesc + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"updateId\":\"" + updateId + "\""
-                + ",\"fileId\":\"" + fileId + "\""
+                + ",\"fileType\":\"" + fileType + "\""
                 + ",\"updateTime\":" + updateTime
+                + ",\"fileId\":\"" + fileId + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";
     }

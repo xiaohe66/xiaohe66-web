@@ -37,6 +37,10 @@ public class Check {
         return !isAllNotNull(objects);
     }
 
+    /**
+     * 非空检查，有一个为空的，就抛出异常
+     * @param objects
+     */
     public static void notEmptyCheck(Object... objects){
         if(objects == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION);

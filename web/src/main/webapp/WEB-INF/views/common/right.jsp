@@ -11,6 +11,7 @@
 <head>
     <title>${title}</title>
     <link type="text/css" rel="stylesheet" href="/css/xh/xh-common.css"/>
+    <link type="text/css" rel="stylesheet" href="/web/common/css/right.css"/>
 
     <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/js/xh/xh-common.js"></script>
@@ -39,7 +40,11 @@
         <div class="module1">
             <div class="title">资源下载</div>
             <div class="body source">
-
+                <a href="javascript:void(0)">intellij.zip</a>
+                <a href="javascript:void(0)">tomcat.zip</a>
+                <a href="javascript:void(0)">jdk.zip</a>
+                <a href="javascript:void(0)">mysql.zip</a>
+                <a href="javascript:void(0)">navicat.zip</a>
             </div>
         </div>
         <div class="module1">
