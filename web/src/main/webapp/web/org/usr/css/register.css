@@ -1,15 +1,56 @@
-.content{
+.c_c{
+    width: 420px;
+    text-align: left;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    background: #fff;
+}
+.c_c p{
     text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
 }
-.register_tab{
-    margin:20px auto 0;
+.c_c li{
+    margin-top: 10px;
 }
-.register_tab tr{
-    height: 50px;
-    line-height: 50px;
+.c_c li>div{
+    display: inline-block;
+    text-align: right;
+    width: 80px;
 }
-.register_tab input{
+.c_c label,
+.c_c span{
+    color: red;
+}
+.c_c input,
+.c_c textarea{
+    margin-left: 10px;
     height: 40px;
     border-radius: 4px;
     border: solid 1px #04d0ff;
+}
+#code input{
+    width: 166px;
+    vertical-align: middle;
+}
+#code img{
+    width: 80px;
+    height: 40px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+#register{
+    text-align: center;
+}
+#signature>div{
+    vertical-align: top;
+}
+/*todo:放到common中*/
+#signature textarea{
+    padding-top: 8px;
+    padding-left: 8px;
+    height: 100px;
+    width: 250px;
+    resize: none;
 }
