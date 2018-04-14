@@ -281,10 +281,6 @@ input[type=radio]{
 .r>div{
     margin-bottom: 30px;
 }
-.source,
-.category{
-    height: 280px;
-}
 
 /*----以上content布局css--*/
 /*----以下foot布局css*/

@@ -28,7 +28,7 @@ $(function () {
 
     $(".msg .btn").click(function () {
         var edit = $(".edit textarea");
-        var val = html2Escape(edit.val());
+        var val = $.html2Escape(edit.val());
         if($.isEmpty(val)){
             alert("请填写留言内容");
             return;
@@ -48,12 +48,5 @@ $(function () {
         },function (data) {
             location.reload();
         });
-    });
-
-
+    })
 });
-function html2Escape(sHtml) {
-    return sHtml.replace(/[<>&"]/g,function(c){
-        return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
-    });
-}

@@ -52,6 +52,11 @@
         },
         del : function(url,success,error){
             return $.http("delete",url,{},{},success,error);
+        },
+        html2Escape :function (sHtml) {
+            return sHtml.replace(/[<>&"]/g,function(c){
+                return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
+            });
         }
     });
 })(jQuery);

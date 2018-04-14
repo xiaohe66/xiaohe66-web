@@ -26,4 +26,14 @@
         </foreach>
     </insert>
 
+    <update id="updateById" parameterType="Usr">
+        update xh_web_org_usr
+        <set>
+            <if test="signature != null">
+                signature = #{signature},
+            </if>
+        </set>
+        where is_delete = 0 and id = #{id}
+    </update>
+
 </mapper>

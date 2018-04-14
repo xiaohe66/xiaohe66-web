@@ -19,7 +19,7 @@
     text-align: center;
 }
 .down{
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     margin-left: 40px;
     /*text-align: center;*/
 }
@@ -35,4 +35,7 @@
     resize: none;
     padding-left: 10px;
     line-height: 30px;
+}
+.right>div{
+    margin-top: 20px;
 }

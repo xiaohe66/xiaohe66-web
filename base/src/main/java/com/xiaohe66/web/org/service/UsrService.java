@@ -6,6 +6,7 @@ import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.StrEnum;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.ClassUtils;
+import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.dao.UsrDao;
 import com.xiaohe66.web.org.dto.UsrDto;
@@ -46,6 +47,14 @@ public class UsrService extends AbstractService<Usr> {
     public UsrService(UsrDao usrDao) {
         super(usrDao);
         this.usrDao = usrDao;
+    }
+
+    @Override
+    public void updateById(Usr po, Long currentUsrId) {
+        Check.notEmptyCheck(po,currentUsrId);
+        String signature = HtmlUtils.delHtmlTag(po.getSignature());
+        po.setSignature(signature);
+        super.updateById(po, currentUsrId);
     }
 
     public Usr findByUsrName(String usrName){

@@ -35,6 +35,9 @@ public class UsrController{
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private UsrService usrService;
+
     @Page("/index")
     public String index(){
         return INDEX_PAGE_URL;
@@ -67,9 +70,18 @@ public class UsrController{
         return Result.ok(null);
     }
 
-    @Post("/register")
+    @Post
     public Result register(Usr usr, String code){
         return Result.ok(loginService.register(usr,code));
+    }
+
+    @Put
+    public Result update(CurrentUsr currentUsr,String signature){
+        Usr usr = new Usr();
+        usr.setId(currentUsr.getId());
+        usr.setSignature(signature);
+        usrService.updateById(usr,currentUsr.getId());
+        return Result.ok();
     }
 
 }
