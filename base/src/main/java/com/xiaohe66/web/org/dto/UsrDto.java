@@ -11,7 +11,7 @@ public class UsrDto extends BaseDto {
 
     private String usrName;
     private String signature;
-    private String imgUrl;
+    private Long imgFileId;
 
     public UsrDto(){
 
@@ -19,6 +19,7 @@ public class UsrDto extends BaseDto {
     public UsrDto(Usr usr){
         id = usr.getId();
         usrName = usr.getUsrName();
+        imgFileId = usr.getImgFileId();
     }
 
     public String getUsrName() {
@@ -37,12 +38,12 @@ public class UsrDto extends BaseDto {
         this.signature = signature;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public Long getImgFileId() {
+        return imgFileId;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImgFileId(Long imgFileId) {
+        this.imgFileId = imgFileId;
     }
 
     @Override
@@ -50,7 +51,7 @@ public class UsrDto extends BaseDto {
         return "{" + "\"usrName\":\"" + usrName + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"signature\":\"" + signature + "\""
-                + ",\"imgUrl\":\"" + imgUrl + "\""
+                + ",\"imgFileId\":\"" + imgFileId + "\""
                 + "}";
     }
 }

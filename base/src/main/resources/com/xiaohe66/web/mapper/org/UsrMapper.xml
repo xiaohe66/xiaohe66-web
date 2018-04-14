@@ -32,6 +32,9 @@
             <if test="signature != null">
                 signature = #{signature},
             </if>
+            <if test="imgFileId != null">
+                img_file_id = #{imgFileId},
+            </if>
         </set>
         where is_delete = 0 and id = #{id}
     </update>

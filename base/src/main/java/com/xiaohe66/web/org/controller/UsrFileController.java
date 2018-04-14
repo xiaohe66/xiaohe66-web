@@ -1,15 +1,10 @@
 package com.xiaohe66.web.org.controller;
 
 import com.xiaohe66.web.common.annotation.Del;
-import com.xiaohe66.web.common.annotation.Get;
 import com.xiaohe66.web.common.annotation.Page;
 import com.xiaohe66.web.common.annotation.Post;
 import com.xiaohe66.web.common.annotation.Put;
 import com.xiaohe66.web.common.annotation.XhController;
-import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
-import com.xiaohe66.web.common.exception.XhException;
-import com.xiaohe66.web.org.po.UsrFile;
 import com.xiaohe66.web.org.service.UsrFileService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author xh
@@ -56,7 +50,7 @@ public class UsrFileController {
 
     @Post
     public Result add(CurrentUsr currentUsr, @RequestParam("file") MultipartFile file,String md5){
-        return Result.ok(usrFileService.uploadFile(file,md5,currentUsr.getId()));
+        return Result.ok(usrFileService.uploadUsrFile(file,md5,currentUsr.getId()));
     }
 
     @Put("/{id}")

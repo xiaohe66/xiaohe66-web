@@ -31,7 +31,9 @@ public class HtmlUtils {
      * @return  清除html标签后的字符串
      */
     public static String delHtmlTag(String html){
-
+        if(html == null){
+            return null;
+        }
         html = SCRIPT_PATTERN.matcher(html).replaceAll("");
         html = STYLE_PATTERN.matcher(html).replaceAll("");
         html = HTML_PATTERN.matcher(html).replaceAll("");

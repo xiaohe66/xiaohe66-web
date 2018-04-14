@@ -9,8 +9,8 @@ import com.xiaohe66.web.common.base.BaseDtoDetailed;
 public class UsrFileDto extends BaseDtoDetailed{
     private String fileName;
     private String fileDesc;
-    private String fileType;
     private String fileSize;
+    private String extension;
 
     public String getFileName() {
         return fileName;
@@ -28,20 +28,20 @@ public class UsrFileDto extends BaseDtoDetailed{
         this.fileDesc = fileDesc;
     }
 
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
     public String getFileSize() {
         return fileSize;
     }
 
     public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     @Override
@@ -51,9 +51,9 @@ public class UsrFileDto extends BaseDtoDetailed{
                 + ",\"id\":\"" + id + "\""
                 + ",\"fileDesc\":\"" + fileDesc + "\""
                 + ",\"createTime\":\"" + createTime + "\""
-                + ",\"fileType\":\"" + fileType + "\""
-                + ",\"updateId\":\"" + updateId + "\""
                 + ",\"fileSize\":\"" + fileSize + "\""
+                + ",\"updateId\":\"" + updateId + "\""
+                + ",\"extension\":\"" + extension + "\""
                 + ",\"updateTime\":\"" + updateTime + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";

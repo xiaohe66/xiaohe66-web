@@ -7,11 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link type="text/css" rel="stylesheet" href="/web/org/css/usr_data.css"/>
+<script type="text/javascript" src="/js/spark-md5.min.js"></script>
 <script type="text/javascript" src="/web/org/js/usr_data.js"></script>
 <p>个人资料</p>
 <div class="right">
-    <img src="" class="head_img">
-    <div>
+    <img src="/org/usr/file/img/${usr.imgFileId}" class="head_img">
+    <div id="file">
+        <input type="file">
         <a class="btn">更换头像</a>
     </div>
 </div>
@@ -19,7 +21,7 @@
     <ul>
         <li>
             <span>账号</span>
-            <input value="xiaohe" disabled="disabled">
+            <input value="${usr.usrName}" disabled="disabled">
         </li>
         <%--<li>
             <span>邮箱</span>

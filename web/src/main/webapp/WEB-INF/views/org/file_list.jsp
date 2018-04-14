@@ -40,7 +40,7 @@
         <c:forEach items="${list}" var="item">
             <tr usrFileId="${item.id}">
                 <td><a class="name">${item.fileName}</a></td>
-                <td>${item.fileType}</td>
+                <td>${item.extension}</td>
                 <td>${item.fileSize}</td>
                 <td>${item.createTime}</td>
                 <td>

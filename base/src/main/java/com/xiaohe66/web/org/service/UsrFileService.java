@@ -13,7 +13,6 @@ import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.dao.UsrFileDao;
 import com.xiaohe66.web.org.dto.UsrFileDto;
 import com.xiaohe66.web.org.param.UsrFileParam;
-import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.po.UsrFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -44,6 +41,10 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     private static final char[] FILE_ILLEGAL_CHARS = new char[]{'?','\\','/','*','\"',':','<','>','|'};
 
+    private static final int DEFAULT_FILE_TYPE = 0;
+
+    private static final int USR_HEAD_IMG_FILE_TYPE = 1;
+
     private UsrFileDao usrFileDao;
 
     @Autowired
@@ -57,6 +58,13 @@ public class UsrFileService extends AbstractService<UsrFile>{
         this.usrFileDao = usrFileDao;
     }
 
+    public UsrFileDto uploadUsrFile(MultipartFile file,String md5,Long currentUsrId){
+        return uploadFile(file,md5,currentUsrId,DEFAULT_FILE_TYPE);
+    }
+    public UsrFileDto uploadHeadImgFile(MultipartFile file,String md5,Long currentUsrId){
+        return uploadFile(file,md5,currentUsrId,USR_HEAD_IMG_FILE_TYPE);
+    }
+
     /**
      * 上传用户文件，返回commonFile的id
      * @param file  文件
@@ -64,7 +72,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
      * @param currentUsrId  当前操作用户
      * @return 返回commonFile的id
      */
-    public UsrFileDto uploadFile(MultipartFile file,String md5,Long currentUsrId){
+    public UsrFileDto uploadFile(MultipartFile file,String md5,Long currentUsrId,Integer fileType){
         if(Check.isNull(file)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
         }
@@ -73,6 +81,9 @@ public class UsrFileService extends AbstractService<UsrFile>{
         }
         if(StrUtils.isEmpty(md5)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"md5 is empty");
+        }
+        if(Check.isNull(fileType)){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"fileType is null");
         }
 
         byte[] bytes;
@@ -86,13 +97,13 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
         String name = file.getOriginalFilename();
         int dotIndex = name.lastIndexOf(".");
-        String fileName,fileType;
+        String fileName,extension;
         if(dotIndex != -1){
             fileName = name.substring(0,dotIndex);
-            fileType = name.substring(dotIndex);
+            extension = name.substring(dotIndex);
         }else{
             fileName = name;
-            fileType = "";
+            extension = "";
         }
         //文件名不可以超过20字符
         fileName = fileNameFormat(fileName);
@@ -100,10 +111,12 @@ public class UsrFileService extends AbstractService<UsrFile>{
         UsrFile usrFile = new UsrFile();
         usrFile.setFileId(commonFile.getId());
         usrFile.setFileName(fileName);
+        usrFile.setExtension(extension);
         usrFile.setFileType(fileType);
         this.add(usrFile,currentUsrId);
-
-        return ClassUtils.convert(UsrFileDto.class,usrFile);
+        UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class,usrFile);
+        usrFileDto.setFileSize(commonFile.getFileByte()+"字节");
+        return usrFileDto;
     }
 
     public UsrFile findByCommonFileId(Long commonFileId){
@@ -146,10 +159,10 @@ public class UsrFileService extends AbstractService<UsrFile>{
         if(usrFile == null){
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
         }
-        String fileType = usrFile.getFileType();
+        String extension = usrFile.getExtension();
 
         //不是图片类型，不返回
-        if(!IMG_TYPE_SET.contains(fileType)){
+        if(!IMG_TYPE_SET.contains(extension)){
             throw new XhException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
         }
 

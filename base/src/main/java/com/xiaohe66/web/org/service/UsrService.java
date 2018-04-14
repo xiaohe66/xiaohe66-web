@@ -1,13 +1,14 @@
 package com.xiaohe66.web.org.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
-import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.StrEnum;
 import com.xiaohe66.web.common.exception.XhException;
+import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
+import com.xiaohe66.web.common.util.WebUtils;
 import com.xiaohe66.web.org.dao.UsrDao;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
@@ -17,6 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 /**
@@ -26,7 +30,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsrService extends AbstractService<Usr> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UsrService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UsrService.class);
+
+    /**
+     * 1M
+     */
+    private static final int USR_HEAD_IMG_MAX_BYTE_LENGTH = 1048576;
 
     private UsrDao usrDao;
 
@@ -101,7 +110,33 @@ public class UsrService extends AbstractService<Usr> {
         Usr usr = findById(usrId);
         UsrDto usrDto = ClassUtils.convert(UsrDto.class,usr);
 
-        usrDto.setImgUrl("/org/usr/file/img/"+usr.getImgFileId());
+        usrDto.setImgFileId(usr.getImgFileId());
         return usrDto;
+    }
+
+    public Long uploadHeadImg(MultipartFile file, String md5, Long currentUsrId){
+        if(Check.isNull(file)){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
+        }
+        try {
+            int bytes = file.getBytes().length;
+            if(bytes > USR_HEAD_IMG_MAX_BYTE_LENGTH){
+                throw new XhException(CodeEnum.MAX_VALUE_EXCEPTION);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Long imgFileId = usrFileService.uploadHeadImgFile(file,md5,currentUsrId).getId();
+
+        Usr usr = new Usr();
+        usr.setId(currentUsrId);
+        usr.setImgFileId(imgFileId);
+        this.updateById(usr,currentUsrId);
+
+        UsrDto usrDto = (UsrDto) WebUtils.getSession().getAttribute(StrEnum.SESSION_UER_KEY.data());
+        usrDto.setImgFileId(imgFileId);
+
+        return imgFileId;
     }
 }

@@ -4,9 +4,9 @@
 
     <insert id="add" parameterType="UsrFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into xh_web_org_usr_file
-        (create_id,create_time,update_id,file_name,file_desc,file_type,file_id)
+        (create_id,create_time,update_id,file_name,file_desc,file_type,file_id,extension)
         values
-        (#{createId},#{createTime},#{updateId},#{fileName},#{fileDesc},#{fileType},#{fileId})
+        (#{createId},#{createTime},#{updateId},#{fileName},#{fileDesc},#{fileType},#{fileId},#{extension})
     </insert>
 
     <select id="findByCommonFileId" resultType="UsrFile">
@@ -21,6 +21,7 @@
         select * from xh_web_org_usr_file
         <where>
             is_delete = 0
+            and file_type = 0
             <if test="param.id != null">
                 and id = #{param.id}
             </if>

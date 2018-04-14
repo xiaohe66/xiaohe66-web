@@ -31,7 +31,7 @@
                 <c:if test="${not empty usrDivTitle}">${usrDivTitle}</c:if>
             </div>
             <div class="body master">
-                <img src="${usrDto.imgUrl}" class="head_img" alt="${usrDto.usrName}"
+                <img src="/org/usr/file/img/${usrDto.imgFileId}" class="head_img" alt="${usrDto.usrName}"
                      onclick="location.href = '/text/article/list/${usrDto.id}'">
                 <p>${usrDto.usrName}</p>
                 <p>${usrDto.signature}</p>

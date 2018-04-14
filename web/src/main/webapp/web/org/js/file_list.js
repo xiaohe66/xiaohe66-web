@@ -26,7 +26,7 @@ $(function () {
         var tbody = $("#file_tab").find("tbody");
         var tr = $("<tr usrFileId=\""+data.id+"\"></tr>");
         tr.append("<td><a class='name'>" + data.fileName + "</a></td>");
-        tr.append("<td>" + data.fileType + "</td>");
+        tr.append("<td>" + data.extension + "</td>");
         tr.append("<td>" + data.fileSize + "</td>");
         tr.append("<td>" + data.createTime + "</td>");
         tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>\n" +

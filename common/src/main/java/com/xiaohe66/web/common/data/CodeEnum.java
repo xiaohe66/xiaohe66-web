@@ -32,6 +32,8 @@ public enum CodeEnum {
 
     ,IO_EXCEPTION(701,"IO异常")
     ,RUNTIME_EXCEPTION(702,"运行时异常")
+    ,MAX_VALUE_EXCEPTION(703,"超过最大值")
+    ,MIN_VALUE_EXCEPTION(704,"超过最小值")
 
     //非法
     ,ILLEGAL_CHAR_EXCEPTION(801,"非法字符")

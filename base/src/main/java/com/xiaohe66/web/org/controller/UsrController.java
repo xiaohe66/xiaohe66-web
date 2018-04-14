@@ -1,23 +1,21 @@
 package com.xiaohe66.web.org.controller;
 
-import com.xiaohe66.web.common.annotation.*;
-import com.xiaohe66.web.common.util.SpringUtils;
+import com.xiaohe66.web.common.annotation.Del;
+import com.xiaohe66.web.common.annotation.Get;
+import com.xiaohe66.web.common.annotation.Page;
+import com.xiaohe66.web.common.annotation.Post;
+import com.xiaohe66.web.common.annotation.Put;
+import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.security.service.LoginService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import javax.annotation.Resource;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author xiaohe
@@ -82,6 +80,11 @@ public class UsrController{
         usr.setSignature(signature);
         usrService.updateById(usr,currentUsr.getId());
         return Result.ok();
+    }
+
+    @Post("/img")
+    public Result uploadHeadImg(CurrentUsr currentUsr, @RequestParam("file") MultipartFile file, String md5){
+        return Result.ok(usrService.uploadHeadImg(file,md5,currentUsr.getId()));
     }
 
 }
