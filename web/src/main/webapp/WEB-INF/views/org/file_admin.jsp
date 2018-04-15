@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
-<link type="text/css" rel="stylesheet" href="/web/org/css/file_list.css"/>
+<link type="text/css" rel="stylesheet" href="/web/org/css/file_admin.css"/>
 <script type="text/javascript" src="/js/spark-md5.min.js"></script>
 <script type="text/javascript" src="/js/xh/xh-paging.js"></script>
 <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
-<script type="text/javascript" src="/web/org/js/file_list.js"></script>
+<script type="text/javascript" src="/web/org/js/file_admin.js"></script>
 <div class="fr add">
     <input type="file">
     <a class="btn">上传</a>

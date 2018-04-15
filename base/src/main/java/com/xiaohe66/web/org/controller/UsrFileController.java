@@ -25,18 +25,27 @@ import javax.servlet.http.HttpServletResponse;
 public class UsrFileController {
 
     private static final String USR_FILE_LIST_PAGE_URL = "org/file_list";
+    private static final String USR_FILE_ADMIN_PAGE_URL = "org/file_admin";
 
     @Autowired
     private UsrFileService usrFileService;
 
-    @Page("/index")
-    public String index(Model model,CurrentUsr currentUsr){
+    @Page("/admin")
+    public String admin(Model model,CurrentUsr currentUsr){
 
-        model.addAttribute("page",USR_FILE_LIST_PAGE_URL);
+        model.addAttribute("page",USR_FILE_ADMIN_PAGE_URL);
         model.addAttribute("list",usrFileService.findDtoByUsrId(currentUsr.getId()));
 
         return PageController.USR_ZONE_PAGE_URL;
     }
+
+    @Page("/index")
+    public String index(Model model,CurrentUsr currentUsr){
+        model.addAttribute("page",USR_FILE_LIST_PAGE_URL);
+
+        return PageController.RIGHT_PAGE_URL;
+    }
+
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable("id")Long id){
