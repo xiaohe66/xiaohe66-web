@@ -166,6 +166,9 @@ input[type=file]{
 .master{
     text-align: center;
 }
+.icon{
+    background: url("/icon/icon.png");
+}
 /*---以上通用css----*/
 /*----以下top css--*/
 .t {

@@ -13,6 +13,15 @@
     width: 100%;
     line-height: 38px;
 }
+.fast_link span{
+    content: "";
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 6px;
+    background: url("/icon/index_icon.png");
+}
 .module2 .item{
     margin-top: 10px;
     height: 100px;

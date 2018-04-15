@@ -1,7 +1,6 @@
 package com.xiaohe66.web.text.controller;
 
 import com.xiaohe66.web.comm.dto.CategoryDto;
-import com.xiaohe66.web.comm.po.Category;
 import com.xiaohe66.web.comm.service.CategoryService;
 import com.xiaohe66.web.common.annotation.*;
 import com.xiaohe66.web.common.data.CodeEnum;
@@ -13,7 +12,7 @@ import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
-import com.xiaohe66.web.text.dto.DtoArticle;
+import com.xiaohe66.web.text.dto.ArticleDto;
 import com.xiaohe66.web.text.dto.TextCategoryDto;
 import com.xiaohe66.web.text.po.Article;
 import com.xiaohe66.web.text.po.TextCategory;
@@ -79,7 +78,7 @@ public class ArticleController {
 
     @Page("/detail/{id}")
     public String detail(Model model,@PathVariable("id") Long id){
-        DtoArticle dtoArticle = articleService.findDtoById(id);
+        ArticleDto dtoArticle = articleService.findDtoById(id);
         model.addAttribute("article",dtoArticle);
         model.addAttribute("title",dtoArticle.getTitle());
         model.addAttribute("page",ARTICLE_DETAIL_PAGE_URL);
@@ -95,7 +94,7 @@ public class ArticleController {
     @Page("/list/{usrId}")
     public String list(Model model,@PathVariable("usrId") Long usrId){
         UsrDto usrDto = usrService.lookAtUsr(usrId);
-        List<DtoArticle> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId());
+        List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId());
         model.addAttribute("list",dtoArticleList);
         model.addAttribute("size",dtoArticleList.size());
         model.addAttribute("usrDto",usrDto);
@@ -116,7 +115,7 @@ public class ArticleController {
     @Get("/{id}")
     public Result findById(@PathVariable("id") Long id){
         Article article = articleService.findById(id);
-        return Result.ok(ClassUtils.convert(DtoArticle.class,article));
+        return Result.ok(ClassUtils.convert(ArticleDto.class,article));
     }
 
     @Get

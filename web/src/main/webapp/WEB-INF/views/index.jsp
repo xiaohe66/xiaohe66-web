@@ -15,44 +15,44 @@
         <table cellspacing="10px">
             <thead>
             <tr>
-                <td><a href="https://www.taobao.com"><img src="#" style="width: 16px;height: 16px;vertical-align: middle;border: 1px solid #eee">淘宝</a></td>
+                <td><a href="https://www.taobao.com">淘宝</a></td>
                 <td><a href="https://www.jd.com">京东</a></td>
                 <td><a href="https://www.vip.com">唯品会</a></td>
+                <td><a href="http://www.kugou.com">酷狗音乐</a></td>
+                <td><a href="https://y.qq.com">QQ音乐</a></td>
+                <td><a href="http://music.163.com">网易云音乐</a></td>
+            </tr>
+            <tr>
                 <td><a href="http://www.youku.com">优酷</a></td>
                 <td><a href="http://www.iqiyi.com">爱奇艺</a></td>
-                <td><a href="https://v.qq.com">腾讯视频</a></td>
+                <td><a href="https://v.qq.com/">腾讯视频</a></td>
+                <td><a href="https://www.bilibili.com/">B站</a></td>
+                <td><a href="http://www.huya.com">虎牙</a></td>
+                <td><a href="http://www.douyu.com">斗鱼</a></td>
             </tr>
             <tr>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.kugou.com/yy/html/rank.html?from=homepage">酷狗音乐</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
+                <td><a href="http://www.sina.com.cn">新浪微博</a></td>
+                <td><a href="http://bieba.baidu.com">百度贴吧</a></td>
+                <td><a href="http://www.zhihu.com">知乎</a></td>
+                <td><a href="http://www.jjwxc.net">晋江</a></td>
+                <td><a href="https://www.qidian.com">起点</a></td>
+                <td><a href="http://www.cjzww.com">长江中文网</a></td>
             </tr>
             <tr>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
+                <td><a href="http://www.people.com.cn">人民网</a></td>
+                <td><a href="http://www.huanqiu.com">环球日报</a></td>
+                <td><a href="http://www.sohu.com">搜狐新闻</a></td>
+                <td><a href="http://www.58pic.com">千图网</a></td>
+                <td><a href="http://www.ctrip.com">携程</a></td>
+                <td><a href="https://kyfw.12306.cn/otn/leftTicket/init">12306</a></td>
             </tr>
             <tr>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-            </tr>
-            <tr>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
-                <td><a href="http://www.baidu.com">链接</a></td>
+                <td><a href="https://pan.baidu.com">百度云</a></td>
+                <td><a href="https://mail.qq.com">QQ邮箱</a></td>
+                <td><a href="http://www.pinterest.com">Pinterest</a></td>
+                <td><a href="http://www.youtube.com">Youtube</a></td>
+                <td><a href="https://twitter.com">推特</a></td>
+                <td><a href="https://www.facebook.com">脸书</a></td>
             </tr>
             </thead>
         </table>
@@ -65,7 +65,7 @@
             <div class="item" articleId="${item.id}">
                 <div>
                     <div class="fl">
-                        <img class="head_img" src="" alt="头像">
+                        <img class="head_img" src="/org/usr/file/img/${item.imgFileId}" alt="头像">
                     </div>
                     <div class="u_r">
                         <div class="u_r_u">
@@ -81,7 +81,7 @@
                             <div class="title">${item.title}</div>
                         </div>
                         <div class="u_r_d">
-                            <span>斯文仔</span>
+                            <span>${item.usrName}</span>
                             <span>${item.createTime}</span>
                             <span>${item.sysCategoryName}</span>
                             <span>${item.perCategoryNames}</span>

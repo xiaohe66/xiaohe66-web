@@ -6,7 +6,7 @@ import com.xiaohe66.web.common.base.BaseDtoDetailed;
  * @author xiaohe
  * @time 17-11-11 011
  */
-public class DtoArticle extends BaseDtoDetailed{
+public class ArticleDto extends BaseDtoDetailed{
 
     private String text;
     private String title;
@@ -14,6 +14,8 @@ public class DtoArticle extends BaseDtoDetailed{
     private String sysCategoryName;
     private String perCategoryIds;
     private String perCategoryNames;
+    private Long imgFileId;
+    private String usrName;
 
     public String getText() {
         return text;
@@ -63,6 +65,22 @@ public class DtoArticle extends BaseDtoDetailed{
         this.perCategoryIds = perCategoryIds;
     }
 
+    public String getUsrName() {
+        return usrName;
+    }
+
+    public void setUsrName(String usrName) {
+        this.usrName = usrName;
+    }
+
+    public Long getImgFileId() {
+        return imgFileId;
+    }
+
+    public void setImgFileId(Long imgFileId) {
+        this.imgFileId = imgFileId;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"text\":\"" + text + "\""
@@ -77,6 +95,8 @@ public class DtoArticle extends BaseDtoDetailed{
                 + ",\"perCategoryIds\":\"" + perCategoryIds + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + ",\"perCategoryNames\":\"" + perCategoryNames + "\""
+                + ",\"imgFileId\":\"" + imgFileId + "\""
+                + ",\"usrName\":\"" + usrName + "\""
                 + "}";
     }
 }

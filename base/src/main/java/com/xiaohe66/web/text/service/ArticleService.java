@@ -1,22 +1,21 @@
 package com.xiaohe66.web.text.service;
 
 import com.github.pagehelper.PageHelper;
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import com.xiaohe66.web.comm.service.CategoryService;
 import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.data.StrEnum;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.XhData;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
+import com.xiaohe66.web.org.po.Usr;
+import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.service.SysCfgService;
 import com.xiaohe66.web.text.dao.ArticleDao;
-import com.xiaohe66.web.text.dto.DtoArticle;
+import com.xiaohe66.web.text.dto.ArticleDto;
 import com.xiaohe66.web.text.param.ArticleParam;
-import com.xiaohe66.web.text.param.TextCategoryParam;
 import com.xiaohe66.web.text.po.Article;
 import com.xiaohe66.web.text.po.ArticleCategoryLink;
 import com.xiaohe66.web.text.po.TextCategory;
@@ -24,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +47,9 @@ public class ArticleService extends AbstractService<Article>{
     @Autowired
     private TextCategoryService textCategoryService;
 
+    @Autowired
+    private UsrService usrService;
+
     public ArticleService(){}
 
     @Autowired
@@ -70,7 +71,7 @@ public class ArticleService extends AbstractService<Article>{
      * 首页显示数据
      * @return
      */
-    public List<DtoArticle> indexArticle(){
+    public List<ArticleDto> indexArticle(){
         PageHelper.startPage(1,5);
         return toDto(findByParam(null));
     }
@@ -167,16 +168,16 @@ public class ArticleService extends AbstractService<Article>{
         return articleDao.findByParam(param);
     }
 
-    public List<DtoArticle> findDtoByUsrId(Long usrId){
+    public List<ArticleDto> findDtoByUsrId(Long usrId){
         return toDto(this.findByUsrId(usrId));
     }
 
-    public DtoArticle findDtoById(Long id){
+    public ArticleDto findDtoById(Long id){
         return toDto(super.findById(id));
     }
 
-    public DtoArticle toDto(Article article){
-        DtoArticle dtoArticle = ClassUtils.convert(DtoArticle.class,article);
+    public ArticleDto toDto(Article article){
+        ArticleDto dtoArticle = ClassUtils.convert(ArticleDto.class,article);
         dtoArticle.setSysCategoryName(categoryService.findById(article.getSysCategoryId()).getCategoryName());
 
         List<TextCategory> textCategoryList = textCategoryService.findByArticleId(article.getId());
@@ -203,13 +204,17 @@ public class ArticleService extends AbstractService<Article>{
      * @param articleList
      * @return
      */
-    public List<DtoArticle> toDto(List<Article> articleList){
-        List<DtoArticle> dtoArticleList = new ArrayList<>(articleList.size());
+    public List<ArticleDto> toDto(List<Article> articleList){
+        List<ArticleDto> dtoArticleList = new ArrayList<>(articleList.size());
         for (Article article : articleList) {
-            DtoArticle dtoArticle = toDto(article);
-            dtoArticleList.add(dtoArticle);
+            ArticleDto articleDto = toDto(article);
+            dtoArticleList.add(articleDto);
 
-            dtoArticle.setText(HtmlUtils.digest(dtoArticle.getText(),130));
+            articleDto.setText(HtmlUtils.digest(articleDto.getText(),130));
+
+            Usr usr = usrService.findById(article.getCreateId());
+            articleDto.setUsrName(usr.getUsrName());
+            articleDto.setImgFileId(usr.getImgFileId());
         }
         return dtoArticleList;
     }
