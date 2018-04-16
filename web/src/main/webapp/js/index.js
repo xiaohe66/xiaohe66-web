@@ -8,14 +8,12 @@ $(function () {
         $(this).find("a").each(function (j, a) {
             var span = $("<span></span>");
             span.css({"background-position":(-32*j-16)+"px "+(-32*i-16)+"px"});
-            var text = $(this).text();
-            $(this).html(span);
-            $(this).append(text);
+            $(this).prepend(span);
             $(this).attr("target","_blank");
         });
     });
 
     $(".item").click(function () {
-        location.href = "/text/article/detail?id="+$(this).attr("articleId");
+        location.href = "/text/article/detail/"+$(this).attr("articleId");
     });
 });

@@ -6,6 +6,7 @@ import com.xiaohe66.web.common.annotation.Post;
 import com.xiaohe66.web.common.annotation.Put;
 import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.org.service.UsrFileService;
+import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
@@ -24,11 +25,14 @@ import javax.servlet.http.HttpServletResponse;
 @XhController("/org/usr/file")
 public class UsrFileController {
 
-    private static final String USR_FILE_LIST_PAGE_URL = "org/file_list";
+    private static final String USR_FILE_INDEX_PAGE_URL = "org/file_index";
     private static final String USR_FILE_ADMIN_PAGE_URL = "org/file_admin";
 
     @Autowired
     private UsrFileService usrFileService;
+
+    @Autowired
+    private UsrService usrService;
 
     @Page("/admin")
     public String admin(Model model,CurrentUsr currentUsr){
@@ -41,7 +45,8 @@ public class UsrFileController {
 
     @Page("/index")
     public String index(Model model,CurrentUsr currentUsr){
-        model.addAttribute("page",USR_FILE_LIST_PAGE_URL);
+        model.addAttribute("page",USR_FILE_INDEX_PAGE_URL);
+        model.addAttribute("usrDto",usrService.lookAtUsr(null));
 
         return PageController.RIGHT_PAGE_URL;
     }

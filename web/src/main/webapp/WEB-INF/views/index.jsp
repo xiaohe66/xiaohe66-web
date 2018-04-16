@@ -31,7 +31,7 @@
                 <td><a href="http://www.douyu.com">斗鱼</a></td>
             </tr>
             <tr>
-                <td><a href="http://www.sina.com.cn">新浪微博</a></td>
+                <td><a href="https://www.weibo.com">新浪微博</a></td>
                 <td><a href="http://bieba.baidu.com">百度贴吧</a></td>
                 <td><a href="http://www.zhihu.com">知乎</a></td>
                 <td><a href="http://www.jjwxc.net">晋江</a></td>

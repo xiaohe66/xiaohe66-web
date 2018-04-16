@@ -1,13 +1,21 @@
-.source a{
+.source a,
+.link a{
     color: blue;
     display: block;
-    line-height: 36px;
-    font-size: 20px;
+    line-height: 38px;
 }
-.source a:hover{
+.source a:hover,
+.link a:hover{
     text-decoration: underline;
 }
+.source a span{
+    float: right;
+}
 .source,
-.category{
-    height: 280px;
+.article{
+    height: 200px;
+}
+.title a{
+    float: right;
+    margin-right: 10px;
 }

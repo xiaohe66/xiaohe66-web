@@ -38,18 +38,23 @@
             </div>
         </div>
         <div class="module1">
-            <div class="title">资源下载</div>
-            <div class="body source">
-                <a href="javascript:void(0)">intellij.zip</a>
-                <a href="javascript:void(0)">tomcat.zip</a>
-                <a href="javascript:void(0)">jdk.zip</a>
-                <a href="javascript:void(0)">mysql.zip</a>
-                <a href="javascript:void(0)">navicat.zip</a>
+            <div class="title">友情链接</div>
+            <div class="body link">
+                <a href="http://www.github.com/tiy-he" target="_blank">小何的GitHub</a>
+                <a href="https://blog.csdn.net/xiaohe73" target="_blank">小何的Csdn</a>
             </div>
         </div>
         <div class="module1">
-            <div class="title">文章分类</div>
-            <div class="body category">
+            <div class="title">热门资源<a href="/org/usr/file/index">more>></a></div>
+            <div class="body source">
+                <c:forEach items="${fileList}" var="item">
+                    <a href="/org/usr/file/${item.id}">${item.fileName}<span>${item.downloadCount}</span></a>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="module1">
+            <div class="title">热门文章</div>
+            <div class="body article">
             </div>
         </div>
     </div>

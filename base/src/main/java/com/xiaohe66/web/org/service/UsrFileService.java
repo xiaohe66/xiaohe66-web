@@ -1,5 +1,6 @@
 package com.xiaohe66.web.org.service;
 
+import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.comm.po.CommonFile;
 import com.xiaohe66.web.comm.service.CommonFileService;
 import com.xiaohe66.web.common.base.impl.AbstractService;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -49,6 +51,9 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     @Autowired
     private CommonFileService commonFileService;
+
+    @Autowired
+    private UsrFileLogService usrFileLogService;
 
     public UsrFileService() {}
 
@@ -150,6 +155,26 @@ public class UsrFileService extends AbstractService<UsrFile>{
         return usrFileDtoList;
     }
 
+    public List<UsrFileDto> findDtoHotTop5(Long usrId){
+        List<Map<String,Long>> mapList = usrFileLogService.countDownloadOfMonth(usrId);
+        int i = 0;
+        final int maxSize = 5;
+        List<UsrFileDto> usrFileDtoList = new ArrayList<>(maxSize);
+        for (Map<String, Long> map : mapList) {
+            UsrFile usrFile = this.findById(map.get("id"));
+            if(usrFile == null){
+                continue;
+            }
+            UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class,usrFile);
+            usrFileDtoList.add(usrFileDto);
+            usrFileDto.setDownloadCount(map.get("count"));
+            if(++i >= maxSize){
+                break;
+            }
+        }
+        return usrFileDtoList;
+    }
+
     public void showImg(HttpServletResponse response,Long usrFileId){
         if(usrFileId == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
@@ -191,7 +216,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
         }
 
-        String name = EncoderUtils.urlEncoder(usrFile.getFileName())+usrFile.getFileType();
+        String name = EncoderUtils.urlEncoder(usrFile.getFileName())+usrFile.getExtension();
 
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename="+name);

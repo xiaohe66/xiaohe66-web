@@ -11,6 +11,7 @@ public class UsrFileDto extends BaseDtoDetailed{
     private String fileDesc;
     private String fileSize;
     private String extension;
+    private Long downloadCount;
 
     public String getFileName() {
         return fileName;
@@ -44,6 +45,14 @@ public class UsrFileDto extends BaseDtoDetailed{
         this.extension = extension;
     }
 
+    public Long getDownloadCount() {
+        return downloadCount;
+    }
+
+    public void setDownloadCount(Long downloadCount) {
+        this.downloadCount = downloadCount;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"fileName\":\"" + fileName + "\""
@@ -55,6 +64,7 @@ public class UsrFileDto extends BaseDtoDetailed{
                 + ",\"updateId\":\"" + updateId + "\""
                 + ",\"extension\":\"" + extension + "\""
                 + ",\"updateTime\":\"" + updateTime + "\""
+                + ",\"downloadCount\":\"" + downloadCount + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";
     }

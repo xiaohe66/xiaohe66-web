@@ -29,8 +29,7 @@ $(function () {
         tr.append("<td>" + data.extension + "</td>");
         tr.append("<td>" + data.fileSize + "</td>");
         tr.append("<td>" + data.createTime + "</td>");
-        tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>\n" +
-            "<a href=\"javascript:void(0);\" class=\"del\">删除</a></td>");
+        tr.append("<td><a class=\"rename\">重命名</a>\n<a class=\"del\">删除</a></td>");
 
         tr.attr("usrFileId", 1);
         tbody.prepend(tr);
