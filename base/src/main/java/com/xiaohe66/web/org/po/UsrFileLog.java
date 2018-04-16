@@ -15,6 +15,12 @@ public class UsrFileLog extends BasePo{
     private Integer logType;
     private Long usrFileId;
 
+    public UsrFileLog(Long createId, Date createTime, Long usrFileId) {
+        this.createId = createId;
+        this.createTime = createTime;
+        this.usrFileId = usrFileId;
+    }
+
     public Long getCreateId() {
         return createId;
     }

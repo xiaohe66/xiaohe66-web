@@ -15,6 +15,7 @@ import com.xiaohe66.web.org.dao.UsrFileDao;
 import com.xiaohe66.web.org.dto.UsrFileDto;
 import com.xiaohe66.web.org.param.UsrFileParam;
 import com.xiaohe66.web.org.po.UsrFile;
+import com.xiaohe66.web.org.po.UsrFileLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -206,15 +208,21 @@ public class UsrFileService extends AbstractService<UsrFile>{
      * @param response HttpServletResponse
      * @param usrFileId 用户文件id
      */
-    public void downloadFile(HttpServletResponse response,Long usrFileId){
+    public void downloadFile(HttpServletResponse response,Long usrFileId,Long currentUsrId){
         if(usrFileId == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
+        }
+        if(currentUsrId == null){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"currentUsrId is null");
         }
 
         UsrFile usrFile = findById(usrFileId);
         if(usrFile == null){
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
         }
+
+        //记录下载日志
+        usrFileLogService.add(new UsrFileLog(currentUsrId,new Date(),usrFileId),currentUsrId);
 
         String name = EncoderUtils.urlEncoder(usrFile.getFileName())+usrFile.getExtension();
 

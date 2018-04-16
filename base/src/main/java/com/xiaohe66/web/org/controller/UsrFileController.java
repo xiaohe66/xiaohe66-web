@@ -58,8 +58,8 @@ public class UsrFileController {
     }
 
     @Page("/{id}")
-    public void download(HttpServletResponse response, @PathVariable("id")Long id){
-        usrFileService.downloadFile(response,id);
+    public void download(HttpServletResponse response,CurrentUsr currentUsr,@PathVariable("id")Long id){
+        usrFileService.downloadFile(response,id,currentUsr.getId());
     }
 
     @Post
