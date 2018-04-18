@@ -54,4 +54,20 @@ public class Check {
         }
     }
 
+    public static boolean eq(Integer a,Integer b){
+        return a == null ? b == null : a.equals(b);
+    }
+
+    public static boolean eq(Long a,Long b){
+        return a == null ? b == null : a.equals(b);
+    }
+
+    public static boolean eq(Float a,Float b){
+        return a == null ? b == null : a.equals(b);
+    }
+
+    public static boolean eq(Double a,Double b){
+        return a == null ? b == null : a.equals(b);
+    }
+
 }

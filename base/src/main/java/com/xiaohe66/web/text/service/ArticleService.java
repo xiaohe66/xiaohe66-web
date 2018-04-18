@@ -18,6 +18,7 @@ import com.xiaohe66.web.text.dto.ArticleDto;
 import com.xiaohe66.web.text.param.ArticleParam;
 import com.xiaohe66.web.text.po.Article;
 import com.xiaohe66.web.text.po.ArticleCategoryLink;
+import com.xiaohe66.web.text.po.ArticleLog;
 import com.xiaohe66.web.text.po.TextCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiaohe
@@ -49,6 +51,9 @@ public class ArticleService extends AbstractService<Article>{
 
     @Autowired
     private UsrService usrService;
+
+    @Autowired
+    private ArticleLogService articleLogService;
 
     public ArticleService(){}
 
@@ -172,8 +177,12 @@ public class ArticleService extends AbstractService<Article>{
         return toDto(this.findByUsrId(usrId));
     }
 
-    public ArticleDto findDtoById(Long id){
-        return toDto(super.findById(id));
+    public ArticleDto findDtoById(Long id,Long currentUsrId){
+        Check.notEmptyCheck(id);
+        ArticleDto articleDto = toDto(this.findById(id));
+        //保存日志
+        articleLogService.add(new ArticleLog(currentUsrId,id),currentUsrId);
+        return articleDto;
     }
 
     public ArticleDto toDto(Article article){
@@ -215,7 +224,31 @@ public class ArticleService extends AbstractService<Article>{
             Usr usr = usrService.findById(article.getCreateId());
             articleDto.setUsrName(usr.getUsrName());
             articleDto.setImgFileId(usr.getImgFileId());
+            articleDto.setCount(articleLogService.countByArticleId(article.getId()));
         }
         return dtoArticleList;
+    }
+
+    /**
+     * 热门文章top5
+     * @param usrId 传入用户id，则查该用户的，否则查全部用户的
+     * @return  热门文章top5
+     */
+    public List<ArticleDto> findDtoHotTop5(Long usrId){
+        final int hotSize = 5;
+        int i = 0;
+        List<ArticleDto> articleDtoList = new ArrayList<>(hotSize);
+        List<Map<String,Long>> mapList = articleLogService.countDownloadOfMonth(usrId);
+        for (Map<String, Long> map : mapList) {
+            ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,this.findById(map.get("id")));
+            articleDtoList.add(articleDto);
+
+            articleDto.setCount(map.get("count"));
+
+            if(++i >= hotSize){
+                break;
+            }
+        }
+        return articleDtoList;
     }
 }

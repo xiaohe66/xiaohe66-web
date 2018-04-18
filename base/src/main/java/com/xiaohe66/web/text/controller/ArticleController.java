@@ -77,8 +77,8 @@ public class ArticleController {
     }
 
     @Page("/detail/{id}")
-    public String detail(Model model,@PathVariable("id") Long id){
-        ArticleDto dtoArticle = articleService.findDtoById(id);
+    public String detail(Model model,CurrentUsr currentUsr,@PathVariable("id") Long id){
+        ArticleDto dtoArticle = articleService.findDtoById(id,currentUsr.getId());
         model.addAttribute("article",dtoArticle);
         model.addAttribute("title",dtoArticle.getTitle());
         model.addAttribute("page",ARTICLE_DETAIL_PAGE_URL);

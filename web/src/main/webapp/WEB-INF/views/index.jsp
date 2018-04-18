@@ -71,7 +71,7 @@
                         <div class="u_r_u">
                             <div class="fr">
                                 <img src="/icon/eye.png">
-                                <span>0</span>
+                                <span>${item.count}</span>
                                 <%--<img src="/icon/praise.png">
                                 <span>1023</span>
                                 <img src="/icon/comment.png">

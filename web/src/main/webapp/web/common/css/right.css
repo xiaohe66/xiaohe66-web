@@ -1,14 +1,17 @@
+.link a,
 .source a,
-.link a{
-    color: blue;
+.article a{
     display: block;
     line-height: 38px;
 }
+.link a:hover,
 .source a:hover,
-.link a:hover{
+.article a:hover{
     text-decoration: underline;
+
 }
-.source a span{
+.source span,
+.article span{
     float: right;
 }
 .source,

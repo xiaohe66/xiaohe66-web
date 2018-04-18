@@ -16,6 +16,7 @@ public class ArticleDto extends BaseDtoDetailed{
     private String perCategoryNames;
     private Long imgFileId;
     private String usrName;
+    private Long count;
 
     public String getText() {
         return text;
@@ -81,6 +82,15 @@ public class ArticleDto extends BaseDtoDetailed{
         this.imgFileId = imgFileId;
     }
 
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"text\":\"" + text + "\""
@@ -97,6 +107,7 @@ public class ArticleDto extends BaseDtoDetailed{
                 + ",\"perCategoryNames\":\"" + perCategoryNames + "\""
                 + ",\"imgFileId\":\"" + imgFileId + "\""
                 + ",\"usrName\":\"" + usrName + "\""
+                + ",\"count\":\"" + count + "\""
                 + "}";
     }
 }

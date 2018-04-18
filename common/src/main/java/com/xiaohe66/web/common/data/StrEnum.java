@@ -21,6 +21,9 @@ public enum StrEnum {
     ,DEFAULT_ARTICLE_PID("DEFAULT_ARTICLE_PID")
 
 
+    ,ARTICLE_LOG_CACHE("ARTICLE_LOG_CACHE")
+
+
     ;
 
     private String data;
