@@ -22,6 +22,7 @@ public enum StrEnum {
 
 
     ,ARTICLE_LOG_CACHE("ARTICLE_LOG_CACHE")
+    ,USR_FILE_LOG_CACHE("USR_FILE_LOG_CACHE")
 
 
     ;

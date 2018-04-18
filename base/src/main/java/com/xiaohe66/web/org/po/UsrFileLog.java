@@ -14,10 +14,9 @@ public class UsrFileLog extends BasePo{
     private Date createTime;
     private Integer logType;
     private Long usrFileId;
+    private String ip;
 
-    public UsrFileLog(Long createId, Date createTime, Long usrFileId) {
-        this.createId = createId;
-        this.createTime = createTime;
+    public UsrFileLog(Long usrFileId) {
         this.usrFileId = usrFileId;
     }
 
@@ -53,6 +52,14 @@ public class UsrFileLog extends BasePo{
         this.usrFileId = usrFileId;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
@@ -60,6 +67,7 @@ public class UsrFileLog extends BasePo{
                 + ",\"createTime\":" + createTime
                 + ",\"logType\":\"" + logType + "\""
                 + ",\"usrFileId\":\"" + usrFileId + "\""
+                + ",\"ip\":\"" + ip + "\""
                 + "}";
     }
 }

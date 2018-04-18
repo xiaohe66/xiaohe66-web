@@ -52,7 +52,7 @@ public class ArticleLogService extends AbstractService<ArticleLog>{
     @Override
     public void add(ArticleLog po, Long currentUsrId) {
         String ip = WebUtils.getRequestIP();
-        LOG.debug("read article ip："+ip);
+        LOG.debug("ip："+ip);
 
         Long articleId = po.getArticleId();
 

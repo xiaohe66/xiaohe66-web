@@ -4,9 +4,9 @@
 
     <insert id="add" parameterType="UsrFileLog" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into xh_web_org_usr_file_log
-        (create_id,create_time,usr_file_id)
+        (create_id,create_time,usr_file_id,ip)
         values
-        (#{createId},#{createTime},#{usrFileId})
+        (#{createId},#{createTime},#{usrFileId},#{ip})
     </insert>
 
     <select id="countDownloadOfMonth" resultType="Map">

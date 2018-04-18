@@ -222,7 +222,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
         }
 
         //记录下载日志
-        usrFileLogService.add(new UsrFileLog(currentUsrId,new Date(),usrFileId),currentUsrId);
+        usrFileLogService.add(new UsrFileLog(usrFileId),currentUsrId);
 
         String name = EncoderUtils.urlEncoder(usrFile.getFileName())+usrFile.getExtension();
 
