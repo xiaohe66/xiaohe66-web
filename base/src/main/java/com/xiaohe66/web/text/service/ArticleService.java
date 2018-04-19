@@ -78,7 +78,7 @@ public class ArticleService extends AbstractService<Article>{
      */
     public List<ArticleDto> indexArticle(){
         PageHelper.startPage(1,5);
-        return toDto(findByParam(null));
+        return installDto(findByParam(null));
     }
 
     /**
@@ -161,9 +161,15 @@ public class ArticleService extends AbstractService<Article>{
         }
     }
 
+    /**
+     * 分页查询
+     * @param usrId
+     * @return
+     */
     public List<Article> findByUsrId(Long usrId){
         if(Check.isOneNull(usrId)){
             //默认显示站长的列表
+            //todo:在配置信息修改后，调用这个方法会使后面的分页失效
             String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
             usrId = StrUtils.toLong(usrIdStr);
         }
@@ -174,20 +180,24 @@ public class ArticleService extends AbstractService<Article>{
     }
 
     public List<ArticleDto> findDtoByUsrId(Long usrId){
-        return toDto(this.findByUsrId(usrId));
+        return installDto(this.findByUsrId(usrId));
     }
 
     public ArticleDto findDtoById(Long id,Long currentUsrId){
         Check.notEmptyCheck(id);
-        ArticleDto articleDto = toDto(this.findById(id));
+
+        Article article = this.findById(id);
+        ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,article);
+        installDto(articleDto,article);
+
         //保存日志
         articleLogService.add(new ArticleLog(currentUsrId,id),currentUsrId);
         return articleDto;
     }
 
-    public ArticleDto toDto(Article article){
-        ArticleDto dtoArticle = ClassUtils.convert(ArticleDto.class,article);
-        dtoArticle.setSysCategoryName(categoryService.findById(article.getSysCategoryId()).getCategoryName());
+    public void installDto(ArticleDto articleDto,Article article){
+
+        articleDto.setSysCategoryName(categoryService.findById(article.getSysCategoryId()).getCategoryName());
 
         List<TextCategory> textCategoryList = textCategoryService.findByArticleId(article.getId());
 
@@ -201,11 +211,9 @@ public class ArticleService extends AbstractService<Article>{
                 perCategoryIds.append(",").append(textCategory.getId());
                 perCategoryNames.append("、").append(textCategory.getCategoryName());
             }
-            dtoArticle.setPerCategoryIds(perCategoryIds.toString());
-            dtoArticle.setPerCategoryNames(perCategoryNames.toString());
+            articleDto.setPerCategoryIds(perCategoryIds.toString());
+            articleDto.setPerCategoryNames(perCategoryNames.toString());
         }
-
-        return dtoArticle;
     }
 
     /**
@@ -213,11 +221,9 @@ public class ArticleService extends AbstractService<Article>{
      * @param articleList
      * @return
      */
-    public List<ArticleDto> toDto(List<Article> articleList){
-        List<ArticleDto> dtoArticleList = new ArrayList<>(articleList.size());
-        for (Article article : articleList) {
-            ArticleDto articleDto = toDto(article);
-            dtoArticleList.add(articleDto);
+    public List<ArticleDto> installDto(List<Article> articleList){
+        return ClassUtils.convertList(ArticleDto.class, articleList, (articleDto, article) -> {
+            installDto(articleDto,article);
 
             articleDto.setText(HtmlUtils.digest(articleDto.getText(),130));
 
@@ -225,8 +231,7 @@ public class ArticleService extends AbstractService<Article>{
             articleDto.setUsrName(usr.getUsrName());
             articleDto.setImgFileId(usr.getImgFileId());
             articleDto.setCount(articleLogService.countByArticleId(article.getId()));
-        }
-        return dtoArticleList;
+        });
     }
 
     /**

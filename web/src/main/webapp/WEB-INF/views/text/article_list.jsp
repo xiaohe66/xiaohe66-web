@@ -16,10 +16,8 @@
            location.href = "/text/article/detail/"+$(this).attr("id");
         });
         var html = $(".item")[0].outerHTML;
-        var size = ${size};
-        $("#paging").paging(Math.ceil(size/10),1,function (page) {
+        $("#paging").paging(${pageInfo.pages},${pageInfo.pageNum},function (page) {
             $.getPaging("/text/article",page,10,{lookUsrId:"${lookUsrId}"},function (arr) {
-                console.log("调用了");
                 var div = $(".l");
                 div.find(".item").remove();
                 $.each(arr,function (i, data) {
@@ -31,18 +29,19 @@
                     spans.eq(0).text(data.createTime);
                     spans.eq(1).text(data.sysCategoryName);
                     spans.eq(2).text(data.perCategoryNames);
+                    item.find(".fr").find("span").text(data.count);
                     item.find(".digest").html(data.text);
                 });
             });
         });
     });
 </script>
-<c:forEach items="${list}" var="item" end="9">
+<c:forEach items="${pageInfo.list}" var="item" end="9">
     <div class="item" id="${item.id}">
         <p class="title">${item.title}</p>
         <div class="fr">
             <img src="/icon/eye.png">
-            <span>0</span>
+            <span>${item.count}</span>
             <%--<img src="/icon/praise.png">
             <span>1023</span>
             <img src="/icon/comment.png">

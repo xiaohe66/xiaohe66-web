@@ -45,7 +45,13 @@
             </div>
         </div>
         <div class="module1">
-            <div class="title">热门资源<a href="/org/usr/file/index">more>></a></div>
+            <div class="title">
+                <c:if test="${empty usrDivTitle}">他的</c:if>
+                热门资源
+                <c:if test="${not empty usrDivTitle}">
+                    <a href="/org/usr/file/index">more>></a>
+                </c:if>
+            </div>
             <div class="body source">
                 <c:forEach items="${fileList}" var="item">
                     <a href="/org/usr/file/${item.id}">${item.fileName}${item.extension}<span>${item.downloadCount}</span></a>
@@ -53,7 +59,13 @@
             </div>
         </div>
         <div class="module1">
-            <div class="title">热门文章<a href="/text/article/list">more>></a></div>
+            <div class="title">
+                <c:if test="${empty usrDivTitle}">他的</c:if>
+                热门文章
+                <c:if test="${not empty usrDivTitle}">
+                    <a href="/text/article/list">more>></a>
+                </c:if>
+            </div>
             <div class="body article">
                 <c:forEach items="${hotArticle}" var="item">
                     <a href="/text/article/detail/${item.id}">${item.title}<span>${item.count}</span></a>

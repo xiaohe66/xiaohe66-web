@@ -1,5 +1,6 @@
 package com.xiaohe66.web.common.util;
 
+import com.github.pagehelper.Page;
 import com.xiaohe66.web.common.base.BaseDto;
 import com.xiaohe66.web.common.base.BasePo;
 import com.xiaohe66.web.common.data.CodeEnum;
@@ -57,27 +58,6 @@ public class ClassUtils {
         convert(targetObj,sourceObj);
 
         return targetObj;
-    }
-
-    /**
-     * 不同类的同名同类型属性复制
-     *
-     * @param targetCls 目标类的Class对象<br>
-     *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
-     * @param sourceObjList 源类的实例集合
-     * @param <T> 目标类
-     * @return 目标类的实例集合
-     */
-    public static <T extends BaseDto> List<T> convertList(Class<T> targetCls, List<? extends BasePo> sourceObjList){
-        if(sourceObjList == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"list is null");
-        }
-        List<T> targetObjList  = new ArrayList<T>();
-        for (BasePo basePo : sourceObjList) {
-            T targetObj = convert(targetCls,basePo);
-            targetObjList.add(targetObj);
-        }
-        return targetObjList;
     }
 
     /**
@@ -200,6 +180,67 @@ public class ClassUtils {
             }
             sourceOperandCls = sourceOperandCls.getSuperclass();
         }
+    }
+
+    /**
+     * 不同类的同名同类型属性复制
+     *
+     * @param targetCls 目标类的Class对象<br>
+     *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
+     * @param sourceObjList 源类的实例集合
+     * @param <T> 目标类
+     * @return 目标类的实例集合
+     */
+    public static <T extends BaseDto,E extends BasePo> List<T> convertList(Class<T> targetCls, List<E> sourceObjList){
+        return convertList(targetCls,sourceObjList,null);
+    }
+
+    /**
+     * 不同类的同名同类型属性复制，本方法支持转换中调用自定义方法
+     *
+     * @param targetCls 目标类的Class对象<br>
+     *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
+     * @param sourceObjList 源类的实例集合
+     * @param <T> 目标类
+     * @param task  转换中自定义任务
+     *
+     * @return 目标类的实例集合
+     */
+    public static <T extends BaseDto,E extends BasePo> List<T> convertList(Class<T> targetCls, List<E> sourceObjList,Task<T,E> task){
+        if(sourceObjList == null){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"list is null");
+        }
+        List<T> targetObjList;
+
+        if(sourceObjList instanceof Page){
+            Page<E> sourcePage = ((Page<E>) sourceObjList);
+            Page<T> targetPage  = new Page<>();
+            targetPage.setPages(sourcePage.getPages());
+            targetPage.setPageNum(sourcePage.getPageNum());
+            targetPage.setPageSize(sourcePage.getPageSize());
+            targetPage.setTotal(sourcePage.getTotal());
+            targetObjList = targetPage;
+        }else{
+            targetObjList = new ArrayList<>(sourceObjList.size());
+        }
+
+        for (E basePo : sourceObjList) {
+            T targetObj = convert(targetCls,basePo);
+            targetObjList.add(targetObj);
+            if(task != null){
+                task.run(targetObj,basePo);
+            }
+        }
+        return targetObjList;
+    }
+
+    public interface Task<T,E>{
+        /**
+         * 在类转换过程中自定义的任务
+         * @param dto   正在进行转任务的dto
+         * @param po   正在进行转任务的po
+         */
+        void run(T dto,E po);
     }
 
 }

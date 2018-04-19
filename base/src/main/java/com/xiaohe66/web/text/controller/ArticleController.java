@@ -1,13 +1,22 @@
 package com.xiaohe66.web.text.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.comm.dto.CategoryDto;
 import com.xiaohe66.web.comm.service.CategoryService;
-import com.xiaohe66.web.common.annotation.*;
+import com.xiaohe66.web.common.annotation.Del;
+import com.xiaohe66.web.common.annotation.Get;
+import com.xiaohe66.web.common.annotation.Page;
+import com.xiaohe66.web.common.annotation.Paging;
+import com.xiaohe66.web.common.annotation.Post;
+import com.xiaohe66.web.common.annotation.Put;
+import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.XhData;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
+import com.xiaohe66.web.org.service.UsrFileService;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
@@ -50,6 +59,9 @@ public class ArticleController {
     @Autowired
     private UsrService usrService;
 
+    @Autowired
+    private UsrFileService usrFileService;
+
     @Page("/add")
     public String index(CurrentUsr currentUsr,Model model){
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsr.getId());
@@ -61,14 +73,14 @@ public class ArticleController {
     @Page("/editor")
     public String editor(Model model,CurrentUsr currentUsr,Long id){
 
-        Article article = articleService.findById(id);
-        if(article == null){
+        ArticleDto articleDto = articleService.findDtoById(id,currentUsr.getId());
+        if(articleDto == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
         }
-        if(!currentUsr.getId().equals(article.getCreateId())){
+        if(!currentUsr.getId().equals(articleDto.getCreateId())){
             throw new XhException(CodeEnum.NOT_PERMISSION,"this article not is current usr article");
         }
-        model.addAttribute("article",articleService.toDto(article));
+        model.addAttribute("article",articleDto);
 
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsr.getId());
         model.addAttribute("perCategoryList",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
@@ -94,11 +106,15 @@ public class ArticleController {
     @Page("/list/{usrId}")
     public String list(Model model,@PathVariable("usrId") Long usrId){
         UsrDto usrDto = usrService.lookAtUsr(usrId);
+
+        PageHelper.startPage(1,10);
         List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId());
-        model.addAttribute("list",dtoArticleList);
-        model.addAttribute("size",dtoArticleList.size());
+
+        model.addAttribute("pageInfo",new PageInfo<>(dtoArticleList));
         model.addAttribute("usrDto",usrDto);
         model.addAttribute("title",usrDto.getUsrName()+"的文章");
+        model.addAttribute("fileList",usrFileService.findDtoHotTop5(usrId));
+        model.addAttribute("hotArticle",articleService.findDtoHotTop5(usrId));
         model.addAttribute("page",ARTICLE_LIST_PAGE_URL);
         return PageController.RIGHT_PAGE_URL;
     }
