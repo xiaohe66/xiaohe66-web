@@ -70,6 +70,7 @@ public class ArticleLogService extends AbstractService<ArticleLog>{
 
         if(!articleIdSet.contains(articleId)){
             po.setIp(ip);
+            po.setCreateId(currentUsrId);
             po.setCreateTime(new Date());
             super.add(po,currentUsrId);
 

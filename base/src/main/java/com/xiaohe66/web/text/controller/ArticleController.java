@@ -66,6 +66,7 @@ public class ArticleController {
     public String index(CurrentUsr currentUsr,Model model){
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsr.getId());
         model.addAttribute("perCategoryList",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
+        model.addAttribute("perCategorySize",textCategoryList.size());
         model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));
         return ARTICLE_EDITOR_PAGE_URL;
     }
@@ -84,17 +85,20 @@ public class ArticleController {
 
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsr.getId());
         model.addAttribute("perCategoryList",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
+        model.addAttribute("perCategorySize",textCategoryList.size());
         model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));
         return ARTICLE_EDITOR_PAGE_URL;
     }
 
     @Page("/detail/{id}")
     public String detail(Model model,CurrentUsr currentUsr,@PathVariable("id") Long id){
-        ArticleDto dtoArticle = articleService.findDtoById(id,currentUsr.getId());
-        model.addAttribute("article",dtoArticle);
-        model.addAttribute("title",dtoArticle.getTitle());
+        ArticleDto articleDto = articleService.findDtoById(id,currentUsr.getId());
+        model.addAttribute("article",articleDto);
+        model.addAttribute("title",articleDto.getTitle());
         model.addAttribute("page",ARTICLE_DETAIL_PAGE_URL);
-        model.addAttribute("usrDto",usrService.lookAtUsr(dtoArticle.getCreateId()));
+        model.addAttribute("usrDto",usrService.lookAtUsr(articleDto.getCreateId()));
+        model.addAttribute("fileList",usrFileService.findDtoHotTop5(articleDto.getCreateId()));
+        model.addAttribute("hotArticle",articleService.findDtoHotTop5(articleDto.getCreateId()));
         return PageController.RIGHT_PAGE_URL;
     }
 

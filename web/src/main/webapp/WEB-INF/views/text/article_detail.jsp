@@ -7,17 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" type="text/css" href="<c:url value="/web/text/css/article_detail.css"/>">
+<link rel="stylesheet" type="text/css" href="/web/text/css/article_detail.css">
 <div class="c_u">
     <p>${article.title}</p>
     <div class="fr">
         <img src="/icon/eye.png">
-        <span>0</span>
+        <span>${article.count}</span>
         <%--<img src="/icon/praise.png">
         <span>1023</span>
         <img src="/icon/comment.png">
         <span>304</span>--%>
-        <a href="/text/article/editor?id=${article.id}">编辑</a>
+        <c:if test="${usr.id == article.createId}">
+            <a href="/text/article/editor?id=${article.id}">编辑</a>
+        </c:if>
     </div>
     <div class="desc">
         <span>${article.createTime}</span>

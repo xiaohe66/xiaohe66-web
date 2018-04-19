@@ -45,7 +45,6 @@
             <li>
                 <span>系统分类</span>
                 <div>
-                    <%--<p><a href="javascript:void(0);">添加新分类</a></p>--%>
                     <div class="category border1" id="sysCategory">
                         <c:forEach items="${sysCategoryList}" var="item">
                             <label><input type="radio" name="category"
@@ -58,7 +57,10 @@
             <li>
                 <span>个人分类</span>
                 <div>
-                    <p><a href="javascript:addCategory();">添加新分类</a></p>
+                    <p class="addCategory">
+                        <c:if test="${perCategorySize < 10}"><a>添加新分类</a></c:if>
+                        <c:if test="${perCategorySize >= 10}"><span>最多添加10个分类，请前往个人中心编辑!</span></c:if>
+                    </p>
                     <div class="category border1" id="perCategory">
                         <c:forEach items="${perCategoryList}" var="item">
                             <label><input type="checkbox" value="${item.id}">${item.categoryName}</label>

@@ -15,8 +15,7 @@ public class ArticleLog extends BasePo{
     private Long articleId;
     private String ip;
 
-    public ArticleLog(Long createId, Long articleId) {
-        this.createId = createId;
+    public ArticleLog(Long articleId) {
         this.articleId = articleId;
     }
 

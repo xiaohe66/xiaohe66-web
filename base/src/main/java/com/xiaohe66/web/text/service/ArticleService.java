@@ -188,16 +188,18 @@ public class ArticleService extends AbstractService<Article>{
 
         Article article = this.findById(id);
         ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,article);
-        installDto(articleDto,article);
 
         //保存日志
-        articleLogService.add(new ArticleLog(currentUsrId,id),currentUsrId);
+        articleLogService.add(new ArticleLog(id),currentUsrId);
+
+        installDto(articleDto,article);
         return articleDto;
     }
 
     public void installDto(ArticleDto articleDto,Article article){
 
         articleDto.setSysCategoryName(categoryService.findById(article.getSysCategoryId()).getCategoryName());
+        articleDto.setCount(articleLogService.countByArticleId(article.getId()));
 
         List<TextCategory> textCategoryList = textCategoryService.findByArticleId(article.getId());
 
