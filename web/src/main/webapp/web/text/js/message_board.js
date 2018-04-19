@@ -8,8 +8,7 @@ $(function () {
     var div = $(".content");
     var itemHtml = div.find(".item")[0].outerHTML;
 
-    var maxPage = Math.ceil(parseInt($("#size").val())/5);
-    $("#paging").paging(maxPage,1,function (page) {
+    $("#paging").paging(parseInt($("#size").val()),1,function (page) {
         $.getPaging("/text/messageBoard",page,10,{
             usrId:$("#usrId").val()
         },function (arr) {

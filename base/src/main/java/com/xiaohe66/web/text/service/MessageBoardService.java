@@ -9,6 +9,7 @@ import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
+import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.service.SysCfgService;
 import com.xiaohe66.web.text.dao.MessageBoardDao;
@@ -80,15 +81,11 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
 
         List<MessageBoard> messageBoardList = super.findByParam(new MessageBoardParam(usrId));
 
-        List<MessageBoardDto> messageBoardDtoList = new ArrayList<>(messageBoardList.size());
-        for (MessageBoard messageBoard : messageBoardList) {
-            MessageBoardDto messageBoardDto = ClassUtils.convert(MessageBoardDto.class,messageBoard);
-            messageBoardDtoList.add(messageBoardDto);
-
-            String usrName = usrService.findById(messageBoard.getCreateId()).getUsrName();
-            messageBoardDto.setUsrName(usrName);
-        }
-        return messageBoardDtoList;
+        return ClassUtils.convertList(MessageBoardDto.class,messageBoardList,(messageBoardDto,messageBoard)->{
+            Usr usr = usrService.findById(messageBoard.getCreateId());
+            messageBoardDto.setUsrName(usr.getUsrName());
+            messageBoardDto.setImgFileId(usr.getImgFileId());
+        });
     }
 
 }

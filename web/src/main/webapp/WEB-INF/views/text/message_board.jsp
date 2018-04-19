@@ -12,9 +12,8 @@
 <link type="text/css" rel="stylesheet" href="/web/text/css/message_board.css"/>
 <script type="text/javascript" src="/js/xh/xh-paging.js"></script>
 <script type="text/javascript" src="/web/text/js/message_board.js"></script>
-<%-- 留言 --%>
 <input type="hidden" id="usrId" value="${usr.id}">
-<input type="hidden" id="size" value="${size}">
+<input type="hidden" id="size" value="${pageInfo.pages}">
 <shiro:guest>
 <div class="msg border1">
     <p class="title">发表留言</p>
@@ -31,11 +30,11 @@
 </div>
 </shiro:authenticated>
 <div class="content">
-    <c:forEach items="${list}" var="item" end="5" varStatus="statu">
+    <c:forEach items="${pageInfo.list}" var="item" end="5" varStatus="statu">
         <div class="item">
             <div>
                 <div class="fl">
-                    <img class="head_img" src="" alt="头像">
+                    <img class="head_img" src="/org/usr/file/img/${item.imgFileId}" alt="头像">
                 </div>
                 <div class="u_r">
                     <div class="u_r_d">
