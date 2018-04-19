@@ -44,7 +44,7 @@
     </div>
     <div class="t_c">
         <div class="tab">
-            <a>个人中心</a>
+            <%--<a>个人中心</a>--%>
             <a>文章</a>
             <%--<li>github</li>--%>
             <a href="/text/messageBoard/index">留言</a>
@@ -62,7 +62,7 @@
     <script>
         $(function () {
             var inp = $(".search .inp");
-            inp.blur(function () {
+            <%--inp.blur(function () {
                 inp.attr("val",inp.val());
                 inp.val("");
                 $(".t_c .tab").show();
@@ -72,7 +72,7 @@
                 inp.val(inp.attr("val"));
                 $(".t_c .tab").hide();
                 inp.width(800);
-            });
+            });--%>
             inp.keydown(function(e){
                 if(e.keyCode === 13){
                     var val = inp.val();
