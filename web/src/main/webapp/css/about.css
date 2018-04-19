@@ -1,3 +1,6 @@
+.c{
+    min-height: 580px;
+}
 li{
     margin-top: 6px;
 }
@@ -20,9 +23,11 @@ li{
     font-size: 18px;
     font-weight: bold;
 }
-.func{
+.func,
+.information{
     margin-top: 10px;
 }
-.func ul{
+.func ul,
+.information ul{
     margin-left: 10px;
 }
