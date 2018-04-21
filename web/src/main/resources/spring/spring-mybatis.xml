@@ -16,8 +16,7 @@
     </bean>
 
     <!-- 开启注解事务 -->
-    <tx:annotation-driven proxy-target-class="true" mode="aspectj"/>
-    <!--<tx:annotation-driven proxy-target-class="true"/>-->
+    <tx:annotation-driven proxy-target-class="true"/>
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
