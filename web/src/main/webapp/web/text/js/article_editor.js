@@ -145,7 +145,7 @@ function addCategory() {
                     p.html("最多添加10个分类，请前往个人中心编辑!");
                     p.css("color","red");
                 }
-                div.append("\n<label><input type=\"checkbox\"/>"+val+"</label>");
+                div.append("\n<label><input type=\"checkbox\" value=\""+data.id+"\"/>"+val+"</label>");
                 label.remove();
             });
         }
