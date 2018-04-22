@@ -14,6 +14,7 @@ import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -85,6 +86,11 @@ public class UsrController{
     @Post("/img")
     public Result uploadHeadImg(CurrentUsr currentUsr, @RequestParam("file") MultipartFile file, String md5){
         return Result.ok(usrService.uploadHeadImg(file,md5,currentUsr.getId()));
+    }
+
+    @Get("/exist/{usrName}")
+    public Result isExist(@PathVariable("usrName") String usrName){
+        return Result.ok(usrService.isExist(usrName));
     }
 
 }

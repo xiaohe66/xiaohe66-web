@@ -59,14 +59,26 @@ public class UsrService extends AbstractService<Usr> {
     }
 
     @Override
+    public void add(Usr po, Long currentUsrId) {
+        Check.notEmptyCheck(po);
+        if(Check.isNull(po.getImgFileId())){
+            String defaultImgFileId = sysCfgService.findValByKey(StrEnum.DEFAULT_USR_IMG_FILE_ID.data());
+            po.setImgFileId(StrUtils.toLong(defaultImgFileId));
+        }
+        super.add(po,currentUsrId);
+    }
+
+    @Override
     public void updateById(Usr po, Long currentUsrId) {
         Check.notEmptyCheck(po,currentUsrId);
         String signature = HtmlUtils.delHtmlTag(po.getSignature());
         po.setSignature(signature);
         super.updateById(po, currentUsrId);
+        //todo:更新用户信息后要直接刷新可看
     }
 
     public Usr findByUsrName(String usrName){
+        Check.notEmptyCheck(usrName);
         return usrDao.findByUsrName(usrName);
     }
 
@@ -138,5 +150,13 @@ public class UsrService extends AbstractService<Usr> {
         usrDto.setImgFileId(imgFileId);
 
         return imgFileId;
+    }
+
+    /**
+     * 用户名是否存在
+     * @return 存在返回true，不存在返回false
+     */
+    public boolean isExist(String usrName){
+        return this.findByUsrName(usrName) != null;
     }
 }

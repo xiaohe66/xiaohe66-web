@@ -7,12 +7,17 @@
 
 body {
     padding-top: 120px;
-    background: #f6f6f6;
+    background: #eee;
     /*cursor: url("/image/pointer_default.png"), default;*/
 }
 
 li {
     list-style: none;
+}
+textarea{
+    padding-top: 8px;
+    padding-left: 8px;
+    resize: none;
 }
 .barrage{
     position: fixed;
@@ -183,8 +188,8 @@ input[type=file]{
 .t_t{
     border-bottom: 1px solid #c5c5c5;
     padding-right: 30px;
-    background: #f1f1f1;
     text-align: right;
+    height: 28px;
 }
 .t_t a {
     line-height: 28px;

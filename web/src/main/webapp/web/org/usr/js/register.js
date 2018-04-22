@@ -2,18 +2,50 @@
  * @author  xiaohe
  * @time    17-11-12 012
  */
-var REGISTER_URL = "/org/usr/register";
-var CODE_IMG_URL = "/validate";
+var REGISTER_URL = "/org/usr";
+var CODE_IMG_URL = "/authCode/";
+var IS_EXIST_URL = "/org/usr/exist/";
 $(function(){
     var code = $("#code");
     code.find("img").click(function(){
-        $(this).attr("src",CODE_IMG_URL+"?m="+Math.random());
+        $(this).attr("src",CODE_IMG_URL+"img?m="+Math.random());
     });
     $("#register").find(".btn").click(register);
 
-    $("#usrName").find("input").focus(function (e) {
-        //判断用户名是否存在
+    $("#usrName").find("input").blur(function () {
+        var name = $(this).val();
+        if(name.length === 0){
+            return;
+        }
+        $.get(IS_EXIST_URL+name,{},function (data) {
+            $(this).next().text(data?"用户名重复":"");
+        });
+    });
 
+    $("#password2,#password").find("input").blur(function () {
+        var pwd2Inp = $("#password2").find("input");
+        var pwd1 = $("#password").find("input").val();
+        var pwd2 = pwd2Inp.val();
+        if(pwd1.length === 0){
+            return;
+        }
+        pwd2Inp.next().text(pwd1 !== pwd2?"2次不同":"");
+    });
+
+    var lastVal;
+    code.find("input").blur(function () {
+        var val = $(this).val();
+        var span = code.find("span");
+        if(val.length !== 4 || val === lastVal){
+            if(val.length !== 4){
+                span.text("验证错误");
+            }
+            return;
+        }
+        $.get("/authCode/"+val,{},function (data) {
+            lastVal = val;
+            span.text(data?"":"验证错误");
+        })
     });
 
 });
@@ -23,12 +55,12 @@ function register(){
         alert("请输入用户名");
         return;
     }
-    var usrPwd = $("#usrPwd").find("input").val();
+    var usrPwd = $("#password").find("input").val();
     if(usrPwd === undefined || usrPwd === ""){
         alert("请输入密码");
         return;
     }
-    var usrPwd2 = $("#usrPwd2").find("input").val();
+    var usrPwd2 = $("#password2").find("input").val();
     if(usrPwd2 === undefined || usrPwd2 === ""){
         alert("请再次输入密码");
         return;
@@ -43,22 +75,18 @@ function register(){
         return;
     }
 
-    //调用蒙层
-
-
-    //注册
+    $.hint("注册中，请稍候");
     $.post(REGISTER_URL,{
         usrName:usrName,
         usrPwd:usrPwd,
-        code:code
+        code:code,
+        signature:$("#signature").find("textarea").val()
     },function(data){
         location.href = "/index"
-    },function () {
-        //显示异常信息
-
-        //1s后清除蒙层
+    },function (data) {
+        alert(data.data);
         setTimeout(function () {
-
+            $.hintClose();
         },1000);
     });
 }

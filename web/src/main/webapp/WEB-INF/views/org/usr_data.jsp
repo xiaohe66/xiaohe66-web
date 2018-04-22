@@ -33,7 +33,7 @@
         </li>--%>
         <li>
             <span>签名</span>
-            <textarea class="signature border1" placeholder="请输入签名"></textarea>
+            <textarea class="signature border1" placeholder="请输入签名">${usr.signature}</textarea>
         </li>
     </ul>
 </div>

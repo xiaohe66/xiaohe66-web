@@ -11,6 +11,7 @@ import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.common.util.WebUtils;
 import com.xiaohe66.web.sys.dto.Result;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -43,8 +44,8 @@ public class AuthCodeController {
         ImageIO.write(authCode.getImg(), StrEnum.FILE_TYPE_PNG.data(), os);
     }
 
-    @Get
-    public Result authCode(String code){
+    @Get("/{code}")
+    public Result authCode(@PathVariable("code") String code){
         if(StrUtils.isEmpty(code)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"code is null");
         }

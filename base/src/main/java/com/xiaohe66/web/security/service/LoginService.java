@@ -29,6 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 
+    /**
+     * 锁
+     */
+    private final Object obj = new Object();
+
     @Autowired
     private UsrService usrService;
 
@@ -54,7 +59,7 @@ public class LoginService {
         }
         usr.setUsrPwd(PwdUtils.getHashStr(usr.getUsrPwd()));
 
-        synchronized (LoginService.class){
+        synchronized (obj){
             Usr dbUsr = usrService.findByUsrName(usrName);
             if(dbUsr != null){
                 throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");
