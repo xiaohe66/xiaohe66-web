@@ -124,7 +124,8 @@ public class ArticleController {
     }
 
     @Post
-    public Result add(CurrentUsr currentUsr,Article article,@RequestParam("perCategoryIds[]") Long[] perCategoryIds){
+    public Result add(CurrentUsr currentUsr,Article article,
+                      @RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
         if (article.getSecretLevel() == null) {
             article.setSecretLevel(XhData.SECRET_LEVEL_ALL);
         }
@@ -145,7 +146,8 @@ public class ArticleController {
     }
 
     @Put
-    public Result update(CurrentUsr currentUsr,Article article,@RequestParam("perCategoryIds[]") Long[] perCategoryIds){
+    public Result update(CurrentUsr currentUsr,Article article,
+                         @RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
         articleService.updateById(article,currentUsr.getId(),perCategoryIds);
         return Result.ok(article.getId());
     }
