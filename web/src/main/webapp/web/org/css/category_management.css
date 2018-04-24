@@ -1,8 +1,4 @@
 
-.c{
-    min-height: 500px;
-    position: relative;
-}
 .menu{
     text-align: center;
 }
@@ -24,6 +20,7 @@
 }
 #category_tab{
     width: 100%;
+    table-collapse:collapse;
     table-collapse:collapse;
     border-bottom: 1px solid #c5c5c5;
 }

@@ -28,8 +28,9 @@ public class TextCategoryController {
 
     @Page("/index")
     public String index(Model model,CurrentUsr currentUsr){
-        List<TextCategory> textCategoryList = categoryService.findByUsrId(currentUsr.getId());
-        model.addAttribute("list",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
+        List list = ClassUtils.convertList(TextCategoryDto.class,categoryService.findByUsrId(currentUsr.getId()));
+        model.addAttribute("list",list);
+        model.addAttribute("size",list.size());
         model.addAttribute("page",CATEGORY_MANAGEMENT_PAGE_URL);
         model.addAttribute("title","分类管理");
 

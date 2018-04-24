@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/web/org/js/usr_data.js"></script>
 <p>个人资料</p>
 <div class="right">
-    <img src="/org/usr/file/img/${usr.imgFileId}" class="head_img">
+    <img src="/org/usr/file/img/${usrDto.imgFileId}" class="head_img">
     <div id="file">
         <input type="file">
         <a class="btn">更换头像</a>
@@ -21,7 +21,7 @@
     <ul>
         <li>
             <span>账号</span>
-            <input value="${usr.usrName}" disabled="disabled">
+            <input value="${usrDto.usrName}" disabled="disabled">
         </li>
         <%--<li>
             <span>邮箱</span>
@@ -33,7 +33,7 @@
         </li>--%>
         <li>
             <span>签名</span>
-            <textarea class="signature border1" placeholder="请输入签名">${usr.signature}</textarea>
+            <textarea class="signature border1" placeholder="请输入签名">${usrDto.signature}</textarea>
         </li>
     </ul>
 </div>

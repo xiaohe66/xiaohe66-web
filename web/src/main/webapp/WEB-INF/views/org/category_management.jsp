@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link type="text/css" rel="stylesheet" href="/web/org/css/category_management.css"/>
 <script type="text/javascript" src="/web/org/js/category_management.js"></script>
-<div class="fr add">
+<div class="fr add" <c:if test="${size>=10}">style="display: none"</c:if> >
     <input placeholder="添加新分类">
     <a class="btn">添加</a>
 </div>

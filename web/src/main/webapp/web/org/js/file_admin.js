@@ -3,14 +3,33 @@
  */
 $(function () {
     var baseUrl = "/org/usr/file";
-    $("#paging").paging(2, 1, function (page) {
-        console.log(page);
+    var tbody = $("#file_tab").find("tbody");
+
+    var createTr = function (data) {
+        var tr = $("<tr id=\""+data.id+"\"></tr>");
+        tr.append("<td><a class='name'>" + data.fileName + "</a></td>");
+        tr.append("<td>" + data.extension + "</td>");
+        tr.append("<td>" + data.fileSize + "</td>");
+        tr.append("<td>" + data.createTime + "</td>");
+        tr.append("<td><a class=\"rename\">重命名</a>\n<a class=\"del\">删除</a></td>");
+        tr.attr("id", data.id);
+        return tr;
+    };
+
+    $("#paging").paging(pages,pageNum, function (page) {
+        tbody.html("");
+        $.getPaging(baseUrl,page,10,{},function (data) {
+            console.log(data);
+            $.each(data,function (i, item) {
+                tbody.append(createTr(item));
+            });
+        });
     });
 
     $(document).on("click", ".del", function () {
         if (confirm("确定要删除吗")) {
             var tr = $(this).parent().parent();
-            var id = tr.attr("usrFileId");
+            var id = tr.attr("id");
             $.del(baseUrl+"/"+id,function () {
                 tr.remove();
             });
@@ -18,26 +37,9 @@ $(function () {
     });
 
     $(document).on("click","#file_tab .name",function () {
-        var url = "/org/usr/file/"+$(this).parent().parent().attr("usrFileId");
+        var url = "/org/usr/file/down/"+$(this).parent().parent().attr("id");
         window.open(url);
     });
-
-    var uploadSuccess = function (data) {
-        var tbody = $("#file_tab").find("tbody");
-        var tr = $("<tr usrFileId=\""+data.id+"\"></tr>");
-        tr.append("<td><a class='name'>" + data.fileName + "</a></td>");
-        tr.append("<td>" + data.extension + "</td>");
-        tr.append("<td>" + data.fileSize + "</td>");
-        tr.append("<td>" + data.createTime + "</td>");
-        tr.append("<td><a class=\"rename\">重命名</a>\n<a class=\"del\">删除</a></td>");
-
-        tr.attr("usrFileId", 1);
-        tbody.prepend(tr);
-
-        if(tbody.find("tr").length >= 11){
-            tbody.find("tr:last").remove();
-        }
-    };
 
     $(".add input").change(function () {
         var file = this.files[0];
@@ -55,11 +57,14 @@ $(function () {
                 data: formdata,
                 type: "post",
                 cache: false,
-                dataType: "text",
+                dataType: "json",
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    uploadSuccess(JSON.parse(data).data);
+                    tbody.prepend(createTr(data.data));
+                    if(tbody.find("tr").length >= 11){
+                        tbody.find("tr:last").remove();
+                    }
                 }
             });
         });
@@ -96,7 +101,7 @@ $(function () {
             alert("不能超过20个字符");
             return;
         }
-        var id = td.parent().attr("usrfileid");
+        var id = td.parent().attr("id");
         $.hint("保存中，请稍候");
         $.put(baseUrl+"/"+id,{fileName:newName},function (data) {
             td.html("<a class=\"name\">"+newName+"</a>");

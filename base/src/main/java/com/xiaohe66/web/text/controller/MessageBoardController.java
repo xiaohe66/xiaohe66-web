@@ -68,13 +68,17 @@ public class MessageBoardController {
 
     @Post
     public Result add(CurrentUsr currentUsr,String msg,Long usrId){
+        //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
+        usrId = 3L;
         messageBoardService.add(msg,usrId,currentUsr.getId());
         return Result.ok();
     }
 
     @Paging
-    @Get
-    public Result get(Long usrId){
+    @Get("/{usrId}")
+    public Result get(@PathVariable("usrId") Long usrId){
+        //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
+        usrId = null;
         return Result.ok(messageBoardService.findByUsrId(usrId));
     }
 }

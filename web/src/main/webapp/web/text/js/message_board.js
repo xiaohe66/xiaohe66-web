@@ -9,13 +9,12 @@ $(function () {
     var itemHtml = div.find(".item")[0].outerHTML;
 
     $("#paging").paging(parseInt($("#size").val()),1,function (page) {
-        $.getPaging("/text/messageBoard",page,10,{
-            usrId:$("#usrId").val()
-        },function (arr) {
+        $.getPaging("/text/messageBoard/"+$("#usrId").val(),page,10,{},function (arr) {
             div.html("");
             $.each(arr,function (i, data) {
                 div.append(itemHtml);
                 var item = div.find(".item:last");
+                item.find(".head_img").attr("src","/org/usr/file/img/"+data.imgFileId);
                 var span = item.find(".u_r_d").find("span");
                 span.eq(0).text(data.usrName);
                 span.eq(1).text(data.createTime);

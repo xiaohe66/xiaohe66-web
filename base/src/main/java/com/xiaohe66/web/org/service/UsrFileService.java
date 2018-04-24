@@ -141,20 +141,13 @@ public class UsrFileService extends AbstractService<UsrFile>{
         param.setCreateId(usrId);
 
         List<UsrFile> usrFileList = this.findByParam(param);
-        List<UsrFileDto> usrFileDtoList = new ArrayList<>(usrFileList.size());
 
-        for (int i = 0; i < usrFileList.size(); i++) {
-            UsrFile usrFile = usrFileList.get(i);
-            UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class,usrFile);
-            usrFileDtoList.add(usrFileDto);
-
+        return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
             Integer size = commonFileService.findById(usrFile.getFileId()).getFileByte();
 
             //todo:需转成可视化单位
             usrFileDto.setFileSize(size+"字节");
-        }
-
-        return usrFileDtoList;
+        });
     }
 
     public List<UsrFileDto> findDtoHotTop5(Long usrId){

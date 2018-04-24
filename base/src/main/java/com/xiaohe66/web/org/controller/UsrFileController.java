@@ -1,10 +1,17 @@
 package com.xiaohe66.web.org.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.common.annotation.Del;
+import com.xiaohe66.web.common.annotation.Get;
 import com.xiaohe66.web.common.annotation.Page;
+import com.xiaohe66.web.common.annotation.Paging;
 import com.xiaohe66.web.common.annotation.Post;
 import com.xiaohe66.web.common.annotation.Put;
 import com.xiaohe66.web.common.annotation.XhController;
+import com.xiaohe66.web.org.dao.UsrFileDao;
+import com.xiaohe66.web.org.dto.UsrFileDto;
+import com.xiaohe66.web.org.po.UsrFile;
 import com.xiaohe66.web.org.service.UsrFileService;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.controller.PageController;
@@ -17,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author xh
@@ -37,8 +45,11 @@ public class UsrFileController {
     @Page("/admin")
     public String admin(Model model,CurrentUsr currentUsr){
 
+        PageHelper.startPage(1,10);
+        List<UsrFileDto> list = usrFileService.findDtoByUsrId(currentUsr.getId());
+        model.addAttribute("pageInfo",new PageInfo<>(list));
+        model.addAttribute("size",list.size());
         model.addAttribute("page",USR_FILE_ADMIN_PAGE_URL);
-        model.addAttribute("list",usrFileService.findDtoByUsrId(currentUsr.getId()));
 
         return PageController.USR_ZONE_PAGE_URL;
     }
@@ -57,9 +68,15 @@ public class UsrFileController {
         usrFileService.showImg(response,id);
     }
 
-    @Page("/{id}")
+    @Page("/download/{id}")
     public void download(HttpServletResponse response,CurrentUsr currentUsr,@PathVariable("id")Long id){
         usrFileService.downloadFile(response,id,currentUsr.getId());
+    }
+
+    @Paging
+    @Get
+    public Result page(CurrentUsr currentUsr){
+        return Result.ok(usrFileService.findDtoByUsrId(currentUsr.getId()));
     }
 
     @Post

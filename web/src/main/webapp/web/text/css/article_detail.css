@@ -6,6 +6,9 @@
     border: 1px solid #c5c5c5;
     min-height: 1036px
 }
+div.c_u{
+    margin-bottom: 10px;
+}
 .c_u p{
     font-size: 24px;
     margin-bottom: 10px;

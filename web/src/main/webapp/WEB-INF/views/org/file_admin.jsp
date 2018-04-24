@@ -11,7 +11,10 @@
 <link type="text/css" rel="stylesheet" href="/web/org/css/file_admin.css"/>
 <script type="text/javascript" src="/js/spark-md5.min.js"></script>
 <script type="text/javascript" src="/js/xh/xh-paging.js"></script>
-<script type="text/javascript" src="/js/xh/xh-mask.js"></script>
+<script>
+    var pages = ${pageInfo.pages};
+    var pageNum = ${pageInfo.pageNum};
+</script>
 <script type="text/javascript" src="/web/org/js/file_admin.js"></script>
 <div class="fr add">
     <input type="file">
@@ -37,8 +40,8 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${list}" var="item">
-            <tr usrFileId="${item.id}">
+        <c:forEach items="${pageInfo.list}" var="item">
+            <tr id="${item.id}">
                 <td><a class="name">${item.fileName}</a></td>
                 <td>${item.extension}</td>
                 <td>${item.fileSize}</td>

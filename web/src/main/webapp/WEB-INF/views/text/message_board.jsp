@@ -30,7 +30,7 @@
 </div>
 </shiro:authenticated>
 <div class="content">
-    <c:forEach items="${pageInfo.list}" var="item" end="5" varStatus="statu">
+    <c:forEach items="${pageInfo.list}" var="item" varStatus="statu">
         <div class="item">
             <div>
                 <div class="fl">
