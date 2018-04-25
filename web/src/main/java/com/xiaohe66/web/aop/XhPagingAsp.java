@@ -1,9 +1,9 @@
 package com.xiaohe66.web.aop;
 
 import com.github.pagehelper.PageHelper;
-import com.xiaohe66.web.spring.SpringUtils;
 import com.xiaohe66.web.common.data.StrEnum;
 import com.xiaohe66.web.common.util.StrUtils;
+import com.xiaohe66.web.common.util.WebUtils;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -33,7 +33,7 @@ public class XhPagingAsp {
 
     @Before("pagingPointCut()")
     public void beforeAdvice(){
-        HttpServletRequest request = SpringUtils.getRequest();
+        HttpServletRequest request = WebUtils.getRequest();
 
         String pageSizeStr = request.getHeader(StrEnum.PAGING_SIZE_KEY.data());
         int size = StrUtils.isEmpty(pageSizeStr)?DEFAULT_PAGE_SIZE:StrUtils.toInt(pageSizeStr);
