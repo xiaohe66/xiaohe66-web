@@ -10,12 +10,8 @@
 <html>
 <head>
     <title>注册</title>
-    <link type="text/css" rel="stylesheet" href="/css/xh/xh-common.css">
+    <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/org/usr/css/register.css">
-
-    <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-common.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
     <script type="text/javascript" src="/web/org/usr/js/register.js"></script>
 </head>
 <body>

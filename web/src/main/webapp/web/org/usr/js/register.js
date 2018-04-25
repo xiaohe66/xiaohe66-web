@@ -13,12 +13,13 @@ $(function(){
     $("#register").find(".btn").click(register);
 
     $("#usrName").find("input").blur(function () {
-        var name = $(this).val();
+        var $this = $(this);
+        var name = $this.val();
         if(name.length === 0){
             return;
         }
         $.get(IS_EXIST_URL+name,{},function (data) {
-            $(this).next().text(data?"用户名重复":"");
+            $this.next().text(data?"用户名重复":"");
         });
     });
 

@@ -10,13 +10,9 @@
 <html>
 <head>
     <title><c:if test="${empty title}">我的</c:if><c:if test="${not empty title}">${title}</c:if></title>
-    <link type="text/css" rel="stylesheet" href="/css/xh/xh-common.css"/>
+    <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/org/css/usr_zone.css"/>
 
-    <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-common.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
-    <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
@@ -31,8 +27,6 @@
     </div>
     <div class="r r2 border1">
         <jsp:include page="/WEB-INF/views/${page}.jsp"></jsp:include>
-        <%--<jsp:include page="/WEB-INF/views/org/category_management.jsp"></jsp:include>--%>
-        <%--<jsp:include page="/WEB-INF/views/org/usr_data.jsp"></jsp:include>--%>
     </div>
 </div>
 <div class="f"></div>

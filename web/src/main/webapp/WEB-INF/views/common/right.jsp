@@ -10,13 +10,8 @@
 <html>
 <head>
     <title>${title}</title>
-    <link type="text/css" rel="stylesheet" href="/css/xh/xh-common.css"/>
+    <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/common/css/right.css"/>
-
-    <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-common.js"></script>
-    <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>

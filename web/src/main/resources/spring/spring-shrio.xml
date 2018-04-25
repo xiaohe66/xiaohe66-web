@@ -12,7 +12,8 @@
         <!--<property name="successUrl" value="redirect:/sys/notLoggedIn"/>-->
         <!-- 身份验证失败，跳转的页面 -->
         <!--<property name="loginUrl" value="redirect:/sys/notLoggedIn"/>-->
-        <property name="loginUrl" value="/sys/notLoggedIn"/>
+        <!--<property name="loginUrl" value="/sys/notLoggedIn"/>-->
+        <property name="loginUrl" value="/org/usr/register"/>
         <!-- 权限认证失败，跳转的页面 -->
         <property name="unauthorizedUrl" value="/sys/notPermission"/>
         <!-- 自定义过滤器 -->
@@ -51,6 +52,7 @@
                 /web/** = anon
                 /about = anon
                 /index = anon
+                /ie = anon
                 / = anon
 
 

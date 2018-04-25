@@ -1,14 +1,7 @@
 package com.xiaohe66.web.sys.controller;
 
 import com.xiaohe66.web.common.annotation.Page;
-import com.xiaohe66.web.text.po.Article;
-import com.xiaohe66.web.text.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 /**
  *
@@ -26,5 +19,10 @@ public class PageController {
     @Page("/about")
     public String about(){
         return "about";
+    }
+
+    @Page("/ie")
+    public String ie(){
+        return "ie.html";
     }
 }

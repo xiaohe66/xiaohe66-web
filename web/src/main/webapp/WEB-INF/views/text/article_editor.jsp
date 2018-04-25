@@ -10,16 +10,11 @@
 <html>
 <head>
     <title>编辑</title>
-
-    <link rel="stylesheet" type="text/css" href="/css/xh/xh-common.css">
+    <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="/css/editor/wangEditor.min.css">
     <link rel="stylesheet" type="text/css" href="/web/text/css/article_editor.css">
 
-    <script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-common.js"></script>
-    <script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
-    <script type="text/javascript" src="/js/xh/xh-mask.js"></script>
     <script type="text/javascript" src="/js/spark-md5.min.js"></script>
     <script type="text/javascript" src="/web/text/js/article_editor.js"></script>
 </head>
