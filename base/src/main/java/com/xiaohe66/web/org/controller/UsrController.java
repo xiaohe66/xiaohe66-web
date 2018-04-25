@@ -50,7 +50,7 @@ public class UsrController{
     @Page("/me")
     public String me(Model model, CurrentUsr currentUsr){
         model.addAttribute("page",USR_DATA_PAGE_URL);
-        model.addAttribute("usrDto",usrService.lookAtUsr(null));
+        model.addAttribute("usrDto",usrService.lookAtUsr(currentUsr.getId()));
         return PageController.USR_ZONE_PAGE_URL;
     }
 

@@ -36,6 +36,15 @@
         });
     });
 </script>
+<c:if test="${pageInfo.pages==0}">
+    <div class="item">
+        <p style="text-align: center">
+            <img style="width: 64px;height: 64px" src="/icon/grieved.png">
+            <span style="vertical-align: middle;display: inline-block;margin-left:
+            30px;font-size: 30px;line-height: 64px;">作者还没有文章</span>
+        </p>
+    </div>
+</c:if>
 <c:forEach items="${pageInfo.list}" var="item" end="9">
     <div class="item" id="${item.id}">
         <p class="title">${item.title}</p>

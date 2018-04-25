@@ -30,6 +30,15 @@
 </div>
 </shiro:authenticated>
 <div class="content">
+    <c:if test="${pageInfo.pages==0}">
+        <div class="item">
+            <p style="text-align: center">
+                <img style="vertical-align: middle" src="/icon/grieved.png">
+                <span style="vertical-align: middle;display: inline-block;margin-left:
+                30px;font-size: 30px;line-height: 64px;">暂无留言</span>
+            </p>
+        </div>
+    </c:if>
     <c:forEach items="${pageInfo.list}" var="item" varStatus="statu">
         <div class="item">
             <div>

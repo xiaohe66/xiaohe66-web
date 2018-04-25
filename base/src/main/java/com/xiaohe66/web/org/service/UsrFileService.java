@@ -123,6 +123,9 @@ public class UsrFileService extends AbstractService<UsrFile>{
         this.add(usrFile,currentUsrId);
         UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class,usrFile);
         usrFileDto.setFileSize(commonFile.getFileByte()+"字节");
+
+        UsrFileLog usrFileLog = new UsrFileLog(usrFile.getId());
+        usrFileLogService.add(usrFileLog,currentUsrId);
         return usrFileDto;
     }
 

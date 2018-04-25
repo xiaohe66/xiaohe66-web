@@ -14,6 +14,9 @@ $(function () {
     });
 
     $(".item").click(function () {
-        location.href = "/text/article/detail/"+$(this).attr("articleId");
+        var val = $(this).attr("articleId");
+        if(val.length!==0){
+            location.href = "/text/article/detail/"+val;
+        }
     });
 });
