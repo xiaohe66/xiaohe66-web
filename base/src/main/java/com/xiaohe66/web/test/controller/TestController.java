@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author xiaohe
  * @time 17-10-30 030
  */
-@XhController("/xh")
+//@XhController("/xh")
 public class TestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);

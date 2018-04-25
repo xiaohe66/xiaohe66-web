@@ -6,13 +6,10 @@
  */
 $(function () {
     var url = "/text/category";
-    /*$("#paging").paging(2,1,function (page) {
-        console.log(page);
-    });*/
     $(document).on("click",".del",function () {
         if(confirm("确定要删除吗")){
             var tr = $(this).parent().parent();
-            var id = tr.attr("categoryId");
+            var id = parseInt(tr.attr("categoryId"));
 
             $.hint("删除中，请稍候...");
             $.del(url+"/"+id,function (data) {
@@ -34,8 +31,8 @@ $(function () {
         td.attr("name",name);
         var inp = $("<input placeholder=\"输入新的分类名\" value=\""+name+"\">");
         td.html(inp);
-        td.append("<a href=\"javascript:void(0);\" class=\"save\">保存</a>");
-        td.append("<a href=\"javascript:void(0);\" class=\"cancel\">取消</a>");
+        td.append("<a href=\"javascript:void(0);\" class=\"save\">保存</a>\n" +
+            "<a href=\"javascript:void(0);\" class=\"cancel\">取消</a>");
         inp.focus();
     });
 
@@ -88,8 +85,7 @@ $(function () {
             var tr = $("<tr></tr>");
             tr.append("<td class='name'>"+val+"</td>");
             tr.append("<td>"+data.createTime+"</td>");
-            tr.append("<td><a href=\"javascript:void(0);\" class=\"rename\">重命名</a>" +
-                "<a href=\"javascript:void(0);\" class=\"del\">删除</a></td>");
+            tr.append("<td><a class=\"rename\">重命名</a>\n<a class=\"del\">删除</a></td>");
 
             tr.attr("categoryId",data.id);
 

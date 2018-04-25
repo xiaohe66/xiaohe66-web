@@ -54,7 +54,7 @@
             </div>
             <div class="body source">
                 <c:forEach items="${fileList}" var="item">
-                    <a href="/org/usr/file/down/${item.id}">${item.fileName}${item.extension}<span>${item.downloadCount}</span></a>
+                    <a href="/org/usr/file/download/${item.id}">${item.fileName}${item.extension}<span>${item.downloadCount}</span></a>
                 </c:forEach>
             </div>
         </div>

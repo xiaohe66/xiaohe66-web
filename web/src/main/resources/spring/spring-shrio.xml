@@ -15,6 +15,14 @@
         <property name="loginUrl" value="/sys/notLoggedIn"/>
         <!-- 权限认证失败，跳转的页面 -->
         <property name="unauthorizedUrl" value="/sys/notPermission"/>
+        <!-- 自定义过滤器 -->
+        <property name="filters">
+            <map>
+                <entry key="http">
+                    <bean class="com.xiaohe66.web.common.auth.shrio.HttpMethodAuthorizationFilter"/>
+                </entry>
+            </map>
+        </property>
 
         <!-- 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  -->
         <property name="filterChainDefinitions">
@@ -34,24 +42,40 @@
                             ssl	                 org.apache.shiro.web.filter.authz.SslFilter
                         orguser	             org.apache.shiro.web.filter.authc.UserFilter
                 -->
-                /org/usr/file/** = anon
 
-                /text/messageBoard/index/** = anon
-                /text/messageBoard = anon
-                /text/article/detail = anon
-                /text/article/** = anon
-
-                /authCode/** = anon
-                /org/usr/** = anon
-                /about = anon
-                /index = anon
-                / = anon
+                /favicon.ico = anon
                 /css/** = anon
                 /icon/** = anon
                 /image/** anon
                 /js/** = anon
                 /web/** = anon
-                /favicon.ico = anon
+                /about = anon
+                /index = anon
+                / = anon
+
+
+
+                /org/usr/file/img/* = anon
+
+                /text/category/* = http[get]
+
+                /text/messageBoard/index/* = anon
+                /text/messageBoard/* = http[get]
+
+                /text/article/index/* = anon
+                /text/article/detail/* = anon
+                /text/article/list/* = anon
+                /text/article/* = http[get]
+
+                /authCode/* = anon
+
+                /org/usr/index = anon
+                /org/usr/register = anon
+                /org/usr/login = anon
+                /org/usr/img = anon
+                /org/usr/exist/* = anon
+                /org/usr = http[post]
+
                 /** = authc
             </value>
         </property>
