@@ -58,7 +58,7 @@
                 <c:if test="${empty usrDivTitle}">他的</c:if>
                 热门文章
                 <c:if test="${not empty usrDivTitle}">
-                    <a href="/text/article/list">more>></a>
+                    <a href="/text/article/all">more>></a>
                 </c:if>
             </div>
             <div class="body article">
