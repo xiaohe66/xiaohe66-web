@@ -12,6 +12,15 @@ public class UsrFileDto extends BaseDtoDetailed{
     private String fileSize;
     private String extension;
     private Long downloadCount;
+    private String usrName;
+
+    public String getUsrName() {
+        return usrName;
+    }
+
+    public void setUsrName(String usrName) {
+        this.usrName = usrName;
+    }
 
     public String getFileName() {
         return fileName;
@@ -66,6 +75,7 @@ public class UsrFileDto extends BaseDtoDetailed{
                 + ",\"updateTime\":\"" + updateTime + "\""
                 + ",\"downloadCount\":\"" + downloadCount + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
+                + ",\"usrName\":\"" + usrName + "\""
                 + "}";
     }
 }

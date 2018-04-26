@@ -22,11 +22,13 @@
         <where>
             is_delete = 0
             and file_type = 0
-            <if test="param.id != null">
-                and id = #{param.id}
-            </if>
-            <if test="param.createId != null">
-                and create_id = #{param.createId}
+            <if test="param != null">
+                <if test="param.createId != null">
+                    and create_id = #{param.createId}
+                </if>
+                <if test="param.fileName != null">
+                    and file_name like #{param.fileName}
+                </if>
             </if>
         </where>
         order by create_time desc

@@ -133,6 +133,7 @@ public class ArticleController {
         model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));
         model.addAttribute("usrDto",usrDto);
         model.addAttribute("title","文章列表");
+        model.addAttribute("usrDivTitle","站长");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(null));
         model.addAttribute("page",ARTICLE_ALL_PAGE_URL);

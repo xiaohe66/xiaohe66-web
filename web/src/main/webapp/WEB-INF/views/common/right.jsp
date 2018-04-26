@@ -44,7 +44,7 @@
                 <c:if test="${empty usrDivTitle}">他的</c:if>
                 热门资源
                 <c:if test="${not empty usrDivTitle}">
-                    <a href="/org/usr/file/index">more>></a>
+                    <a href="/org/usr/file/all">more>></a>
                 </c:if>
             </div>
             <div class="body source">

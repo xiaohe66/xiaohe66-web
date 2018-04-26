@@ -16,6 +16,7 @@ import com.xiaohe66.web.org.dto.UsrFileDto;
 import com.xiaohe66.web.org.param.UsrFileParam;
 import com.xiaohe66.web.org.po.UsrFile;
 import com.xiaohe66.web.org.po.UsrFileLog;
+import com.xiaohe66.web.sys.service.SysCfgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     @Autowired
     private UsrFileLogService usrFileLogService;
+
+    @Autowired
+    private SysCfgService cfgService;
+
+    @Autowired
+    private UsrService usrService;
 
     public UsrFileService() {}
 
@@ -150,6 +157,27 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
             //todo:需转成可视化单位
             usrFileDto.setFileSize(size+"字节");
+        });
+    }
+
+    public List<UsrFileDto> findDtoAll(String search,boolean onlyWebmaster){
+
+        UsrFileParam param = new UsrFileParam();
+        if(onlyWebmaster){
+            param.setCreateId(cfgService.findXhUsrId());
+        }
+        if(StrUtils.isNotEmpty(search)){
+            param.setFileName("%"+search+"%");
+        }
+
+        List<UsrFile> usrFileList = this.findByParam(param);
+
+        return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
+            Integer size = commonFileService.findById(usrFile.getFileId()).getFileByte();
+
+            //todo:需转成可视化单位
+            usrFileDto.setFileSize(size+"字节");
+            usrFileDto.setUsrName(usrService.findById(usrFile.getCreateId()).getUsrName());
         });
     }
 

@@ -1,0 +1,48 @@
+.l{
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #c5c5c5;
+}
+div.c_u{
+    text-align: right;
+    margin-bottom: 20px;
+}
+.c_u p{
+    font-size: 20px;
+    font-weight: bold;
+}
+.c_u .btn{
+    line-height: 30px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #c5c5c5;
+    width: auto;
+}
+#search{
+    background: #eee;
+}
+.c_u .on:before{
+    content: "取消";
+}
+.c_u .on{
+    background: #04d0ff;
+}
+#file_tab{
+    width: 100%;
+    table-collapse:collapse;
+    border-bottom: 1px solid #c5c5c5;
+}
+#file_tab td,
+#file_tab th{
+    text-align: center;
+    border-top: 1px solid #c5c5c5;
+    height: 40px;
+}
+#file_tab a{
+    color: blue;
+}
+#paging{
+    margin-top: 38px;
+    text-align: center;
+}

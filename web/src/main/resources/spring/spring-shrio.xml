@@ -57,6 +57,8 @@
 
 
 
+                /org/usr/file/all/*/* = http[get]
+                /org/usr/file/all = http[get]
                 /org/usr/file/img/* = anon
 
                 /text/category/* = http[get]

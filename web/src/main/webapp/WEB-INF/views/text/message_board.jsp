@@ -24,7 +24,7 @@
 <div class="msg border1">
     <p class="title">发表留言</p>
     <div class="edit">
-        <textarea></textarea>
+        <textarea placeholder="你在本站遇到的bug，或你想对站长说的话"></textarea>
     </div>
     <a class="btn">发表留言</a>
 </div>

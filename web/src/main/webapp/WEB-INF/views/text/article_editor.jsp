@@ -84,7 +84,7 @@
             </li>--%>
         </ul>
         <div class="btn_d">
-            <a class="btn">保存草稿</a>
+            <%--<a class="btn">保存草稿</a>--%>
             <a class="btn" href="javascript:publish();">发表文章</a>
         </div>
     </div>

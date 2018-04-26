@@ -20,7 +20,7 @@
     </div>
     <div class="t_c">
         <div class="tab">
-            <a>文章</a>
+            <a href="/text/article/all">文章</a>
             <a href="/text/messageBoard/index">留言</a>
             <a href="/about">关于</a>
         </div>
