@@ -17,7 +17,7 @@
         });
         var html = $(".item")[0].outerHTML;
         $("#paging").paging(${pageInfo.pages},${pageInfo.pageNum},function (page) {
-            $.getPaging("/text/article",page,10,{lookUsrId:"${lookUsrId}"},function (arr) {
+            $.getPaging("/text/article/usr/${lookUsrId}",page,10,{},function (arr) {
                 var div = $(".l");
                 div.find(".item").remove();
                 $.each(arr,function (i, data) {

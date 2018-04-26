@@ -196,6 +196,18 @@ public class ArticleService extends AbstractService<Article>{
         return articleDto;
     }
 
+    public List<ArticleDto> findDtoAll(String search,boolean onlyWebmaster){
+        ArticleParam param = new ArticleParam();
+        if(onlyWebmaster){
+            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            param.setCreateId(StrUtils.toLong(usrIdStr));
+        }
+        if(StrUtils.isNotEmpty(search)){
+            param.setTitle("%"+search+"%");
+        }
+        return installDto(this.findByParam(param));
+    }
+
     public void installDto(ArticleDto articleDto,Article article){
 
         articleDto.setSysCategoryName(categoryService.findById(article.getSysCategoryId()).getCategoryName());

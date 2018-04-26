@@ -64,6 +64,8 @@
                 /text/messageBoard/index/* = anon
                 /text/messageBoard/* = http[get]
 
+                /text/article/all/*/* = http[get]
+                /text/article/usr/* = http[get]
                 /text/article/index/* = anon
                 /text/article/detail/* = anon
                 /text/article/list/* = anon

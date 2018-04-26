@@ -47,6 +47,8 @@ public class ArticleController {
 
     private static final String ARTICLE_LIST_PAGE_URL = "text/article_list";
 
+    private static final String ARTICLE_ALL_PAGE_URL = "text/article_all";
+
     @Autowired
     private ArticleService articleService;
 
@@ -123,6 +125,20 @@ public class ArticleController {
         return PageController.RIGHT_PAGE_URL;
     }
 
+    @Page("/all")
+    public String all(Model model){
+        UsrDto usrDto = usrService.lookAtUsr(null);
+
+        PageHelper.startPage(1,10);
+        model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));
+        model.addAttribute("usrDto",usrDto);
+        model.addAttribute("title","文章列表");
+        model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));
+        model.addAttribute("hotArticle",articleService.findDtoHotTop5(null));
+        model.addAttribute("page",ARTICLE_ALL_PAGE_URL);
+        return PageController.RIGHT_PAGE_URL;
+    }
+
     @Post
     public Result add(CurrentUsr currentUsr,Article article,
                       @RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
@@ -139,9 +155,27 @@ public class ArticleController {
         return Result.ok(ClassUtils.convert(ArticleDto.class,article));
     }
 
-    @Get
     @Paging
-    public Result list(Long lookUsrId){
+    @Get("/all/{onlyWebmaster}")
+    public Result all(@PathVariable("onlyWebmaster") boolean onlyWebmaster){
+        return Result.ok(articleService.findDtoAll(null,onlyWebmaster));
+    }
+
+    @Paging
+    @Get("/all/{onlyWebmaster}/{search}")
+    public Result all2(@PathVariable("onlyWebmaster") boolean onlyWebmaster,@PathVariable("search") String search){
+        return Result.ok(articleService.findDtoAll(search,onlyWebmaster));
+    }
+
+    @Paging
+    @Get("/usr")
+    public Result list(){
+        return list2(null);
+    }
+
+    @Paging
+    @Get("/usr/{lookUsrId}")
+    public Result list2(@PathVariable("lookUsrId") Long lookUsrId){
         return Result.ok(articleService.findDtoByUsrId(lookUsrId));
     }
 

@@ -17,7 +17,7 @@
             and is_delete = 0
             <if test="param != null">
                 <if test="param.title != null">
-                    and title = #{param.title}
+                    and title like #{param.title}
                 </if>
                 <if test="param.secretLevel != null">
                     and publish_state = #{param.secretLevel}
