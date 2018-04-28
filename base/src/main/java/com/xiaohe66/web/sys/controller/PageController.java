@@ -21,8 +21,4 @@ public class PageController {
         return "about";
     }
 
-    @Page("/ie")
-    public String ie(){
-        return "ie.html";
-    }
 }

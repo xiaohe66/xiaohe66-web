@@ -52,7 +52,6 @@
                 /web/** = anon
                 /about = anon
                 /index = anon
-                /ie = anon
                 / = anon
 
 
