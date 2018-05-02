@@ -16,6 +16,8 @@ import com.xiaohe66.web.text.dao.MessageBoardDao;
 import com.xiaohe66.web.text.dto.MessageBoardDto;
 import com.xiaohe66.web.text.param.MessageBoardParam;
 import com.xiaohe66.web.text.po.MessageBoard;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ import java.util.List;
  */
 @Service
 public class MessageBoardService extends AbstractService<MessageBoard>{
+
+    private static final Logger LOG = LoggerFactory.getLogger(MessageBoardService.class);
 
     @Autowired
     private SysCfgService sysCfgService;
@@ -64,6 +68,7 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
         msg = HtmlUtils.delHtmlTag(msg);
         Check.notEmptyCheck(msg,usrId,currentUsrId);
         MessageBoard messageBoard = new MessageBoard(usrId,msg);
+        LOG.info("增加一条留言：msg="+msg+",usrId="+currentUsrId);
         super.add(messageBoard,currentUsrId);
         return messageBoard;
     }

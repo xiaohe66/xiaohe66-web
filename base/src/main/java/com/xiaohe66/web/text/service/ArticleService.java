@@ -20,6 +20,8 @@ import com.xiaohe66.web.text.po.Article;
 import com.xiaohe66.web.text.po.ArticleCategoryLink;
 import com.xiaohe66.web.text.po.ArticleLog;
 import com.xiaohe66.web.text.po.TextCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,8 @@ import java.util.Map;
  */
 @Service
 public class ArticleService extends AbstractService<Article>{
+
+    private static final Logger LOG = LoggerFactory.getLogger(ArticleService.class);
 
     private ArticleDao articleDao;
 
@@ -149,6 +153,7 @@ public class ArticleService extends AbstractService<Article>{
         if(Check.isOneNull(article.getSysCategoryId())){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"sysCategoryId is null");
         }
+        LOG.info("创建一篇文章：title="+article.getTitle()+",usrId="+currentUsrId);
         super.add(article, currentUsrId);
 
         if(Check.isNotEmpty(perCategoryIds)){
@@ -239,7 +244,7 @@ public class ArticleService extends AbstractService<Article>{
         return ClassUtils.convertList(ArticleDto.class, articleList, (articleDto, article) -> {
             installDto(articleDto,article);
 
-            articleDto.setText(HtmlUtils.digest(articleDto.getText(),130));
+            articleDto.setText(HtmlUtils.digest(articleDto.getText(),120));
 
             Usr usr = usrService.findById(article.getCreateId());
             articleDto.setUsrName(usr.getUsrName());

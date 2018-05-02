@@ -27,6 +27,7 @@
             <a class="btn">登录</a>
         </li>
     </ul>
+    <p></p>
 </div>
 <div class="t">
     <div class="t_t">
@@ -105,6 +106,8 @@
                     usrPwd:usrPwd
                 },function (data) {
                    location.reload();
+                },function (data) {
+                    $("#login_body p").text(data.msg);
                 });
             };
 

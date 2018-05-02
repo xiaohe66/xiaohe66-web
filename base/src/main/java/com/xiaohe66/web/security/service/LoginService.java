@@ -59,6 +59,7 @@ public class LoginService {
         }
         usr.setUsrPwd(PwdUtils.getHashStr(usr.getUsrPwd()));
 
+        LOGGER.info("注册："+usr.getUsrName());
         synchronized (obj){
             Usr dbUsr = usrService.findByUsrName(usrName);
             if(dbUsr != null){
@@ -99,6 +100,7 @@ public class LoginService {
     }
 
     private UsrDto loginToShiro(Usr usr){
+        LOGGER.info("登录到系统："+usr.getUsrName());
         String usrName = usr.getUsrName();
         String usrPwd = usr.getUsrPwd();
         UsernamePasswordToken token = new UsernamePasswordToken(usrName,usrPwd);

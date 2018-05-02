@@ -61,6 +61,7 @@ public class CommonFileService extends AbstractService<CommonFile>{
         if(StrUtils.isEmpty(md5)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"md5 is empty");
         }
+        LOG.info("准备上传文件："+md5);
 
         CommonFile commonFile = findByMd5(md5);
         //不存在时，进行上传

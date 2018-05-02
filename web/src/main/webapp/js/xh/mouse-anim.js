@@ -3,6 +3,7 @@
  * @author xh
  * @date 18-02-24 024
  */
+var mouseMoveOn=true;
 $(function () {
     var str = ["富强","民主","文明","和谐","自由","平等","公正","法治","爱国","敬业","诚信","友善"];
 
@@ -29,6 +30,7 @@ $(function () {
     });
     var lastTop,lastLeft;
     $(document).on("mousemove","body",function (e) {
+        if(!mouseMoveOn)return;
         var top = e.pageY - $(this).scrollTop();
         var left = e.pageX;
 

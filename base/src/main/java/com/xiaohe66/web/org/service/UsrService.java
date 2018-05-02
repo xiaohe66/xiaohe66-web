@@ -139,6 +139,7 @@ public class UsrService extends AbstractService<Usr> {
             e.printStackTrace();
         }
 
+        LOG.info("上传文件开始:md5="+md5+",usrId="+currentUsrId);
         Long imgFileId = usrFileService.uploadHeadImgFile(file,md5,currentUsrId).getId();
 
         Usr usr = new Usr();
@@ -149,6 +150,7 @@ public class UsrService extends AbstractService<Usr> {
         UsrDto usrDto = (UsrDto) WebUtils.getSession().getAttribute(StrEnum.SESSION_UER_KEY.data());
         usrDto.setImgFileId(imgFileId);
 
+        LOG.info("上传文件结束:md5="+md5+",usrId="+currentUsrId);
         return imgFileId;
     }
 

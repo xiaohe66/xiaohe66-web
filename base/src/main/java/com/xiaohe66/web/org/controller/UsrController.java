@@ -12,6 +12,8 @@ import com.xiaohe66.web.security.service.LoginService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import com.xiaohe66.web.sys.dto.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @XhController("/org/usr")
 public class UsrController{
+    private static final Logger LOG = LoggerFactory.getLogger(UsrController.class);
 
     private static final String INDEX_PAGE_URL = "org/login";
 
@@ -66,6 +69,7 @@ public class UsrController{
 
     @Del("/login")
     public  Result logout(){
+        LOG.info("注销登录");
         loginService.logout();
         return Result.ok(null);
     }

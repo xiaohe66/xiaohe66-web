@@ -70,6 +70,7 @@
                 /text/article/index/* = anon
                 /text/article/detail/* = anon
                 /text/article/list/* = anon
+                /text/article/editor = authc
                 /text/article/* = http[get]
 
                 /authCode/* = anon

@@ -8,6 +8,7 @@ var DETAIL_URL = "/text/article/detail/";
 var editor;
 var id;
 $(function(){
+    mouseMoveOn=false;
     var E = window.wangEditor;
     editor = new E(".tool",".editor");
     editor.customConfig.zIndex = 0;

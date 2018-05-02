@@ -210,7 +210,6 @@ input[type=file]{
     background: rgba(255,255,255,0.8);
     border-bottom: 1px solid #c5c5c5;
     position: relative;
-    /*box-shadow: 0 0 6px rgba(100, 100, 100, 0.5);*/
 }
 .t_c .tab,
 .t_c .tab a,
@@ -262,7 +261,6 @@ input[type=file]{
 
 .c {
     margin: 0 auto;
-    /*box-shadow: 0 2px 6px rgba(100, 100, 100, 0.5);*/
     width: 1126px;
     box-sizing: border-box;
     position: relative;
@@ -271,12 +269,9 @@ input[type=file]{
 .l{
     width: 73%;
     box-sizing: border-box;
-    /*background: #a9a9a9;*/
 }
 .r{
     width: 25%;
-    /*height: 400px;*/
-    /*background: #333333;*/
     position: absolute;
     right: 0;
     top:0;
@@ -308,7 +303,6 @@ input[type=file]{
     top: 50%;
     left: 50%;
     width: 380px;
-    /*height: 300px;*/
     height: 260px;
     margin-top: -150px;
     margin-left: -190px;
@@ -339,6 +333,10 @@ input[type=file]{
 #login_body .btn{
     width: 200px;
 }
+#login_body p{
+    text-align: center;
+    color: red;
+}
 .verify{
     display: none;
 }
@@ -346,7 +344,6 @@ input[type=file]{
     width: 120px;
 }
 .verify img{
-    /*float: right;*/
     width: 120px;
     height: 40px;
     margin-left: 6px;
