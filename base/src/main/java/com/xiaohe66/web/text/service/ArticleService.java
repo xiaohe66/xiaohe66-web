@@ -244,7 +244,7 @@ public class ArticleService extends AbstractService<Article>{
         return ClassUtils.convertList(ArticleDto.class, articleList, (articleDto, article) -> {
             installDto(articleDto,article);
 
-            articleDto.setText(HtmlUtils.digest(articleDto.getText(),120));
+            articleDto.setText(HtmlUtils.digest(articleDto.getText(),110));
 
             Usr usr = usrService.findById(article.getCreateId());
             articleDto.setUsrName(usr.getUsrName());

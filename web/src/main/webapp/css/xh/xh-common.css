@@ -11,8 +11,11 @@ body {
     /*cursor: url("/image/pointer_default.png"), default;*/
 }
 
-li {
+ul li {
     list-style: none;
+}
+ol{
+   margin: 10px 0 10px 20px;
 }
 textarea{
     padding-top: 8px;

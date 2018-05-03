@@ -33,7 +33,6 @@ div.c_u{
 .c_c{
     border-top: 1px solid #c5c5c5;
     min-height: 500px;
-    padding-top: 20px;
 }
 
 .category{
@@ -45,4 +44,7 @@ div.c_u{
 }
 .category a:hover{
     text-decoration: underline;
+}
+.editor p{
+    margin: 10px 0;
 }
