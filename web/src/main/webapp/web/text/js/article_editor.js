@@ -120,9 +120,9 @@ function publish() {
     };
 
     if(id === undefined){
-        $.post(URL,data,okFunc,errFunc);
+        post(URL,data,okFunc,errFunc);
     }else{
-        $.put(URL,data,okFunc,errFunc);
+        put(URL,data,okFunc,errFunc);
     }
 }
 
@@ -138,7 +138,7 @@ function addCategory() {
             if(val === undefined || val.length === 0){
                 return;
             }
-            $.post("/text/category",{
+            post("/text/category",{
                 categoryName:val
             },function (data) {
                 if(div.find("label").length > 9){

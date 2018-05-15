@@ -18,19 +18,19 @@ $(function () {
 
     $("#paging").paging(pages,pageNum, function (page) {
         tbody.html("");
-        $.getPaging(baseUrl,page,10,{},function (data) {
+        paging(baseUrl,function (data) {
             console.log(data);
             $.each(data,function (i, item) {
                 tbody.append(createTr(item));
             });
-        });
+        },page,10);
     });
 
     $(document).on("click", ".del", function () {
         if (confirm("确定要删除吗")) {
             var tr = $(this).parent().parent();
             var id = tr.attr("id");
-            $.del(baseUrl+"/"+id,function () {
+            del(baseUrl+"/"+id,function () {
                 tr.remove();
             });
         }
@@ -52,7 +52,7 @@ $(function () {
             var formdata = new FormData();
             formdata.append("file",file);
             formdata.append("md5",md5);
-            $.ajax({
+            ajax({
                 url: baseUrl,
                 data: formdata,
                 type: "post",
@@ -60,11 +60,10 @@ $(function () {
                 dataType: "json",
                 contentType: false,
                 processData: false,
-                success: function (data) {
-                    tbody.prepend(createTr(data.data));
-                    if(tbody.find("tr").length >= 11){
-                        tbody.find("tr:last").remove();
-                    }
+            },function (data) {
+                tbody.prepend(createTr(data));
+                if(tbody.find("tr").length >= 11){
+                    tbody.find("tr:last").remove();
                 }
             });
         });
@@ -103,7 +102,7 @@ $(function () {
         }
         var id = td.parent().attr("id");
         $.hint("保存中，请稍候");
-        $.put(baseUrl+"/"+id,{fileName:newName},function (data) {
+        put(baseUrl+"/"+id,{fileName:newName},function (data) {
             td.html("<a class=\"name\">"+newName+"</a>");
             td.parent().removeClass("on");
             $.hintClose();

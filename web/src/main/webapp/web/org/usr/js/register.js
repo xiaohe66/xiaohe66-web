@@ -18,7 +18,7 @@ $(function(){
         if(name.length === 0){
             return;
         }
-        $.get(IS_EXIST_URL+name,{},function (data) {
+        get(IS_EXIST_URL+name,function (data) {
             $this.next().text(data?"用户名重复":"");
         });
     });
@@ -43,10 +43,10 @@ $(function(){
             }
             return;
         }
-        $.get("/authCode/"+val,{},function (data) {
+        get("/authCode/"+val,function (data) {
             lastVal = val;
             span.text(data?"":"验证错误");
-        })
+        });
     });
 
 });
@@ -77,7 +77,7 @@ function register(){
     }
 
     $.hint("注册中，请稍候");
-    $.post(REGISTER_URL,{
+    post(REGISTER_URL,{
         usrName:usrName,
         usrPwd:usrPwd,
         code:code,

@@ -1,62 +1,54 @@
 /**
  * @author  xiaohe
- * @time    17-11-02 002
+ * @version 2.0
+ * @time    18-05-15
  */
-(function($){
-    var un = undefined;
-    $.extend({
-        log : function(msg){
-            try{
-                console.log(msg);
-            }catch(e){
-                // alert(msg);
-            }
-        },
-        isArray:function (obj) {
-            return obj instanceof Array;
-        },
-        isEmpty:function (obj) {
-            return obj===undefined||obj.length===0;
-        },
-        http : function(type,url,data,headers,success,error){
-            $.ajax({
-                url:url,
-                data:data,
-                type:type,
-                error:error,
-                headers:headers,
-                success:function(data){
-                    if(data.code === 200){
-                        success(data.data);
-                    }else{
-                        $.log(data);
-                        if(error !== undefined)error(data);
-                    }
-                }
-            });
-        },
-        getPaging : function (url,num,size,data,success,error) {
-            $.http("get",url,data,{
-                pageSize:size,
-                pageNum:num
-            },success,error);
-        },
-        get : function(url,data,success,error){
-            return $.http("get",url,data,{},success,error);
-        },
-        post : function(url,data,success,error){
-            return $.http("post",url,data,{},success,error);
-        },
-        put : function(url,data,success,error){
-            return $.http("put",url,data,{},success,error);
-        },
-        del : function(url,success,error){
-            return $.http("delete",url,{},{},success,error);
-        },
-        html2Escape :function (sHtml) {
-            return sHtml.replace(/[<>&"]/g,function(c){
-                return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
-            });
-        }
+function log(msg) {
+    console.log(msg);
+}
+function isArray(obj) {
+    return obj instanceof Array;
+}
+function isEmpty(obj) {
+    return obj===undefined||obj.length===0;
+}
+function html2Escape(sHtml) {
+    return sHtml.replace(/[<>&"]/g,function(c){
+        return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
     });
-})(jQuery);
+}
+function ajax(param,success,error) {
+    param.success=function (data) {
+        if(data.code === 200){
+            success(data.data);
+        }else if(data.code === 603){
+            log("没有登录");
+            alert("没有登录");
+        }else{
+            log(data);
+            if(error !== undefined)error(data);
+        }
+    };
+    $.ajax(param);
+}
+function http(url, type, data, success, error, headers) {
+    ajax({url:url,data:data,type:type,headers:headers},success,error);
+}
+function get(url,success,error) {
+    http(url,"get",{},success,error,{});
+}
+function post(url,data,success,error) {
+    http(url,"post",data,success,error,{});
+}
+function put(url,data,success,error) {
+    http(url,"put",data,success,error,{});
+}
+function del(url,success,error) {
+    http(url,"delete",{},success,error,{});
+}
+function paging(url,success,num,size,error) {
+    http(url,"get",{},success,error,{
+        pageSize:size,
+        pageNum:num
+    });
+}

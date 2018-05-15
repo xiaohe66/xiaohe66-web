@@ -17,7 +17,7 @@
         });
         var html = $(".item")[0].outerHTML;
         $("#paging").paging(${pageInfo.pages},${pageInfo.pageNum},function (page) {
-            $.getPaging("/text/article/usr/${lookUsrId}",page,10,{},function (arr) {
+            paging("/text/article/usr/${lookUsrId}",function (arr) {
                 var div = $(".l");
                 div.find(".item").remove();
                 $.each(arr,function (i, data) {
@@ -32,7 +32,7 @@
                     item.find(".fr").find("span").text(data.count);
                     item.find(".digest").html(data.text);
                 });
-            });
+            },page,10);
         });
     });
 </script>

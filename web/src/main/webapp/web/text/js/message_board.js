@@ -9,7 +9,7 @@ $(function () {
     var itemHtml = div.find(".item")[0].outerHTML;
 
     $("#paging").paging(parseInt($("#size").val()),1,function (page) {
-        $.getPaging("/text/messageBoard/"+$("#usrId").val(),page,10,{},function (arr) {
+        paging("/text/messageBoard/"+$("#usrId").val(),function (arr) {
             div.html("");
             $.each(arr,function (i, data) {
                 div.append(itemHtml);
@@ -21,7 +21,7 @@ $(function () {
                 span.eq(2).text(data.id+"楼");
                 item.find(".desc").html(data.msg);
             });
-        })
+        },page,10);
     });
 
     $(".msg .btn").click(function () {
@@ -40,7 +40,7 @@ $(function () {
         }
 
         $(this).addClass("on");
-        $.post("/text/messageBoard",{
+        post("/text/messageBoard",{
             usrId:$("#usrId").val(),
             msg:val
         },function (data) {

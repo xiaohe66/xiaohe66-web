@@ -8,7 +8,7 @@ $(function () {
 
     var getPaging = function (page) {
         div.find(".item").remove();
-        $.getPaging("/text/article/all/"+onlyWebmaster+"/"+search,page,10,{},function (arr) {
+        paging("/text/article/all/"+onlyWebmaster+"/"+search,function (arr) {
             $.each(arr,function (i, data) {
                 $("#paging").before(html);
                 var item = div.find(".item:last");
@@ -22,7 +22,7 @@ $(function () {
                 item.find(".fr").find("span").text(data.count);
                 item.find(".desc").html(data.text);
             });
-        });
+        },page,10)
     };
 
     $("#search").keydown(function (e) {

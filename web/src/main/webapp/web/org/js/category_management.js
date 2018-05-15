@@ -12,7 +12,7 @@ $(function () {
             var id = parseInt(tr.attr("categoryId"));
 
             $.hint("删除中，请稍候...");
-            $.del(url+"/"+id,function (data) {
+            del(url+"/"+id,function (data) {
                 $.hintClose();
                 tr.remove();
                 showHideAdd();
@@ -55,7 +55,7 @@ $(function () {
         var id = td.parent().attr("categoryId");
         //保存新分类名
         $.hint("保存中，请稍候...");
-        $.put(url,{
+        put(url,{
             categoryName:newName,
             id:id
         },function (data) {
@@ -80,7 +80,7 @@ $(function () {
         }
 
         $.hint("保存中，请稍候...");
-        $.post(url,{categoryName:val},function (data) {
+        post(url,{categoryName:val},function (data) {
             var tbody = $("#category_tab").find("tbody");
             var tr = $("<tr></tr>");
             tr.append("<td class='name'>"+val+"</td>");

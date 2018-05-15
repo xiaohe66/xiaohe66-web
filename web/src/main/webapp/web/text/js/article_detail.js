@@ -27,8 +27,8 @@ function publish() {
         alert(err.data);
     };
     if(id === undefined){
-        $.post(URL,data,okFunc,errFunc);
+        post(URL,data,okFunc,errFunc);
     }else{
-        $.put(URL,data,okFunc,errFunc);
+        put(URL,data,okFunc,errFunc);
     }
 }

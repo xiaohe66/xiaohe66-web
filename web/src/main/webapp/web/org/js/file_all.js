@@ -6,7 +6,7 @@ $(function () {
 
     var getPaging = function (page) {
         tbody.html("");
-        $.getPaging("/org/usr/file/all/"+onlyWebmaster+"/"+search,page,20,{},function (arr) {
+        paging("/org/usr/file/all/"+onlyWebmaster+"/"+search,function (arr) {
             $.each(arr,function (i, data) {
                 tbody.append(html);
                 var item = tbody.find("tr:last");
@@ -18,7 +18,7 @@ $(function () {
                 tds.eq(2).text(data.createTime);
                 tds.eq(3).find("a").text(data.usrName);
             });
-        });
+        },page,20);
     };
     $("#search").keydown(function (e) {
         if(e.keyCode===13){

@@ -4,8 +4,6 @@
  */
 var LOGIN_URL = "/org/usr/login";
 $(function(){
-    $.log("hello");
-
     $("#usrPwd").keydown(function(e){
         if(e.keyCode === 13){
             $("#loginBtn").click();
@@ -13,11 +11,11 @@ $(function(){
     });
 
     $("#loginBtn").click(function(){
-        $.post(LOGIN_URL,{
+        post(LOGIN_URL,{
             usrName:$("#usrName").val(),
             usrPwd:$("#usrPwd").val()
         },function(data){
-            window.location.href = '/index';
+            location.href = '/index';
         },function(err){
             alert(err.data);
         });
@@ -25,7 +23,6 @@ $(function(){
 
     $(".title").click(function(){
         var val = $(this).val();
-        window.location.href = "/text/article/detail?id="+val;
+        location.href = "/text/article/detail?id="+val;
     });
-
 });

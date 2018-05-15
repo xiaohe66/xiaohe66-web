@@ -44,6 +44,7 @@
     <div class="t_c">
         <div class="tab">
             <a href="/text/article/all">文章</a>
+            <a href="/org/usr/file/all">资源</a>
             <a href="/text/messageBoard/index">留言</a>
             <a href="/about">关于</a>
         </div>
@@ -101,7 +102,7 @@
                 var usrName = $("#usrName").val();
                 var usrPwd = $("#usrPwd").val();
 
-                $.post("/org/usr/login",{
+                post("/org/usr/login",{
                     usrName:usrName,
                     usrPwd:usrPwd
                 },function (data) {
@@ -122,7 +123,7 @@
         });
 
         function logout() {
-            $.del("/org/usr/login",function (data) {
+            del("/org/usr/login",function (data) {
                 location.reload();
             });
         }

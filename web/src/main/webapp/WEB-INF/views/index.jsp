@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td><a href="https://www.weibo.com">新浪微博</a></td>
-                <td><a href="http://bieba.baidu.com">百度贴吧</a></td>
+                <td><a href="http://tieba.baidu.com">百度贴吧</a></td>
                 <td><a href="http://www.zhihu.com">知乎</a></td>
                 <td><a href="http://www.jjwxc.net">晋江</a></td>
                 <td><a href="https://www.qidian.com">起点</a></td>
