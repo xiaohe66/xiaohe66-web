@@ -232,6 +232,9 @@ public class ArticleService extends AbstractService<Article>{
             }
             articleDto.setPerCategoryIds(perCategoryIds.toString());
             articleDto.setPerCategoryNames(perCategoryNames.toString());
+        }else{
+            articleDto.setPerCategoryIds("");
+            articleDto.setPerCategoryNames("");
         }
     }
 

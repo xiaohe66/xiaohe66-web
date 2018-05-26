@@ -1,0 +1,27 @@
+#article_tab{
+    width: 100%;
+    table-collapse:collapse;
+    border-bottom: 1px solid #c5c5c5;
+}
+#article_tab td,
+#article_tab th{
+    text-align: center;
+    border-top: 1px solid #c5c5c5;
+    height: 40px;
+    padding: 0 10px;
+}
+.r>P{
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 22px;
+}
+.add input{
+    display: none;
+}
+.add a{
+    width: 60px;
+    line-height: 30px;
+}
+#paging{
+    text-align: center;
+}

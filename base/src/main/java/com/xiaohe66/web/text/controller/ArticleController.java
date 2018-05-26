@@ -49,6 +49,8 @@ public class ArticleController {
 
     private static final String ARTICLE_ALL_PAGE_URL = "text/article_all";
 
+    private static final String ARTICLE_ADMIN_PAGE_URL = "text/article_admin";
+
     @Autowired
     private ArticleService articleService;
 
@@ -73,8 +75,8 @@ public class ArticleController {
         return ARTICLE_EDITOR_PAGE_URL;
     }
 
-    @Page("/editor")
-    public String editor(Model model,CurrentUsr currentUsr,Long id){
+    @Page("/editor/{id}")
+    public String editor(Model model,CurrentUsr currentUsr,@PathVariable("id") Long id){
 
         ArticleDto articleDto = articleService.findDtoById(id,currentUsr.getId());
         if(articleDto == null){
@@ -123,6 +125,17 @@ public class ArticleController {
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(usrId));
         model.addAttribute("page",ARTICLE_LIST_PAGE_URL);
         return PageController.RIGHT_PAGE_URL;
+    }
+
+    @Page("/admin")
+    public String admin(Model model,CurrentUsr currentUsr){
+        PageHelper.startPage(1,10);
+        List<ArticleDto> list = articleService.findDtoByUsrId(currentUsr.getId());
+        model.addAttribute("pageInfo",new PageInfo<>(list));
+        model.addAttribute("size",list.size());
+        model.addAttribute("page",ARTICLE_ADMIN_PAGE_URL);
+
+        return PageController.USR_ZONE_PAGE_URL;
     }
 
     @Page("/all")

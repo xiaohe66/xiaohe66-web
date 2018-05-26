@@ -18,7 +18,7 @@
         <img src="/icon/comment.png">
         <span>304</span>--%>
         <c:if test="${usr.id == article.createId}">
-            <a href="/text/article/editor?id=${article.id}">编辑</a>
+            <a href="/text/article/editor/${article.id}">编辑</a>
         </c:if>
     </div>
     <div class="desc">

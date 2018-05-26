@@ -20,7 +20,7 @@
     <div class="l l2">
         <div class="menu border1">
             <a href="/org/usr/me">个人资料</a>
-            <%--<a href="/">文章管理</a>--%>
+            <a href="/text/article/admin">文章管理</a>
             <a href="/org/usr/file/admin">文件管理</a>
             <a href="/text/category/index">分类管理</a>
         </div>
