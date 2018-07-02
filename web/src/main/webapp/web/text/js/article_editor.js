@@ -87,12 +87,12 @@ $(function(){
 function publish() {
 
     var title = $(".title").val();
-    if($.isEmpty(title)){
+    if(isEmpty(title)){
         alert("你忘了写标题哟!");
         return;
     }
     var text = editor.txt.html();
-    if($.isEmpty(title)){
+    if(isEmpty(title)){
         alert("写点东西吧");
         return;
     }
