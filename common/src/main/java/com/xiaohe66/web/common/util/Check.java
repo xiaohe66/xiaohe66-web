@@ -3,6 +3,8 @@ package com.xiaohe66.web.common.util;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.exception.XhException;
 
+import java.util.Collection;
+
 /**
  * @author xiaohe
  * @time 17-10-29 029
@@ -47,7 +49,8 @@ public class Check {
         }
         for (Object object : objects) {
             //当对象类型是string时，长度为0时，也表示该对象为空
-            boolean isEmpty = object == null||(object instanceof String && ((String) object).length() == 0);
+            boolean isEmpty = object == null||(object instanceof String && ((String) object).length() == 0)
+                    ||(object instanceof Collection && ((Collection) object).size() == 0);
             if (isEmpty){
                 throw new XhException(CodeEnum.NULL_EXCEPTION);
             }
