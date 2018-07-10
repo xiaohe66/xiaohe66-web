@@ -25,6 +25,22 @@ public class WebUtils {
         return SecurityUtils.getSubject().getSession();
     }
 
+    /**
+     * 给当前session添加参数
+     * @param key       key，不能为空
+     * @param value     值
+     */
+    public static void setSessionAttr(Object key,Object value){
+        Check.notEmptyCheck(key);
+        getSession().setAttribute(key,value);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getSessionAttr(Object key){
+        Check.notEmptyCheck(key);
+        return (T) getSession().getAttribute(key);
+    }
+
 
     public static HttpServletRequest getRequest(){
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

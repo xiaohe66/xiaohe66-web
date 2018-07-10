@@ -12,7 +12,7 @@
     </select>
 
     <select id="findByMd5" resultType="CommonFile">
-        select * from xh_web_comm_file where md5 = #{md5} and file_url is not null
+        select * from xh_web_comm_file where md5 = #{md5}
     </select>
 
     <update id="updateById" parameterType="CommonFile">
@@ -26,6 +26,26 @@
             </if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="updateByParam" parameterType="CommonFile">
+        update xh_web_comm_file
+        <set>
+            <if test="param.endTime != null">
+                end_time = #{param.endTime},
+            </if>
+            <if test="param.fileUrl != null">
+                file_url = #{param.fileUrl},
+            </if>
+            <if test="param.fileByte != null">
+                file_byte = #{param.fileByte},
+            </if>
+        </set>
+        <where>
+            <if test="param.md5 != null">
+                and md5 = #{param.md5}
+            </if>
+        </where>
     </update>
 
 </mapper>

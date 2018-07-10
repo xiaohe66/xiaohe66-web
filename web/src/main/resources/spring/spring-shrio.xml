@@ -54,7 +54,7 @@
                 /index = anon
                 / = anon
 
-
+                /comm/file/img/* = http[get]
 
                 /org/usr/file/all/*/* = http[get]
                 /org/usr/file/all = http[get]
