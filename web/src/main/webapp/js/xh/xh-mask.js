@@ -18,22 +18,22 @@
     $(function () {
         $("body").append(mask);
         mask.click(maskClose);
+        mask.append(hint);
     });
     $.extend({
         mask : function (closeFunc) {
             close = closeFunc;
+            hint.html("");
             mask.show();
         },
         maskClose : maskClose,
         hint : function (msg) {
             closeOn = false;
             hint.text(msg);
-            mask.append(hint);
             mask.show();
         },
         hintClose : function () {
             closeOn = true;
-            mask.html("");
             mask.hide();
         }
     });

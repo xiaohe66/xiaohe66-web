@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,10 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     private static final int USR_HEAD_IMG_FILE_TYPE = 1;
 
+    private static final int FILE_NAME_MAX_LENGTH = 20;
+
+    private static final int FILE_EXTENSION_MAX_LENGTH = 8;
+
     private UsrFileDao usrFileDao;
 
     @Autowired
@@ -72,68 +77,56 @@ public class UsrFileService extends AbstractService<UsrFile>{
         this.usrFileDao = usrFileDao;
     }
 
-    public UsrFileDto uploadUsrFile(MultipartFile file,String md5,Long currentUsrId){
-        return uploadFile(file,md5,currentUsrId,DEFAULT_FILE_TYPE);
-    }
-    public UsrFileDto uploadHeadImgFile(MultipartFile file,String md5,Long currentUsrId){
-        return uploadFile(file,md5,currentUsrId,USR_HEAD_IMG_FILE_TYPE);
+    public Set<Integer> uploadDefaultFilePrepare(Long currentUsrId,String md5,Float mb,String fileName,String extension){
+        return uploadFilePrepare(currentUsrId,md5,mb,fileName,extension,DEFAULT_FILE_TYPE);
     }
 
-    /**
-     * 上传用户文件，返回commonFile的id
-     * @param file  文件
-     * @param md5   文件的md5摘要
-     * @param currentUsrId  当前操作用户
-     * @return 返回commonFile的id
-     */
-    public UsrFileDto uploadFile(MultipartFile file,String md5,Long currentUsrId,Integer fileType){
-        if(Check.isNull(file)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
-        }
-        if(Check.isNull(currentUsrId)){
-            throw new XhException(CodeEnum.NOT_LOGGED_IN,"not login");
-        }
-        if(StrUtils.isEmpty(md5)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"md5 is empty");
-        }
-        if(Check.isNull(fileType)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"fileType is null");
-        }
+    @Transactional(rollbackFor = Exception.class)
+    public UsrFileDto uploadHeadImgFile(Long currentUsrId,MultipartFile multipartFile,String md5){
+        CommonFile commonFile = commonFileService.uploadFileDefault(currentUsrId,multipartFile,md5);
 
-        byte[] bytes;
-        try {
-            bytes = file.getBytes();
-        } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION);
-        }
-        //上传文件，如果已存在相同的，则返回存在的id，否则上传后再返回id
-        CommonFile commonFile = commonFileService.uploadFile(bytes,md5);
-
-        String name = file.getOriginalFilename();
-        int dotIndex = name.lastIndexOf(".");
-        String fileName,extension;
-        if(dotIndex != -1){
-            fileName = name.substring(0,dotIndex);
-            extension = name.substring(dotIndex);
-        }else{
-            fileName = name;
-            extension = "";
-        }
-        //文件名不可以超过20字符
-        fileName = fileNameFormat(fileName);
+        String name = multipartFile.getOriginalFilename();
+        int dotIndex =  name.lastIndexOf(".");
+        String fileName = fileNameFormat(name.substring(0,dotIndex));
+        String extension = fileExtensionFormat(name.substring(dotIndex));
 
         UsrFile usrFile = new UsrFile();
         usrFile.setFileId(commonFile.getId());
+        usrFile.setFileType(USR_HEAD_IMG_FILE_TYPE);
         usrFile.setFileName(fileName);
         usrFile.setExtension(extension);
-        usrFile.setFileType(fileType);
-        this.add(usrFile,currentUsrId);
-        UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class,usrFile);
-        usrFileDto.setFileSize(commonFile.getFileByte()+"字节");
 
-        UsrFileLog usrFileLog = new UsrFileLog(usrFile.getId());
-        usrFileLogService.add(usrFileLog,currentUsrId);
-        return usrFileDto;
+        add(usrFile,currentUsrId);
+
+        return ClassUtils.convert(UsrFileDto.class,usrFile);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Set<Integer> uploadFilePrepare(Long currentUsrId,String md5,Float mb,String fileName,String extension,Integer fileType){
+        Check.notEmptyCheck(currentUsrId,fileName);
+
+        if(fileType != DEFAULT_FILE_TYPE && fileType != USR_HEAD_IMG_FILE_TYPE){
+            throw new XhException(CodeEnum.PARAM_ERR);
+        }
+
+        Set<Integer> notUploadChunkSet = commonFileService.uploadFilePrepare(md5,mb);
+
+        CommonFile commonFile = commonFileService.findByMd5(md5);
+
+        /*
+        * 文件已上传完或当前用户从未上传过该文件时，才增加该用户对该文件的关联
+        * 即：当前用户在过去时间上传过该该文件，但未上传完成。再次上传该文件时，不再生成文件关联。
+        * */
+//        if(commonFile.getEndTime()!=null){
+            UsrFile usrFile = new UsrFile();
+            usrFile.setFileName(fileNameFormat(fileName));
+            usrFile.setExtension(fileExtensionFormat(extension));
+            usrFile.setFileType(fileType);
+            usrFile.setFileId(commonFile.getId());
+            add(usrFile,currentUsrId);
+//        }
+
+        return notUploadChunkSet;
     }
 
     public UsrFile findByCommonFileId(Long commonFileId){
@@ -153,8 +146,11 @@ public class UsrFileService extends AbstractService<UsrFile>{
         List<UsrFile> usrFileList = this.findByParam(param);
 
         return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
-            Integer size = commonFileService.findById(usrFile.getFileId()).getFileByte();
+            CommonFile commonFile = commonFileService.findById(usrFile.getFileId());
 
+            usrFileDto.setIsFinish(commonFile.getEndTime()!=null);
+
+            Integer size = commonFile.getFileByte();
             //todo:需转成可视化单位
             usrFileDto.setFileSize(size+"字节");
         });
@@ -245,9 +241,6 @@ public class UsrFileService extends AbstractService<UsrFile>{
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
         }
 
-        //记录下载日志
-        usrFileLogService.add(new UsrFileLog(usrFileId),currentUsrId);
-
         String name = EncoderUtils.urlEncoder(usrFile.getFileName())+usrFile.getExtension();
 
         response.setContentType("application/octet-stream");
@@ -257,6 +250,9 @@ public class UsrFileService extends AbstractService<UsrFile>{
         } catch (IOException e) {
             throw new XhException(CodeEnum.IO_EXCEPTION);
         }
+
+        //记录下载日志
+        usrFileLogService.add(new UsrFileLog(usrFileId),currentUsrId);
     }
 
     public void updateNameById(Long fileId,String fileName,Long currentUsrId){
@@ -267,8 +263,9 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     /**
      * 文件名格式化
-     * 超过20个字符时，截取前20个字符。
+     * 超过20个字符时，截取前32个字符。
      * 此外，如果出现非法字符，则会抛出异常
+     *
      * @param fileName 文件名
      * @return  格式化后的文件名
      */
@@ -281,7 +278,26 @@ public class UsrFileService extends AbstractService<UsrFile>{
             }
         }
         //文件名字符长度不能超过20
-        return fileName.length() > 20 ? fileName.substring(0,20):fileName;
+        return fileName.length() > FILE_NAME_MAX_LENGTH ? fileName.substring(0,FILE_NAME_MAX_LENGTH):fileName;
+    }
+
+    /**
+     * 文件名格式化
+     * 超过20个字符时，截取前20个字符。
+     * 此外，如果出现非法字符，则会抛出异常
+     * @param extension 文件名
+     * @return  格式化后的文件名
+     */
+    protected  String fileExtensionFormat(String extension){
+        extension = StrUtils.trim(extension);
+        Check.notEmptyCheck(extension);
+        for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
+            if (extension.contains(String.valueOf(fileIllegalChar))) {
+                throw new XhException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
+            }
+        }
+        //文件名字符长度不能超过20
+        return extension.length() > FILE_EXTENSION_MAX_LENGTH ? extension.substring(0,FILE_EXTENSION_MAX_LENGTH):extension;
     }
 
 }

@@ -118,6 +118,14 @@ public class CommonFileService extends AbstractService<CommonFile>{
         }
     }
 
+    /**
+     * 断点续传型文件上传
+     * @param multipartFile 块
+     * @param md5           主文件的md5值
+     * @param chunk         当前块
+     * @return              是否成功
+     * @throws IOException  IOException
+     */
     @Transactional(rollbackFor = Exception.class)
     public boolean uploadFile(MultipartFile multipartFile, String md5, Integer chunk) throws IOException {
         String sessionMd5 = WebUtils.getSessionAttr("md5");
@@ -160,40 +168,87 @@ public class CommonFileService extends AbstractService<CommonFile>{
 
         /*
         * 上传完成判断
-        * todo:需检查多线程问题：多用户同时上传同一个文件
+        * 这里进行多线程控制，锁作用于md5值。即对同一md5值的操作，只能有一个进入。
+        *
+        * 类 String 维护一个字符串池,当调用 intern 方法时，如果池已经包含一个等于此 String 对象的字符串（该对象由 equals(Object) 方法确定），
+        * 则返回池中的字符串，因此，当String相同时，String.intern()总是返回同一个对象
         * */
-        int finishCount = commonFileTmpService.countFinish(md5);
-        if(finishCount == chunkCount){
-            String path = createLogicPath(md5);
+        synchronized (md5.intern()){
+            int countFinish = commonFileTmpService.countFinish(md5);
+            if(countFinish == chunkCount){
+                String path = createLogicPath(md5);
 
-            File fileFull = new File(fileHomeUrl+path);
-            List<CommonFileTmp> commonFileTmpList = commonFileTmpService.findFileTmp(md5);
+                File fileFull = new File(fileHomeUrl+path);
+                List<CommonFileTmp> commonFileTmpList = commonFileTmpService.findFileTmp(md5);
 
-            File fileTmp;
-            int byteSum=0;
-            if (fileFull.exists()) {
-                fileFull.delete();
-            }
-            for (CommonFileTmp commonFileTmp : commonFileTmpList) {
                 //整合临时文件到主文件
-                fileTmp = new File(fileHomeUrl+commonFileTmp.getFileUrl());
-                IoUtils.writeToFile(fileTmp,fileFull,true);
-                byteSum += commonFileTmp.getFileByte();
+                int byteSum=0;
+                if (fileFull.exists()) {
+                    fileFull.delete();
+                }
+                for (CommonFileTmp commonFileTmp : commonFileTmpList) {
+                    IoUtils.writeToFile(new File(fileHomeUrl+commonFileTmp.getFileUrl()),fileFull,true);
+                    byteSum += commonFileTmp.getFileByte();
+                }
+
+                //更新主文件状态
+                CommonFile commonFile = new CommonFile();
+                commonFile.setMd5(md5);
+                commonFile.setEndTime(new Date());
+                commonFile.setFileUrl(path);
+                commonFile.setFileByte(byteSum);
+                this.updateByMd5(commonFile);
+
+                //删除临时文件
+                commonFileTmpService.delByMd5(md5);
+
+                WebUtils.removeSessionAttr("md5");
+                WebUtils.removeSessionAttr("chunkCount");
             }
-
-            //更新主文件状态
-            CommonFile commonFile = new CommonFile();
-            commonFile.setMd5(md5);
-            commonFile.setEndTime(new Date());
-            commonFile.setFileUrl(path);
-            commonFile.setFileByte(byteSum);
-            this.updateByMd5(commonFile);
-
-            //删除临时文件
-            commonFileTmpService.delByMd5(md5);
         }
 
         return true;
+    }
+
+    /**
+     * 小文件上传
+     * <p>该方法只能用于小文件的上传，文件会被直接写入对应的目录，并生成文件的主记录
+     *
+     * @param multipartFile 文件
+     * @param md5           文件的md5值
+     */
+    public CommonFile uploadFileDefault(Long currentUsrId,MultipartFile multipartFile, String md5){
+        Check.notEmptyCheck(currentUsrId,multipartFile,md5);
+
+        CommonFile commonFile = findByMd5(md5);
+        if(commonFile != null && commonFile.getEndTime() != null){
+            return commonFile;
+        }
+
+        String fileUrl = createLogicPath(md5);
+        InputStream fileInput;
+        try {
+             fileInput = multipartFile.getInputStream();
+        } catch (IOException e) {
+            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+        }
+        IoUtils.writeToFile(fileInput,new File(fileHomeUrl+fileUrl),false);
+        int fileBytes;
+        try {
+            fileBytes = multipartFile.getBytes().length;
+        } catch (IOException e) {
+            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+        }
+
+        commonFile = new CommonFile();
+        commonFile.setFileByte(fileBytes);
+        commonFile.setFileUrl(fileUrl);
+        commonFile.setEndTime(new Date());
+        commonFile.setMd5(md5);
+
+        add(commonFile,currentUsrId);
+
+        return commonFile;
     }
 
     public void updateByMd5(CommonFile commonFile){
@@ -201,26 +256,11 @@ public class CommonFileService extends AbstractService<CommonFile>{
     }
 
     public void outputFile(Long id,OutputStream outputStream){
-        if(Check.isNull(outputStream)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"outputStream is null");
-        }
-        if(Check.isNull(id)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"file id is null");
-        }
+        Check.notEmptyCheck(id);
         CommonFile commonFile = findById(id);
         String url = fileHomeUrl + commonFile.getFileUrl();
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(new File(url));
-            byte[] date = new byte[commonFile.getFileByte()];
-            fileInputStream.read(date);
-            outputStream.write(date);
-            outputStream.flush();
-        } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION);
-        } finally {
-            IoUtils.close(fileInputStream,outputStream);
-        }
+
+        IoUtils.writeToOutput(new File(url),outputStream);
     }
 
     /**
@@ -233,6 +273,7 @@ public class CommonFileService extends AbstractService<CommonFile>{
     }
 
     public CommonFile findByMd5(String md5){
+        Check.notEmptyCheck(md5);
         return commonFileDao.findByMd5(md5);
     }
 

@@ -108,8 +108,8 @@ public class UsrFileController {
     }
 
     @Post
-    public Result add(CurrentUsr currentUsr, @RequestParam("file") MultipartFile file,String md5){
-        return Result.ok(usrFileService.uploadUsrFile(file,md5,currentUsr.getId()));
+    public Result uploadFilePrepare(CurrentUsr currentUsr,String md5,Float mb,String fileName,String extension){
+        return Result.ok(usrFileService.uploadDefaultFilePrepare(currentUsr.getId(),md5,mb,fileName,extension));
     }
 
     @Put("/{id}")

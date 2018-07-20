@@ -22,20 +22,22 @@
 </div>
 <p>文件管理</p>
 <div class="c_c">
-    <table id="file_tab" border="0"cellpadding="0" cellspacing="0">
+    <table id="file_tab" border="0" cellpadding="0" cellspacing="0">
         <colgroup>
             <col>
             <col width="60px">
-            <col width="120px">
-            <col width="170px">
+            <col width="130px">
             <col width="100px">
+            <col width="60px">
+            <col width="90px">
         </colgroup>
         <thead>
         <tr>
             <th>文件名</th>
             <th>类型</th>
             <th>文件大小</th>
-            <th>上传日期</th>
+            <th>上传时间</th>
+            <th>上传完成</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -46,6 +48,7 @@
                 <td>${item.extension}</td>
                 <td>${item.fileSize}</td>
                 <td>${item.createTime}</td>
+                <td>${item.isFinish ? "是":"否"}</td>
                 <td>
                     <a href="javascript:void(0);" class="rename">重命名</a>
                     <a href="javascript:void(0);" class="del">删除</a>

@@ -33,9 +33,9 @@ public class UsrService extends AbstractService<Usr> {
     private static final Logger LOG = LoggerFactory.getLogger(UsrService.class);
 
     /**
-     * 1M
+     * 2M
      */
-    private static final int USR_HEAD_IMG_MAX_BYTE_LENGTH = 1048576;
+    private static final int USR_HEAD_IMG_MAX_BYTE_LENGTH = 1024*1024*2;
 
     private UsrDao usrDao;
 
@@ -136,11 +136,11 @@ public class UsrService extends AbstractService<Usr> {
                 throw new XhException(CodeEnum.MAX_VALUE_EXCEPTION);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new XhException(CodeEnum.IO_EXCEPTION,e);
         }
 
-        LOG.info("上传文件开始:md5="+md5+",usrId="+currentUsrId);
-        Long imgFileId = usrFileService.uploadHeadImgFile(file,md5,currentUsrId).getId();
+        LOG.debug("上传头像开始:md5="+md5+",usrId="+currentUsrId);
+        Long imgFileId = usrFileService.uploadHeadImgFile(currentUsrId,file,md5).getId();
 
         Usr usr = new Usr();
         usr.setId(currentUsrId);
@@ -150,7 +150,7 @@ public class UsrService extends AbstractService<Usr> {
         UsrDto usrDto = (UsrDto) WebUtils.getSession().getAttribute(StrEnum.SESSION_UER_KEY.data());
         usrDto.setImgFileId(imgFileId);
 
-        LOG.info("上传文件结束:md5="+md5+",usrId="+currentUsrId);
+        LOG.debug("上传头像结束:md5="+md5+",usrId="+currentUsrId);
         return imgFileId;
     }
 

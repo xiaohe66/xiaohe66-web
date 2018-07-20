@@ -14,6 +14,8 @@ import java.io.*;
 public class IoUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(IoUtils.class);
 
+    private static final int BUFF_BYTE_SIZE = 2048;
+
     public static String readStringWithInput(InputStream inputStream){
         InputStreamReader reader = null;
         BufferedReader bufferedReader = null;
@@ -52,25 +54,31 @@ public class IoUtils {
         }
     }
 
+    /**
+     * 写入数据到文件
+     * @param inputStream   输入流
+     * @param file          目标文件
+     * @param append        是否在文件末尾定稿，传入true时，在文件的末尾写入。传入false时会覆盖旧文件。
+     */
     public static void writeToFile(InputStream inputStream,File file,boolean append){
         Check.notEmptyCheck(inputStream,file);
         LOGGER.debug("向路径<"+file.getPath()+">写入数据");
         createFile(file);
 
-        OutputStream outputStream = null;
         FileOutputStream fileOutputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file,append);
-            outputStream = new BufferedOutputStream(fileOutputStream);
-            byte[] bytes = new byte[1024];
+            bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+            byte[] bytes = new byte[BUFF_BYTE_SIZE];
             int len;
             while ((len = (inputStream.read(bytes)))>0){
-                outputStream.write(bytes,0,len);
+                bufferedOutputStream.write(bytes,0,len);
             }
         } catch (IOException e){
-            LOGGER.error("向文件写入数据出错",e);
+            throw new XhException(CodeEnum.IO_EXCEPTION,e);
         }finally {
-            close(outputStream,fileOutputStream);
+            close(bufferedOutputStream,fileOutputStream);
         }
 
     }
@@ -81,11 +89,32 @@ public class IoUtils {
             fileInputStream = new FileInputStream(file1);
             writeToFile(fileInputStream,file2,append);
         } catch (FileNotFoundException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION);
+            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
         } finally {
             close(fileInputStream);
         }
     }
+
+    public static void writeToOutput(File file,OutputStream outputStream){
+        Check.notEmptyCheck(file,outputStream);
+
+        FileInputStream fileInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            byte[] bytes = new byte[BUFF_BYTE_SIZE];
+            int len;
+            while ((len = (fileInputStream.read(bytes)))>0){
+                bufferedOutputStream.write(bytes,0,len);
+            }
+        } catch (IOException e){
+            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+        }finally {
+            close(bufferedOutputStream,fileInputStream);
+        }
+    }
+
     /**
      * 删除一个文件或文件夹
      * <p>传入的如果是一个文件，则直接删除。

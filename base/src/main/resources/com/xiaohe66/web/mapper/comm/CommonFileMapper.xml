@@ -3,8 +3,8 @@
 <mapper namespace="com.xiaohe66.web.comm.dao.CommonFileDao">
 
     <insert id="add" parameterType="CommonFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_comm_file(md5,file_url,file_byte)
-        values(#{md5},#{fileUrl},#{fileByte})
+        insert into xh_web_comm_file(md5,file_url,file_byte,end_time)
+        values(#{md5},#{fileUrl},#{fileByte},#{endTime})
     </insert>
 
     <select id="findById" resultType="CommonFile">

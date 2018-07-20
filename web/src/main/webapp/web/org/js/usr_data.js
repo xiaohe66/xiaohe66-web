@@ -26,8 +26,8 @@ $(function () {
             return;
         }
         var fileSize = (file.size/1024).toFixed(2);
-        if(fileSize > 1024){
-            alert("最大支持1M的图片");
+        if(fileSize > 2024){
+            alert("最大支持2M的图片");
             return;
         }
         calculate(file,function (md5) {

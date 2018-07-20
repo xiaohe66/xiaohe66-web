@@ -41,6 +41,11 @@ public class WebUtils {
         return (T) getSession().getAttribute(key);
     }
 
+    public static void removeSessionAttr(Object key){
+        Check.notEmptyCheck(key);
+        getSession().removeAttribute(key);
+    }
+
 
     public static HttpServletRequest getRequest(){
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

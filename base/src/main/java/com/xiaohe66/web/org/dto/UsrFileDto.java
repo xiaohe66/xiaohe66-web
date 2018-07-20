@@ -13,6 +13,7 @@ public class UsrFileDto extends BaseDtoDetailed{
     private String extension;
     private Long downloadCount;
     private String usrName;
+    private Boolean isFinish;
 
     public String getUsrName() {
         return usrName;
@@ -62,9 +63,18 @@ public class UsrFileDto extends BaseDtoDetailed{
         this.downloadCount = downloadCount;
     }
 
+    public Boolean getIsFinish() {
+        return isFinish;
+    }
+
+    public void setIsFinish(Boolean isFinish) {
+        this.isFinish = isFinish;
+    }
+
     @Override
     public String toString() {
-        return "{" + "\"fileName\":\"" + fileName + "\""
+        return "{"
+                + "\"fileName\":\"" + fileName + "\""
                 + ",\"createId\":\"" + createId + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"fileDesc\":\"" + fileDesc + "\""
@@ -76,6 +86,7 @@ public class UsrFileDto extends BaseDtoDetailed{
                 + ",\"downloadCount\":\"" + downloadCount + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + ",\"usrName\":\"" + usrName + "\""
+                + ",\"isFinish\":\"" + isFinish + "\""
                 + "}";
     }
 }
