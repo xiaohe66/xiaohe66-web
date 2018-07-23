@@ -115,4 +115,16 @@ public class StrUtilsTest {
         assertEquals(12,StrUtils.toLong("12"));
         assertEquals(0,StrUtils.toLong("0"));
     }
+
+    @Test
+    public void trimTest(){
+        assertEquals("",StrUtils.trim("      "));
+        assertEquals("1",StrUtils.trim("   1   "));
+        assertEquals("12",StrUtils.trim("   12   "));
+        assertEquals("12",StrUtils.trim("12   "));
+        assertEquals("12",StrUtils.trim("   12"));
+        assertEquals("12  3",StrUtils.trim("   12  3 "));
+        assertEquals("12  3",StrUtils.trim("12  3 "));
+        assertEquals("12  3",StrUtils.trim("   12  3"));
+    }
 }
