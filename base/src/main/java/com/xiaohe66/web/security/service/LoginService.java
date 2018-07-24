@@ -2,7 +2,7 @@ package com.xiaohe66.web.security.service;
 
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.PwdUtils;
 import com.xiaohe66.web.common.util.StrUtils;
@@ -46,7 +46,7 @@ public class LoginService {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"code is empty");
         }
         Session session = WebUtils.getSession();
-        String sessionCode = (String) session.getAttribute(StrEnum.SESSION_AUTH_CODE_KEY.data());
+        String sessionCode = (String) session.getAttribute(ParamFinal.SESSION_AUTH_CODE_KEY);
         if(StrUtils.isOneEmpty(sessionCode)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"get code pls");
         }
@@ -81,7 +81,7 @@ public class LoginService {
         }
 
         Subject subject = SecurityUtils.getSubject();
-        UsrDto currentUsr = (UsrDto)subject.getSession().getAttribute(StrEnum.SESSION_UER_KEY.data());
+        UsrDto currentUsr = (UsrDto)subject.getSession().getAttribute(ParamFinal.SESSION_UER_KEY);
 
         if(Check.isAllNotNull(currentUsr) && usrName.equals(currentUsr.getUsrName())){
             //该用户已经登录
@@ -117,14 +117,14 @@ public class LoginService {
         //构建dto
         UsrDto dtoUsr = new UsrDto(usr);
         //注入session
-        subject.getSession().setAttribute(StrEnum.SESSION_UER_KEY.data(),dtoUsr);
+        subject.getSession().setAttribute(ParamFinal.SESSION_UER_KEY,dtoUsr);
         return dtoUsr;
     }
 
     public void logout(){
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        subject.getSession().removeAttribute(StrEnum.SESSION_UER_KEY.data());
+        subject.getSession().removeAttribute(ParamFinal.SESSION_UER_KEY);
     }
 
     public boolean isLogin(){

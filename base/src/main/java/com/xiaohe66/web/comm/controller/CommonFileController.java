@@ -5,7 +5,7 @@ import com.xiaohe66.web.common.annotation.Get;
 import com.xiaohe66.web.common.annotation.Post;
 import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.sys.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class CommonFileController {
         if(id == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
         }
-        response.setContentType(StrEnum.CONTENT_TYPE_IMAGE_PNG.data());
+        response.setContentType(ParamFinal.CONTENT_TYPE_IMAGE_PNG);
         commonFileService.outputFile(id,response.getOutputStream());
     }
 

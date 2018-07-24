@@ -1,11 +1,10 @@
 package com.xiaohe66.web.org.service;
 
-import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.comm.po.CommonFile;
 import com.xiaohe66.web.comm.service.CommonFileService;
 import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.ClassUtils;
@@ -28,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -213,7 +211,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
             throw new XhException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
         }
 
-        response.setContentType(StrEnum.CONTENT_TYPE_IMAGE_PNG.data());
+        response.setContentType(ParamFinal.CONTENT_TYPE_IMAGE_PNG);
         try {
             commonFileService.outputFile(usrFile.getFileId(),response.getOutputStream());
         } catch (IOException e) {

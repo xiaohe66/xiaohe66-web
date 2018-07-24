@@ -1,6 +1,6 @@
 package com.xiaohe66.web.resolver;
 
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
 import org.apache.shiro.SecurityUtils;
@@ -25,7 +25,7 @@ public class CurrentUsrResolver implements HandlerMethodArgumentResolver{
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
         Subject currentUser = SecurityUtils.getSubject();
-        UsrDto usr = (UsrDto)currentUser.getSession().getAttribute(StrEnum.SESSION_UER_KEY.data());
+        UsrDto usr = (UsrDto)currentUser.getSession().getAttribute(ParamFinal.SESSION_UER_KEY);
         return new CurrentUsr(usr);
     }
 }

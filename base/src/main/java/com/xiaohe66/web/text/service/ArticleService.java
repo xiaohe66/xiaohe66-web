@@ -3,7 +3,7 @@ package com.xiaohe66.web.text.service;
 import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.comm.service.CategoryService;
 import com.xiaohe66.web.common.base.impl.AbstractService;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.exception.XhException;
@@ -174,7 +174,7 @@ public class ArticleService extends AbstractService<Article>{
     public List<Article> findByUsrId(Long usrId){
         if(Check.isOneNull(usrId)){
             //默认显示站长的列表
-            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
         ArticleParam param = new ArticleParam();
@@ -203,7 +203,7 @@ public class ArticleService extends AbstractService<Article>{
     public List<ArticleDto> findDtoAll(String search,boolean onlyWebmaster){
         ArticleParam param = new ArticleParam();
         if(onlyWebmaster){
-            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             param.setCreateId(StrUtils.toLong(usrIdStr));
         }
         if(StrUtils.isNotEmpty(search)){

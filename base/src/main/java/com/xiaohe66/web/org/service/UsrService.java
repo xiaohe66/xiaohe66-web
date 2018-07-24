@@ -2,7 +2,7 @@ package com.xiaohe66.web.org.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.ClassUtils;
@@ -62,7 +62,7 @@ public class UsrService extends AbstractService<Usr> {
     public void add(Usr po, Long currentUsrId) {
         Check.notEmptyCheck(po);
         if(Check.isNull(po.getImgFileId())){
-            String defaultImgFileId = sysCfgService.findValByKey(StrEnum.DEFAULT_USR_IMG_FILE_ID.data());
+            String defaultImgFileId = sysCfgService.findValByKey(ParamFinal.DEFAULT_USR_IMG_FILE_ID);
             po.setImgFileId(StrUtils.toLong(defaultImgFileId));
         }
         super.add(po,currentUsrId);
@@ -93,7 +93,7 @@ public class UsrService extends AbstractService<Usr> {
         if(Check.isNull(usrId)){
             throw new XhException(CodeEnum.PARAM_ERR,"usrId is null");
         }
-        String cfgKeysStr = sysCfgService.findValByKey(StrEnum.DEFAULT_ROLE_IDS_KEY.data());
+        String cfgKeysStr = sysCfgService.findValByKey(ParamFinal.DEFAULT_ROLE_IDS_KEY);
         String[] roleStrIds =  cfgKeysStr.split(",");
         Long[] roleIds = StrUtils.toLongNotException(roleStrIds);
         this.addUsrRoles(usrId,roleIds);
@@ -116,7 +116,7 @@ public class UsrService extends AbstractService<Usr> {
      */
     public UsrDto lookAtUsr(Long usrId){
         if(Check.isNull(usrId)){
-            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
         Usr usr = findById(usrId);
@@ -147,7 +147,7 @@ public class UsrService extends AbstractService<Usr> {
         usr.setImgFileId(imgFileId);
         this.updateById(usr,currentUsrId);
 
-        UsrDto usrDto = (UsrDto) WebUtils.getSession().getAttribute(StrEnum.SESSION_UER_KEY.data());
+        UsrDto usrDto = (UsrDto) WebUtils.getSession().getAttribute(ParamFinal.SESSION_UER_KEY);
         usrDto.setImgFileId(imgFileId);
 
         LOG.debug("上传头像结束:md5="+md5+",usrId="+currentUsrId);

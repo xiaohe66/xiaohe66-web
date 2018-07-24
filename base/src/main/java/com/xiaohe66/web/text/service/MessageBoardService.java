@@ -2,13 +2,12 @@ package com.xiaohe66.web.text.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
-import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.service.SysCfgService;
@@ -21,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,7 +78,7 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      */
     public List<MessageBoardDto> findByUsrId(Long usrId){
         if(usrId == null){
-            String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
 

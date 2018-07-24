@@ -2,7 +2,7 @@ package com.xiaohe66.web.sys.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
 import com.xiaohe66.web.common.data.CodeEnum;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.sys.dao.SysCfgDao;
@@ -53,7 +53,7 @@ public class SysCfgService extends AbstractService<SysCfg>{
     }
 
     public Long findXhUsrId(){
-        String usrIdStr = findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
+        String usrIdStr = findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
         return StrUtils.toLong(usrIdStr);
     }
 }

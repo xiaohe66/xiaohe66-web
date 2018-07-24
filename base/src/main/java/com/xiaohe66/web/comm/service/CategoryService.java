@@ -1,7 +1,7 @@
 package com.xiaohe66.web.comm.service;
 
 import com.xiaohe66.web.common.base.impl.AbstractService;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.exception.XhException;
@@ -41,7 +41,7 @@ public class CategoryService extends AbstractService<Category> {
     }
 
     public List<Category> findTextSysCategory(){
-        String val = sysCfgService.findValByKey(StrEnum.DEFAULT_ARTICLE_PID.data());
+        String val = sysCfgService.findValByKey(ParamFinal.DEFAULT_ARTICLE_PID);
         return findByPid(StrUtils.toLongNotException(val));
     }
 }

@@ -1,8 +1,7 @@
 package com.xiaohe66.web.text.service;
 
-import com.xiaohe66.web.common.base.BaseDao;
 import com.xiaohe66.web.common.base.impl.AbstractService;
-import com.xiaohe66.web.common.data.StrEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.CollectionUtils;
 import com.xiaohe66.web.common.util.WebUtils;
@@ -62,10 +61,10 @@ public class ArticleLogService extends AbstractService<ArticleLog>{
         }
 
         Session session = WebUtils.getSession();
-        Set<Long> articleIdSet = (Set<Long>) session.getAttribute(StrEnum.ARTICLE_LOG_CACHE.data());
+        Set<Long> articleIdSet = (Set<Long>) session.getAttribute(ParamFinal.ARTICLE_LOG_CACHE);
         if(CollectionUtils.isNull(articleIdSet)){
             articleIdSet = new HashSet<>(4);
-            session.setAttribute(StrEnum.ARTICLE_LOG_CACHE.data(),articleIdSet);
+            session.setAttribute(ParamFinal.ARTICLE_LOG_CACHE,articleIdSet);
         }
 
         if(!articleIdSet.contains(articleId)){
