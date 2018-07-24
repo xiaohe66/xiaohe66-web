@@ -74,6 +74,8 @@ public class LoginService {
     public UsrDto login(String usrName, String usrPwd){
         LOGGER.debug("usrName="+usrName+",usrPwd="+usrPwd);
 
+        usrName = StrUtils.trim(usrName);
+
         if(Check.isOneNull(usrName,usrPwd)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrName or usrPwd or code is null");
         }
