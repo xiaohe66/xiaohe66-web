@@ -7,13 +7,13 @@ import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
-import com.xiaohe66.web.sys.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * @author xh
@@ -35,13 +35,13 @@ public class CommonFileController {
     }
 
     @Post("/prepare")
-    public Result uploadFilePrepare(String md5,Float mb){
-        return Result.ok(commonFileService.uploadFilePrepare(md5,mb));
+    public Set<Integer> uploadFilePrepare(String md5, Float mb){
+        return commonFileService.uploadFilePrepare(md5,mb);
     }
 
     @Post
-    public Result uploadFile(MultipartFile file,String md5,Integer chunk) throws IOException {
-        return Result.ok(commonFileService.uploadFile(file,md5,chunk));
+    public Boolean uploadFile(MultipartFile file,String md5,Integer chunk) throws IOException {
+        return commonFileService.uploadFile(file,md5,chunk);
     }
 
 

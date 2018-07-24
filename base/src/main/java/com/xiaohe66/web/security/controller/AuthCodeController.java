@@ -10,7 +10,6 @@ import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.common.util.WebUtils;
-import com.xiaohe66.web.sys.dto.Result;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.imageio.ImageIO;
@@ -45,13 +44,13 @@ public class AuthCodeController {
     }
 
     @Get("/{code}")
-    public Result authCode(@PathVariable("code") String code){
+    public Boolean authCode(@PathVariable("code") String code){
         if(StrUtils.isEmpty(code)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"code is null");
         }
 
         String authCodeStr = (String) WebUtils.getSession().getAttribute(ParamFinal.SESSION_AUTH_CODE_KEY);
-        return Result.ok(code.equalsIgnoreCase(authCodeStr));
+        return code.equalsIgnoreCase(authCodeStr);
     }
 
 }

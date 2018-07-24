@@ -20,7 +20,6 @@ import com.xiaohe66.web.org.service.UsrFileService;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
-import com.xiaohe66.web.sys.dto.Result;
 import com.xiaohe66.web.text.dto.ArticleDto;
 import com.xiaohe66.web.text.dto.TextCategoryDto;
 import com.xiaohe66.web.text.po.Article;
@@ -154,55 +153,54 @@ public class ArticleController {
     }
 
     @Post
-    public Result add(CurrentUsr currentUsr,Article article,
+    public Long add(CurrentUsr currentUsr,Article article,
                       @RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
         if (article.getSecretLevel() == null) {
             article.setSecretLevel(XhData.SECRET_LEVEL_ALL);
         }
         articleService.add(article,currentUsr.getUsr().getId(),perCategoryIds);
-        return Result.ok(article.getId());
+        return article.getId();
     }
 
     @Get("/{id}")
-    public Result findById(@PathVariable("id") Long id){
+    public ArticleDto findById(@PathVariable("id") Long id){
         Article article = articleService.findById(id);
-        return Result.ok(ClassUtils.convert(ArticleDto.class,article));
+        return ClassUtils.convert(ArticleDto.class,article);
     }
 
     @Paging
     @Get("/all/{onlyWebmaster}")
-    public Result all(@PathVariable("onlyWebmaster") boolean onlyWebmaster){
-        return Result.ok(articleService.findDtoAll(null,onlyWebmaster));
+    public List<ArticleDto> all(@PathVariable("onlyWebmaster") boolean onlyWebmaster){
+        return articleService.findDtoAll(null,onlyWebmaster);
     }
 
     @Paging
     @Get("/all/{onlyWebmaster}/{search}")
-    public Result all2(@PathVariable("onlyWebmaster") boolean onlyWebmaster,@PathVariable("search") String search){
-        return Result.ok(articleService.findDtoAll(search,onlyWebmaster));
+    public List<ArticleDto> all2(@PathVariable("onlyWebmaster") boolean onlyWebmaster,@PathVariable("search") String search){
+        return articleService.findDtoAll(search,onlyWebmaster);
     }
 
     @Paging
     @Get("/usr")
-    public Result list(){
+    public List<ArticleDto> list(){
         return list2(null);
     }
 
     @Paging
     @Get("/usr/{lookUsrId}")
-    public Result list2(@PathVariable("lookUsrId") Long lookUsrId){
-        return Result.ok(articleService.findDtoByUsrId(lookUsrId));
+    public List<ArticleDto> list2(@PathVariable("lookUsrId") Long lookUsrId){
+        return articleService.findDtoByUsrId(lookUsrId);
     }
 
     @Put
-    public Result update(CurrentUsr currentUsr,Article article,
+    public Long update(CurrentUsr currentUsr,Article article,
                          @RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
         articleService.updateById(article,currentUsr.getId(),perCategoryIds);
-        return Result.ok(article.getId());
+        return article.getId();
     }
 
     @Del("/{id}")
-    public Result delete(CurrentUsr currentUsr,@PathVariable("id") Long id){
+    public void delete(CurrentUsr currentUsr,@PathVariable("id") Long id){
         articleService.delById(id,currentUsr.getId());
-        return Result.ok();
     }
 }

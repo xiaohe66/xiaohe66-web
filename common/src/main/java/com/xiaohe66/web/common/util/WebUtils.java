@@ -6,6 +6,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * xh-web工具类
@@ -49,6 +50,10 @@ public class WebUtils {
 
     public static HttpServletRequest getRequest(){
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    }
+
+    public static HttpServletResponse getResponse(){
+        return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getResponse();
     }
 
     public static String getRequestIP() {

@@ -34,7 +34,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
             result = Result.err(CodeEnum.EXCEPTION,e.getMessage());
         }
         try {
-            response.setContentType(ParamFinal.HEADER_UTF_8);
+            response.setContentType(ParamFinal.HEADER_JSON_UTF_8);
             response.getWriter().print(JsonUtils.toString(result));
         } catch (IOException e1) {
             LOGGER.error("getWriter() exception");

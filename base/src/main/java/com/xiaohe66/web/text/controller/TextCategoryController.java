@@ -1,10 +1,14 @@
 package com.xiaohe66.web.text.controller;
 
-import com.xiaohe66.web.common.annotation.*;
+import com.xiaohe66.web.common.annotation.Del;
+import com.xiaohe66.web.common.annotation.Get;
+import com.xiaohe66.web.common.annotation.Page;
+import com.xiaohe66.web.common.annotation.Post;
+import com.xiaohe66.web.common.annotation.Put;
+import com.xiaohe66.web.common.annotation.XhController;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
-import com.xiaohe66.web.sys.dto.Result;
 import com.xiaohe66.web.text.dto.TextCategoryDto;
 import com.xiaohe66.web.text.po.TextCategory;
 import com.xiaohe66.web.text.service.TextCategoryService;
@@ -38,32 +42,30 @@ public class TextCategoryController {
     }
 
     @Get("/{id}")
-    public Result get(@PathVariable("id") Long id){
+    public TextCategoryDto get(@PathVariable("id") Long id){
         TextCategory textCategory = categoryService.findById(id);
-        return Result.ok(ClassUtils.convert(TextCategoryDto.class, textCategory));
+        return ClassUtils.convert(TextCategoryDto.class, textCategory);
     }
 
     @Post
-    public Result add(CurrentUsr currentUsr,TextCategory textCategory){
+    public TextCategoryDto add(CurrentUsr currentUsr,TextCategory textCategory){
         categoryService.add(textCategory,currentUsr.getId());
-        return Result.ok(ClassUtils.convert(TextCategoryDto.class,textCategory));
+        return ClassUtils.convert(TextCategoryDto.class,textCategory);
     }
 
     @Put
-    public Result update(CurrentUsr currentUsr,TextCategory textCategory){
+    public void update(CurrentUsr currentUsr,TextCategory textCategory){
         categoryService.updateById(textCategory,currentUsr.getId());
-        return Result.ok();
     }
 
     @Del("/{id}")
-    public Result del(CurrentUsr currentUsr,@PathVariable("id")Long id){
+    public void del(CurrentUsr currentUsr,@PathVariable("id")Long id){
         categoryService.delById(id,currentUsr.getId());
-        return Result.ok();
     }
 
     @Get("/p/{pid}")
-    public Result getByPid(@PathVariable("pid")Long pid){
+    public List<TextCategoryDto> getByPid(@PathVariable("pid")Long pid){
         List<TextCategory> textCategoryList = categoryService.findByPid(pid);
-        return Result.ok(ClassUtils.convertList(TextCategoryDto.class, textCategoryList));
+        return ClassUtils.convertList(TextCategoryDto.class, textCategoryList);
     }
 }

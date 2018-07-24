@@ -9,7 +9,7 @@ package com.xiaohe66.web.common.data;
 public interface ParamFinal {
 
     String SESSION_UER_KEY = "usr" ;
-    String HEADER_UTF_8 = "application/json; charset=UTF-8" ;
+    String HEADER_JSON_UTF_8 = "application/json; charset=UTF-8" ;
     String DEFAULT_ROLE_IDS_KEY = "DEFAULT_ROLE_IDS" ;
     String PAGING_SIZE_KEY = "pageSize" ;
     String PAGING_NUM_KEY = "pageNum" ;

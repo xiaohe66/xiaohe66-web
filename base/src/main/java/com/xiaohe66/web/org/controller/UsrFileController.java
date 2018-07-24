@@ -19,11 +19,10 @@ import com.xiaohe66.web.text.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author xh
@@ -58,7 +57,7 @@ public class UsrFileController {
     }
 
     @Page("/index")
-    public String index(Model model,CurrentUsr currentUsr){
+    public String index(Model model){
         model.addAttribute("page",USR_FILE_INDEX_PAGE_URL);
         model.addAttribute("usrDto",usrService.lookAtUsr(null));
 
@@ -103,25 +102,23 @@ public class UsrFileController {
 
     @Paging
     @Get
-    public Result page(CurrentUsr currentUsr){
-        return Result.ok(usrFileService.findDtoByUsrId(currentUsr.getId()));
+    public List<UsrFileDto> page(CurrentUsr currentUsr){
+        return usrFileService.findDtoByUsrId(currentUsr.getId());
     }
 
     @Post
-    public Result uploadFilePrepare(CurrentUsr currentUsr,String md5,Float mb,String fileName,String extension){
-        return Result.ok(usrFileService.uploadDefaultFilePrepare(currentUsr.getId(),md5,mb,fileName,extension));
+    public Set<Integer> uploadFilePrepare(CurrentUsr currentUsr, String md5, Float mb, String fileName, String extension){
+        return usrFileService.uploadDefaultFilePrepare(currentUsr.getId(),md5,mb,fileName,extension);
     }
 
     @Put("/{id}")
-    public Result update(CurrentUsr currentUsr,@PathVariable("id")Long id,String fileName){
+    public void update(CurrentUsr currentUsr,@PathVariable("id")Long id,String fileName){
         usrFileService.updateNameById(id,fileName,currentUsr.getId());
-        return Result.ok();
     }
 
     @Del("/{id}")
-    public Result del(CurrentUsr currentUsr,@PathVariable("id")Long id){
+    public void del(CurrentUsr currentUsr,@PathVariable("id")Long id){
         usrFileService.delById(id,currentUsr.getId());
-        return Result.ok();
     }
 
 }

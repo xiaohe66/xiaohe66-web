@@ -6,12 +6,12 @@ import com.xiaohe66.web.common.annotation.Page;
 import com.xiaohe66.web.common.annotation.Post;
 import com.xiaohe66.web.common.annotation.Put;
 import com.xiaohe66.web.common.annotation.XhController;
+import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.security.service.LoginService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
-import com.xiaohe66.web.sys.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,44 +58,42 @@ public class UsrController{
     }
 
     @Get("/login")
-    public Result isLogin(){
-        return Result.ok(loginService.isLogin());
+    public Boolean isLogin(){
+        return loginService.isLogin();
     }
 
     @Post("/login")
-    public Result login(String usrName, String usrPwd){
-        return Result.ok(loginService.login(usrName,usrPwd));
+    public UsrDto login(String usrName, String usrPwd){
+        return loginService.login(usrName,usrPwd);
     }
 
     @Del("/login")
-    public  Result logout(){
+    public  void logout(){
         LOG.info("注销登录");
         loginService.logout();
-        return Result.ok(null);
     }
 
     @Post
-    public Result register(Usr usr, String code){
-        return Result.ok(loginService.register(usr,code));
+    public UsrDto register(Usr usr, String code){
+        return loginService.register(usr,code);
     }
 
     @Put
-    public Result update(CurrentUsr currentUsr,String signature){
+    public void update(CurrentUsr currentUsr,String signature){
         Usr usr = new Usr();
         usr.setId(currentUsr.getId());
         usr.setSignature(signature);
         usrService.updateById(usr,currentUsr.getId());
-        return Result.ok();
     }
 
     @Post("/img")
-    public Result uploadHeadImg(CurrentUsr currentUsr, @RequestParam("file") MultipartFile file, String md5){
-        return Result.ok(usrService.uploadHeadImg(file,md5,currentUsr.getId()));
+    public Long uploadHeadImg(CurrentUsr currentUsr, @RequestParam("file") MultipartFile file, String md5){
+        return usrService.uploadHeadImg(file,md5,currentUsr.getId());
     }
 
     @Get("/exist/{usrName}")
-    public Result isExist(@PathVariable("usrName") String usrName){
-        return Result.ok(usrService.isExist(usrName));
+    public Boolean isExist(@PathVariable("usrName") String usrName){
+        return usrService.isExist(usrName);
     }
 
 }

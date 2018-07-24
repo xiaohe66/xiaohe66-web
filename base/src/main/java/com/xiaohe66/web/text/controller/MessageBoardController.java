@@ -7,15 +7,12 @@ import com.xiaohe66.web.common.annotation.Page;
 import com.xiaohe66.web.common.annotation.Paging;
 import com.xiaohe66.web.common.annotation.Post;
 import com.xiaohe66.web.common.annotation.XhController;
-import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.service.UsrFileService;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.controller.PageController;
 import com.xiaohe66.web.sys.dto.CurrentUsr;
-import com.xiaohe66.web.sys.dto.Result;
 import com.xiaohe66.web.text.dto.MessageBoardDto;
-import com.xiaohe66.web.text.po.MessageBoard;
 import com.xiaohe66.web.text.service.ArticleService;
 import com.xiaohe66.web.text.service.MessageBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,18 +64,17 @@ public class MessageBoardController {
     }
 
     @Post
-    public Result add(CurrentUsr currentUsr,String msg,Long usrId){
+    public void add(CurrentUsr currentUsr,String msg,Long usrId){
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
         usrId = 3L;
         messageBoardService.add(msg,usrId,currentUsr.getId());
-        return Result.ok();
     }
 
     @Paging
     @Get("/{usrId}")
-    public Result get(@PathVariable("usrId") Long usrId){
+    public List<MessageBoardDto> get(@PathVariable("usrId") Long usrId){
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
         usrId = null;
-        return Result.ok(messageBoardService.findByUsrId(usrId));
+        return messageBoardService.findByUsrId(usrId);
     }
 }
