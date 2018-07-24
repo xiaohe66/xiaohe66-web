@@ -14,9 +14,9 @@ import java.util.List;
 
 /**
  * 系统配置项service
- * 第一次调用方法时进行初始化，把数据库中的配置全部加载到内存中
- *
- * 提供一个刷新的方法refresh()，该方法可以重新获取数据库中的配置并加载到内存中
+ * <p>在系统初始化时，必须先把调用一次refresh()方法
+ * 该方法会把数据库中的配置全部加载到内存中。
+ * 此外，后续更改了系统配置的值，也可以调用refresh()方法进行重新加载
  *
  * @author xiaohe
  * @time 17-11-07 007
@@ -25,10 +25,6 @@ import java.util.List;
 public class SysCfgService extends AbstractService<SysCfg>{
     private SysCfgDao sysCfgDao;
 
-    /**
-     * 是否已加载数据库中的配置
-     */
-    private boolean isInit;
     private List<SysCfg> cfgList;
 
     public SysCfgService(){
@@ -47,10 +43,6 @@ public class SysCfgService extends AbstractService<SysCfg>{
     public String findValByKey(String cfgKey){
         if(StrUtils.isOneEmpty(cfgKey)){
             throw new XhException(CodeEnum.PARAM_ERR,"cfgKey="+cfgKey);
-        }
-        if(!isInit){
-            refresh();
-            isInit = true;
         }
         for (SysCfg sysCfg : cfgList) {
             if (cfgKey.equals(sysCfg.getCfgKey())) {

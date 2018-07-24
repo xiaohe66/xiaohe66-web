@@ -174,7 +174,6 @@ public class ArticleService extends AbstractService<Article>{
     public List<Article> findByUsrId(Long usrId){
         if(Check.isOneNull(usrId)){
             //默认显示站长的列表
-            //todo:在配置信息修改后，调用这个方法会使后面的分页失效
             String usrIdStr = sysCfgService.findValByKey(StrEnum.CFG_KEY_XIAO_HE_USR_ID.data());
             usrId = StrUtils.toLong(usrIdStr);
         }
