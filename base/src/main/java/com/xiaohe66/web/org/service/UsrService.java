@@ -12,8 +12,7 @@ import com.xiaohe66.web.common.util.WebUtils;
 import com.xiaohe66.web.org.dao.UsrDao;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
-import com.xiaohe66.web.security.service.RoleService;
-import com.xiaohe66.web.sys.service.SysCfgService;
+import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +39,6 @@ public class UsrService extends AbstractService<Usr> {
     private UsrDao usrDao;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private SysCfgService sysCfgService;
-
-    @Autowired
     private UsrFileService usrFileService;
 
     public UsrService(){
@@ -62,7 +55,7 @@ public class UsrService extends AbstractService<Usr> {
     public void add(Usr po, Long currentUsrId) {
         Check.notEmptyCheck(po);
         if(Check.isNull(po.getImgFileId())){
-            String defaultImgFileId = sysCfgService.findValByKey(ParamFinal.DEFAULT_USR_IMG_FILE_ID);
+            String defaultImgFileId = SysCfgHelper.getValue(ParamFinal.DEFAULT_USR_IMG_FILE_ID);
             po.setImgFileId(StrUtils.toLong(defaultImgFileId));
         }
         super.add(po,currentUsrId);
@@ -93,7 +86,7 @@ public class UsrService extends AbstractService<Usr> {
         if(Check.isNull(usrId)){
             throw new XhException(CodeEnum.PARAM_ERR,"usrId is null");
         }
-        String cfgKeysStr = sysCfgService.findValByKey(ParamFinal.DEFAULT_ROLE_IDS_KEY);
+        String cfgKeysStr = SysCfgHelper.getValue(ParamFinal.DEFAULT_ROLE_IDS_KEY);
         String[] roleStrIds =  cfgKeysStr.split(",");
         Long[] roleIds = StrUtils.toLongNotException(roleStrIds);
         this.addUsrRoles(usrId,roleIds);
@@ -116,7 +109,7 @@ public class UsrService extends AbstractService<Usr> {
      */
     public UsrDto lookAtUsr(Long usrId){
         if(Check.isNull(usrId)){
-            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
+            String usrIdStr = SysCfgHelper.getValue(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
         Usr usr = findById(usrId);

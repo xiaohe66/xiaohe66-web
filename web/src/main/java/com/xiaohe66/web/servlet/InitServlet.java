@@ -1,6 +1,7 @@
 package com.xiaohe66.web.servlet;
 
-import com.xiaohe66.web.sys.service.SysCfgService;
+import com.xiaohe66.web.sys.service.EmailService;
+import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -18,18 +19,24 @@ import org.springframework.stereotype.Component;
 public class InitServlet implements InitializingBean{
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
-    private final SysCfgService sysCfgService;
+    private final SysCfgHelper cfgHelper;
+    private final EmailService emailService;
 
     @Autowired
-    public InitServlet(SysCfgService sysCfgService) {
-        this.sysCfgService = sysCfgService;
+    public InitServlet(SysCfgHelper cfgHelper, EmailService emailService) {
+        this.cfgHelper = cfgHelper;
+        this.emailService = emailService;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         LOG.info("系统初始化……");
 
-        sysCfgService.refresh();
+        LOG.info("加载系统配置");
+        cfgHelper.refresh();
+
+        LOG.info("初始化邮箱服务");
+        emailService.init();
 
         LOG.info("系统初始化完成！");
     }

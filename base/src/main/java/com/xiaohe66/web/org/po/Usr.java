@@ -12,6 +12,7 @@ public class Usr extends BasePoDetailed {
     private String usrPwd;
     private String signature;
     private Long imgFileId;
+    private String email;
 
     public String getUsrName() {
         return usrName;
@@ -43,6 +44,14 @@ public class Usr extends BasePoDetailed {
 
     public void setImgFileId(Long imgFileId) {
         this.imgFileId = imgFileId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

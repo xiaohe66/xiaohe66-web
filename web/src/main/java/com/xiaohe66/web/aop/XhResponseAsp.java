@@ -1,5 +1,9 @@
 package com.xiaohe66.web.aop;
 
+import com.xiaohe66.web.common.annotation.Del;
+import com.xiaohe66.web.common.annotation.Get;
+import com.xiaohe66.web.common.annotation.Post;
+import com.xiaohe66.web.common.annotation.Put;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
@@ -10,10 +14,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import com.xiaohe66.web.common.annotation.Get;
-import com.xiaohe66.web.common.annotation.Post;
-import com.xiaohe66.web.common.annotation.Put;
-import com.xiaohe66.web.common.annotation.Del;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -57,6 +57,7 @@ public class XhResponseAsp {
             result = Result.ok(retVal);
         }catch (Throwable e){
             if(e instanceof XhException){
+                LOG.error("XhException:"+e.getMessage());
                 result = Result.err(((XhException) e).getCode(),e.getMessage());
             }else{
                 LOG.error("系统异常",e);

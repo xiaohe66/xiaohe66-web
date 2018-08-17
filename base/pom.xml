@@ -16,6 +16,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>common</artifactId>
         </dependency>

@@ -1,5 +1,11 @@
 package com.xiaohe66.web.common.auth;
 
+import com.xiaohe66.web.common.data.CodeEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
+import com.xiaohe66.web.common.exception.XhException;
+import com.xiaohe66.web.common.util.Check;
+import com.xiaohe66.web.common.util.WebUtils;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Date;
@@ -9,55 +15,24 @@ import java.util.Random;
  * @author xiaohe
  * @time 17-11-12 012
  */
-public class AuthCodeFactory {
-
-    private static AuthCodeFactory authCodeFactory = new AuthCodeFactory();
+public class AuthCodeHelper {
 
     /**
      * 验证码字符集
      */
-    private final char[] CHARS = {
+    private static final char[] CHARS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
             'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
             'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    /**
-     * 字符数量
-     */
-    private int size = 4;
-    /**
-     * 干扰线数量
-     */
-    private int lines = 6;
-    /**
-     * 宽度
-     */
-    private int width = 80;
-    /**
-     * 高度
-     */
-    private int height = 40;
-    /**
-     * 字体大小
-     */
-    private int fontSize = 30;
-    /**
-     * 字体颜色
-     */
-    private Color fontColor = Color.WHITE;
-    /**
-     * 字体
-     */
-    private String fontName = null;
 
+    /**
+     * 验证码超时毫秒数5分钟
+     */
+    private static final long AUTH_CODE_TIME_OUT_MS = 300000;
 
     private static final Random RAN = new Random();
-
-
-    public static AuthCodeFactory getInstance(){
-        return authCodeFactory;
-    }
 
     /**
      * 根据需要创建验证码对象
@@ -70,34 +45,8 @@ public class AuthCodeFactory {
      * @param fontName 字体名称，如果传入null，则使用默认字体
      * todo:暂时使自定义属性的验证码无法创建，该逻辑待修改
      */
-    private AuthCode createAuthCode(int width, int height, int size, int lines, Color fontColor,
+    private static AuthCode createAuthCode(int width, int height, int size, int lines, Color fontColor,
                                     Integer fontSize, String fontName){
-        this.width = width;
-        this.height = height;
-        this.size = size;
-        this.lines = lines;
-        if(fontColor != null) {
-            this.fontColor = fontColor;
-        }
-        if(fontSize != null) {
-            this.fontSize = fontSize;
-        }
-        if(fontName != null) {
-            this.fontName = fontName;
-        }
-        return this.createAuthCode();
-    }
-
-    /**
-     * 创建默认属性的验证码对象
-     * 验证码位数    4
-     * 干扰线数量    6
-     * 验证码宽度    80
-     * 验证码高度    40
-     * 字体颜色     白色
-     * 字体大小     30
-     */
-    public AuthCode createAuthCode() {
         StringBuilder stringBuilder = new StringBuilder();
         // 1.创建空白图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -136,18 +85,70 @@ public class AuthCodeFactory {
             graphic.fillOval(ran.nextInt(width),ran.nextInt(height),2,2);
         }
 
-        return new AuthCode(image,stringBuilder.toString(),new Date());
+        AuthCode authCode = new AuthCode(image,stringBuilder.toString(),new Date());
+        WebUtils.setSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY,authCode);
+        return authCode;
+    }
+
+    /**
+     * 创建默认属性的验证码对象
+     * 验证码位数    4
+     * 干扰线数量    6
+     * 验证码宽度    80
+     * 验证码高度    40
+     * 字体颜色     白色
+     * 字体大小     30
+     */
+    public static AuthCode createAuthCode() {
+        return createAuthCode(80,40,4,6,Color.WHITE,30,null);
     }
 
     /**
      * 随机取色
      */
-    private Color getRandomColor() {
+    private static Color getRandomColor() {
         return new Color(nextColorVal(),nextColorVal(),nextColorVal());
     }
 
-    private int nextColorVal(){
+    private static int nextColorVal(){
         return RAN.nextInt(256);
+    }
+
+    public static boolean verify(String code) {
+
+        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY);
+
+        Check.notEmptyCheck(code,authCodeObj);
+
+        //超时时间
+        long difference = System.currentTimeMillis()-authCodeObj.getCreateTime().getTime();
+
+        if(difference >= AUTH_CODE_TIME_OUT_MS){
+            throw new XhException(CodeEnum.AUTH_CODE_TIME_OUT);
+        }
+
+        if(code.equalsIgnoreCase(authCodeObj.getCode())){
+            WebUtils.removeSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY);
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean verifyNotClearSession(String code) {
+
+        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY);
+
+        Check.notEmptyCheck(code,authCodeObj);
+
+        //超时时间
+        long difference = System.currentTimeMillis()-authCodeObj.getCreateTime().getTime();
+
+        if(difference >= AUTH_CODE_TIME_OUT_MS){
+            throw new XhException(CodeEnum.AUTH_CODE_TIME_OUT);
+        }
+
+        return code.equalsIgnoreCase(authCodeObj.getCode());
     }
 
 }

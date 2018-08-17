@@ -1,19 +1,18 @@
 package com.xiaohe66.web.security.service;
 
-import com.xiaohe66.web.common.util.Check;
+import com.xiaohe66.web.common.auth.AuthCodeHelper;
 import com.xiaohe66.web.common.data.CodeEnum;
 import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
+import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.PwdUtils;
 import com.xiaohe66.web.common.util.StrUtils;
-import com.xiaohe66.web.common.util.WebUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,7 @@ public class LoginService {
     /**
      * 锁
      */
-    private final Object obj = new Object();
+    private final Object REGISTER_LOCK = new Object();
 
     @Autowired
     private UsrService usrService;
@@ -45,14 +44,11 @@ public class LoginService {
         if(StrUtils.isOneEmpty(code)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"code is empty");
         }
-        Session session = WebUtils.getSession();
-        String sessionCode = (String) session.getAttribute(ParamFinal.SESSION_AUTH_CODE_KEY);
-        if(StrUtils.isOneEmpty(sessionCode)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"get code pls");
+
+        if(!AuthCodeHelper.verify(code)){
+            throw new XhException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
-        if(!sessionCode.equalsIgnoreCase(code)){
-            throw new XhException(CodeEnum.PARAM_ERR,"code is wrong");
-        }
+
         String usrName = usr.getUsrName();
         if(StrUtils.isOneEmpty(usrName,usr.getUsrName())){
             throw new XhException(CodeEnum.PARAM_ERR,"usrName or usrPwd is empty");
@@ -60,7 +56,7 @@ public class LoginService {
         usr.setUsrPwd(PwdUtils.getHashStr(usr.getUsrPwd()));
 
         LOGGER.info("注册："+usr.getUsrName());
-        synchronized (obj){
+        synchronized (REGISTER_LOCK){
             Usr dbUsr = usrService.findByUsrName(usrName);
             if(dbUsr != null){
                 throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");

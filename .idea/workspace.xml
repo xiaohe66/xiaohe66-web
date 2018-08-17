@@ -3,51 +3,67 @@
   <component name="AnalysisUIOptions">
     <option name="GROUP_BY_SEVERITY" value="true" />
   </component>
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/index.jsp" line="24" />
-    <bookmark url="file://$PROJECT_DIR$/web/src/main/webapp/web/text/js/message_board.js" line="16" />
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="web:war exploded" />
+    </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="024cf941-01a9-4db1-bf33-cfd396dacb63" name="Default" comment="Merge branch 'master' of github.com:tiy-he/xh-web&#10;&#10;# Conflicts:&#10;#&#9;web/src/main/webapp/WEB-INF/views/org/file_list.jsp">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CommonFileController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CommonFileController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CommonFileService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CommonFileService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrFileController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrFileController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrFileDto.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrFileDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/UsrFile.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/UsrFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleCategoryLinkService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleCategoryLinkService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/comm/CommonFileMapper.xml" afterPath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/comm/CommonFileMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/org/UsrFileMapper.xml" afterPath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/org/UsrFileMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/BaseService.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/BaseService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/impl/AbstractService.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/impl/AbstractService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/Check.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/Check.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/IoUtils.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/IoUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/StrUtils.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/StrUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/right.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/right.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/file_list.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/file_list.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/css/xh/xh-common.css" afterPath="$PROJECT_DIR$/web/src/main/webapp/css/xh/xh-common.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/web/org/css/file_list.css" afterPath="$PROJECT_DIR$/web/src/main/webapp/web/org/css/file_list.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/web/org/js/file_list.js" afterPath="$PROJECT_DIR$/web/src/main/webapp/web/org/js/file_list.js" />
-    </list>
-    <list id="12667389-c278-4d13-8478-084ec6f5a797" name="idea" comment="">
+    <list default="true" id="024cf941-01a9-4db1-bf33-cfd396dacb63" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/SecurityService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/helper/SysCfgHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/EmailService.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_6.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_6.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_3_0_RELEASE.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/web_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/web_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/base.iml" afterPath="$PROJECT_DIR$/base/base.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pom.xml" afterPath="$PROJECT_DIR$/base/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CategoryService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CategoryService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrDto.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/Usr.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/Usr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/controller/AuthCodeController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/controller/AuthCodeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/LoginService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/LoginService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/dto/CurrentUsr.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/dto/CurrentUsr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/SysCfgService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/SysCfgService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/MessageBoardService.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/MessageBoardService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCode.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/ParamFinal.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/ParamFinal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/aop/XhResponseAsp.java" afterPath="$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/aop/XhResponseAsp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/servlet/InitServlet.java" afterPath="$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/servlet/InitServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/spring/spring-context.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/spring/spring-context.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/web.iml" afterPath="$PROJECT_DIR$/web/web.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCodeFactory.java" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCodeHelper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/xh-web.iml" afterPath="$PROJECT_DIR$/xiaohe66-web.iml" />
     </list>
-    <list id="614e05d8-2b0b-4b05-80c9-3d96c5cca8eb" name="not commit" comment="" />
-    <list id="e7909966-2428-4046-bde4-ddcafec3f397" name="用户信息" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/usr_data.jsp" afterPath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/usr_data.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/webapp/web/org/css/usr_data.css" afterPath="$PROJECT_DIR$/web/src/main/webapp/web/org/css/usr_data.css" />
+    <list id="5c85b54f-947c-4b01-aaa9-af5c1e277051" name="idea" comment="" />
+    <list id="45fe09bb-2e40-4bce-bfe7-29e3d78403b4" name="not commit" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/home/HomeUrlMapper.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/test/controller/TestController.java" afterPath="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/test/controller/TestController.java" />
     </list>
-    <list id="50352de8-0a56-426f-b5e2-20ed025bde85" name="shiro" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml" afterPath="$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml" />
-    </list>
+    <list id="bbe05407-06e1-4b15-ac5a-8d2f19334ab8" name="首页bug" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/common/target/" />
@@ -56,17 +72,28 @@
     <ignored path="code-factory/" />
     <ignored path="base/src/main/java/com/xiaohe66/web/home/" />
     <ignored path=".idea/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-common/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-web/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-base/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-text/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-security/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-email/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-mail/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-file/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-org/target/" />
+    <ignored path="$PROJECT_DIR$/xiaohe66-sys/target/" />
     <manually-removed-from-ignored>
-      <directory path="$PROJECT_DIR$/org/target/" />
-      <directory path="$PROJECT_DIR$/root/target/" />
-      <directory path="$PROJECT_DIR$/dao/target/" />
-      <directory path="$PROJECT_DIR$/service/target/" />
-      <directory path="$PROJECT_DIR$/dto/target/" />
-      <directory path="$PROJECT_DIR$/controller/target/" />
-      <directory path="$PROJECT_DIR$/usr/target/" />
       <directory path="$PROJECT_DIR$/entity/target/" />
+      <directory path="$PROJECT_DIR$/dto/target/" />
+      <directory path="$PROJECT_DIR$/usr/target/" />
+      <directory path="$PROJECT_DIR$/service/target/" />
+      <directory path="$PROJECT_DIR$/controller/target/" />
+      <directory path="$PROJECT_DIR$/root/target/" />
+      <directory path="$PROJECT_DIR$/org/target/" />
+      <directory path="$PROJECT_DIR$/dao/target/" />
     </manually-removed-from-ignored>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <file path="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/test/controller/TestController.java" ignored="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,110 +119,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="file_list.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/file_list.jsp">
+      <file leaf-file-name="EmailService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/EmailService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="47" column="60" lean-forward="false" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="60" />
+            <state relative-caret-position="268">
+              <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="file_list.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/org/js/file_list.js">
+      <file leaf-file-name="AuthCodeController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/controller/AuthCodeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="15" column="15" lean-forward="true" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+            <state relative-caret-position="428">
+              <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="file_list.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/org/css/file_list.css">
+      <file leaf-file-name="UsrController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UsrFileController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrFileController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="70" column="27" lean-forward="true" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="109" column="68" lean-forward="true" selection-start-line="109" selection-start-column="68" selection-end-line="109" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleCategoryLinkService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleCategoryLinkService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="27" column="47" lean-forward="true" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StrUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/StrUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3160">
-              <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+            <state relative-caret-position="315">
+              <caret line="77" column="33" lean-forward="true" selection-start-line="77" selection-start-column="33" selection-end-line="77" selection-end-column="33" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#573#574#0" expanded="false" />
-                <element signature="e#628#629#0" expanded="false" />
-                <element signature="e#842#843#0" expanded="false" />
-                <element signature="e#897#898#0" expanded="false" />
-                <element signature="e#1681#1682#0" expanded="false" />
-                <element signature="e#1724#1725#0" expanded="false" />
+                <element signature="e#1579#1580#0" expanded="true" />
+                <element signature="e#1619#1620#0" expanded="true" />
+                <element signature="e#2283#2284#0" expanded="true" />
+                <element signature="e#2337#2338#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UsrFileService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java">
+      <file leaf-file-name="LoginService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/LoginService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/impl/AbstractService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-628">
-              <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/BaseService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
-              <folding />
+            <state relative-caret-position="86">
+              <caret line="49" column="9" lean-forward="true" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -203,51 +169,18 @@
       <file leaf-file-name="CodeEnum.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="27" />
-              <folding>
-                <element signature="e#974#975#0" expanded="false" />
-                <element signature="e#1001#1002#0" expanded="false" />
-                <element signature="e#1029#1030#0" expanded="false" />
-                <element signature="e#1056#1057#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UsrFileMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/org/UsrFileMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="860">
-              <caret line="43" column="25" lean-forward="false" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
-              <folding>
-                <marker date="1523455561528" expanded="true" signature="316:536" ph="insert into xh_web_org_usr_file... " />
-                <marker date="1523455561528" expanded="true" signature="618:701" ph="select * fro... xh_web_org_usr_file" />
-                <marker date="1523455561528" expanded="true" signature="773:841" ph="select * fro... xh_web_org_usr_file" />
-                <marker date="1523455561528" expanded="true" signature="916:1253" ph="select * fro... xh_web_org_usr_file" />
-                <marker date="1523455561528" expanded="true" signature="1330:1356" ph="update xh_we... " />
-                <marker date="1523455561528" expanded="true" signature="1330:1510" ph="update xh_we... " />
-                <marker date="1523455561528" expanded="true" signature="1560:1621" ph="update xh_we... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spring-shrio.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="960">
-              <caret line="48" column="30" lean-forward="false" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+            <state relative-caret-position="399">
+              <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommonFileController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CommonFileController.java">
+      <file leaf-file-name="XhResponseAsp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/aop/XhResponseAsp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="29" column="66" lean-forward="false" selection-start-line="29" selection-start-column="66" selection-end-line="29" selection-end-column="66" />
+            <state relative-caret-position="87">
+              <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
@@ -255,28 +188,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UsrFile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/UsrFile.java">
+      <file leaf-file-name="AuthCodeHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCodeHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="19" column="33" lean-forward="false" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+            <state relative-caret-position="447">
+              <caret line="149" column="0" lean-forward="true" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
               <folding>
-                <element signature="e#461#462#0" expanded="false" />
-                <element signature="e#492#493#0" expanded="false" />
-                <element signature="e#540#541#0" expanded="false" />
-                <element signature="e#580#581#0" expanded="false" />
-                <element signature="e#611#612#0" expanded="false" />
-                <element signature="e#640#641#0" expanded="false" />
-                <element signature="e#682#683#0" expanded="false" />
-                <element signature="e#718#719#0" expanded="false" />
-                <element signature="e#753#754#0" expanded="false" />
-                <element signature="e#784#785#0" expanded="false" />
-                <element signature="e#832#833#0" expanded="false" />
-                <element signature="e#872#873#0" expanded="false" />
-                <element signature="e#907#908#0" expanded="false" />
-                <element signature="e#938#939#0" expanded="false" />
-                <element signature="e#986#987#0" expanded="false" />
-                <element signature="e#1026#1027#0" expanded="false" />
+                <element signature="e#3310#3311#0" expanded="true" />
+                <element signature="e#3378#3379#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthCode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="33" column="16" lean-forward="false" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+              <folding>
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#681#682#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -290,46 +222,47 @@
         <option value="spring-beans.schema" />
         <option value="Enum" />
         <option value="JavaScript File" />
-        <option value="Interface" />
         <option value="Jsp File" />
         <option value="AnnotationType" />
         <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.c_u</find>
-      <find>c_u</find>
-      <find>border</find>
-      <find>border1</find>
-      <find>.c</find>
-      <find>item</find>
-      <find>deta</find>
-      <find>c</find>
-      <find>barr</find>
-      <find>a</find>
-      <find>.l2</find>
-      <find>l2</find>
-      <find>.l</find>
-      <find>.r</find>
-      <find>category_tab</find>
-      <find>35</find>
-      <find>mask</find>
-      <find>bo</find>
-      <find>/text/category</find>
-      <find>.t_t</find>
-      <find>findByCommonFileId</find>
-      <find>list</find>
-      <find>file</find>
-      <find>.name</find>
-      <find>down</find>
-      <find>”</find>
-      <find>“</find>
-      <find>、</find>
-      <find>&quot;</find>
-      <find>del</find>
+      <find>findByUsrName</find>
+      <find>tr</find>
+      <find>系统</find>
+      <find>&quot;)</find>
+      <find>xhdt</find>
+      <find>.search</find>
+      <find>The method</find>
+      <find>/org/usr/me</find>
+      <find>/org/usr/m</find>
+      <find>/org/usr/</find>
+      <find>method</find>
+      <find>/org/usr</find>
+      <find>R</find>
+      <find>Result</find>
+      <find>Result.</find>
+      <find>Result.ok</find>
+      <find>link</find>
+      <find>result</find>
+      <find>delete</find>
+      <find>xh</find>
+      <find>maven-war-plugin</find>
+      <find>org.apache.maven.plugins</find>
+      <find>mail</find>
+      <find>transportListeners</find>
+      <find>receiveMailAccount</find>
+      <find>myEmailAccount</find>
+      <find>SysCfgService</find>
+      <find>cfgService</find>
+      <find>findXhUsrId</find>
+      <find>session</find>
     </findStrings>
     <replaceStrings>
       <replace>XHController</replace>
@@ -356,6 +289,9 @@
       <replace>&quot;</replace>
       <replace>,</replace>
       <replace>'</replace>
+      <replace>xh_web_comm_file_tmp</replace>
+      <replace>String</replace>
+      <replace>&quot; ;</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -369,57 +305,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/MessageBoardController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/text/message_board.jsp" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/home/controller/HomeController.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrDto.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/ArticleController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/text/article_list.jsp" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/dto/TextCategoryDto.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/category_management.jsp" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/controller/PageController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/text/js/message_board.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/text/css/message_board.css" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/param/UsrFileParam.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/Usr.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/js/xh/mouse-anim.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/org/css/category_management.css" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/org/css/usr_zone.css" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/js/xh/xh-mask.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/common/js/top.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/top.jsp" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/js/xh/xh-common.js" />
-        <option value="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/comm/CategoryMapper.xml" />
-        <option value="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/text/TextCategoryMapper.xml" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/org/js/category_management.js" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/usr_zone.jsp" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/TextCategoryController.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/css/xh/xh-common.css" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/right.jsp" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/common/css/right.css" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/IoUtils.java" />
-        <option value="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/comm/CommonFileMapper.xml" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CategoryController.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CommonFileController.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CommonFileService.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/EncoderUtils.java" />
-        <option value="$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/org/css/file_list.css" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrFileDto.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/UsrFile.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/Check.java" />
-        <option value="$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/org/UsrFileMapper.xml" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/file_list.jsp" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/StrUtils.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/MessageBoardController.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/TextCategoryController.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrFileController.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/BaseService.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/impl/AbstractService.java" />
+        <option value="$PROJECT_DIR$/base/src/test/java/XHTest.java" />
+        <option value="$PROJECT_DIR$/web/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-common/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-base/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-text/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-email/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-file/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-security/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-org/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-sys/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-base/src/main/java/com/xiaohe66/web/test/controller/TestController.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/base/pom.xml" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/Usr.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/util/SysCfg.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleCategoryLinkService.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CategoryService.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/MessageBoardService.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java" />
-        <option value="$PROJECT_DIR$/web/src/main/webapp/web/org/js/file_list.js" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/util/SysCfgUtil.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/email/EmailService.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/helper/SysCfgUtil.java" />
+        <option value="$PROJECT_DIR$/web/src/main/resources/spring/spring-context.xml" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/helper/SysCfgHelper.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/email/service/EmailService.java" />
+        <option value="$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/servlet/InitServlet.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/SysCfgService.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrDto.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCode.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCodeFactory.java" />
+        <option value="$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/ParamFinal.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/EmailService.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/dto/CurrentUsr.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/WebUtils.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/SecurityService.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/test/controller/TestController.java" />
+        <option value="$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/aop/XhResponseAsp.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/controller/AuthCodeController.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/LoginService.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCodeHelper.java" />
       </list>
     </option>
   </component>
@@ -475,10 +411,10 @@
     <option name="vmOptions" value="-Dmaven.multiModuleProjectDirectory=$M2_HOME" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="-7" />
+    <option name="y" value="2" />
+    <option name="width" value="1378" />
+    <option name="height" value="733" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -677,7 +613,7 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages ProjectPane="false" />
       <showMembers />
       <showModules />
@@ -690,7 +626,305 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="servlet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xiaohe66-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -702,22 +936,23 @@
     <property name="options.lastSelected" value="configurable.group.appearance" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15004575" />
     <property name="project.structure.side.proportion" value="0.30689654" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../xh-demo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\workspaces\xh-web\xiaohe66-text\src\main" />
+      <recent name="F:\workspaces\xh-web\web\src\main\webapp\web" />
       <recent name="D:\job room\intellij\xh-web\base\src\main\resources\com\xiaohe66\web\mapper\org" />
       <recent name="D:\job room\xh-web\base\src\main\resources\com\xiaohe66\web\security\func" />
       <recent name="D:\job room\xh-web\base\src\main\resources\com\xiaohe66\web\sys" />
-      <recent name="D:\job room\xh-web\base\src\main\resources\com\xiaohe66\web\common" />
-      <recent name="D:\job room\xh-web\base\src\main\resources\com\xiaohe66\web\text" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.xiaohe66.web.common" />
@@ -733,11 +968,11 @@
       <recent name="com.xh.blog.aop.Resolver" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\workspaces\xh-web\xiaohe66-org\src\main\resources" />
+      <recent name="F:\workspaces\xh-web\xiaohe66-security\src\main\resources" />
+      <recent name="F:\workspaces\xh-web\base\src\main\resources\com\xiaohe66\web\mapper\comm" />
       <recent name="D:\job room\intellij\xh-web\base\src\main\resources\com\xiaohe66\web\mapper\text" />
       <recent name="D:\job room\intellij\xh-web\base\src\main\resources\com\xiaohe66\web\mapper\comm" />
-      <recent name="D:\job room\intellij\xh-web\web\src\main\webapp\js" />
-      <recent name="D:\job room\xh-web\common\src\test\java\com\xiaohe66\web\test\common" />
-      <recent name="D:\job room\xh-blog\web\src\main\webapp\image" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -753,6 +988,67 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.tomcat">
+    <configuration default="false" name="StrUtilsTest.trimTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.xiaohe66.web.test.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="common" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.xiaohe66.web.test.common" />
+      <option name="MAIN_CLASS_NAME" value="com.xiaohe66.web.test.common.StrUtilsTest" />
+      <option name="METHOD_NAME" value="trimTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="XHTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="XHTest" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="base" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="EmailService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.xiaohe66.web.sys.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.xiaohe66.web.sys.service.EmailService" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="base" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
       <deployment />
       <server-settings />
@@ -1293,7 +1589,7 @@
       </MavenSettings>
       <method />
     </configuration>
-    <configuration default="false" name="tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.4" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration default="false" name="tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.31" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER" value="false" />
       <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
       <deployment>
@@ -1305,7 +1601,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Unnamed_xh-blog" />
-        <option name="HTTP_PORT" value="80" />
+        <option name="JNDI_PORT" value="1098" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -1367,14 +1663,24 @@
         </option>
       </method>
     </configuration>
-    <list size="6">
+    <list size="9">
       <item index="0" class="java.lang.String" itemvalue="Maven.jetty-run" />
       <item index="1" class="java.lang.String" itemvalue="Maven.root-install" />
       <item index="2" class="java.lang.String" itemvalue="Maven.common-install" />
       <item index="3" class="java.lang.String" itemvalue="Maven.base-install" />
       <item index="4" class="java.lang.String" itemvalue="Maven.web-install" />
       <item index="5" class="java.lang.String" itemvalue="Tomcat Server.tomcat" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.StrUtilsTest.trimTest" />
+      <item index="7" class="java.lang.String" itemvalue="Application.XHTest" />
+      <item index="8" class="java.lang.String" itemvalue="Application.EmailService" />
     </list>
+    <recent_temporary>
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Application.EmailService" />
+        <item index="1" class="java.lang.String" itemvalue="Application.XHTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.StrUtilsTest.trimTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -1385,8 +1691,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="024cf941-01a9-4db1-bf33-cfd396dacb63" name="Default" comment="" />
-      <changelist id="e7909966-2428-4046-bde4-ddcafec3f397" name="用户信息" comment="" />
-      <changelist id="50352de8-0a56-426f-b5e2-20ed025bde85" name="shiro" comment="" />
+      <changelist id="bbe05407-06e1-4b15-ac5a-8d2f19334ab8" name="首页bug" comment="" />
       <created>1509173233166</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -1443,6 +1748,78 @@
       <workItem from="1523360049775" duration="12929000" />
       <workItem from="1523454198474" duration="4133000" />
       <workItem from="1523530824526" duration="6481000" />
+      <workItem from="1525334400094" duration="6362000" />
+      <workItem from="1525396482182" duration="3030000" />
+      <workItem from="1525680415970" duration="1383000" />
+      <workItem from="1525742171825" duration="1978000" />
+      <workItem from="1525745992166" duration="13541000" />
+      <workItem from="1525830832801" duration="572000" />
+      <workItem from="1526008082569" duration="166000" />
+      <workItem from="1526452488035" duration="379000" />
+      <workItem from="1526455660037" duration="2104000" />
+      <workItem from="1526538966879" duration="1453000" />
+      <workItem from="1526889050340" duration="1310000" />
+      <workItem from="1527124929361" duration="6289000" />
+      <workItem from="1527210848635" duration="6244000" />
+      <workItem from="1527470139472" duration="15132000" />
+      <workItem from="1527556580000" duration="9000000" />
+      <workItem from="1527642942923" duration="157000" />
+      <workItem from="1527643418925" duration="4833000" />
+      <workItem from="1527729133511" duration="4313000" />
+      <workItem from="1527758242330" duration="599000" />
+      <workItem from="1528074886595" duration="4242000" />
+      <workItem from="1528161158408" duration="4071000" />
+      <workItem from="1528248029316" duration="3952000" />
+      <workItem from="1528334723209" duration="1932000" />
+      <workItem from="1528420928014" duration="1087000" />
+      <workItem from="1528679980107" duration="2419000" />
+      <workItem from="1528773704055" duration="13818000" />
+      <workItem from="1528852661914" duration="2219000" />
+      <workItem from="1529463549284" duration="2233000" />
+      <workItem from="1530494223849" duration="5580000" />
+      <workItem from="1530580133730" duration="2440000" />
+      <workItem from="1530666657907" duration="602000" />
+      <workItem from="1530686207536" duration="9325000" />
+      <workItem from="1530753089645" duration="11033000" />
+      <workItem from="1530839314975" duration="1864000" />
+      <workItem from="1530866526512" duration="4260000" />
+      <workItem from="1531098623458" duration="2441000" />
+      <workItem from="1531101744877" duration="14853000" />
+      <workItem from="1531185057505" duration="20757000" />
+      <workItem from="1531271593633" duration="9063000" />
+      <workItem from="1531357886836" duration="6174000" />
+      <workItem from="1531444776616" duration="1725000" />
+      <workItem from="1531470654359" duration="3398000" />
+      <workItem from="1531703723542" duration="3632000" />
+      <workItem from="1531789686154" duration="7138000" />
+      <workItem from="1531876221607" duration="14634000" />
+      <workItem from="1531962976434" duration="9688000" />
+      <workItem from="1531989813681" duration="5773000" />
+      <workItem from="1532048977705" duration="11941000" />
+      <workItem from="1532308994728" duration="5344000" />
+      <workItem from="1532395429433" duration="17789000" />
+      <workItem from="1532490209357" duration="2280000" />
+      <workItem from="1532499614662" duration="1855000" />
+      <workItem from="1532507546239" duration="274000" />
+      <workItem from="1532508405644" duration="123000" />
+      <workItem from="1532913026157" duration="769000" />
+      <workItem from="1532930785849" duration="1230000" />
+      <workItem from="1533004127427" duration="314000" />
+      <workItem from="1533539584267" duration="828000" />
+      <workItem from="1533540421040" duration="134000" />
+      <workItem from="1533540570358" duration="133000" />
+      <workItem from="1533540712582" duration="138000" />
+      <workItem from="1533540858807" duration="5792000" />
+      <workItem from="1533708134553" duration="42000" />
+      <workItem from="1534122944639" duration="609000" />
+      <workItem from="1534128254868" duration="612000" />
+      <workItem from="1534129539461" duration="1980000" />
+      <workItem from="1534300965187" duration="1129000" />
+      <workItem from="1534302437608" duration="359000" />
+      <workItem from="1534302809109" duration="9959000" />
+      <workItem from="1534402834378" duration="6404000" />
+      <workItem from="1534413280048" duration="2129000" />
+      <workItem from="1534468239407" duration="14890000" />
     </task>
     <task id="LOCAL-00001" summary="初始导入">
       <created>1517496341109</created>
@@ -1542,79 +1919,180 @@
       <option name="project" value="LOCAL" />
       <updated>1523199141179</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="seo">
+      <created>1525342753046</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1525342753046</updated>
+    </task>
+    <task id="LOCAL-00016" summary="update">
+      <created>1530503567832</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1530503567832</updated>
+    </task>
+    <task id="LOCAL-00017" summary="密码机制更新">
+      <created>1530503579844</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1530503579844</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Check util update and test update">
+      <created>1530753933477</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1530753933477</updated>
+    </task>
+    <task id="LOCAL-00019" summary="maxIdleTime">
+      <created>1530867669783</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1530867669783</updated>
+    </task>
+    <task id="LOCAL-00020" summary="断点续传，文件上传部分">
+      <created>1531215886200</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1531215886200</updated>
+    </task>
+    <task id="LOCAL-00021" summary="断点续传">
+      <created>1532078148179</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1532078148179</updated>
+    </task>
+    <task id="LOCAL-00022" summary="strUtilsTest">
+      <created>1532310555424</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1532310555424</updated>
+    </task>
+    <task id="LOCAL-00023" summary="登录名前后空格导致无法登录bug">
+      <created>1532398149671</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1532398149671</updated>
+    </task>
+    <task id="LOCAL-00024" summary="添加系统初始化代码">
+      <created>1532401396129</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1532401396129</updated>
+    </task>
+    <task id="LOCAL-00025" summary="添加系统初始化代码">
+      <created>1532401407747</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1532401407747</updated>
+    </task>
+    <task id="LOCAL-00026" summary="StrEnum改为interface">
+      <created>1532402607318</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1532402607318</updated>
+    </task>
+    <task id="LOCAL-00027" summary="response统一格式">
+      <created>1532416372858</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1532416372861</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ClassConvertTest - 2018.01.31 at 19h 52m 08s.xml">
-      <configuration name="ClassConvertTest" configurationId="JUnit" />
+    <history-entry file="IoUtilsTest_test1 - 2018.07.10 at 09h 51m 39s.xml">
+      <configuration name="IoUtilsTest.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ClassConvertTest_test4 - 2018.01.23 at 23h 35m 13s.xml">
-      <configuration name="ClassConvertTest.test4" configurationId="JUnit" />
+    <history-entry file="IoUtilsTest_test1 - 2018.07.10 at 09h 52m 28s.xml">
+      <configuration name="IoUtilsTest.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ClassConvertTest_test4 - 2018.01.23 at 23h 35m 31s.xml">
-      <configuration name="ClassConvertTest.test4" configurationId="JUnit" />
+    <history-entry file="IoUtilsTest_test1 - 2018.07.10 at 09h 54m 16s.xml">
+      <configuration name="IoUtilsTest.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ClassConvertTest_test4 - 2018.01.31 at 20h 45m 48s.xml">
-      <configuration name="ClassConvertTest.test4" configurationId="JUnit" />
+    <history-entry file="IoUtilsTest_test1 - 2018.07.10 at 09h 54m 54s.xml">
+      <configuration name="IoUtilsTest.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StrUtilsTest - 2018.01.31 at 20h 46m 53s.xml">
-      <configuration name="StrUtilsTest" configurationId="JUnit" />
+    <history-entry file="IoUtilsTest_test2 - 2018.07.10 at 09h 55m 28s.xml">
+      <configuration name="IoUtilsTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StrUtilsTest_equalsAndNotNullTest - 2018.01.22 at 22h 04m 03s.xml">
-      <configuration name="StrUtilsTest.equalsAndNotNullTest" configurationId="JUnit" />
+    <history-entry file="IoUtilsTest_test3 - 2018.07.10 at 09h 57m 14s.xml">
+      <configuration name="IoUtilsTest.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StrUtilsTest_equalsAndNotNullTest - 2018.01.22 at 22h 11m 01s.xml">
-      <configuration name="StrUtilsTest.equalsAndNotNullTest" configurationId="JUnit" />
+    <history-entry file="PwdUtilsTest_test1 - 2018.07.10 at 11h 19m 41s.xml">
+      <configuration name="PwdUtilsTest.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StrUtilsTest_isAllNotEmptyTest - 2018.01.22 at 21h 52m 25s.xml">
-      <configuration name="StrUtilsTest.isAllNotEmptyTest" configurationId="JUnit" />
+    <history-entry file="StrUtilsTest_trimTest - 2018.07.23 at 09h 45m 42s.xml">
+      <configuration name="StrUtilsTest.trimTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StrUtilsTest_isOneEmptyTest - 2018.01.22 at 21h 59m 21s.xml">
-      <configuration name="StrUtilsTest.isOneEmptyTest" configurationId="JUnit" />
+    <history-entry file="StrUtilsTest_trimTest - 2018.07.23 at 09h 46m 02s.xml">
+      <configuration name="StrUtilsTest.trimTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StrUtilsTest_toIntNotExceptionTest - 2018.01.22 at 22h 23m 39s.xml">
-      <configuration name="StrUtilsTest.toIntNotExceptionTest" configurationId="JUnit" />
+    <history-entry file="StrUtilsTest_trimTest - 2018.07.23 at 09h 48m 37s.xml">
+      <configuration name="StrUtilsTest.trimTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="341047000" />
+    <option name="totallyTimeSpent" value="677284000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-7" y="2" width="1378" height="733" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4819672" sideWeight="0.5060514" order="15" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49344262" sideWeight="0.5060698" order="15" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4819672" sideWeight="0.5030257" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24432677" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28441754" sideWeight="0.498366" order="14" side_tool="false" content_ui="tabs" x="467" y="241" width="512" height="289" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34493193" sideWeight="0.501634" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3494705" sideWeight="0.501634" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46885246" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" x="16" y="475" width="1556" height="296" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32026145" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4819672" sideWeight="0.49394855" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4657763" sideWeight="0.4939302" order="6" side_tool="false" content_ui="tabs" x="16" y="475" width="1556" height="296" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31886476" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48032787" sideWeight="0.49394855" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4379085" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49836066" sideWeight="0.4969743" order="24" side_tool="false" content_ui="tabs" x="15" y="217" width="1354" height="344" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45751634" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49081802" sideWeight="0.4939302" order="24" side_tool="false" content_ui="tabs" x="15" y="217" width="1354" height="344" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35737705" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4869281" sideWeight="0.5030257" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43954247" sideWeight="0.5030257" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30711043" sideWeight="0.49102774" order="7" side_tool="false" content_ui="combo" x="139" y="68" width="353" height="612" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4390651" sideWeight="0.5030257" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26176023" sideWeight="0.49102774" order="7" side_tool="false" content_ui="combo" x="139" y="68" width="353" height="612" />
       <window_info id="Web" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32223904" sideWeight="0.50570965" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4852459" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28441754" sideWeight="0.5089723" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.40015128" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="BPMN Editor" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22314675" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20121029" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20045386" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5171289" sideWeight="0.5" order="21" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -1631,7 +2109,6 @@
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5367047" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="控制板" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48688525" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50570965" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1649,7 +2126,6 @@
     <MESSAGE value="usrFile" />
     <MESSAGE value="commonFile" />
     <MESSAGE value="about" />
-    <MESSAGE value="update" />
     <MESSAGE value="留言板" />
     <MESSAGE value="增加通用表数据计数方法" />
     <MESSAGE value="分页默认5个,第1页" />
@@ -1657,18 +2133,31 @@
     <MESSAGE value="commit" />
     <MESSAGE value="分类管理" />
     <MESSAGE value="文件列表" />
-    <option name="LAST_COMMIT_MESSAGE" value="文件列表" />
+    <MESSAGE value="seo" />
+    <MESSAGE value="update" />
+    <MESSAGE value="密码机制更新" />
+    <MESSAGE value="Check util update and test update" />
+    <MESSAGE value="maxIdleTime" />
+    <MESSAGE value="断点续传，文件上传部分" />
+    <MESSAGE value="断点续传" />
+    <MESSAGE value="strUtilsTest" />
+    <MESSAGE value="登录名前后空格导致无法登录bug" />
+    <MESSAGE value="添加系统初始化代码" />
+    <MESSAGE value="StrEnum改为interface" />
+    <MESSAGE value="response统一格式" />
+    <MESSAGE value="集成邮件系统" />
+    <option name="LAST_COMMIT_MESSAGE" value="集成邮件系统" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="102" />
+      <option name="time" value="156" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
-        <watch expression="file.getOriginalFilename()" language="JAVA" />
+        <watch expression="proceedingJoinPoint.getSourceLocation()" language="JAVA" />
       </configuration>
       <configuration name="MavenRunConfiguration">
         <watch expression="ann.isInstance(Get.class)" />
@@ -1683,459 +2172,441 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/controller/PageController.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#702#703#0" expanded="false" />
-            <element signature="e#732#733#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/common/js/top.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="7" lean-forward="true" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/top.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="131" column="36" lean-forward="true" selection-start-line="131" selection-start-column="36" selection-end-line="131" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/js/xh/xh-common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="54" column="9" lean-forward="true" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/BaseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="38" column="97" lean-forward="false" selection-start-line="38" selection-start-column="87" selection-end-line="38" selection-end-column="97" />
+        <state relative-caret-position="279">
+          <caret line="87" column="12" lean-forward="false" selection-start-line="87" selection-start-column="12" selection-end-line="91" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/org/css/category_management.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/comm/CategoryMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="33" column="17" lean-forward="true" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
-          <folding>
-            <marker date="1523196367559" expanded="true" signature="319:553" ph="insert into xh_web_comm_category... " />
-            <marker date="1523196367559" expanded="true" signature="626:695" ph="select * fro... xh_web_comm_category" />
-            <marker date="1523196367559" expanded="true" signature="771:805" ph="select * fro... xh_web_comm_category" />
-            <marker date="1523196367559" expanded="true" signature="969:1022" ph="select * fro... xh_web_comm_category" />
-            <marker date="1523196367559" expanded="true" signature="1100:1695" ph="update xh_we... " />
-            <marker date="1523196367559" expanded="true" signature="1770:1904" ph="update xh_we... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/po/TextCategory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/js/xh/xh-mask.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/text/TextCategoryMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="42" lean-forward="false" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/category_management.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="65" lean-forward="false" selection-start-line="7" selection-start-column="65" selection-end-line="8" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/org/js/category_management.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/usr_zone.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="71" lean-forward="false" selection-start-line="18" selection-start-column="71" selection-end-line="18" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/controller/TextCategoryController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="38" column="17" lean-forward="true" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/css/xh/xh-common.css">
+    <entry file="file://$PROJECT_DIR$/base/base.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="187" column="14" lean-forward="false" selection-start-line="187" selection-start-column="14" selection-end-line="188" selection-end-column="31" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/common/css/right.css">
+    <entry file="file://$PROJECT_DIR$/base/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/common/FileUpload.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="82" lean-forward="true" selection-start-line="5" selection-start-column="82" selection-end-line="6" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/4.3.0.RELEASE/spring-core-4.3.0.RELEASE.jar!/org/springframework/core/io/InputStreamSource.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.0.RELEASE/spring-web-4.3.0.RELEASE.jar!/org/springframework/web/multipart/commons/CommonsMultipartFile.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.0.RELEASE/spring-web-4.3.0.RELEASE.jar!/org/springframework/web/multipart/MultipartFile.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="50" column="48" lean-forward="true" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="48" />
+        <state relative-caret-position="285">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/apps/jdk/1.8/jre/lib/rt.jar!/javax/activation/MimetypesFileTypeMap.class">
+    <entry file="file://$PROJECT_DIR$/web/src/main/resources/param.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        <state relative-caret-position="190">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1208">
-          <caret line="21" column="63" lean-forward="true" selection-start-line="21" selection-start-column="63" selection-end-line="21" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/home/controller/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/common/right.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="26" column="19" lean-forward="true" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/comm/CommonFileMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-          <folding>
-            <marker date="1523368049005" expanded="true" signature="323:421" ph="insert into xh_web_comm_file... " />
-            <marker date="1523368049005" expanded="true" signature="496:543" ph="select * fro... xh_web_comm_file" />
-            <marker date="1523368049005" expanded="true" signature="619:693" ph="select * fro... xh_web_comm_file" />
-            <marker date="1523368049005" expanded="true" signature="773:1044" ph="update xh_we... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/IoUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="45" column="65" lean-forward="true" selection-start-line="45" selection-start-column="65" selection-end-line="45" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/controller/CommonFileController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="29" column="66" lean-forward="false" selection-start-line="29" selection-start-column="66" selection-end-line="29" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/EncoderUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="16" column="35" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#823#824#0" expanded="false" />
-            <element signature="e#867#868#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/org/css/file_list.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrFileDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-          <folding>
-            <element signature="e#793#794#0" expanded="false" />
-            <element signature="e#824#825#0" expanded="false" />
-            <element signature="e#872#873#0" expanded="false" />
-            <element signature="e#912#913#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CommonFileService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2020">
-          <caret line="124" column="33" lean-forward="false" selection-start-line="124" selection-start-column="33" selection-end-line="124" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="48" column="30" lean-forward="false" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/UsrFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="33" lean-forward="false" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
-          <folding>
-            <element signature="e#461#462#0" expanded="false" />
-            <element signature="e#492#493#0" expanded="false" />
-            <element signature="e#540#541#0" expanded="false" />
-            <element signature="e#580#581#0" expanded="false" />
-            <element signature="e#611#612#0" expanded="false" />
-            <element signature="e#640#641#0" expanded="false" />
-            <element signature="e#682#683#0" expanded="false" />
-            <element signature="e#718#719#0" expanded="false" />
-            <element signature="e#753#754#0" expanded="false" />
-            <element signature="e#784#785#0" expanded="false" />
-            <element signature="e#832#833#0" expanded="false" />
-            <element signature="e#872#873#0" expanded="false" />
-            <element signature="e#907#908#0" expanded="false" />
-            <element signature="e#938#939#0" expanded="false" />
-            <element signature="e#986#987#0" expanded="false" />
-            <element signature="e#1026#1027#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/resources/com/xiaohe66/web/mapper/org/UsrFileMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="860">
-          <caret line="43" column="25" lean-forward="false" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
-          <folding>
-            <marker date="1523455561528" expanded="true" signature="316:536" ph="insert into xh_web_org_usr_file... " />
-            <marker date="1523455561528" expanded="true" signature="618:701" ph="select * fro... xh_web_org_usr_file" />
-            <marker date="1523455561528" expanded="true" signature="773:841" ph="select * fro... xh_web_org_usr_file" />
-            <marker date="1523455561528" expanded="true" signature="916:1253" ph="select * fro... xh_web_org_usr_file" />
-            <marker date="1523455561528" expanded="true" signature="1330:1356" ph="update xh_we... " />
-            <marker date="1523455561528" expanded="true" signature="1330:1510" ph="update xh_we... " />
-            <marker date="1523455561528" expanded="true" signature="1560:1621" ph="update xh_we... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/Check.java">
+    <entry file="jar://E:/java/jdk1.8/src.zip!/java/util/Vector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
-          <caret line="43" column="23" lean-forward="false" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
-          <folding />
+          <caret line="617" column="29" lean-forward="false" selection-start-line="617" selection-start-column="29" selection-end-line="617" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/StrUtils.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar!/javax/mail/Transport.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3160">
-          <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#573#574#0" expanded="false" />
-            <element signature="e#628#629#0" expanded="false" />
-            <element signature="e#842#843#0" expanded="false" />
-            <element signature="e#897#898#0" expanded="false" />
-            <element signature="e#1681#1682#0" expanded="false" />
-            <element signature="e#1724#1725#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="326">
+          <caret line="180" column="37" lean-forward="false" selection-start-line="180" selection-start-column="37" selection-end-line="180" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/apps/jdk/1.8/src.zip!/java/lang/IllegalAccessException.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar!/javax/mail/internet/MimeMessage.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
-          <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="20" />
+          <caret line="253" column="16" lean-forward="false" selection-start-line="253" selection-start-column="16" selection-end-line="253" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/apps/jdk/1.8/src.zip!/java/lang/CharSequence.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar!/javax/mail/Service.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="213">
+          <caret line="43" column="43" lean-forward="false" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/apps/jdk/1.8/src.zip!/java/lang/String.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar!/javax/mail/Session.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="2131" column="35" lean-forward="false" selection-start-line="2131" selection-start-column="35" selection-end-line="2131" selection-end-column="35" />
-          <folding>
-            <element signature="e#82971#82972#0" expanded="false" />
-            <element signature="e#83020#83021#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="228">
+          <caret line="37" column="30" lean-forward="false" selection-start-line="37" selection-start-column="30" selection-end-line="37" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/exception/XhException.java">
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/po/SysCfg.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="27" />
-          <folding>
-            <element signature="e#974#975#0" expanded="false" />
-            <element signature="e#1001#1002#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-            <element signature="e#1056#1057#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/BaseService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="152">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/base/impl/AbstractService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-628">
-          <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+        <state relative-caret-position="3401">
+          <caret line="186" column="52" lean-forward="false" selection-start-line="186" selection-start-column="52" selection-end-line="186" selection-end-column="52" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1805">
+          <caret line="115" column="49" lean-forward="false" selection-start-line="115" selection-start-column="49" selection-end-line="115" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/service/UsrFileService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+        <state relative-caret-position="2489">
+          <caret line="162" column="9" lean-forward="false" selection-start-line="162" selection-start-column="9" selection-end-line="162" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/comm/service/CategoryService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="36" column="46" lean-forward="true" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/MessageBoardService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="83" column="9" lean-forward="false" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/java/jdk1.8/src.zip!/org/omg/CosNaming/NamingContextPackage/AlreadyBoundHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.16.RELEASE/spring-beans-4.3.16.RELEASE.jar!/org/springframework/beans/factory/InitializingBean.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="8" column="47" lean-forward="true" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/servlet/InitServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleService.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="211" column="9" lean-forward="false" selection-start-line="211" selection-start-column="9" selection-end-line="211" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/SysCfgService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/helper/SysCfgHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring/spring-mvc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1817">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/po/Usr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="24" />
+          <folding>
+            <element signature="e#1023#1024#0" expanded="false" />
+            <element signature="e#1057#1058#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/dto/UsrDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+          <folding>
+            <element signature="e#975#976#0" expanded="true" />
+            <element signature="e#1003#1004#0" expanded="true" />
+            <element signature="e#1045#1046#0" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/exception/XhException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="27" column="55" lean-forward="true" selection-start-line="27" selection-start-column="55" selection-end-line="27" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/Check.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="45" column="23" lean-forward="false" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar!/javax/mail/MessagingException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar!/javax/mail/internet/InternetAddress.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/dto/CurrentUsr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring/spring-shrio.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="56" column="29" lean-forward="true" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/resources/spring/spring-context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="29" column="63" lean-forward="false" selection-start-line="29" selection-start-column="63" selection-end-line="29" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/SpringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+          <folding>
+            <element signature="e#603#604#0" expanded="false" />
+            <element signature="e#662#663#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/resolver/CurrentUsrResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="27" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/test/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="30" column="44" lean-forward="true" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/ParamFinal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/SecurityService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-core/1.4.0/shiro-core-1.4.0.jar!/org/apache/shiro/session/Session.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="30" column="11" lean-forward="false" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/util/WebUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/sys/service/EmailService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="77" column="33" lean-forward="true" selection-start-line="77" selection-start-column="33" selection-end-line="77" selection-end-column="33" />
+          <folding>
+            <element signature="e#1579#1580#0" expanded="true" />
+            <element signature="e#1619#1620#0" expanded="true" />
+            <element signature="e#2283#2284#0" expanded="true" />
+            <element signature="e#2337#2338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/data/CodeEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/controller/AuthCodeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/src/main/java/com/xiaohe66/web/aop/XhResponseAsp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/security/service/LoginService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="49" column="9" lean-forward="true" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/java/jdk1.8/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="34" column="18" lean-forward="true" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+          <folding>
+            <element signature="e#10065#10066#0" expanded="false" />
+            <element signature="e#10148#10149#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/java/jdk1.8/src.zip!/java/lang/CharSequence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-959">
+          <caret line="159" column="23" lean-forward="true" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/java/jdk1.8/src.zip!/java/lang/Comparable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="827">
+          <caret line="95" column="17" lean-forward="false" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/java/jdk1.8/src.zip!/java/nio/charset/Charset.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
-          <caret line="109" column="68" lean-forward="true" selection-start-line="109" selection-start-column="68" selection-end-line="109" selection-end-column="68" />
+          <caret line="271" column="21" lean-forward="false" selection-start-line="271" selection-start-column="21" selection-end-line="271" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/text/service/ArticleCategoryLinkService.java">
+    <entry file="jar://E:/java/jdk1.8/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="27" column="47" lean-forward="true" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-          <folding />
+        <state relative-caret-position="389">
+          <caret line="467" column="61" lean-forward="false" selection-start-line="467" selection-start-column="61" selection-end-line="467" selection-end-column="61" />
+          <folding>
+            <element signature="e#4677#4678#0" expanded="true" />
+            <element signature="e#4714#4715#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/xiaohe66/web/org/controller/UsrFileController.java">
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCodeHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="70" column="27" lean-forward="true" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="447">
+          <caret line="149" column="0" lean-forward="true" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding>
+            <element signature="e#3310#3311#0" expanded="true" />
+            <element signature="e#3378#3379#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/web/org/js/file_list.js">
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/xiaohe66/web/common/auth/AuthCode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="15" lean-forward="true" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/src/main/webapp/WEB-INF/views/org/file_list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="47" column="60" lean-forward="false" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="60" />
-          <folding />
+        <state relative-caret-position="238">
+          <caret line="33" column="16" lean-forward="false" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+          <folding>
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2161,6 +2632,7 @@
             <option name="proportions">
               <list>
                 <option value="0.30689654" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -2179,7 +2651,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Web (web)|Web</last-edited>
+          <last-edited>Web</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -2214,11 +2686,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>web</last-edited>
+          <last-edited>base</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.30689654" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -2238,7 +2711,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: jstl:jstl:1.2</last-edited>
+          <last-edited>Maven: com.xiaohe66.web:common:1.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

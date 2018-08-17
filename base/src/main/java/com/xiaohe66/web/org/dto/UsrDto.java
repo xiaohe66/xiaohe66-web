@@ -12,6 +12,7 @@ public class UsrDto extends BaseDto {
     private String usrName;
     private String signature;
     private Long imgFileId;
+    private String email;
 
     public UsrDto(){
 
@@ -44,6 +45,14 @@ public class UsrDto extends BaseDto {
 
     public void setImgFileId(Long imgFileId) {
         this.imgFileId = imgFileId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

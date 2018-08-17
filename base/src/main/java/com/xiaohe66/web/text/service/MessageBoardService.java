@@ -10,7 +10,7 @@ import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
-import com.xiaohe66.web.sys.service.SysCfgService;
+import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import com.xiaohe66.web.text.dao.MessageBoardDao;
 import com.xiaohe66.web.text.dto.MessageBoardDto;
 import com.xiaohe66.web.text.param.MessageBoardParam;
@@ -30,9 +30,6 @@ import java.util.List;
 public class MessageBoardService extends AbstractService<MessageBoard>{
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageBoardService.class);
-
-    @Autowired
-    private SysCfgService sysCfgService;
 
     @Autowired
     private UsrService usrService;
@@ -78,7 +75,7 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      */
     public List<MessageBoardDto> findByUsrId(Long usrId){
         if(usrId == null){
-            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
+            String usrIdStr = SysCfgHelper.getValue(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
 

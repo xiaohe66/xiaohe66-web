@@ -15,7 +15,7 @@ import com.xiaohe66.web.org.dto.UsrFileDto;
 import com.xiaohe66.web.org.param.UsrFileParam;
 import com.xiaohe66.web.org.po.UsrFile;
 import com.xiaohe66.web.org.po.UsrFileLog;
-import com.xiaohe66.web.sys.service.SysCfgService;
+import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +60,6 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     @Autowired
     private UsrFileLogService usrFileLogService;
-
-    @Autowired
-    private SysCfgService cfgService;
 
     @Autowired
     private UsrService usrService;
@@ -158,7 +155,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
         UsrFileParam param = new UsrFileParam();
         if(onlyWebmaster){
-            param.setCreateId(cfgService.findXhUsrId());
+            param.setCreateId(SysCfgHelper.findXhUsrId());
         }
         if(StrUtils.isNotEmpty(search)){
             param.setFileName("%"+search+"%");

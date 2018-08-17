@@ -1,5 +1,7 @@
 package com.xiaohe66.web.sys.dto;
 
+import com.xiaohe66.web.common.data.CodeEnum;
+import com.xiaohe66.web.common.exception.XhException;
 import com.xiaohe66.web.org.dto.UsrDto;
 
 /**
@@ -22,6 +24,9 @@ public class CurrentUsr {
     }
 
     public UsrDto getUsr() {
+        if(usr == null){
+            throw new XhException(CodeEnum.NOT_LOGGED_IN);
+        }
         return usr;
     }
 }

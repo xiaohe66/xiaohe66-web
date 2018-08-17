@@ -25,10 +25,13 @@ public enum CodeEnum {
     ,PARAM_ERR(402,"参数错误")
     ,OBJ_ALREADY_EXIST(403,"对象已存在")
 
+    //6** 安全
     ,USR_NOT_EXIST(601,"用户不存在")
     ,PASSWORD_ERROR(602,"密码错误")
     ,NOT_LOGGED_IN(603,"用户未登录")
     ,NOT_PERMISSION(604,"权限不足")
+    ,AUTH_CODE_TIME_OUT(605,"验证码失效")
+    ,AUTH_CODE_ERR(606,"验证码错误")
 
     ,IO_EXCEPTION(701,"IO异常")
     ,RUNTIME_EXCEPTION(702,"运行时异常")

@@ -3,16 +3,16 @@ package com.xiaohe66.web.text.service;
 import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.comm.service.CategoryService;
 import com.xiaohe66.web.common.base.impl.AbstractService;
-import com.xiaohe66.web.common.data.ParamFinal;
-import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.data.CodeEnum;
+import com.xiaohe66.web.common.data.ParamFinal;
 import com.xiaohe66.web.common.exception.XhException;
+import com.xiaohe66.web.common.util.Check;
 import com.xiaohe66.web.common.util.ClassUtils;
 import com.xiaohe66.web.common.util.HtmlUtils;
 import com.xiaohe66.web.common.util.StrUtils;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
-import com.xiaohe66.web.sys.service.SysCfgService;
+import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import com.xiaohe66.web.text.dao.ArticleDao;
 import com.xiaohe66.web.text.dto.ArticleDto;
 import com.xiaohe66.web.text.param.ArticleParam;
@@ -40,9 +40,6 @@ public class ArticleService extends AbstractService<Article>{
     private static final Logger LOG = LoggerFactory.getLogger(ArticleService.class);
 
     private ArticleDao articleDao;
-
-    @Autowired
-    private SysCfgService sysCfgService;
 
     @Autowired
     private ArticleCategoryLinkService articleCategoryLinkService;
@@ -174,7 +171,7 @@ public class ArticleService extends AbstractService<Article>{
     public List<Article> findByUsrId(Long usrId){
         if(Check.isOneNull(usrId)){
             //默认显示站长的列表
-            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
+            String usrIdStr = SysCfgHelper.getValue(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
         ArticleParam param = new ArticleParam();
@@ -203,7 +200,7 @@ public class ArticleService extends AbstractService<Article>{
     public List<ArticleDto> findDtoAll(String search,boolean onlyWebmaster){
         ArticleParam param = new ArticleParam();
         if(onlyWebmaster){
-            String usrIdStr = sysCfgService.findValByKey(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
+            String usrIdStr = SysCfgHelper.getValue(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
             param.setCreateId(StrUtils.toLong(usrIdStr));
         }
         if(StrUtils.isNotEmpty(search)){

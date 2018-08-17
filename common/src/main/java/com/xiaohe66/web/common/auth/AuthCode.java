@@ -1,6 +1,7 @@
 package com.xiaohe66.web.common.auth;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,9 +11,9 @@ import java.util.Date;
  * @date 18-03-11 011
  */
 
-public class AuthCode {
+public class AuthCode implements Serializable{
 
-    private BufferedImage img;
+    private transient BufferedImage img;
     private String code;
     private Date createTime;
 
