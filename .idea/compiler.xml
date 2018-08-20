@@ -16,11 +16,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="base" />
         <module name="common" />
         <module name="root" />
         <module name="usr" />
         <module name="web" />
+        <module name="xiaohe66-portal" />
+        <module name="xiaohe66-web-base" />
+        <module name="xiaohe66-web-common" />
+        <module name="xiaohe66-web-file" />
+        <module name="xiaohe66-web-org" />
+        <module name="xiaohe66-web-portal" />
+        <module name="xiaohe66-web-security" />
+        <module name="xiaohe66-web-sys" />
+        <module name="xiaohe66-web-text" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -37,7 +45,16 @@
       <module name="web" target="1.8" />
       <module name="xh-blog" target="1.6" />
       <module name="xh-web" target="1.8" />
+      <module name="xiaohe66-portal" target="1.8" />
       <module name="xiaohe66-web" target="1.8" />
+      <module name="xiaohe66-web-base" target="1.8" />
+      <module name="xiaohe66-web-common" target="1.8" />
+      <module name="xiaohe66-web-file" target="1.8" />
+      <module name="xiaohe66-web-org" target="1.8" />
+      <module name="xiaohe66-web-portal" target="1.8" />
+      <module name="xiaohe66-web-security" target="1.8" />
+      <module name="xiaohe66-web-sys" target="1.8" />
+      <module name="xiaohe66-web-text" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

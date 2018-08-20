@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.file.dao.UsrFileDao">
+
+    <insert id="add" parameterType="UsrFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xh_web_org_usr_file
+        (create_id,create_time,update_id,file_name,file_desc,file_type,file_id,extension)
+        values
+        (#{createId},#{createTime},#{updateId},#{fileName},#{fileDesc},#{fileType},#{fileId},#{extension})
+    </insert>
+
+    <select id="findByCommonFileId" resultType="UsrFile">
+        select * from xh_web_org_usr_file where is_delete = 0 and file_id = #{commonFileId}
+    </select>
+
+    <select id="findById" resultType="UsrFile">
+        select * from xh_web_org_usr_file where is_delete = 0 and id = #{id}
+    </select>
+
+    <select id="findByParam" resultType="UsrFile">
+        select * from xh_web_org_usr_file
+        <where>
+            is_delete = 0
+            and file_type = 0
+            <if test="param != null">
+                <if test="param.createId != null">
+                    and create_id = #{param.createId}
+                </if>
+                <if test="param.fileName != null">
+                    and file_name like #{param.fileName}
+                </if>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <update id="updateById" parameterType="UsrFile">
+        update xh_web_org_usr_file
+        <set>
+            <if test="fileName != null">
+                file_name = #{fileName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delById">
+        update xh_web_org_usr_file set is_delete = 1 where id = #{id}
+    </update>
+
+</mapper>

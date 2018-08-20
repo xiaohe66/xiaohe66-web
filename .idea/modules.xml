@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaohe66-web.iml" filepath="$PROJECT_DIR$/xiaohe66-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-base/xiaohe66-web-base.iml" filepath="$PROJECT_DIR$/xiaohe66-web-base/xiaohe66-web-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-common/xiaohe66-web-common.iml" filepath="$PROJECT_DIR$/xiaohe66-web-common/xiaohe66-web-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-file/xiaohe66-web-file.iml" filepath="$PROJECT_DIR$/xiaohe66-web-file/xiaohe66-web-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-org/xiaohe66-web-org.iml" filepath="$PROJECT_DIR$/xiaohe66-web-org/xiaohe66-web-org.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-portal/xiaohe66-web-portal.iml" filepath="$PROJECT_DIR$/xiaohe66-web-portal/xiaohe66-web-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-security/xiaohe66-web-security.iml" filepath="$PROJECT_DIR$/xiaohe66-web-security/xiaohe66-web-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-sys/xiaohe66-web-sys.iml" filepath="$PROJECT_DIR$/xiaohe66-web-sys/xiaohe66-web-sys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-text/xiaohe66-web-text.iml" filepath="$PROJECT_DIR$/xiaohe66-web-text/xiaohe66-web-text.iml" />
     </modules>
   </component>
 </project>

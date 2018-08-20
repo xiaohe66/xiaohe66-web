@@ -5,14 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xiaohe66.web</groupId>
-    <artifactId>xh-web</artifactId>
+    <artifactId>xiaohe66-web</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
     <modules>
-        <module>common</module>
-        <module>base</module>
-        <module>web</module>
+        <!--<module>base</module>-->
+        <module>xiaohe66-web-base</module>
+        <module>xiaohe66-web-sys</module>
+        <module>xiaohe66-web-common</module>
+        <module>xiaohe66-web-org</module>
+        <module>xiaohe66-web-text</module>
+        <module>xiaohe66-web-security</module>
+        <module>xiaohe66-web-portal</module>
+        <module>xiaohe66-web-file</module>
         <!--<module>code-factory</module>-->
     </modules>
 
@@ -71,13 +77,43 @@
             <!-- xh  -->
             <dependency>
                 <groupId>com.xiaohe66.web</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>xiaohe66-web-base</artifactId>
                 <version>${com.xiaohe66.web.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.xiaohe66.web</groupId>
-                <artifactId>base</artifactId>
+                <artifactId>xiaohe66-web-org</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-sys</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-common</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-security</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-text</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-file</artifactId>
                 <version>${com.xiaohe66.web.version}</version>
             </dependency>
 
