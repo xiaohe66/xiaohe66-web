@@ -4,8 +4,9 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.org.service.UsrService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+
+import javax.annotation.Resource;
 
 /**
  * @author xiaohe
@@ -20,7 +21,7 @@ public class UsrPageController {
 
     private static final String USR_DATA_PAGE_URL = "org/usr_data";
 
-    @Autowired
+    @Resource
     private UsrService usrService;
 
     @Page("/index")

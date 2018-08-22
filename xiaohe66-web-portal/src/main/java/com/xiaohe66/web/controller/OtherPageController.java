@@ -4,9 +4,10 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.file.service.UsrFileService;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.text.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import javax.annotation.Resource;
 
 /**
  * 页面跳转
@@ -22,13 +23,13 @@ public class OtherPageController {
 
     private static final String INDEX_PAGE_HTML = "index";
 
-    @Autowired
+    @Resource
     private ArticleService articleService;
 
-    @Autowired
+    @Resource
     private UsrService usrService;
 
-    @Autowired
+    @Resource
     private UsrFileService usrFileService;
 
     @Page("/about")

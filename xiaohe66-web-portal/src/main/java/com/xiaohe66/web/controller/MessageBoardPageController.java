@@ -10,10 +10,10 @@ import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.text.dto.MessageBoardDto;
 import com.xiaohe66.web.text.service.ArticleService;
 import com.xiaohe66.web.text.service.MessageBoardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,16 +23,16 @@ import java.util.List;
 @XhController("/text/messageBoard")
 public class MessageBoardPageController {
 
-    @Autowired
+    @Resource
     private MessageBoardService messageBoardService;
 
-    @Autowired
+    @Resource
     private UsrService usrService;
 
-    @Autowired
+    @Resource
     private UsrFileService usrFileService;
 
-    @Autowired
+    @Resource
     private ArticleService articleService;
 
     @Page("/index")

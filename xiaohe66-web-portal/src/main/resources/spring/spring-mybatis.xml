@@ -37,9 +37,10 @@
                                                     com.xiaohe66.web.org.po
                                                     com.xiaohe66.web.security.po
                                                     com.xiaohe66.web.sys.po
+                                                    com.xiaohe66.web.file.po
                                                     com.xiaohe66.web.text.po" />
-        <!-- 自动扫描mapper目录 -->
-        <property name="mapperLocations" value="classpath:com/xiaohe66/web/mapper/**/*.xml"/>
+        <!-- 自动扫描mapper目录,classpath后面加个*表示扫描jar包中的xml -->
+        <property name="mapperLocations" value="classpath*:com/xiaohe66/web/mapper/**/*.xml"/>
     </bean>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

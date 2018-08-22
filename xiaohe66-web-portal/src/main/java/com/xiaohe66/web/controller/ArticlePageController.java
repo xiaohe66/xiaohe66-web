@@ -18,10 +18,10 @@ import com.xiaohe66.web.text.dto.TextCategoryDto;
 import com.xiaohe66.web.text.po.TextCategory;
 import com.xiaohe66.web.text.service.ArticleService;
 import com.xiaohe66.web.text.service.TextCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -42,19 +42,19 @@ public class ArticlePageController {
 
     private static final String ARTICLE_ADMIN_PAGE_URL = "text/article_admin";
 
-    @Autowired
+    @Resource
     private ArticleService articleService;
 
-    @Autowired
+    @Resource
     private TextCategoryService textCategoryService;
 
-    @Autowired
+    @Resource
     private CategoryService categoryService;
 
-    @Autowired
+    @Resource
     private UsrService usrService;
 
-    @Autowired
+    @Resource
     private UsrFileService usrFileService;
 
     @Page("/add")

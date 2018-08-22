@@ -9,10 +9,10 @@ import com.xiaohe66.web.file.service.UsrFileService;
 import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.text.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -27,13 +27,13 @@ public class UsrFilePageController {
     private static final String USR_FILE_ADMIN_PAGE_URL = "org/file_admin";
     private static final String USR_FILE_ALL_PAGE_URL = "org/file_all";
 
-    @Autowired
+    @Resource
     private UsrFileService usrFileService;
 
-    @Autowired
+    @Resource
     private UsrService usrService;
 
-    @Autowired
+    @Resource
     private ArticleService articleService;
 
     @Page("/admin")

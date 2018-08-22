@@ -56,6 +56,8 @@
 
                 /comm/file/img/* = http[get]
 
+                /sys/notPermission = anon
+
                 /org/usr/file/all/*/* = http[get]
                 /org/usr/file/all = http[get]
                 /org/usr/file/img/* = anon
