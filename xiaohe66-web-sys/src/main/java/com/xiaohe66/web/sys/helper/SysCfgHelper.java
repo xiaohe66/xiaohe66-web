@@ -22,16 +22,12 @@ import java.util.Map;
  * @version 1.0
  * @time 2018-08-16 15:59
  */
-@Component
 public class SysCfgHelper {
 
     private static Map<String,Object> cfgMap;
 
-    @Autowired
-    private SysCfgService cfgService;
-
-    public synchronized void refresh(){
-        List<SysCfg> cfgList = cfgService.findAll();
+    public static void refresh(List<SysCfg> cfgList){
+        Check.notEmptyCheck(cfgList);
         HashMap<String,Object> map = new HashMap<>(cfgList.size());
         for (SysCfg sysCfg : cfgList) {
             map.put(sysCfg.getCfgKey(),sysCfg.getCfgVal());
