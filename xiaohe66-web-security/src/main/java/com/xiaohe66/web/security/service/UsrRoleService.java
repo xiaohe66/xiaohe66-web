@@ -7,6 +7,7 @@ import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.security.dao.UsrRoleDao;
+import com.xiaohe66.web.security.po.UsrRole;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @time 2018-08-20 16:54
  */
 @Service
-public class UsrRoleService extends AbstractService{
+public class UsrRoleService extends AbstractService<UsrRole>{
 
     private UsrRoleDao usrRoleDao;
 
