@@ -26,8 +26,8 @@ $(function () {
 
     $(".msg .btn").click(function () {
         var edit = $(".edit textarea");
-        var val = $.html2Escape(edit.val());
-        if($.isEmpty(val)){
+        var val = html2Escape(edit.val());
+        if(isEmpty(val)){
             alert("请填写留言内容");
             return;
         }

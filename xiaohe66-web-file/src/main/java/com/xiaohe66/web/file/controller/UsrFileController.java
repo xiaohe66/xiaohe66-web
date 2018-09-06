@@ -30,14 +30,14 @@ public class UsrFileController {
 
     @Paging
     @Get("/all/{onlyWebmaster}")
-    public Result allData(@PathVariable("onlyWebmaster") boolean onlyWebmaster){
-        return Result.ok(usrFileService.findDtoAll(null,onlyWebmaster));
+    public List<UsrFileDto> allData(@PathVariable("onlyWebmaster") boolean onlyWebmaster){
+        return usrFileService.findDtoAll(null,onlyWebmaster);
     }
 
     @Paging
     @Get("/all/{onlyWebmaster}/{search}")
-    public Result allData2(@PathVariable("onlyWebmaster") boolean onlyWebmaster,@PathVariable("search") String search){
-        return Result.ok(usrFileService.findDtoAll(search,onlyWebmaster));
+    public List<UsrFileDto> allData2(@PathVariable("onlyWebmaster") boolean onlyWebmaster,@PathVariable("search") String search){
+        return usrFileService.findDtoAll(search,onlyWebmaster);
     }
 
     @Paging

@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>关于</title>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/css/about.css"/>
 

@@ -80,6 +80,7 @@ public class ArticlePageController {
         model.addAttribute("article",articleDto);
 
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsrId);
+        model.addAttribute("title","编辑");
         model.addAttribute("perCategoryList",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
         model.addAttribute("perCategorySize",textCategoryList.size());
         model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));

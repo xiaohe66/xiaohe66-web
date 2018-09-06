@@ -9,7 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>${title}</title>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/common/css/right.css"/>
 </head>
@@ -42,7 +41,7 @@
         <div class="module1">
             <div class="title">
                 <c:if test="${empty usrDivTitle}">他的</c:if>
-                热门资源
+                热门资源(近30天)
                 <c:if test="${not empty usrDivTitle}">
                     <a href="/org/usr/file/all">more>></a>
                 </c:if>
@@ -56,7 +55,7 @@
         <div class="module1">
             <div class="title">
                 <c:if test="${empty usrDivTitle}">他的</c:if>
-                热门文章
+                热门文章(近30天)
                 <c:if test="${not empty usrDivTitle}">
                     <a href="/text/article/all">more>></a>
                 </c:if>

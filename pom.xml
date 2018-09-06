@@ -10,7 +10,6 @@
     <version>1.0</version>
 
     <modules>
-        <!--<module>base</module>-->
         <module>xiaohe66-web-base</module>
         <module>xiaohe66-web-sys</module>
         <module>xiaohe66-web-common</module>
@@ -19,6 +18,7 @@
         <module>xiaohe66-web-security</module>
         <module>xiaohe66-web-portal</module>
         <module>xiaohe66-web-file</module>
+        <module>xiaohe66-web-resume</module>
         <!--<module>code-factory</module>-->
     </modules>
 
@@ -77,11 +77,32 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- xh  -->
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-resume</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+                <type>war</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-resume</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.xiaohe66.web</groupId>
                 <artifactId>xiaohe66-web-base</artifactId>
                 <version>${com.xiaohe66.web.version}</version>
+                <type>war</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66.web</groupId>
+                <artifactId>xiaohe66-web-base</artifactId>
+                <version>${com.xiaohe66.web.version}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency>

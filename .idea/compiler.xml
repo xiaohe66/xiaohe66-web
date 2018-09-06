@@ -26,6 +26,7 @@
         <module name="xiaohe66-web-file" />
         <module name="xiaohe66-web-org" />
         <module name="xiaohe66-web-portal" />
+        <module name="xiaohe66-web-resume" />
         <module name="xiaohe66-web-security" />
         <module name="xiaohe66-web-sys" />
         <module name="xiaohe66-web-text" />
@@ -52,6 +53,7 @@
       <module name="xiaohe66-web-file" target="1.8" />
       <module name="xiaohe66-web-org" target="1.8" />
       <module name="xiaohe66-web-portal" target="1.8" />
+      <module name="xiaohe66-web-resume" target="1.8" />
       <module name="xiaohe66-web-security" target="1.8" />
       <module name="xiaohe66-web-sys" target="1.8" />
       <module name="xiaohe66-web-text" target="1.8" />

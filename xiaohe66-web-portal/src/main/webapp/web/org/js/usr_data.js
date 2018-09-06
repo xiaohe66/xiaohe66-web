@@ -4,7 +4,7 @@
 var baseUrl = "/org/usr";
 $(function () {
    $(".down").find(".btn").click(function () {
-       var signature = $.html2Escape($(".signature").val());
+       var signature = html2Escape($(".signature").val());
        $.hint("保存中");
        put(baseUrl,{signature:signature},function (data) {
            $.hintClose();

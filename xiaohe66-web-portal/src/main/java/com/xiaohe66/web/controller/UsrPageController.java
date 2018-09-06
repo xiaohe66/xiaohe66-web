@@ -30,13 +30,15 @@ public class UsrPageController {
     }
 
     @Page("/register")
-    public String register(){
+    public String register(Model model){
+        model.addAttribute("title","注册");
         return REGISTER_PAGE_URL;
     }
 
 
     @Page("/me")
     public String me(Model model){
+        model.addAttribute("title","我的");
         model.addAttribute("page",USR_DATA_PAGE_URL);
         model.addAttribute("usrDto",usrService.lookAtUsr(UsrHelper.getCurrentUsrId()));
         return OtherPageController.USR_ZONE_PAGE_URL;

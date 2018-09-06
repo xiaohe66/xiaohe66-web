@@ -7,6 +7,7 @@
 --%>
 <!--[if lt IE 11]><script>location.href="/web/ie.html"</script><![endif]-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<title>${title}-xiaohe66</title>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

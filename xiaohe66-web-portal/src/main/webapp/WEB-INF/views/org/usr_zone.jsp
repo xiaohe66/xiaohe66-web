@@ -9,7 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title><c:if test="${empty title}">我的</c:if><c:if test="${not empty title}">${title}</c:if></title>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/org/css/usr_zone.css"/>
 

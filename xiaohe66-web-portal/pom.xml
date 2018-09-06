@@ -15,7 +15,7 @@
     <packaging>war</packaging>
 
     <build>
-        <!-- 项目名称 -->
+        <!-- 模块名称 -->
         <finalName>${project.artifactId}-${project.version}</finalName>
 
         <!-- 资源文件目录,使用过滤器 -->
@@ -56,6 +56,21 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+                <configuration>
+                    <!--<packagingExcludes>WEB-INF/web.xml</packagingExcludes>-->
+                    <overlays>
+                        <overlay>
+                            <groupId>com.xiaohe66.web</groupId>
+                            <artifactId>xiaohe66-web-resume</artifactId>
+                        </overlay>
+                    </overlays>
+                </configuration>
+            </plugin>
+
             <!--<plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
@@ -91,7 +106,25 @@
 
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
+            <artifactId>xiaohe66-web-resume</artifactId>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaohe66.web</groupId>
+            <artifactId>xiaohe66-web-resume</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaohe66.web</groupId>
             <artifactId>xiaohe66-web-base</artifactId>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaohe66.web</groupId>
+            <artifactId>xiaohe66-web-base</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -191,12 +224,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!--jstl-->
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
         </dependency>
 
         <!-- shiro -->

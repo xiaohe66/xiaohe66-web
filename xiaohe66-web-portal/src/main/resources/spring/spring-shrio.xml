@@ -77,9 +77,12 @@
 
                 /authCode/* = anon
 
+                /sec/login = anon
+
+                /resume/** = anon
+
                 /org/usr/index = anon
                 /org/usr/register = anon
-                /org/usr/login = anon
                 /org/usr/img = anon
                 /org/usr/exist/* = anon
                 /org/usr = http[post]

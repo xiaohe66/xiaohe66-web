@@ -35,5 +35,6 @@ public interface ParamFinal {
     String SYS_EMAIL_CONTENT_TYPE = "text/html;charset=UTF-8";
 
 
+    String DEFAULT_WEB_TITLE = "";
 
 }

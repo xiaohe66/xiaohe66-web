@@ -29,7 +29,16 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
         LOGGER.error("exception",e);
         Result result = null;
         if(e instanceof XhException){
-            result = Result.err(((XhException) e).getCode(),e.getMessage());
+            XhException e1 = ((XhException) e);
+            if (CodeEnum.NOT_LOGGED_IN.code() == e1.getCode().code()) {
+                try {
+                    response.sendRedirect("/notLoggedIn");
+                } catch (IOException e2) {
+                    throw new XhException(CodeEnum.IO_EXCEPTION);
+                }
+            }else{
+                result = Result.err(((XhException) e).getCode(),e.getMessage());
+            }
         }else{
             result = Result.err(CodeEnum.EXCEPTION,e.getMessage());
         }

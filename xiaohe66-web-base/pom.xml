@@ -11,7 +11,37 @@
 
     <artifactId>xiaohe66-web-base</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
+
+    <build>
+        <!-- 模块名称 -->
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <!-- 资源文件目录,使用过滤器 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <!--把class打包jar放到lib目录-->
+                    <archiveClasses>true</archiveClasses>
+                    <!-- 复制war包资源时排除的资源，有多个时用逗号，支持*。(不能排除maven依赖的jar包和资源) -->
+                    <warSourceExcludes>WEB-INF/lib/*,WEB-INF/web.xml</warSourceExcludes>
+                    <!-- 打成war包前，需要排除的资源，在warSourceExcludes后面执行 -->
+                    <packagingExcludes>WEB-INF/lib/*,WEB-INF/web.xml</packagingExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 
     <dependencies>
 
@@ -76,6 +106,12 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-web</artifactId>
+        </dependency>
+
+        <!--jstl-->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
         </dependency>
 
     </dependencies>

@@ -33,7 +33,8 @@ public class OtherPageController {
     private UsrFileService usrFileService;
 
     @Page("/about")
-    public String about(){
+    public String about(Model model){
+        model.addAttribute("title","关于");
         return "about";
     }
 
