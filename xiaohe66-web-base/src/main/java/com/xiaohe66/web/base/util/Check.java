@@ -40,8 +40,25 @@ public class Check {
     }
 
     /**
+     * 非null检查,如果传入的对象有一个为null，则抛出{@link XhException}
+     *
+     * @param objects Object[]
+     * @throws XhException 如果传入的对象有一个为null，则抛出该异常
+     */
+    public static void notNullCheck(Object... objects){
+        if(objects == null){
+            throw new XhException(CodeEnum.NULL_EXCEPTION);
+        }
+        for (Object object : objects) {
+            if (object == null){
+                throw new XhException(CodeEnum.NULL_EXCEPTION);
+            }
+        }
+    }
+
+    /**
      * 非空检查，有一个为空的，就抛出异常
-     * @param objects
+     * @param objects Object[]
      */
     public static void notEmptyCheck(Object... objects){
         if(objects == null){

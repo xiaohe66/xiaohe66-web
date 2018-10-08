@@ -99,10 +99,7 @@ public class CommonFileService extends AbstractService<CommonFile>{
         if(commonFile == null){
             LOG.info("文件未上传过，生成主文件记录");
             //生成主文件记录
-            commonFile = new CommonFile();
-            commonFile.setMd5(md5);
-            commonFile.setStartTime(new Date());
-            this.add(commonFile,null);
+            this.add(new CommonFile(md5),null);
 
             return resultSet;
         }

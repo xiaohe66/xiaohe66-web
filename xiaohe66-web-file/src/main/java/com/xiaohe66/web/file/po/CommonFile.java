@@ -15,6 +15,14 @@ public class CommonFile extends BasePo{
     protected Date startTime;
     protected Date endTime;
 
+    public CommonFile() {
+
+    }
+
+    public CommonFile(String md5) {
+        this.md5 = md5;
+    }
+
     public String getMd5() {
         return md5;
     }

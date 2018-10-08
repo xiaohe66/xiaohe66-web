@@ -291,7 +291,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
      */
     protected  String fileExtensionFormat(String extension){
         extension = StrUtils.trim(extension);
-        Check.notEmptyCheck(extension);
+        Check.notNullCheck(extension);
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (extension.contains(String.valueOf(fileIllegalChar))) {
                 throw new XhException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
