@@ -7,11 +7,11 @@
     </insert>
 
     <select id="findById" resultType="SysCfg">
-        select * from xh_web_sys_cfg where id = #{id}
+        select * from xiaohe66_web_sys_cfg where id = #{id}
     </select>
 
     <select id="findValByName" resultType="String">
-        select cfg_val from xh_web_sys_cfg where cfg_key = #{cfgKey}
+        select cfg_val from xiaohe66_web_sys_cfg where cfg_key = #{cfgKey}
     </select>
 
     <select id="findValByKey">
@@ -19,7 +19,7 @@
     </select>
 
     <select id="findByParam" resultType="SysCfg">
-        select * from xh_web_sys_cfg
+        select * from xiaohe66_web_sys_cfg
         <where>
             and is_delete = 0
         </where>

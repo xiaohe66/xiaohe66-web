@@ -3,16 +3,16 @@
 <mapper namespace="com.xiaohe66.web.text.dao.ArticleDao">
 
     <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_text_article(text,title,create_id,update_id,secret_level,sys_category_id)
+        insert into xiaohe66_web_text_article(text,title,create_id,update_id,secret_level,sys_category_id)
         values(#{text},#{title},#{createId},#{createId},#{secretLevel},#{sysCategoryId})
     </insert>
 
     <select id="findById" resultType="Article">
-        select * from xh_web_text_article where id = #{id} and is_delete = 0
+        select * from xiaohe66_web_text_article where id = #{id} and is_delete = 0
     </select>
 
     <select id="findByParam" resultType="Article">
-        select * from xh_web_text_article
+        select * from xiaohe66_web_text_article
         <where>
             and is_delete = 0
             <if test="param != null">
@@ -34,7 +34,7 @@
     </select>
 
     <update id="updateById" parameterType="Article">
-        update xh_web_text_article
+        update xiaohe66_web_text_article
         <set>
             <if test="title!=null">
                 title = #{title},
@@ -53,7 +53,7 @@
     </update>
 
     <update id="updateByParam" parameterType="Article">
-        update xh_web_text_article
+        update xiaohe66_web_text_article
         <set>
             <if test="title!=null">
                 title = #{title},
@@ -72,7 +72,7 @@
     </update>
 
     <update id="delById">
-        update xh_web_text_article
+        update xiaohe66_web_text_article
         set is_delete = 1,update_id = #{currentUsrId},update_time = #{updateTime}
         where id = #{id}
     </update>

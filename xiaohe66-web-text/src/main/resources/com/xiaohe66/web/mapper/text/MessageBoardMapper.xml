@@ -3,16 +3,16 @@
 <mapper namespace="com.xiaohe66.web.text.dao.MessageBoardDao">
 
     <insert id="add" parameterType="MessageBoard" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_text_message_board(msg,usr_id,create_id,update_id)
+        insert into xiaohe66_web_text_message_board(msg,usr_id,create_id,update_id)
         values(#{msg},#{usrId},#{createId},#{createId})
     </insert>
 
     <select id="findById" resultType="MessageBoard">
-        select * from xh_web_text_message_board where id = #{id} and is_delete = 0
+        select * from xiaohe66_web_text_message_board where id = #{id} and is_delete = 0
     </select>
 
     <select id="findByParam" resultType="MessageBoard">
-        select * from xh_web_text_message_board
+        select * from xiaohe66_web_text_message_board
         <where>
             is_delete = 0
             <if test="param.usrId != null">

@@ -3,26 +3,26 @@
 <mapper namespace="com.xiaohe66.web.security.dao.FuncDao">
 
     <select id="findById" resultType="Func">
-        select * from xh_web_security_func where id = #{id}
+        select * from xiaohe66_web_security_func where id = #{id}
     </select>
 
     <select id="findFuncByUsrId" resultType="Func">
-        select f.* from xh_web_security_func f
-        join xh_web_security_role_func rf on f.id = rf.func_id
-        join xh_web_security_usr_role ur on ur.role_id = rf.role_id
+        select f.* from xiaohe66_web_security_func f
+        join xiaohe66_web_security_role_func rf on f.id = rf.func_id
+        join xiaohe66_web_security_usr_role ur on ur.role_id = rf.role_id
         where ur.usr_id = #{usrId}
     </select>
 
     <select id="findFuncNameByUsrId" resultType="Func">
-        select f.func_name from xh_web_security_func f
-        join xh_web_security_role_func rf on f.id = rf.func_id
-        join xh_web_security_usr_role ur on ur.role_id = rf.role_id
+        select f.func_name from xiaohe66_web_security_func f
+        join xiaohe66_web_security_role_func rf on f.id = rf.func_id
+        join xiaohe66_web_security_usr_role ur on ur.role_id = rf.role_id
         where ur.usr_id = #{usrId}
     </select>
 
     <select id="findFuncNameInRoleIdSet" resultType="Func">
-        select f.func_name from xh_web_security_func f
-        join xh_web_security_role_func rf on f.id = rf.func_id
+        select f.func_name from xiaohe66_web_security_func f
+        join xiaohe66_web_security_role_func rf on f.id = rf.func_id
         where rf.role_id in
         <foreach collection="roleIdSet" item="item" separator="," open="(" close=")">
             #{item}

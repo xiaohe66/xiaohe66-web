@@ -3,20 +3,20 @@
 <mapper namespace="com.xiaohe66.web.file.dao.CommonFileDao">
 
     <insert id="add" parameterType="CommonFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_comm_file(md5)
+        insert into xiaohe66_web_comm_file(md5)
         values(#{md5})
     </insert>
 
     <select id="findById" resultType="CommonFile">
-        select * from xh_web_comm_file where id = #{id}
+        select * from xiaohe66_web_comm_file where id = #{id}
     </select>
 
     <select id="findByMd5" resultType="CommonFile">
-        select * from xh_web_comm_file where md5 = #{md5}
+        select * from xiaohe66_web_comm_file where md5 = #{md5}
     </select>
 
     <update id="updateById" parameterType="CommonFile">
-        update xh_web_comm_file
+        update xiaohe66_web_comm_file
         <set>
             <if test="endTime != null">
                 end_time = #{endTime},
@@ -29,7 +29,7 @@
     </update>
 
     <update id="updateByParam" parameterType="CommonFile">
-        update xh_web_comm_file
+        update xiaohe66_web_comm_file
         <set>
             <if test="param.endTime != null">
                 end_time = #{param.endTime},

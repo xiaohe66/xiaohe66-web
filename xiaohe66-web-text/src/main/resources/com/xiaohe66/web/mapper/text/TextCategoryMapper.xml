@@ -3,18 +3,18 @@
 <mapper namespace="com.xiaohe66.web.text.dao.TextCategoryDao">
 
     <insert id="add" parameterType="TextCategory" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_text_category
+        insert into xiaohe66_web_text_category
         (create_id,create_time,update_id,update_time,category_name,category_desc,pid)
         values
         (#{createId},#{createTime},#{updateId},#{updateTime},#{categoryName},#{categoryDesc},#{pid})
     </insert>
 
     <select id="findById" resultType="TextCategory">
-        select * from xh_web_text_category where is_delete = 0 and id = #{id}
+        select * from xiaohe66_web_text_category where is_delete = 0 and id = #{id}
     </select>
 
     <select id="findByParam" resultType="TextCategory">
-        select * from xh_web_text_category
+        select * from xiaohe66_web_text_category
         <where>
             and is_delete = 0
             <if test="param != null">
@@ -26,11 +26,11 @@
     </select>
 
     <select id="findByPid" resultType="TextCategory">
-        select * from xh_web_text_category where pid = #{pid}
+        select * from xiaohe66_web_text_category where pid = #{pid}
     </select>
 
     <update id="updateById" parameterType="TextCategory">
-        update xh_web_text_category
+        update xiaohe66_web_text_category
         <set>
             <if test="updateId != null">
                 update_id = #{updateId},
@@ -52,20 +52,20 @@
     </update>
 
     <update id="delById" parameterType="TextCategory">
-        update xh_web_text_category
+        update xiaohe66_web_text_category
         set is_delete = 1,update_id = #{currentUsrId},update_time = #{updateTime}
         where id = #{id}
     </update>
 
     <select id="findNamesByArticleId" resultType="String">
-        select group_concat(c.category_name separator '、') from xh_web_text_category c
-        join xh_web_text_article_category_link l on c.id = l.category_id
+        select group_concat(c.category_name separator '、') from xiaohe66_web_text_category c
+        join xiaohe66_web_text_article_category_link l on c.id = l.category_id
         where l.article_id = #{articleId}
     </select>
 
     <select id="findByArticleId" resultType="TextCategory">
-        select c.* from xh_web_text_category c
-        join xh_web_text_article_category_link l on c.id = l.category_id
+        select c.* from xiaohe66_web_text_category c
+        join xiaohe66_web_text_article_category_link l on c.id = l.category_id
         where l.article_id = #{articleId}
     </select>
 

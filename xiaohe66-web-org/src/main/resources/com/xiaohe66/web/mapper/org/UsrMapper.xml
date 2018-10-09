@@ -3,24 +3,24 @@
 <mapper namespace="com.xiaohe66.web.org.dao.UsrDao">
 
     <insert id="add" parameterType="Usr" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xh_web_org_usr(usr_name,usr_pwd,signature,img_file_id)
+        insert into xiaohe66_web_org_usr(usr_name,usr_pwd,signature,img_file_id)
         values(#{usrName},#{usrPwd},#{signature},#{imgFileId})
     </insert>
 
     <select id="findById" resultType="Usr">
-        select * from xh_web_org_usr where id = #{id}
+        select * from xiaohe66_web_org_usr where id = #{id}
     </select>
 
     <select id="findByUsrName" resultType="Usr">
-        select * from xh_web_org_usr where usr_name = #{usrName}
+        select * from xiaohe66_web_org_usr where usr_name = #{usrName}
     </select>
 
     <select id="findByUsrNameAndPwd" resultType="Usr">
-        select * from xh_web_org_usr where usr_name = #{usrName} and usr_pwd = #{usrPwd}
+        select * from xiaohe66_web_org_usr where usr_name = #{usrName} and usr_pwd = #{usrPwd}
     </select>
 
     <update id="updateById" parameterType="Usr">
-        update xh_web_org_usr
+        update xiaohe66_web_org_usr
         <set>
             <if test="signature != null">
                 signature = #{signature},

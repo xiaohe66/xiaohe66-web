@@ -5,14 +5,14 @@
     <!--todo:这里返回主键会报错-->
     <!--<insert id="addAll" parameterType="ArticleCategoryLink" keyProperty="id" useGeneratedKeys="true" keyColumn="id">-->
     <insert id="addAll" parameterType="ArticleCategoryLink">
-        insert into xh_web_text_article_category_link(article_id,category_id)values
+        insert into xiaohe66_web_text_article_category_link(article_id,category_id)values
         <foreach collection="list" item="item" separator=",">
             (#{item.articleId},#{item.categoryId})
         </foreach>
     </insert>
 
     <delete id="delByParamOfHard">
-        delete from xh_web_text_article_category_link
+        delete from xiaohe66_web_text_article_category_link
         <where>
             and article_id = #{param.articleId}
             <if test="param.categoryId != null">

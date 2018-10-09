@@ -3,7 +3,7 @@
 <mapper namespace="com.xiaohe66.web.security.dao.UsrRoleDao">
 
     <insert id="addUsrRoles">
-        insert into xh_web_security_usr_role(usr_id,role_id)
+        insert into xiaohe66_web_security_usr_role(usr_id,role_id)
         values
         <foreach collection="list" separator="," item="item">
             (#{usrId},#{item})

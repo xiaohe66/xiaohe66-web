@@ -3,12 +3,12 @@
 <mapper namespace="com.xiaohe66.web.security.dao.RoleDao">
 
     <select id="findById" resultType="Role">
-        select * from xh_web_security_role where id = #{id}
+        select * from xiaohe66_web_security_role where id = #{id}
     </select>
 
     <select id="findRoleNameByUsrId" resultType="Role">
-        select r.role_name from xh_web_security_role r
-        join xh_web_security_usr_role ur on r.id = ur.role_id
+        select r.role_name from xiaohe66_web_security_role r
+        join xiaohe66_web_security_usr_role ur on r.id = ur.role_id
         where ur.usr_id = #{usrId}
     </select>
 
