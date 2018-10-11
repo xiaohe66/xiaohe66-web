@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>xiaohe66-web-base</artifactId>
-            <scope>compile</scope>
+            <classifier>classes</classifier>
         </dependency>
 
         <dependency>

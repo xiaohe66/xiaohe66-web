@@ -33,6 +33,9 @@
                 <configuration>
                     <!--把class打包jar放到lib目录-->
                     <archiveClasses>true</archiveClasses>
+
+                    <attachClasses>true</attachClasses>
+
                     <!-- 复制war包资源时排除的资源，有多个时用逗号，支持*。(不能排除maven依赖的jar包和资源) -->
                     <warSourceExcludes>WEB-INF/lib/*,WEB-INF/web.xml</warSourceExcludes>
                     <!-- 打成war包前，需要排除的资源，在warSourceExcludes后面执行 -->
@@ -40,7 +43,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.0</version>
@@ -72,7 +75,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
@@ -81,6 +84,11 @@
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>xiaohe66-web-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaohe66.web</groupId>
+            <artifactId>xiaohe66-web-file</artifactId>
         </dependency>
 
     </dependencies>

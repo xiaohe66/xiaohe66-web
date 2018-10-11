@@ -42,7 +42,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrFileService.class);
 
-    private static final Set<String> IMG_TYPE_SET = new HashSet<>(Arrays.asList(".png",".jpg",".jpeg",".bmp"));
+    private static final Set<String> IMG_TYPE_SET = new HashSet<>(Arrays.asList(".png",".jpg",".jpeg",".bmp",".ico"));
 
     private static final char[] FILE_ILLEGAL_CHARS = new char[]{'?','\\','/','*','\"',':','<','>','|'};
 

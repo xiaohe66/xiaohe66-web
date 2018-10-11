@@ -1,0 +1,39 @@
+.jobs .body,
+.projects .body,
+.ability .body{
+    padding: 20px;
+}
+.base div{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+}
+.base>div{
+    width: 30%;
+}
+.base>div>div{
+    text-align: right;
+    width: 80px;
+}
+.item{
+    margin-bottom: 10px;
+}
+.item:last-child{
+    margin-bottom:0;
+}
+.item .logo{
+    width: 40px;
+    height: 40px;
+    margin: 10px 0 0 10px;
+}
+.u_r{
+    margin-left: 70px;
+}
+.u_r div{
+    line-height: 30px;
+}
+.ability .body>div{
+    display: inline-block;
+    width: 48%;
+    height:300px;
+}

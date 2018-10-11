@@ -170,6 +170,7 @@ input[type=file]{
     padding-left: 10px;
     font-size: 16px;
     line-height: 30px;
+    font-weight: bold;
 }
 .master{
     text-align: center;

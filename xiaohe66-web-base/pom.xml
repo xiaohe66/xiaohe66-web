@@ -32,7 +32,25 @@
                 <version>3.0.0</version>
                 <configuration>
                     <!--把class打包jar放到lib目录-->
+
+                    <!--
+                        该配置的值为true|false，默认是false。表示是否将class进行打包。
+                        正常情况下war类型的工程，java代码编译后的类文件会放到WEB-INF/classes目录下面，散装。
+                        当该参数配置为true时，会将所有的class打包为一个jar，jar的名字与war的名字一致（除了后缀）。
+                        然后把这个jar放到WEB-INF/lib目录下，此时WEB-INF/classes目录下是空的
+                    -->
                     <archiveClasses>true</archiveClasses>
+
+                    <!--
+
+                    该配置的值为true|false，默认是false。表示在发布war包的时候是否同时发布一个jar包（只有classes，不包含页面相关文件）。
+                    正常情况下war类型的工程，当我们执行install或者deploy的时候build出一个war包，安装到本地或者发布到远程。
+                    当该参数配置为true时，除了war包外还会多出一个jar包，不过该jar包的classifier默认为classes
+
+                    -->
+
+                    <attachClasses>true</attachClasses>
+
                     <!-- 复制war包资源时排除的资源，有多个时用逗号，支持*。(不能排除maven依赖的jar包和资源) -->
                     <warSourceExcludes>WEB-INF/lib/*,WEB-INF/web.xml</warSourceExcludes>
                     <!-- 打成war包前，需要排除的资源，在warSourceExcludes后面执行 -->
@@ -40,7 +58,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.0</version>
@@ -72,7 +90,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
         </plugins>
 

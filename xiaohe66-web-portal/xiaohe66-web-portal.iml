@@ -28,6 +28,7 @@
     <orderEntry type="module" module-name="xiaohe66-web-resume" />
     <orderEntry type="module" module-name="xiaohe66-web-resume" />
     <orderEntry type="module" module-name="xiaohe66-web-common" />
+    <orderEntry type="module" module-name="xiaohe66-web-file" />
     <orderEntry type="module" module-name="xiaohe66-web-base" />
     <orderEntry type="module" module-name="xiaohe66-web-base" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
@@ -47,7 +48,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-web:4.3.16.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: jstl:jstl:1.2" level="project" />
     <orderEntry type="module" module-name="xiaohe66-web-text" />
-    <orderEntry type="module" module-name="xiaohe66-web-file" />
     <orderEntry type="module" module-name="xiaohe66-web-security" />
     <orderEntry type="module" module-name="xiaohe66-web-org" />
     <orderEntry type="module" module-name="xiaohe66-web-sys" />
