@@ -53,6 +53,6 @@
         </div>
     </div>
 </div>
-<div class="f"></div>
+<jsp:include page="/WEB-INF/views/common/foot.jsp"></jsp:include>
 </body>
 </html>

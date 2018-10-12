@@ -28,6 +28,6 @@
         <jsp:include page="/WEB-INF/views/${page}.jsp"></jsp:include>
     </div>
 </div>
-<div class="f"></div>
+<jsp:include page="/WEB-INF/views/common/foot.jsp"></jsp:include>
 </body>
 </html>
