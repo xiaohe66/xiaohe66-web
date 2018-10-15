@@ -24,6 +24,10 @@ public class ResumeMain extends BasePoDetailed{
      */
     private String graduationDate;
 
+    private String abilityDesc;
+
+    private String abilityJson;
+
     public String getName() {
         return name;
     }
@@ -72,20 +76,38 @@ public class ResumeMain extends BasePoDetailed{
         this.graduationDate = graduationDate;
     }
 
+    public String getAbilityDesc() {
+        return abilityDesc;
+    }
+
+    public void setAbilityDesc(String abilityDesc) {
+        this.abilityDesc = abilityDesc;
+    }
+
+    public String getAbilityJson() {
+        return abilityJson;
+    }
+
+    public void setAbilityJson(String abilityJson) {
+        this.abilityJson = abilityJson;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
                 + ",\"createTime\":" + createTime
+                + ",\"name\":\"" + name + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"updateId\":\"" + updateId + "\""
-                + ",\"name\":\"" + name + "\""
                 + ",\"phone\":\"" + phone + "\""
-                + ",\"updateTime\":" + updateTime
                 + ",\"email\":\"" + email + "\""
+                + ",\"updateTime\":" + updateTime
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + ",\"education\":\"" + education + "\""
                 + ",\"graduationSchool\":\"" + graduationSchool + "\""
                 + ",\"graduationDate\":\"" + graduationDate + "\""
+                + ",\"abilityDesc\":\"" + abilityDesc + "\""
+                + ",\"abilityJson\":\"" + abilityJson + "\""
                 + "}";
     }
 }

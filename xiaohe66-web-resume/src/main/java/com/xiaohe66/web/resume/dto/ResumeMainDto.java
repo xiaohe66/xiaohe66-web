@@ -26,6 +26,10 @@ public class ResumeMainDto extends BaseDtoDetailed{
      */
     private String graduationDate;
 
+    private String abilityDesc;
+
+    private String abilityJson;
+
     /**
      * 工作经历
      */
@@ -100,4 +104,19 @@ public class ResumeMainDto extends BaseDtoDetailed{
         this.graduationDate = graduationDate;
     }
 
+    public String getAbilityDesc() {
+        return abilityDesc;
+    }
+
+    public void setAbilityDesc(String abilityDesc) {
+        this.abilityDesc = abilityDesc;
+    }
+
+    public String getAbilityJson() {
+        return abilityJson;
+    }
+
+    public void setAbilityJson(String abilityJson) {
+        this.abilityJson = abilityJson;
+    }
 }
