@@ -1,4 +1,4 @@
-* {
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0;
     font-size: 14px;
@@ -264,7 +264,7 @@ input[type=file]{
     width: 1126px;
     box-sizing: border-box;
     position: relative;
-    min-height: 1030px;
+    min-height: 714px;
 }
 .l{
     width: 73%;

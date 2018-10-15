@@ -39,12 +39,12 @@ $(function () {
                 data: formData,
                 type: "post",
                 cache: false,
-                dataType: "text",
+                dataType: "json",
                 contentType: false,
                 processData: false,
                 success: function (data) {
                     log(data);
-                    $(".right").find("img").attr("src","/org/usr/file/img/"+JSON.parse(data).data);
+                    $(".right").find("img").attr("src","/org/usr/file/img/"+data.data);
                 }
             });
         });

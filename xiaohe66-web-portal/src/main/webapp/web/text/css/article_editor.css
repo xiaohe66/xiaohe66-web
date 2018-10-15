@@ -19,6 +19,8 @@
     border-bottom: none;
 }
 .editor{
+    height: 660px;
+    overflow-y: auto;
 }
 .editor>.w-e-text{
     min-height: 400px;

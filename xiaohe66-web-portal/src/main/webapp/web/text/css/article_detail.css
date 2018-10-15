@@ -45,6 +45,21 @@ div.c_u{
 .category a:hover{
     text-decoration: underline;
 }
-.editor p{
+.editor p,
+.editor pre{
     margin: 10px 0;
+}
+.editor table {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+.editor td,
+.editor th {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 3px 5px;
+}
+.editor th {
+  border-bottom: 2px solid #ccc;
+  text-align: center;
 }

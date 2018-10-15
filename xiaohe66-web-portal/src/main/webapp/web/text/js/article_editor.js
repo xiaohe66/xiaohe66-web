@@ -13,17 +13,24 @@ $(function(){
     editor = new E(".tool",".editor");
     editor.customConfig.zIndex = 0;
     editor.customConfig.customUploadImg = function (files, insert) {
-        var fileSize = (files[0].size/1024).toFixed(2);
-        if(fileSize > 1024){
-            alert("目前仅支持1M以内的文件上传");
+        var file = files[0];
+        var pic = file.name;
+        var picType = pic.substring(pic.lastIndexOf("."), pic.length).toUpperCase();
+        if (picType !== ".JPG" && picType !== ".PNG" && picType !== ".BMP") {
+            alert("请选择jpg、png或bmp格式的图片");
             return;
         }
-        calculate(files[0],function (md5) {
+        var fileSize = (file.size/1024).toFixed(2);
+        if(fileSize > 2048){
+            alert("最大支持2M的图片");
+            return;
+        }
+        calculate(file,function (md5) {
             var formData = new FormData();
-            formData.append("file",files[0]);
+            formData.append("file",file);
             formData.append("md5",md5);
             $.ajax({
-                url: "/org/usr/file",
+                url: "/org/usr/file/article",
                 data: formData,
                 type: "post",
                 cache: false,
@@ -31,7 +38,8 @@ $(function(){
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    insert("/org/usr/file/img/"+data.data.id);
+                    log(data);
+                    insert("/org/usr/file/img/"+data.data);
                 }
             });
         });

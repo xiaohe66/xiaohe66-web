@@ -124,13 +124,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
             throw new XhException(CodeEnum.IO_EXCEPTION,e);
         }
 
-        LOG.debug("上传图片开始:md5="+md5+",usrId="+currentUsrId);
-
-        Long imgFileId = uploadImgFile(currentUsrId,file,md5,fileType).getId();
-        usrService.updateImgFile(imgFileId);
-
-        LOG.debug("上传图片结束:md5="+md5+",usrId="+currentUsrId);
-        return imgFileId;
+        return uploadImgFile(currentUsrId,file,md5,fileType).getId();
     }
 
     @Transactional(rollbackFor = Exception.class)

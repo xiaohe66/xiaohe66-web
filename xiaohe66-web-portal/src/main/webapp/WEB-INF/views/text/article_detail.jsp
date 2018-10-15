@@ -7,7 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" type="text/css" href="/css/editor/wangEditor.min.css">
 <link rel="stylesheet" type="text/css" href="/web/text/css/article_detail.css">
+<script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
 <div class="c_u">
     <p>${article.title}</p>
     <div class="fr">

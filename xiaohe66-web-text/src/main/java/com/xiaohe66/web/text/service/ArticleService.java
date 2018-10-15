@@ -187,14 +187,14 @@ public class ArticleService extends AbstractService<Article>{
         return installDto(this.findByUsrId(usrId));
     }
 
-    public ArticleDto findDtoById(Long id,Long currentUsrId){
+    public ArticleDto findDtoById(Long id){
         Check.notEmptyCheck(id);
 
         Article article = this.findById(id);
         ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,article);
 
         //保存日志
-        articleLogService.add(new ArticleLog(id),currentUsrId);
+        articleLogService.add(new ArticleLog(id),UsrHelper.getCurrentUsrId());
 
         installDto(articleDto,article);
         return articleDto;
