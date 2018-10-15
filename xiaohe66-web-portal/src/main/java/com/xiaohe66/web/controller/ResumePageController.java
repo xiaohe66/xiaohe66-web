@@ -23,9 +23,6 @@ public class ResumePageController {
     private ArticleService articleService;
 
     @Resource
-    private UsrFileService usrFileService;
-
-    @Resource
     private UsrService usrService;
 
     @Resource
@@ -37,7 +34,6 @@ public class ResumePageController {
         model.addAttribute("title","小何的简历");
         model.addAttribute("usrDivTitle","小何");
         model.addAttribute("usrDto",usrService.lookAtUsr(xhUsrId));
-        model.addAttribute("fileList",usrFileService.findDtoHotTop5(xhUsrId));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(xhUsrId));
         model.addAttribute("resumeMain",resumeMainService.findDtoByUsrId(xhUsrId));
         return "resume/resume_index";

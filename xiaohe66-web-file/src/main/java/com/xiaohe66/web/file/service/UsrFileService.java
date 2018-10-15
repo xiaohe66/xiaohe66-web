@@ -137,6 +137,11 @@ public class UsrFileService extends AbstractService<UsrFile>{
         return usrFileDao.findByCommonFileId(commonFileId);
     }
 
+    public Long findCommonFileId(Long usrFileId){
+        Check.notNullCheck(usrFileId);
+        return usrFileDao.findCommonFileId(usrFileId);
+    }
+
     public List<UsrFileDto> findDtoByUsrId(Long usrId){
         if(Check.isOneNull(usrId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION);

@@ -39,63 +39,29 @@
             </plugin>
 
             <plugin>
+
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.2.11.v20150529</version>
                 <configuration>
                     <!-- 扫描项目变更时间间隔，为0时表示不扫描 -->
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <!--<webApp>
-                        &lt;!&ndash; 默认访问路径 &ndash;&gt;
+                    <webApp>
+                        <!-- 访问路径，默认为/ -->
                         <contextPath>/</contextPath>
-                    </webApp>-->
+                        <!--
+                            class热部署
+                            在启动时默认加载lib目录下的jar包，按ctrl+F9后，会热部署下面配置的class目录
+                            对修改方法名、添加方法名的class无法热部署
+                         -->
+                        <extraClasspath>${basedir}/../target/classes</extraClasspath>
+                    </webApp>
                     <httpConnector>
-                        <!-- 端口 -->
+                        <!-- 端口，默认为8080 -->
                         <port>80</port>
                     </httpConnector>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-				<version>3.0.0</version>
-                <configuration>
-                    <!--<packagingExcludes>WEB-INF/web.xml</packagingExcludes>-->
-                    <overlays>
-                        <overlay>
-                            <groupId>com.xiaohe66.web</groupId>
-                            <artifactId>xiaohe66-web-resume</artifactId>
-                        </overlay>
-                    </overlays>
-                </configuration>
-            </plugin>
-
-            <!--<plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Environment>dev</Implementation-Environment>
-                            &lt;!&ndash;<Implementation-Build>${buildNumber}</Implementation-Build>&ndash;&gt;
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>dev</classifier>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
 
         </plugins>
     </build>
@@ -107,25 +73,11 @@
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>xiaohe66-web-resume</artifactId>
-            <type>war</type>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xiaohe66.web</groupId>
-            <artifactId>xiaohe66-web-resume</artifactId>
-            <classifier>classes</classifier>
         </dependency>
 
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>xiaohe66-web-base</artifactId>
-            <type>war</type>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xiaohe66.web</groupId>
-            <artifactId>xiaohe66-web-base</artifactId>
-            <classifier>classes</classifier>
         </dependency>
 
         <dependency>

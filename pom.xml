@@ -76,35 +76,18 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- xh start -->
 
             <dependency>
                 <groupId>com.xiaohe66.web</groupId>
                 <artifactId>xiaohe66-web-resume</artifactId>
                 <version>${com.xiaohe66.web.version}</version>
-                <type>war</type>
-            </dependency>
-
-            <dependency>
-                <groupId>com.xiaohe66.web</groupId>
-                <artifactId>xiaohe66-web-resume</artifactId>
-                <version>${com.xiaohe66.web.version}</version>
-                <classifier>classes</classifier>
-                <scope>compile</scope>
             </dependency>
 
             <dependency>
                 <groupId>com.xiaohe66.web</groupId>
                 <artifactId>xiaohe66-web-base</artifactId>
                 <version>${com.xiaohe66.web.version}</version>
-                <type>war</type>
-            </dependency>
-
-            <dependency>
-                <groupId>com.xiaohe66.web</groupId>
-                <artifactId>xiaohe66-web-base</artifactId>
-                <version>${com.xiaohe66.web.version}</version>
-                <classifier>classes</classifier>
-                <scope>compile</scope>
             </dependency>
 
             <dependency>

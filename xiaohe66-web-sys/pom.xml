@@ -18,13 +18,6 @@
         <dependency>
             <groupId>com.xiaohe66.web</groupId>
             <artifactId>xiaohe66-web-base</artifactId>
-            <type>war</type>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xiaohe66.web</groupId>
-            <artifactId>xiaohe66-web-base</artifactId>
-            <classifier>classes</classifier>
         </dependency>
 
         <dependency>

@@ -1,21 +1,15 @@
 package com.xiaohe66.web.resume.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.file.service.UsrFileService;
 import com.xiaohe66.web.resume.dao.ResumeMainDao;
-import com.xiaohe66.web.resume.dto.ResumeJobDto;
 import com.xiaohe66.web.resume.dto.ResumeMainDto;
-import com.xiaohe66.web.resume.po.ResumeJob;
 import com.xiaohe66.web.resume.po.ResumeMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author xh
@@ -30,6 +24,9 @@ public class ResumeMainService extends AbstractService<ResumeMain>{
 
     @Autowired
     private ResumeJobService resumeJobService;
+
+    @Autowired
+    private ResumeProjectService resumeProjectService;
 
     @Autowired
     private UsrFileService usrFileService;
@@ -67,14 +64,12 @@ public class ResumeMainService extends AbstractService<ResumeMain>{
                 LOG.info("无法识别的学历："+resumeMain.getEducation());
         }
 
+        Long resumeId = resumeMain.getId();
+
         //工作经历
-        List<ResumeJob> resumeJobList = resumeJobService.findByResumeId(resumeMain.getId());
-        resumeMainDto.setResumeJobDtoList(ClassUtils.convertList(ResumeJobDto.class,resumeJobList,(dto,po)->{
-            try {
-                dto.setImgFileId(usrFileService.findById(po.getLogo()).getFileId());
-            }catch (Exception e){
-                LOG.error("取得commonFileId出现问题",e);
-            }
-        }));
+        resumeMainDto.setResumeJobDtoList(resumeJobService.findDtoByResumeId(resumeId));
+
+        //项目经历
+        resumeMainDto.setResumeProjectDtoList(resumeProjectService.findDtoByResumeId(resumeId));
     }
 }

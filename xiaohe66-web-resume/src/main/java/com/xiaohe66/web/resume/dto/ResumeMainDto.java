@@ -31,12 +31,25 @@ public class ResumeMainDto extends BaseDtoDetailed{
      */
     private List<ResumeJobDto> resumeJobDtoList;
 
+    /**
+     * 项目经历
+     */
+    private List<ResumeProjectDto> resumeProjectDtoList;
+
     public List<ResumeJobDto> getResumeJobDtoList() {
         return resumeJobDtoList;
     }
 
     public void setResumeJobDtoList(List<ResumeJobDto> resumeJobDtoList) {
         this.resumeJobDtoList = resumeJobDtoList;
+    }
+
+    public List<ResumeProjectDto> getResumeProjectDtoList() {
+        return resumeProjectDtoList;
+    }
+
+    public void setResumeProjectDtoList(List<ResumeProjectDto> resumeProjectDtoList) {
+        this.resumeProjectDtoList = resumeProjectDtoList;
     }
 
     public String getName() {
