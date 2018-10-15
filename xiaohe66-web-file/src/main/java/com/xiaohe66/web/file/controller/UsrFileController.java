@@ -6,7 +6,6 @@ import com.xiaohe66.web.base.annotation.Paging;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.file.dto.UsrFileDto;
 import com.xiaohe66.web.file.service.UsrFileService;
 import com.xiaohe66.web.org.helper.UsrHelper;
@@ -62,9 +61,14 @@ public class UsrFileController {
     }
 
 
-    @Post("/img")
+    @Post("/head")
     public Long uploadHeadImg(@RequestParam("file") MultipartFile file, String md5){
-        return usrFileService.uploadHeadImg(file,md5,UsrHelper.getCurrentUsrId());
+        return usrFileService.uploadImg(file,md5,UsrHelper.getCurrentUsrId(),UsrFileService.USR_HEAD_IMG_FILE_TYPE);
+    }
+
+    @Post("/article")
+    public Long uploadArticleImg(@RequestParam("file") MultipartFile file, String md5){
+        return usrFileService.uploadImg(file,md5,UsrHelper.getCurrentUsrId(),UsrFileService.USR_ARTICLE_IMG_FILE_TYPE);
     }
 
 }

@@ -26,7 +26,7 @@ $(function () {
             return;
         }
         var fileSize = (file.size/1024).toFixed(2);
-        if(fileSize > 2024){
+        if(fileSize > 2048){
             alert("最大支持2M的图片");
             return;
         }
@@ -35,7 +35,7 @@ $(function () {
             formData.append("file",file);
             formData.append("md5",md5);
             $.ajax({
-                url: "/org/usr/file/img",
+                url: "/org/usr/file/head",
                 data: formData,
                 type: "post",
                 cache: false,
@@ -43,7 +43,7 @@ $(function () {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    console.log(data);
+                    log(data);
                     $(".right").find("img").attr("src","/org/usr/file/img/"+JSON.parse(data).data);
                 }
             });

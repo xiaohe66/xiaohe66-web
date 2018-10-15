@@ -16,7 +16,6 @@ import com.xiaohe66.web.file.po.CommonFile;
 import com.xiaohe66.web.file.po.UsrFile;
 import com.xiaohe66.web.file.po.UsrFileLog;
 import com.xiaohe66.web.org.service.UsrService;
-import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,9 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     private static final int DEFAULT_FILE_TYPE = 0;
 
-    private static final int USR_HEAD_IMG_FILE_TYPE = 1;
+    public static final int USR_HEAD_IMG_FILE_TYPE = 1;
+
+    public static final int USR_ARTICLE_IMG_FILE_TYPE = 2;
 
     private static final int FILE_NAME_MAX_LENGTH = 20;
 
@@ -83,26 +84,6 @@ public class UsrFileService extends AbstractService<UsrFile>{
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public UsrFileDto uploadHeadImgFile(Long currentUsrId, MultipartFile multipartFile, String md5){
-        CommonFile commonFile = commonFileService.uploadFileDefault(currentUsrId,multipartFile,md5);
-
-        String name = multipartFile.getOriginalFilename();
-        int dotIndex =  name.lastIndexOf(".");
-        String fileName = fileNameFormat(name.substring(0,dotIndex));
-        String extension = fileExtensionFormat(name.substring(dotIndex));
-
-        UsrFile usrFile = new UsrFile();
-        usrFile.setFileId(commonFile.getId());
-        usrFile.setFileType(USR_HEAD_IMG_FILE_TYPE);
-        usrFile.setFileName(fileName);
-        usrFile.setExtension(extension);
-
-        add(usrFile,currentUsrId);
-
-        return ClassUtils.convert(UsrFileDto.class,usrFile);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
     public Set<Integer> uploadFilePrepare(Long currentUsrId,String md5,Float mb,String fileName,String extension,Integer fileType){
         Check.notEmptyCheck(currentUsrId,fileName);
 
@@ -128,6 +109,48 @@ public class UsrFileService extends AbstractService<UsrFile>{
 //        }
 
         return notUploadChunkSet;
+    }
+
+    public Long uploadImg(MultipartFile file, String md5, Long currentUsrId, int fileType){
+        if(Check.isNull(file)){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
+        }
+        try {
+            int bytes = file.getBytes().length;
+            if(bytes > USR_HEAD_IMG_MAX_BYTE_LENGTH){
+                throw new XhException(CodeEnum.MAX_VALUE_EXCEPTION);
+            }
+        } catch (IOException e) {
+            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+        }
+
+        LOG.debug("上传图片开始:md5="+md5+",usrId="+currentUsrId);
+
+        Long imgFileId = uploadImgFile(currentUsrId,file,md5,fileType).getId();
+        usrService.updateImgFile(imgFileId);
+
+        LOG.debug("上传图片结束:md5="+md5+",usrId="+currentUsrId);
+        return imgFileId;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public UsrFileDto uploadImgFile(Long currentUsrId, MultipartFile multipartFile, String md5, int fileType){
+        CommonFile commonFile = commonFileService.uploadFileDefault(currentUsrId,multipartFile,md5);
+
+        String name = multipartFile.getOriginalFilename();
+        int dotIndex =  name.lastIndexOf(".");
+        String fileName = fileNameFormat(name.substring(0,dotIndex));
+        String extension = fileExtensionFormat(name.substring(dotIndex));
+
+        UsrFile usrFile = new UsrFile();
+        usrFile.setFileId(commonFile.getId());
+        usrFile.setFileType(fileType);
+        usrFile.setFileName(fileName);
+        usrFile.setExtension(extension);
+
+        add(usrFile,currentUsrId);
+
+        return ClassUtils.convert(UsrFileDto.class,usrFile);
     }
 
     public UsrFile findByCommonFileId(Long commonFileId){
@@ -304,28 +327,6 @@ public class UsrFileService extends AbstractService<UsrFile>{
         }
         //文件名字符长度不能超过20
         return extension.length() > FILE_EXTENSION_MAX_LENGTH ? extension.substring(0,FILE_EXTENSION_MAX_LENGTH):extension;
-    }
-
-    public Long uploadHeadImg(MultipartFile file, String md5, Long currentUsrId){
-        if(Check.isNull(file)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
-        }
-        try {
-            int bytes = file.getBytes().length;
-            if(bytes > USR_HEAD_IMG_MAX_BYTE_LENGTH){
-                throw new XhException(CodeEnum.MAX_VALUE_EXCEPTION);
-            }
-        } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION,e);
-        }
-
-        LOG.debug("上传头像开始:md5="+md5+",usrId="+currentUsrId);
-
-        Long imgFileId = uploadHeadImgFile(currentUsrId,file,md5).getId();
-        usrService.updateImgFile(imgFileId);
-
-        LOG.debug("上传头像结束:md5="+md5+",usrId="+currentUsrId);
-        return imgFileId;
     }
 
 }
