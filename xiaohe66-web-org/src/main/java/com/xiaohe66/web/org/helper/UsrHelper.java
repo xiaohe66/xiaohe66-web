@@ -15,13 +15,14 @@ public class UsrHelper {
 
     public static UsrDto getCurrentUsr(){
         UsrDto usrDto = WebUtils.getSessionAttr(ParamFinal.SESSION_UER_KEY);
-        if(usrDto == null){
+        /*if(usrDto == null){
             throw new XhException(CodeEnum.NOT_LOGGED_IN);
-        }
+        }*/
         return usrDto;
     }
 
     public static Long getCurrentUsrId(){
-        return getCurrentUsr().getId();
+        UsrDto usrDto = getCurrentUsr();
+        return usrDto == null ? null : getCurrentUsr().getId();
     }
 }
