@@ -13,6 +13,9 @@
     width: 100%;
     line-height: 38px;
 }
+.fast_link a:hover{
+    text-decoration: none;
+}
 .fast_link span{
     content: "";
     vertical-align: middle;

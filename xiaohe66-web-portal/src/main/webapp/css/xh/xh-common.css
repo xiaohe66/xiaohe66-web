@@ -38,6 +38,7 @@ a{
 }
 a:hover{
     cursor: pointer;
+    text-decoration: underline;
 }
 .btn{
     border-radius: 4px;
@@ -96,9 +97,6 @@ input[type=file]{
     float: right;
 }
 
-.tab{
-
-}
 .border1{
     border: 1px solid #c5c5c5;
     border-radius: 4px;
@@ -138,6 +136,7 @@ input[type=file]{
 }
 .tab a:hover{
     background-color: #1e88e5;
+    text-decoration: none;
 }
 .module1,
 .module2>.title,
@@ -200,9 +199,6 @@ input[type=file]{
     margin-right: 10px;
 }
 
-.t_t a:hover {
-    text-decoration: underline;
-}
 .t_t .portrait{
     display: inline-block;
     width: 32px;
