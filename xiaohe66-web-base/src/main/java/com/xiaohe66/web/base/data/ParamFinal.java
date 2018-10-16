@@ -15,7 +15,10 @@ public interface ParamFinal {
     String PAGING_SIZE_KEY = "pageSize" ;
     String PAGING_NUM_KEY = "pageNum" ;
 
-    String SESSION_AUTH_CODE_KEY = "authCode" ;
+    String SESSION_IMG_AUTH_CODE_KEY = "imgAuthCode" ;
+    String SESSION_EMAIL_AUTH_CODE_KEY = "emailAuthCode" ;
+    String SESSION_REGISTERING_USR_KEY = "registeringUsr" ;
+
     String CONTENT_TYPE_IMAGE_PNG = "image/png" ;
     String FILE_TYPE_PNG = "png" ;
 

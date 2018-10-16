@@ -76,14 +76,25 @@ function register(){
         return;
     }
 
-    $.hint("注册中，请稍候");
+    var email = $("#email").find("input").val();
+    if(email === undefined || email === ""){
+        alert("email");
+        return;
+    }
+
+    $.hint("操作中，请稍候");
     post(REGISTER_URL,{
         usrName:usrName,
         usrPwd:usrPwd,
         code:code,
+        email:email,
         signature:$("#signature").find("textarea").val()
     },function(data){
-        location.href = "/index"
+        if(data){
+            $.maskHint("注册邮件已发送至您的邮箱",function () {
+                location.href = "/index"
+            });
+        }
     },function (data) {
         alert(data.data);
         setTimeout(function () {

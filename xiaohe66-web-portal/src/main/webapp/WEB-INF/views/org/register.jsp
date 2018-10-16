@@ -14,31 +14,17 @@
     <script type="text/javascript" src="/web/org/usr/js/register.js"></script>
 </head>
 <body>
-<div class="t">
-    <div class="t_t">
-    </div>
-    <div class="t_c">
-        <div class="tab">
-            <a href="/text/article/all">文章</a>
-            <a href="/text/messageBoard/index">留言</a>
-            <a href="/about">关于</a>
-        </div>
-        <p class="logo"><a href="/">xiaohe66</a></p>
-        <div class="search">
-            <select class="search_type">
-                <option value="https://www.baidu.com/s?wd=">百度</option>
-                <option value="https://www.google.com/search?q=">谷歌</option>
-            </select>
-            <input class="inp" placeholder="搜索">
-        </div>
-    </div>
-</div>
+<jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
 <div class="c">
     <div class="c_c border1">
         <p>欢迎注册</p>
         <ul>
             <li id="usrName">
                 <div><label>*</label>用户名:</div><input placeholder="请输入用户名">
+                <span></span>
+            </li>
+            <li id="email">
+                <div><label>*</label>邮箱:</div><input placeholder="请输入邮箱">
                 <span></span>
             </li>
             <li id="password">

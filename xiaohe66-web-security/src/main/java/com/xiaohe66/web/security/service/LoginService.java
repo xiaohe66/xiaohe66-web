@@ -6,10 +6,11 @@ import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.base.util.StrUtils;
+import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
-import com.xiaohe66.web.security.auth.AuthCodeHelper;
+import com.xiaohe66.web.security.auth.helper.AuthCodeHelper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -39,16 +40,16 @@ public class LoginService {
     @Autowired
     private UsrRoleService roleService;
 
-    @Transactional(rollbackFor = Exception.class)
-    public UsrDto register(Usr usr, String code){
-        if(Check.isNull(usr)){
-            throw new XhException(CodeEnum.PARAM_ERR,"usr is null");
-        }
-        if(StrUtils.isOneEmpty(code)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"code is empty");
-        }
+    public void registerPrepare(Usr usr, String code){
+        AuthCodeHelper.sendEmailLink(code,usr.getEmail(),usr.getUsrName(),"注册");
+        WebUtils.setSessionAttr(ParamFinal.SESSION_REGISTERING_USR_KEY,usr);
+    }
 
-        if(!AuthCodeHelper.verify(code)){
+    @Transactional(rollbackFor = Exception.class)
+    public UsrDto register(String code){
+        Usr usr = WebUtils.getSessionAttr(ParamFinal.SESSION_REGISTERING_USR_KEY);
+
+        if(!AuthCodeHelper.verifyEmailCode(code)){
             throw new XhException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 

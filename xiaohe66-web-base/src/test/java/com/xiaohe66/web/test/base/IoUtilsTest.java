@@ -17,6 +17,12 @@ public class IoUtilsTest {
 
     private static final String PATH = "D:\\IoUtilsTest";
 
+    public void testReadWithClassPath(){
+        String filePath = "com/xiaohe66/web/base/util/IoUtils.class";
+        String content = IoUtils.readStringInClassPath(filePath);
+        System.out.println(content);
+    }
+
     @Test
     public void test1() throws IOException {
         File file = new File(PATH+"\\tmp\\test1");

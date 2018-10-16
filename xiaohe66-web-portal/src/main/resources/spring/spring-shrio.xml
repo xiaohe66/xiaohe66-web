@@ -81,11 +81,14 @@
 
                 /resume/** = anon
 
+                /org/usr/verify/* = http[get]
                 /org/usr/index = anon
                 /org/usr/register = anon
                 /org/usr/img = anon
                 /org/usr/exist/* = anon
                 /org/usr = http[post]
+
+                /usr/register = http[post]
 
                 /** = authc
             </value>

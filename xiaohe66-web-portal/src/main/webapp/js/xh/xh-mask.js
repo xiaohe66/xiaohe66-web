@@ -9,8 +9,8 @@
     var hint = $("<div id=\"hint\"></div>");
 
     var maskClose = function () {
+        mask.hide();
         if(close){
-            mask.hide();
             close();
         }
     };
@@ -23,7 +23,12 @@
     $.extend({
         mask : function (closeFunc) {
             close = closeFunc;
-            hint.html("");
+            hint.hide();
+            mask.show();
+        },
+        maskHint : function (msg,closeFunc) {
+            close = closeFunc;
+            hint.text(msg);
             mask.show();
         },
         maskClose : maskClose,

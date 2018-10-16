@@ -7,12 +7,12 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.ParamFinal;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.security.auth.AuthCode;
-import com.xiaohe66.web.security.auth.AuthCodeHelper;
+import com.xiaohe66.web.security.auth.helper.AuthCodeHelper;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -26,12 +26,12 @@ public class AuthCodeController {
     @Page("/img")
     public void code(HttpServletResponse response) throws IOException {
 
-        AuthCode authCode = AuthCodeHelper.createAuthCode();
+        BufferedImage authCodeImg = AuthCodeHelper.createImgAuthCode().getImg();
 
         response.setContentType(ParamFinal.CONTENT_TYPE_IMAGE_PNG);
         OutputStream os = response.getOutputStream();
 
-        ImageIO.write(authCode.getImg(), ParamFinal.FILE_TYPE_PNG, os);
+        ImageIO.write(authCodeImg,ParamFinal.FILE_TYPE_PNG, os);
     }
 
     @Get("/{code}")
@@ -40,7 +40,7 @@ public class AuthCodeController {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"code is null");
         }
 
-        return AuthCodeHelper.verifyNotClearSession(code);
+        return AuthCodeHelper.verifyImgCodeNotClearSession(code);
     }
 
 }

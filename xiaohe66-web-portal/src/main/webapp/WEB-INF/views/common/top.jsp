@@ -12,7 +12,7 @@
     <ul>
         <li>
             <span>账号</span>
-            <input id="usrName" placeholder="账号">
+            <input id="loginName" placeholder="账号">
         </li>
         <li>
             <span>密码</span>
@@ -36,7 +36,7 @@
             <a href="/org/usr/register">注册</a>
         </shiro:guest>
         <shiro:authenticated>
-            <a href="/org/usr/me" class="usrName">${usr.usrName}</a>
+            <a href="/org/usr/me" class="loginName">${usr.usrName}</a>
             <a href="/text/article/add">写文章</a>
             <a href="javascript:logout();">注销</a>
         </shiro:authenticated>
@@ -99,11 +99,11 @@
             });
 
             var login = function () {
-                var usrName = $("#usrName").val();
+                var loginName = $("#loginName").val();
                 var usrPwd = $("#usrPwd").val();
 
                 post("/sec/login",{
-                    usrName:usrName,
+                    loginName:loginName,
                     usrPwd:usrPwd
                 },function (data) {
                    location.reload();
@@ -133,7 +133,7 @@
             $.mask(function () {
                $("#login_body").hide();
             });
-            $("#usrName").focus();
+            $("#loginName").focus();
         }
     </script>
 </div>

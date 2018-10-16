@@ -2,7 +2,6 @@ package com.xiaohe66.web.security.controller;
 
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.security.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,9 @@ public class RegisterController {
     private LoginService loginService;
 
     @Post
-    public UsrDto register(Usr usr, String code){
-        return loginService.register(usr,code);
+    public Boolean register(Usr usr, String code){
+        loginService.registerPrepare(usr,code);
+        return true;
     }
 
 }

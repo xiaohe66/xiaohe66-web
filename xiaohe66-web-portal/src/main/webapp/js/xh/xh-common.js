@@ -32,7 +32,7 @@ function ajax(param,success,error) {
     $.ajax(param);
 }
 function http(url, type, data, success, error, headers) {
-    ajax({url:url,data:data,type:type,headers:headers},success,error);
+    ajax({url:url,data:data,type:type,headers:headers,dataType:"json"},success,error);
 }
 function get(url,success,error) {
     http(url,"get",{},success,error,{});

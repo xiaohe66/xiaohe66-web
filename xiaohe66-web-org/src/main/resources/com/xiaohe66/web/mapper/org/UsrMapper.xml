@@ -3,8 +3,8 @@
 <mapper namespace="com.xiaohe66.web.org.dao.UsrDao">
 
     <insert id="add" parameterType="Usr" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xiaohe66_web_org_usr(usr_name,usr_pwd,signature,img_file_id)
-        values(#{usrName},#{usrPwd},#{signature},#{imgFileId})
+        insert into xiaohe66_web_org_usr(usr_name,usr_pwd,signature)
+        values(#{usrName},#{usrPwd},#{signature})
     </insert>
 
     <select id="findById" resultType="Usr">

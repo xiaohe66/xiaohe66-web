@@ -1,11 +1,24 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.data.ParamFinal;
 import com.xiaohe66.web.base.exception.XhException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * @author xiaohe
@@ -20,7 +33,7 @@ public class IoUtils {
         InputStreamReader reader = null;
         BufferedReader bufferedReader = null;
         try{
-            reader = new InputStreamReader(inputStream);
+            reader = new InputStreamReader(inputStream, ParamFinal.UTF_8);
             bufferedReader = new BufferedReader(reader);
             StringBuilder stringBuilder = new StringBuilder();
             String line;
@@ -34,6 +47,34 @@ public class IoUtils {
             close(bufferedReader,reader);
         }
         return null;
+    }
+
+    /**
+     * 读取classPath下的文件内容，返回字符串
+     * @param filePath  文件路径
+     * @return  读取到的内容
+     */
+    public static String readStringInClassPath(String filePath){
+        URL url = IoUtils.class.getClassLoader().getResource(filePath);
+        if(url == null){
+            throw new XhException(CodeEnum.RESOURCE_NOT_FOUND,"filePath="+filePath);
+        }
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(new File(url.toURI()));
+        } catch (FileNotFoundException | URISyntaxException e) {
+            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
+        }
+        return readStringWithInput(inputStream);
+    }
+
+    /**
+     * 读取jar包中的文件内容，返回字符串
+     * @param filePath  文件路径
+     * @return  读取到的内容
+     */
+    public static String readStringInJar(String filePath){
+        return readStringWithInput(IoUtils.class.getClassLoader().getResourceAsStream(filePath));
     }
 
     public static void createFile(File file){

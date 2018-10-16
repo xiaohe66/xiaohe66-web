@@ -1,7 +1,8 @@
 package com.xiaohe66.web.servlet;
 
-import com.xiaohe66.web.sys.service.EmailService;
+import com.xiaohe66.web.sys.helper.EmailHelper;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
+import com.xiaohe66.web.sys.service.EmailService;
 import com.xiaohe66.web.sys.service.SysCfgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,8 @@ public class InitServlet implements InitializingBean{
         LOG.info("加载系统配置");
         SysCfgHelper.refresh(cfgService.findAll());
 
-        LOG.info("初始化邮箱服务");
-        emailService.init();
+        LOG.info("初始化邮箱助手");
+        EmailHelper.init(emailService);
 
         LOG.info("系统初始化完成！");
     }

@@ -1,6 +1,5 @@
-package com.xiaohe66.web.security.auth;
+package com.xiaohe66.web.security.auth.entity;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,18 +12,12 @@ import java.util.Date;
 
 public class AuthCode implements Serializable{
 
-    private transient BufferedImage img;
     private String code;
     private Date createTime;
 
-    public AuthCode(BufferedImage img, String code, Date createTime) {
-        this.img = img;
+    AuthCode(String code, Date createTime) {
         this.code = code;
         this.createTime = createTime;
-    }
-
-    public BufferedImage getImg() {
-        return img;
     }
 
     public String getCode() {

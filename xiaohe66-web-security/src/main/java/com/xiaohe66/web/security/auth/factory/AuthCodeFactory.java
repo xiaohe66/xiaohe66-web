@@ -1,10 +1,7 @@
-package com.xiaohe66.web.security.auth;
+package com.xiaohe66.web.security.auth.factory;
 
-import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
-import com.xiaohe66.web.base.exception.XhException;
-import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.security.auth.entity.EmailAuthCode;
+import com.xiaohe66.web.security.auth.entity.ImgAuthCode;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,7 +12,7 @@ import java.util.Random;
  * @author xiaohe
  * @time 17-11-12 012
  */
-public class AuthCodeHelper {
+public class AuthCodeFactory {
 
     /**
      * 验证码字符集
@@ -27,27 +24,46 @@ public class AuthCodeHelper {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
             'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    /**
-     * 验证码超时毫秒数5分钟
-     */
-    private static final long AUTH_CODE_TIME_OUT_MS = 300000;
-
     private static final Random RAN = new Random();
 
+    public static ImgAuthCode createImgAuthCode() {
+        String codeStr = createCodeStr();
+        return new ImgAuthCode(createCodeImg(codeStr),codeStr,new Date());
+    }
+
+    public static EmailAuthCode createEmailAuthCode(String targetEmail){
+        String codeStr = createCodeStr();
+        return new EmailAuthCode(targetEmail,codeStr,new Date());
+    }
+
+
+    private static String createCodeStr(){
+        return createCodeStr(4);
+    }
+
+    private static String createCodeStr(int size){
+        StringBuilder code = new StringBuilder();
+        Random ran = new Random();
+        for (int i = 0; i < size; i++) {
+            int n = ran.nextInt(CHARS.length);
+            code.append(CHARS[n]);
+        }
+        return code.toString();
+    }
+
     /**
-     * 根据需要创建验证码对象
+     * 根据验证码字符串生成图片
+     * @param code 验证码字符数组
      * @param width 宽度
      * @param height 高度
-     * @param size 验证码位数
      * @param lines 干扰线条数
      * @param fontColor 字体颜色，如果传入null，则使用默认的白色
      * @param fontSize 字体大小，如果传入null，则使用默认大小30
      * @param fontName 字体名称，如果传入null，则使用默认字体
      * todo:暂时使自定义属性的验证码无法创建，该逻辑待修改
      */
-    private static AuthCode createAuthCode(int width, int height, int size, int lines, Color fontColor,
-                                    Integer fontSize, String fontName){
-        StringBuilder stringBuilder = new StringBuilder();
+    private static BufferedImage createCodeImg(char[] code, int width, int height, int lines, Color fontColor,
+                                               Integer fontSize, String fontName){
         // 1.创建空白图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         // 2.获取图片画笔
@@ -56,19 +72,15 @@ public class AuthCodeHelper {
         graphic.setColor(fontColor);
         // 4.绘制矩形背景
         graphic.fillRect(0, 0, width, height);
-        // 5.画随机字符
+        // 5.画验证字符
         Random ran = new Random();
-        for (int i = 0; i < size; i++) {
-            // 取随机字符索引
-            int n = ran.nextInt(CHARS.length);
+        for (int i = 0; i < code.length; i++) {
             // 设置随机颜色
             graphic.setColor(getRandomColor());
             // 设置字体大小
             graphic.setFont(new Font(fontName, Font.BOLD + Font.ITALIC, fontSize));
             // 画字符
-            graphic.drawString(CHARS[n] + "", i * (width-10) / size + 5, height *2/3);
-            // 记录字符
-            stringBuilder.append(CHARS[n]);
+            graphic.drawString(code[i] + "", i * (width-10) / code.length + 5, height *2/3);
         }
         // 6.画干扰线
         for (int i = 0; i < lines; i++) {
@@ -85,22 +97,19 @@ public class AuthCodeHelper {
             graphic.fillOval(ran.nextInt(width),ran.nextInt(height),2,2);
         }
 
-        AuthCode authCode = new AuthCode(image,stringBuilder.toString(),new Date());
-        WebUtils.setSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY,authCode);
-        return authCode;
+        return image;
     }
 
     /**
-     * 创建默认属性的验证码对象
-     * 验证码位数    4
+     * 根据验证码字符串生成图片
      * 干扰线数量    6
      * 验证码宽度    80
      * 验证码高度    40
      * 字体颜色     白色
      * 字体大小     30
      */
-    public static AuthCode createAuthCode() {
-        return createAuthCode(80,40,4,6,Color.WHITE,30,null);
+    private static BufferedImage createCodeImg(String code){
+        return createCodeImg(code.toCharArray(),80,40,6, Color.WHITE,30,null);
     }
 
     /**
@@ -112,43 +121,6 @@ public class AuthCodeHelper {
 
     private static int nextColorVal(){
         return RAN.nextInt(256);
-    }
-
-    public static boolean verify(String code) {
-
-        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY);
-
-        Check.notEmptyCheck(code,authCodeObj);
-
-        //超时时间
-        long difference = System.currentTimeMillis()-authCodeObj.getCreateTime().getTime();
-
-        if(difference >= AUTH_CODE_TIME_OUT_MS){
-            throw new XhException(CodeEnum.AUTH_CODE_TIME_OUT);
-        }
-
-        if(code.equalsIgnoreCase(authCodeObj.getCode())){
-            WebUtils.removeSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY);
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean verifyNotClearSession(String code) {
-
-        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_AUTH_CODE_KEY);
-
-        Check.notEmptyCheck(code,authCodeObj);
-
-        //超时时间
-        long difference = System.currentTimeMillis()-authCodeObj.getCreateTime().getTime();
-
-        if(difference >= AUTH_CODE_TIME_OUT_MS){
-            throw new XhException(CodeEnum.AUTH_CODE_TIME_OUT);
-        }
-
-        return code.equalsIgnoreCase(authCodeObj.getCode());
     }
 
 }
