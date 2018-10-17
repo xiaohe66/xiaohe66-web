@@ -40,33 +40,49 @@ public class LoginService {
     @Autowired
     private UsrRoleService roleService;
 
+    /**
+     * 注册准备方法，发送注册邮件
+     *
+     * @param usr   Usr
+     * @param code  当前操作的图片验证码
+     */
     public void registerPrepare(Usr usr, String code){
+        String usrName = usr.getUsrName();
+        String email = usr.getEmail();
+        Check.notEmptyCheck(usrName,email);
+
+        if(usrService.usrNameIsExist(usrName)){
+            throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");
+        }
+
+        if(usrService.emailIsExist(usr.getEmail())){
+            throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"email is exist");
+        }
+
         AuthCodeHelper.sendEmailLink(code,usr.getEmail(),usr.getUsrName(),"注册");
+
+        //xh todo:不能保存到session 里面，需要放到服务器全局变量里面
         WebUtils.setSessionAttr(ParamFinal.SESSION_REGISTERING_USR_KEY,usr);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public UsrDto register(String code){
+
+        //xh todo:不能保存到session 里面，需要放到服务器全局变量里面
         Usr usr = WebUtils.getSessionAttr(ParamFinal.SESSION_REGISTERING_USR_KEY);
 
         if(!AuthCodeHelper.verifyEmailCode(code)){
             throw new XhException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 
-        String usrName = usr.getUsrName();
-        if(StrUtils.isOneEmpty(usrName,usr.getUsrName())){
-            throw new XhException(CodeEnum.PARAM_ERR,"usrName or usrPwd is empty");
-        }
         usr.setUsrPwd(PwdUtils.getHashStr(usr.getUsrPwd()));
-
-        LOGGER.info("注册："+usr.getUsrName());
-        synchronized (REGISTER_LOCK){
-            Usr dbUsr = usrService.findByUsrName(usrName);
-            if(dbUsr != null){
-                throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");
-            }
+        try{
             usrService.add(usr,null);
+        }catch (Exception e){
+            LOGGER.error("注册失败",e.getMessage());
+            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
         }
+
         roleService.addDefaultUsrRole(usr.getId());
         return this.loginToShiro(usr);
     }

@@ -1,6 +1,7 @@
 package com.xiaohe66.web.org.controller;
 
 import com.xiaohe66.web.base.annotation.Get;
+import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.org.helper.UsrHelper;
@@ -29,9 +30,14 @@ public class UsrController{
         usrService.updateById(usr,currentUsrId);
     }
 
-    @Get("/exist/{usrName}")
-    public Boolean isExist(@PathVariable("usrName") String usrName){
-        return usrService.isExist(usrName);
+    @Get("/usrName/{usrName}")
+    public Boolean usrNameIsExist(@PathVariable("usrName") String usrName){
+        return usrService.usrNameIsExist(usrName);
+    }
+
+    @Post("/email")
+    public Boolean emailIsExist(String email){
+        return usrService.emailIsExist(email);
     }
 
 }

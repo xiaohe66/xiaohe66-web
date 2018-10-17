@@ -3,8 +3,8 @@
 <mapper namespace="com.xiaohe66.web.org.dao.UsrDao">
 
     <insert id="add" parameterType="Usr" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xiaohe66_web_org_usr(usr_name,usr_pwd,signature)
-        values(#{usrName},#{usrPwd},#{signature})
+        insert into xiaohe66_web_org_usr(usr_name,usr_pwd,email,signature)
+        values(#{usrName},#{usrPwd},#{email},#{signature})
     </insert>
 
     <select id="findById" resultType="Usr">
@@ -15,8 +15,16 @@
         select * from xiaohe66_web_org_usr where usr_name = #{usrName}
     </select>
 
+    <select id="findByEmail" resultType="Usr">
+        select * from xiaohe66_web_org_usr where email = #{email}
+    </select>
+
     <select id="findByUsrNameAndPwd" resultType="Usr">
         select * from xiaohe66_web_org_usr where usr_name = #{usrName} and usr_pwd = #{usrPwd}
+    </select>
+
+    <select id="isExistEmail" resultType="Boolean">
+        select if(count(*)>0,1,0) from xiaohe66_web_org_usr where email = #{email}
     </select>
 
     <update id="updateById" parameterType="Usr">

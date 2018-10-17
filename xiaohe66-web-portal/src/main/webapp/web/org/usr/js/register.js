@@ -2,103 +2,115 @@
  * @author  xiaohe
  * @time    17-11-12 012
  */
-var REGISTER_URL = "/usr/register";
-var CODE_IMG_URL = "/authCode/";
-var IS_EXIST_URL = "/org/usr/exist/";
 $(function(){
     var code = $("#code");
     code.find("img").click(function(){
-        $(this).attr("src",CODE_IMG_URL+"img?m="+Math.random());
-    });
-    $("#register").find(".btn").click(register);
-
-    $("#usrName").find("input").blur(function () {
-        var $this = $(this);
-        var name = $this.val();
-        if(name.length === 0){
-            return;
-        }
-        get(IS_EXIST_URL+name,function (data) {
-            $this.next().text(data?"用户名重复":"");
-        });
+        $(this).attr("src","/authCode/img?m="+Math.random());
     });
 
-    $("#password2,#password").find("input").blur(function () {
-        var pwd2Inp = $("#password2").find("input");
-        var pwd1 = $("#password").find("input").val();
-        var pwd2 = pwd2Inp.val();
-        if(pwd1.length === 0){
-            return;
-        }
-        pwd2Inp.next().text(pwd1 !== pwd2?"2次不同":"");
-    });
+    var usrNameInp = $("#usrName").find("input");
+    var emailInp = $("#email").find("input");
+    var pwdInp = $("#password").find("input");
+    var codeInp = code.find("input");
 
-    var lastVal;
-    code.find("input").blur(function () {
-        var val = $(this).val();
-        var span = code.find("span");
-        if(val.length !== 4 || val === lastVal){
-            if(val.length !== 4){
-                span.text("验证错误");
+    var validator = new Validator();
+    var callFunc = function (dom, msg) {
+        dom.next().text(msg);
+    };
+    validator.add({
+        dom:usrNameInp,
+        maxLength:16,
+        func:function (dom,val) {
+            var $t = this;
+            if (this.prev === val) {
+                return $t.ret;
             }
-            return;
+            ajax({url:"/org/usr/usrName/"+val,async:false,dataType:"json"},function (data) {
+                $t.ret = data ? "用户名已存在":true;
+            });
+            this.prev = val;
+            return $t.ret;
+        },
+        call:callFunc
+    });
+
+    validator.add({
+        dom: emailInp,
+        maxLength:32,
+        regex:/^\S+@\S+\.\S+$/,
+        func:function (dom,val) {
+            var $t = this;
+            if (this.prev === val) {
+                return $t.ret;
+            }
+            ajax({url:"/org/usr/email",data:{email:val},async:false,type:"post",dataType:"json"},function (data) {
+                $t.ret = data ? "邮箱已被注册":true;
+            });
+            this.prev = val;
+            return $t.ret;
+        },
+        call:function(dom,msg) {
+            dom.next().text(msg);
         }
-        get("/authCode/"+val,function (data) {
-            lastVal = val;
-            span.text(data?"":"验证错误");
-        });
+    });
+
+    validator.add({
+        dom: pwdInp,
+        maxLength:16,
+        call:callFunc
+    });
+
+    validator.add({
+        dom: $("#password2").find("input"),
+        func:function (dom,val) {
+            var pwd1 = $("#password").find("input").val();
+            return pwd1 !== val?"2次密码不同":true;
+        },
+        call:callFunc
+    });
+
+    validator.add({
+        dom: codeInp,
+        maxLength:4,
+        func:function (dom,val) {
+            var $t = this;
+            if (this.prev === val) {
+                return $t.ret;
+            }
+            ajax({url:"/authCode/"+val,async:false,dataType:"json"},function (data) {
+                $t.ret = data ?true:"验证码错误";
+            });
+            this.prev = val;
+            return $t.ret;
+        },
+        call:function (dom, msg) {
+            code.find("span").text(msg);
+        }
+    });
+
+    $("#register").find(".btn").click(function(){
+        if (validator.verify()) {
+
+            $.hint("操作中，请稍候");
+            post("/usr/register",{
+                usrName:usrNameInp.val(),
+                email:emailInp.val(),
+                usrPwd:pwdInp.val(),
+                code:codeInp.val(),
+                signature:$("#signature").find("textarea").val()
+            },function(data){
+                if(data){
+                    $.maskHint("注册邮件已发送至您的邮箱",function () {
+                        location.href = "/index"
+                    });
+                }
+            },function (data) {
+                alert("出现未知错误，请刷新后重试");
+                setTimeout(function () {
+                    $.hintClose();
+                },1000);
+            });
+        }
     });
 
 });
-function register(){
-    var usrName = $("#usrName").find("input").val();
-    if(usrName === undefined || usrName === ""){
-        alert("请输入用户名");
-        return;
-    }
-    var usrPwd = $("#password").find("input").val();
-    if(usrPwd === undefined || usrPwd === ""){
-        alert("请输入密码");
-        return;
-    }
-    var usrPwd2 = $("#password2").find("input").val();
-    if(usrPwd2 === undefined || usrPwd2 === ""){
-        alert("请再次输入密码");
-        return;
-    }
-    if(usrPwd !== usrPwd2){
-        alert("两次密码输入不同");
-        return;
-    }
-    var code = $("#code").find("input").val();
-    if(code === undefined || code === ""){
-        alert("请输入验证码");
-        return;
-    }
-
-    var email = $("#email").find("input").val();
-    if(email === undefined || email === ""){
-        alert("email");
-        return;
-    }
-
-    $.hint("操作中，请稍候");
-    post(REGISTER_URL,{
-        usrName:usrName,
-        usrPwd:usrPwd,
-        code:code,
-        email:email,
-        signature:$("#signature").find("textarea").val()
-    },function(data){
-        if(data){
-            $.maskHint("注册邮件已发送至您的邮箱",function () {
-                location.href = "/index"
-            });
-        }
-    },function (data) {
-        alert(data.data);
-        setTimeout(function () {
-            $.hintClose();
-        },1000);
-    });
-}

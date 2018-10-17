@@ -98,7 +98,16 @@ public class UsrService extends AbstractService<Usr> {
      * 用户名是否存在
      * @return 存在返回true，不存在返回false
      */
-    public boolean isExist(String usrName){
+    public boolean usrNameIsExist(String usrName){
         return this.findByUsrName(usrName) != null;
+    }
+
+    /**
+     * 邮箱是否已被注册
+     * @return 已被注册返回true，未被注册返回false
+     */
+    public boolean emailIsExist(String email){
+        Check.notEmptyCheck(email);
+        return usrDao.isExistEmail(email);
     }
 }
