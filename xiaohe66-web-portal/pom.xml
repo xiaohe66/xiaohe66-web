@@ -42,10 +42,12 @@
 
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.11.v20150529</version>
+                <version>9.4.9.v20180320</version>
                 <configuration>
-                    <!-- 扫描项目变更时间间隔，为0时表示不扫描 -->
+                    <!-- 扫描项目静态文件时间间隔，为0时表示不扫描 -->
                     <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <!-- 手动重启 -->
+                    <reload>manual</reload>
                     <webApp>
                         <!-- 访问路径，默认为/ -->
                         <contextPath>/</contextPath>
@@ -192,7 +194,7 @@
         <!-- shiro end -->
 
         <!-- json start -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
         </dependency>
@@ -210,7 +212,13 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
         </dependency>
+        <!-- json end -->
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
