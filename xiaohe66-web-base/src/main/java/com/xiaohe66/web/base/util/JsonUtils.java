@@ -1,10 +1,10 @@
 package com.xiaohe66.web.base.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,14 +26,7 @@ public class JsonUtils {
      * @return 对象对应的json字符串
      */
     public static String toString(Object obj){
-        String jsonStr = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            jsonStr = objectMapper.writeValueAsString(obj);
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-        }
-        return jsonStr;
+        return JSON.toJSONString(obj);
     }
 
     /**
