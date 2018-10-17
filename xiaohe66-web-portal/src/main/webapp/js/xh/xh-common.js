@@ -12,10 +12,22 @@ function isArray(obj) {
 function isEmpty(obj) {
     return obj===undefined||obj.length===0;
 }
+function isNotEmpty(obj) {
+    return obj!==undefined&&obj.length!==0;
+}
+function isNumber(num) {
+    return num !== undefined && typeof num === "number";
+}
+function isFunc(func) {
+    return func!==undefined && typeof func === "function";
+}
 function html2Escape(sHtml) {
     return sHtml.replace(/[<>&"]/g,function(c){
         return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
     });
+}
+function trim(str) {
+    return str?str.replace(/^\s\s*/,'').replace(/\s\s*$/,''):"";
 }
 function ajax(param,success,error) {
     param.success=function (data) {
