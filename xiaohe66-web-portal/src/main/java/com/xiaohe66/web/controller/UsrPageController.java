@@ -48,10 +48,11 @@ public class UsrPageController {
         return OtherPageController.USR_ZONE_PAGE_URL;
     }
 
-    @Page("/verify/{code}")
-    public String register(@PathVariable("code")String code){
-        loginService.register(code);
-        return "redirect:/";
+    @Page("/verify/{token}")
+    public String register(Model model,@PathVariable("token")String token){
+        loginService.register(token);
+        model.addAttribute("msg","注册成功，快去登录吧");
+        return OtherPageController.MSG_AGE_URL;
     }
 
 }

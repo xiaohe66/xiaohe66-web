@@ -4,6 +4,8 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhException;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
+import java.util.UUID;
+
 /**
  * @author xh
  * @time 18-02-25 025
@@ -32,5 +34,9 @@ public class PwdUtils {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"str is empty");
         }
         return new SimpleHash(HASH_ALGORITHM_NAME, str+mix, null, HASH_ITERATIONS).toString();
+    }
+
+    public static String createToken(){
+        return UUID.randomUUID().toString();
     }
 }

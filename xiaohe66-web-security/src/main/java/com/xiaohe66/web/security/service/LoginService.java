@@ -2,15 +2,17 @@ package com.xiaohe66.web.security.service;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.cache.Cache5Helper;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.security.auth.helper.AuthCodeHelper;
+import com.xiaohe66.web.sys.helper.EmailHelper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -27,7 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class LoginService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginService.class);
+
+    private static final String REGISTER_VERIFY = "http://xiaohe66.com/org/usr/verify/";
 
     /**
      * 锁
@@ -47,6 +51,10 @@ public class LoginService {
      * @param code  当前操作的图片验证码
      */
     public void registerPrepare(Usr usr, String code){
+        if(!AuthCodeHelper.verifyImgCode(code)){
+            throw new XhException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
+        }
+
         String usrName = usr.getUsrName();
         String email = usr.getEmail();
         Check.notEmptyCheck(usrName,email);
@@ -59,36 +67,40 @@ public class LoginService {
             throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"email is exist");
         }
 
-        AuthCodeHelper.sendEmailLink(code,usr.getEmail(),usr.getUsrName(),"注册");
+        String token = PwdUtils.createToken();
 
-        //xh todo:不能保存到session 里面，需要放到服务器全局变量里面
-        WebUtils.setSessionAttr(ParamFinal.SESSION_REGISTERING_USR_KEY,usr);
+        String link = REGISTER_VERIFY+token;
+
+        LOG.debug("发送link邮件，内容为："+link);
+
+        //发送邮件
+        EmailHelper.sendLink(link,usr.getEmail(),usr.getUsrName(),"注册");
+
+        Cache5Helper.put(token,usr);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public UsrDto register(String code){
+    public void register(String token){
+        Usr usr = Cache5Helper.get(token);
 
-        //xh todo:不能保存到session 里面，需要放到服务器全局变量里面
-        Usr usr = WebUtils.getSessionAttr(ParamFinal.SESSION_REGISTERING_USR_KEY);
-
-        if(!AuthCodeHelper.verifyEmailCode(code)){
-            throw new XhException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
+        if(usr == null){
+            throw new MsgException(CodeEnum.TOKEN_TIME_OUT);
         }
+        Cache5Helper.remove(token);
 
         usr.setUsrPwd(PwdUtils.getHashStr(usr.getUsrPwd()));
         try{
             usrService.add(usr,null);
         }catch (Exception e){
-            LOGGER.error("注册失败",e.getMessage());
+            LOG.error("注册失败",e.getMessage());
             throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
         }
 
         roleService.addDefaultUsrRole(usr.getId());
-        return this.loginToShiro(usr);
     }
 
     public UsrDto login(String usrName, String usrPwd){
-        LOGGER.debug("usrName="+usrName+",usrPwd="+usrPwd);
+        LOG.debug("usrName="+usrName+",usrPwd="+usrPwd);
 
         usrName = StrUtils.trim(usrName);
 
@@ -101,7 +113,7 @@ public class LoginService {
 
         if(Check.isAllNotNull(currentUsr) && usrName.equals(currentUsr.getUsrName())){
             //该用户已经登录
-            LOGGER.info("This user("+usrName+") is logged in");
+            LOG.info("This user("+usrName+") is logged in");
             return currentUsr;
         }
 
@@ -118,7 +130,7 @@ public class LoginService {
     }
 
     private UsrDto loginToShiro(Usr usr){
-        LOGGER.info("登录到系统："+usr.getUsrName());
+        LOG.info("登录到系统："+usr.getUsrName());
         String usrName = usr.getUsrName();
         String usrPwd = usr.getUsrPwd();
         UsernamePasswordToken token = new UsernamePasswordToken(usrName,usrPwd);
@@ -127,7 +139,7 @@ public class LoginService {
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            LOGGER.info("login failing:usrName="+usrName+",usrPwd="+usrPwd);
+            LOG.info("login failing:usrName="+usrName+",usrPwd="+usrPwd);
             return null;
         }
         //构建dto

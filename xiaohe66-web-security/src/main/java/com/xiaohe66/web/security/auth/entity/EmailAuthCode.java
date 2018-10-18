@@ -10,9 +10,9 @@ public class EmailAuthCode extends AuthCode{
 
     private String email;
 
-    public EmailAuthCode(String img, String code, Date createTime) {
+    public EmailAuthCode(String email, String code, Date createTime) {
         super(code, createTime);
-        this.email = img;
+        this.email = email;
     }
 
     public String getEmail() {

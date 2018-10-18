@@ -33,6 +33,8 @@ public enum CodeEnum {
     ,AUTH_CODE_TIME_OUT(605,"验证码失效")
     ,AUTH_CODE_ERR(606,"验证码错误")
 
+    ,TOKEN_TIME_OUT(607,"令牌已失效")
+
     ,IO_EXCEPTION(701,"IO异常")
     ,RUNTIME_EXCEPTION(702,"运行时异常")
     ,MAX_VALUE_EXCEPTION(703,"超过最大值")

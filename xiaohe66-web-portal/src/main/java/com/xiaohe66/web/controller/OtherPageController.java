@@ -19,6 +19,8 @@ public class OtherPageController {
 
     public static final String RIGHT_PAGE_URL = "common/right";
 
+    public static final String MSG_AGE_URL = "common/msg";
+
     public static final String USR_ZONE_PAGE_URL = "org/usr_zone";
 
     private static final String INDEX_PAGE_HTML = "index";

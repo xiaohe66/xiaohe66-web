@@ -34,4 +34,10 @@ public class XhException extends RuntimeException{
         return code;
     }
 
+    @Override
+    public String toString() {
+        return "{" + "\"code\":\"" + code.code() + "\""
+                + ",\"desc\":\"" + code.desc() + "\""
+                + "}";
+    }
 }

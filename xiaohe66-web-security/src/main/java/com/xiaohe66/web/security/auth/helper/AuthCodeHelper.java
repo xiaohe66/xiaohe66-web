@@ -40,25 +40,17 @@ public class AuthCodeHelper {
      *
      * xh todo:需要把link内容中简短的验证码改成token形式的长代码
      *
-     * @param imgCode       当前操作的图片验证码
      * @param targetEmail   目标邮箱
      * @param targetName    目标邮箱的姓名
      * @param handel        当前操作类型（注册、重置密码等等）
      * @return  EmailAuthCode
      */
-    public static EmailAuthCode sendEmailLink(String imgCode, String targetEmail, String targetName, String handel){
-        if (!verifyImgCode(imgCode)) {
-            throw new XhException(CodeEnum.AUTH_CODE_ERR);
-        }
+    public static EmailAuthCode sendEmailCode(String targetEmail, String targetName, String handel){
 
         EmailAuthCode emailAuthCode = AuthCodeFactory.createEmailAuthCode(targetEmail);
 
-        String link = REGISTER_VERIFY+emailAuthCode.getCode();
-
-        LOG.debug("发送link邮件，内容为："+link);
-
         //发送邮件
-        EmailHelper.sendLink(link,targetEmail,targetName,handel);
+        EmailHelper.sendAuthCode(emailAuthCode.getCode(),targetEmail,targetName,handel);
 
         WebUtils.setSessionAttr(ParamFinal.SESSION_EMAIL_AUTH_CODE_KEY,emailAuthCode);
         return emailAuthCode;
