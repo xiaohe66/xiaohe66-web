@@ -4,7 +4,7 @@ import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Paging;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.base.data.DataFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.text.dto.MessageBoardDto;
 import com.xiaohe66.web.text.service.MessageBoardService;
@@ -26,7 +26,7 @@ public class MessageBoardController {
     @Post
     public void add(String msg, Long usrId){
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
-        usrId = DataFinal.XIAO_HE_USR_ID;
+        usrId = Final.Sys.XIAO_HE_USR_ID;
         messageBoardService.add(msg,usrId, UsrHelper.getCurrentUsrId());
     }
 

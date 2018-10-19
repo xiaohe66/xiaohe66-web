@@ -2,7 +2,7 @@ package com.xiaohe66.web.security.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
@@ -38,7 +38,7 @@ public class UsrRoleService extends AbstractService<UsrRole>{
             throw new XhException(CodeEnum.PARAM_ERR,"usrId is null");
         }
         //xh todo:需要优化掉string转long代码
-        String cfgKeysStr = SysCfgHelper.getString(ParamFinal.DEFAULT_ROLE_IDS_KEY);
+        String cfgKeysStr = SysCfgHelper.getString(Final.Str.DEFAULT_ROLE_IDS_KEY);
         String[] roleStrIds =  cfgKeysStr.split(",");
         Long[] roleIds = StrUtils.toLongNotException(roleStrIds);
         this.addUsrRoles(usrId,roleIds);

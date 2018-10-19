@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class IoUtils {
         InputStreamReader reader = null;
         BufferedReader bufferedReader = null;
         try{
-            reader = new InputStreamReader(inputStream, ParamFinal.UTF_8);
+            reader = new InputStreamReader(inputStream, Final.Str.UTF_8);
             bufferedReader = new BufferedReader(reader);
             StringBuilder stringBuilder = new StringBuilder();
             String line;

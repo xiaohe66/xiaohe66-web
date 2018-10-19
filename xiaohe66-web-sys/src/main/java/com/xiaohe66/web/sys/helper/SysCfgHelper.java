@@ -1,12 +1,9 @@
 package com.xiaohe66.web.sys.helper;
 
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.sys.po.SysCfg;
-import com.xiaohe66.web.sys.service.SysCfgService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +43,7 @@ public class SysCfgHelper {
     }
 
     public static Long findXhUsrId(){
-        String usrIdStr = getString(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
+        String usrIdStr = getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
         return StrUtils.toLong(usrIdStr);
     }
 }

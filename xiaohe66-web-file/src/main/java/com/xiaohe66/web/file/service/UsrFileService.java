@@ -2,8 +2,8 @@ package com.xiaohe66.web.file.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.DataFinal;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
@@ -183,7 +183,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
         UsrFileParam param = new UsrFileParam();
         if(onlyWebmaster){
-            param.setCreateId(DataFinal.XIAO_HE_USR_ID);
+            param.setCreateId(Final.Sys.XIAO_HE_USR_ID);
         }
         if(StrUtils.isNotEmpty(search)){
             param.setFileName("%"+search+"%");
@@ -236,7 +236,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
             throw new XhException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
         }
 
-        response.setContentType(ParamFinal.CONTENT_TYPE_IMAGE_PNG);
+        response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
         try {
             commonFileService.outputFile(usrFile.getFileId(),response.getOutputStream());
         } catch (IOException e) {

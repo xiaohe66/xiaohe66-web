@@ -1,7 +1,7 @@
 package com.xiaohe66.web.aop;
 
 import com.github.pagehelper.PageHelper;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import org.aspectj.lang.annotation.Aspect;
@@ -35,10 +35,10 @@ public class XhPagingAsp {
     public void beforeAdvice(){
         HttpServletRequest request = WebUtils.getRequest();
 
-        String pageSizeStr = request.getHeader(ParamFinal.PAGING_SIZE_KEY);
+        String pageSizeStr = request.getHeader(Final.Str.PAGING_SIZE_KEY);
         int size = StrUtils.isEmpty(pageSizeStr)?DEFAULT_PAGE_SIZE:StrUtils.toInt(pageSizeStr);
 
-        String pageNumStr = request.getHeader(ParamFinal.PAGING_NUM_KEY);
+        String pageNumStr = request.getHeader(Final.Str.PAGING_NUM_KEY);
         int num = StrUtils.isEmpty(pageNumStr)?DEFAULT_PAGE_NUM:StrUtils.toInt(pageNumStr);
 
         PageHelper.startPage(num,size,true);

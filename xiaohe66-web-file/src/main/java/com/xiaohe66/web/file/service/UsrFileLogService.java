@@ -1,7 +1,7 @@
 package com.xiaohe66.web.file.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.file.dao.UsrFileLogDao;
@@ -49,11 +49,11 @@ public class UsrFileLogService extends AbstractService<UsrFileLog>{
 
         Long usrFileId = po.getUsrFileId();
 
-        Set<Long> usrFileIdSet = WebUtils.getSessionAttr(ParamFinal.USR_FILE_LOG_CACHE);
+        Set<Long> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
 
         if(CollectionUtils.isNull(usrFileIdSet)){
             usrFileIdSet = new HashSet<>(4);
-            WebUtils.setSessionAttr(ParamFinal.USR_FILE_LOG_CACHE,usrFileIdSet);
+            WebUtils.setSessionAttr(Final.Str.USR_FILE_LOG_CACHE,usrFileIdSet);
         }
 
         if (!usrFileIdSet.contains(usrFileId)) {

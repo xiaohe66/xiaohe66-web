@@ -2,7 +2,7 @@ package com.xiaohe66.web.text.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
@@ -75,7 +75,7 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      */
     public List<MessageBoardDto> findByUsrId(Long usrId){
         if(usrId == null){
-            String usrIdStr = SysCfgHelper.getString(ParamFinal.CFG_KEY_XIAO_HE_USR_ID);
+            String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
             usrId = StrUtils.toLong(usrIdStr);
         }
 

@@ -1,6 +1,6 @@
 package com.xiaohe66.web.sys.service;
 
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class EmailService {
     private volatile Transport transport;
 
     public void init() throws MessagingException {
-        String smtpHost = SysCfgHelper.getString(ParamFinal.SYS_EMAIL_SMTP_HOST_KEY);
+        String smtpHost = SysCfgHelper.getString(Final.Str.SYS_EMAIL_SMTP_HOST_KEY);
 
         Properties props = new Properties();
         props.setProperty("mail.smtp.host",smtpHost);
@@ -44,8 +44,8 @@ public class EmailService {
         if (!transport.isConnected()) {
             synchronized (EmailService.class){
                 if(!transport.isConnected()){
-                    String emailHost = SysCfgHelper.getString(ParamFinal.SYS_EMAIL_HOST_KEY);
-                    String emailPwd = SysCfgHelper.getString(ParamFinal.SYS_EMAIL_PWD_KEY);
+                    String emailHost = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
+                    String emailPwd = SysCfgHelper.getString(Final.Str.SYS_EMAIL_PWD_KEY);
                     transport.connect(emailHost, emailPwd);
                 }
             }
@@ -55,15 +55,15 @@ public class EmailService {
 
     public MimeMessage createMimeMessage(String targetEmail,String targetName,String subject,String content) throws MessagingException, UnsupportedEncodingException {
 
-        String sendMail = SysCfgHelper.getString(ParamFinal.SYS_EMAIL_HOST_KEY);
-        String usrName = SysCfgHelper.getString(ParamFinal.SYS_EMAIL_USR_NAME_KEY);
+        String sendMail = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
+        String usrName = SysCfgHelper.getString(Final.Str.SYS_EMAIL_USR_NAME_KEY);
 
         MimeMessage message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(sendMail, usrName, ParamFinal.UTF_8));
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(targetEmail, targetName,ParamFinal.UTF_8));
-        message.setSubject(subject,ParamFinal.UTF_8);
+        message.setFrom(new InternetAddress(sendMail, usrName, Final.Str.UTF_8));
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(targetEmail, targetName, Final.Str.UTF_8));
+        message.setSubject(subject, Final.Str.UTF_8);
 
-        message.setContent(content,ParamFinal.SYS_EMAIL_CONTENT_TYPE);
+        message.setContent(content, Final.Str.SYS_EMAIL_CONTENT_TYPE);
         message.setSentDate(new Date());
         message.saveChanges();
         return message;

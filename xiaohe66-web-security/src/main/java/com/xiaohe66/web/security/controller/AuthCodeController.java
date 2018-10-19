@@ -4,7 +4,7 @@ import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.security.auth.helper.AuthCodeHelper;
@@ -28,10 +28,10 @@ public class AuthCodeController {
 
         BufferedImage authCodeImg = AuthCodeHelper.createImgAuthCode().getImg();
 
-        response.setContentType(ParamFinal.CONTENT_TYPE_IMAGE_PNG);
+        response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
         OutputStream os = response.getOutputStream();
 
-        ImageIO.write(authCodeImg,ParamFinal.FILE_TYPE_PNG, os);
+        ImageIO.write(authCodeImg, Final.Str.FILE_TYPE_PNG, os);
     }
 
     @Get("/{code}")

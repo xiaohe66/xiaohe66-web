@@ -1,6 +1,6 @@
 package com.xiaohe66.web.aop;
 
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.WebUtils;
@@ -38,7 +38,7 @@ public class XhPageAsp {
         try{
             Object title = request.getAttribute("title");
             if(title == null){
-                request.setAttribute("title",ParamFinal.DEFAULT_WEB_TITLE);
+                request.setAttribute("title", Final.Str.DEFAULT_WEB_TITLE);
             }
             return proceedingJoinPoint.proceed();
         }catch (Throwable e){

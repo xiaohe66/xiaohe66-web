@@ -1,7 +1,7 @@
 package com.xiaohe66.web.security.service;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
@@ -109,7 +109,7 @@ public class LoginService {
         }
 
         Subject subject = SecurityUtils.getSubject();
-        UsrDto currentUsr = (UsrDto)subject.getSession().getAttribute(ParamFinal.SESSION_UER_KEY);
+        UsrDto currentUsr = (UsrDto)subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
 
         if(Check.isAllNotNull(currentUsr) && usrName.equals(currentUsr.getUsrName())){
             //该用户已经登录
@@ -145,14 +145,14 @@ public class LoginService {
         //构建dto
         UsrDto dtoUsr = new UsrDto(usr);
         //注入session
-        subject.getSession().setAttribute(ParamFinal.SESSION_UER_KEY,dtoUsr);
+        subject.getSession().setAttribute(Final.Str.SESSION_UER_KEY,dtoUsr);
         return dtoUsr;
     }
 
     public void logout(){
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        subject.getSession().removeAttribute(ParamFinal.SESSION_UER_KEY);
+        subject.getSession().removeAttribute(Final.Str.SESSION_UER_KEY);
     }
 
     public boolean isLogin(){

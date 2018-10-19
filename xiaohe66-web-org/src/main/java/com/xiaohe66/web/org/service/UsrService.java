@@ -1,7 +1,7 @@
 package com.xiaohe66.web.org.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.data.DataFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
@@ -85,7 +85,7 @@ public class UsrService extends AbstractService<Usr> {
      */
     public UsrDto lookAtUsr(Long usrId){
         if(Check.isNull(usrId)){
-            usrId = DataFinal.XIAO_HE_USR_ID;
+            usrId = Final.Sys.XIAO_HE_USR_ID;
         }
         Usr usr = findById(usrId);
         UsrDto usrDto = ClassUtils.convert(UsrDto.class,usr);

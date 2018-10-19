@@ -4,7 +4,7 @@ import com.xiaohe66.web.common.dao.CategoryDao;
 import com.xiaohe66.web.common.po.Category;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
@@ -38,7 +38,7 @@ public class CategoryService extends AbstractService<Category> {
     }
 
     public List<Category> findTextSysCategory(){
-        String val = SysCfgHelper.getString(ParamFinal.DEFAULT_ARTICLE_PID);
+        String val = SysCfgHelper.getString(Final.Str.DEFAULT_ARTICLE_PID);
         return findByPid(StrUtils.toLongNotException(val));
     }
 }

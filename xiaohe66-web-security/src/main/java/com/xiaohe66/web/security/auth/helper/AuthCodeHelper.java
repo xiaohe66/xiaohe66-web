@@ -1,7 +1,7 @@
 package com.xiaohe66.web.security.auth.helper;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.WebUtils;
@@ -31,7 +31,7 @@ public class AuthCodeHelper {
 
     public static ImgAuthCode createImgAuthCode(){
         ImgAuthCode imgAuthCode = AuthCodeFactory.createImgAuthCode();
-        WebUtils.setSessionAttr(ParamFinal.SESSION_IMG_AUTH_CODE_KEY,imgAuthCode);
+        WebUtils.setSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY,imgAuthCode);
         return imgAuthCode;
     }
 
@@ -52,27 +52,27 @@ public class AuthCodeHelper {
         //发送邮件
         EmailHelper.sendAuthCode(emailAuthCode.getCode(),targetEmail,targetName,handel);
 
-        WebUtils.setSessionAttr(ParamFinal.SESSION_EMAIL_AUTH_CODE_KEY,emailAuthCode);
+        WebUtils.setSessionAttr(Final.Str.SESSION_EMAIL_AUTH_CODE_KEY,emailAuthCode);
         return emailAuthCode;
     }
 
     public static boolean verifyImgCode(String code){
-        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_IMG_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY);
         return verify(code,authCodeObj);
     }
 
     public static boolean verifyImgCodeNotClearSession(String code){
-        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_IMG_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY);
         return verifyNotClearSession(code,authCodeObj);
     }
 
     public static boolean verifyEmailCode(String code){
-        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_EMAIL_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_EMAIL_AUTH_CODE_KEY);
         return verify(code,authCodeObj);
 
     }
     public static boolean verifyEmailCodeNotClearSession(String code){
-        AuthCode authCodeObj = WebUtils.getSessionAttr(ParamFinal.SESSION_EMAIL_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_EMAIL_AUTH_CODE_KEY);
         return verifyNotClearSession(code,authCodeObj);
     }
 
@@ -87,7 +87,7 @@ public class AuthCodeHelper {
         }
 
         if(code.equalsIgnoreCase(authCodeObj.getCode())){
-            WebUtils.removeSessionAttr(ParamFinal.SESSION_IMG_AUTH_CODE_KEY);
+            WebUtils.removeSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY);
             return true;
         }
 

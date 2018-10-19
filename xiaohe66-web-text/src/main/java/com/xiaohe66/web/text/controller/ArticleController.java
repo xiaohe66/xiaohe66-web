@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.annotation.Paging;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.base.data.DataFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.text.dto.ArticleDto;
@@ -30,9 +30,6 @@ public class ArticleController {
 
     @Post
     public Long add(Article article,@RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
-        if (article.getSecretLevel() == null) {
-            article.setSecretLevel(DataFinal.SECRET_LEVEL_ALL);
-        }
         articleService.add(article,perCategoryIds);
         return article.getId();
     }

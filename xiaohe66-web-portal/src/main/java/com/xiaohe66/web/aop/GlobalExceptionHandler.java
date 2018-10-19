@@ -1,7 +1,7 @@
 package com.xiaohe66.web.aop;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.JsonUtils;
 import com.xiaohe66.web.base.data.Result;
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
             result = Result.err(CodeEnum.EXCEPTION,e.getMessage());
         }
         try {
-            response.setContentType(ParamFinal.HEADER_JSON_UTF_8);
+            response.setContentType(Final.Str.HEADER_JSON_UTF_8);
             response.getWriter().print(JsonUtils.toString(result));
         } catch (IOException e1) {
             LOGGER.error("getWriter() exception");
