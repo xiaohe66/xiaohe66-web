@@ -71,6 +71,10 @@ public class UsrService extends AbstractService<Usr> {
         return usrDao.findByUsrName(usrName);
     }
 
+    public Usr findByEmail(String email){
+        return usrDao.findByEmail(email);
+    }
+
     public Usr findByUsrNameAndPwd(String usrName,String usrPwd){
         if(StrUtils.isAllNotEmpty(usrName,usrPwd)){
             throw new NullPointerException("usrName or usrPwd is null");

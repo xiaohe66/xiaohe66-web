@@ -20,6 +20,10 @@ public enum CodeEnum {
     ,DATE_FORMAT_EXCEPTION(511,"无法转换为日期类型")
     ,IMAGE_FORMAT_EXCEPTION(512,"无法转换为图片")
 
+
+
+    ,FORMAT_ERROR(520,"格式错误")
+
     //40* 资源
     ,RESOURCE_NOT_FOUND(401,"资源没有找到")
     ,PARAM_ERR(402,"参数错误")

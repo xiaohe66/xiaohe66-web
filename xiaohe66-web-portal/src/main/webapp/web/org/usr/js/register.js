@@ -4,9 +4,12 @@
  */
 $(function(){
     var code = $("#code");
-    code.find("img").click(function(){
+
+    var refreshAuthCode = function () {
         $(this).attr("src","/authCode/img?m="+Math.random());
-    });
+    };
+
+    code.find("img").click(refreshAuthCode);
 
     var usrNameInp = $("#usrName").find("input");
     var emailInp = $("#email").find("input");
@@ -20,6 +23,7 @@ $(function(){
     validator.add({
         dom:usrNameInp,
         maxLength:16,
+        regex:/^([\u4e00-\u9fa5]|[a-z]|[A-Z]|[0-9]|_){1,16}$/,
         func:function (dom,val) {
             var $t = this;
             if (this.prev === val) {
@@ -37,7 +41,7 @@ $(function(){
     validator.add({
         dom: emailInp,
         maxLength:32,
-        regex:/^\S+@\S+\.\S+$/,
+        regex:/^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/,
         func:function (dom,val) {
             var $t = this;
             if (this.prev === val) {
@@ -101,7 +105,7 @@ $(function(){
             },function(data){
                 if(data){
                     $.maskHint("注册邮件已发送至您的邮箱",function () {
-                        location.href = "/index"
+                        location.href = "/index";
                     });
                 }
             },function (data) {

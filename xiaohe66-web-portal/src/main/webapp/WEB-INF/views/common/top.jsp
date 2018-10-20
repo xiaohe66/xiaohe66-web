@@ -8,11 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="/web/common/js/top.js"></script>
 <div id="login_body">
     <ul>
         <li>
             <span>账号</span>
-            <input id="loginName" placeholder="账号">
+            <input id="loginName" placeholder="用户名/邮箱地址">
         </li>
         <li>
             <span>密码</span>
@@ -57,83 +58,4 @@
             <input class="inp" placeholder="搜索">
         </div>
     </div>
-    <script>
-        $(function () {
-            var inp = $(".search .inp");
-            <%--inp.blur(function () {
-                inp.attr("val",inp.val());
-                inp.val("");
-                $(".t_c .tab").show();
-                inp.width(400);
-            });
-            inp.focus(function () {
-                inp.val(inp.attr("val"));
-                $(".t_c .tab").hide();
-                inp.width(800);
-            });--%>
-            inp.keydown(function(e){
-                if(e.keyCode === 13){
-                    var val = inp.val();
-                    if(val === undefined || val.length === 0){
-                        alert("请输入搜索内容");
-                        return;
-                    }
-                    window.open($(".search_type").val()+inp.val());
-                }
-            });
-            var top = $(".t");
-
-            var t,p,lock = true;
-            $(window).scroll(function(e){
-                if(!lock){
-                    return;
-                }
-                p = $(this).scrollTop();
-                lock = false;
-                $(".t").animate({
-                    "top": t<=p?-100:0+"px"
-                },100,function () {
-                    t = p;
-                    lock = true;
-                });
-            });
-
-            var login = function () {
-                var loginName = $("#loginName").val();
-                var usrPwd = $("#usrPwd").val();
-
-                post("/sec/login",{
-                    loginName:loginName,
-                    usrPwd:usrPwd
-                },function (data) {
-                   location.reload();
-                },function (data) {
-                    $("#login_body p").text(data.msg);
-                });
-            };
-
-            $(".login a").click(login);
-
-            $("#usrPwd").keyup(function (e) {
-                if(e.keyCode === 13){
-                    login();
-                }
-            });
-            
-        });
-
-        function logout() {
-            del("/sec/login",function (data) {
-                location.reload();
-            });
-        }
-        
-        function showLogin() {
-            $("#login_body").show();
-            $.mask(function () {
-               $("#login_body").hide();
-            });
-            $("#loginName").focus();
-        }
-    </script>
 </div>

@@ -6,6 +6,7 @@ import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.PwdUtils;
+import com.xiaohe66.web.base.util.RegexUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.cache.Cache5Helper;
 import com.xiaohe66.web.org.dto.UsrDto;
@@ -52,19 +53,23 @@ public class LoginService {
      */
     public void registerPrepare(Usr usr, String code){
         if(!AuthCodeHelper.verifyImgCode(code)){
-            throw new XhException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
+            throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 
         String usrName = usr.getUsrName();
         String email = usr.getEmail();
         Check.notEmptyCheck(usrName,email);
 
-        if(usrService.usrNameIsExist(usrName)){
-            throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");
+        if(!RegexUtils.testUsrName(usrName) || !RegexUtils.testEmail(email)){
+            throw new MsgException(CodeEnum.FORMAT_ERROR);
         }
 
-        if(usrService.emailIsExist(usr.getEmail())){
-            throw new XhException(CodeEnum.OBJ_ALREADY_EXIST,"email is exist");
+        if(usrService.usrNameIsExist(usrName)){
+            throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");
+        }
+
+        if(usrService.emailIsExist(email)){
+            throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST,"email is exist");
         }
 
         String token = PwdUtils.createToken();
@@ -88,7 +93,7 @@ public class LoginService {
         }
         Cache5Helper.remove(token);
 
-        usr.setUsrPwd(PwdUtils.getHashStr(usr.getUsrPwd()));
+        usr.setUsrPwd(PwdUtils.hashPassword(usr.getUsrPwd()));
         try{
             usrService.add(usr,null);
         }catch (Exception e){
@@ -99,31 +104,33 @@ public class LoginService {
         roleService.addDefaultUsrRole(usr.getId());
     }
 
-    public UsrDto login(String usrName, String usrPwd){
-        LOG.debug("usrName="+usrName+",usrPwd="+usrPwd);
+    public UsrDto login(String loginName, String usrPwd){
+        LOG.debug("loginName="+loginName+",usrPwd="+usrPwd);
 
-        usrName = StrUtils.trim(usrName);
+        loginName = StrUtils.trim(loginName);
 
-        if(Check.isOneNull(usrName,usrPwd)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"usrName or usrPwd or code is null");
+        if(Check.isOneNull(loginName,usrPwd)){
+            throw new XhException(CodeEnum.NULL_EXCEPTION,"loginName or usrPwd or code is null");
         }
 
         Subject subject = SecurityUtils.getSubject();
         UsrDto currentUsr = (UsrDto)subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
 
-        if(Check.isAllNotNull(currentUsr) && usrName.equals(currentUsr.getUsrName())){
+        if(Check.isAllNotNull(currentUsr) && loginName.equals(currentUsr.getUsrName())){
             //该用户已经登录
-            LOG.info("This user("+usrName+") is logged in");
+            LOG.info("This user("+loginName+") is logged in");
             return currentUsr;
         }
 
-        Usr dbUsr = usrService.findByUsrName(usrName);
+        //登录名中存在@，则为邮箱账号
+        Usr dbUsr = loginName.contains("@") ? usrService.findByEmail(loginName) : usrService.findByUsrName(loginName);
+
         if(Check.isNull(dbUsr)){
-            throw new XhException(CodeEnum.USR_NOT_EXIST,"usr not exist:usrName="+usrName);
+            throw new XhException(CodeEnum.USR_NOT_EXIST,"usr not exist:loginName="+loginName);
         }
+
         //验证密码
-        String pwdMD5 = PwdUtils.getHashStr(usrPwd);
-        if(!pwdMD5.equals(dbUsr.getUsrPwd())){
+        if(!PwdUtils.passwordsMatch(usrPwd,dbUsr.getUsrPwd())){
             throw new XhException(CodeEnum.PASSWORD_ERROR,"password is wrong");
         }
         return this.loginToShiro(dbUsr);
@@ -139,7 +146,7 @@ public class LoginService {
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            LOG.info("login failing:usrName="+usrName+",usrPwd="+usrPwd);
+            LOG.info("login failing:testUsrName="+usrName+",usrPwd="+usrPwd);
             return null;
         }
         //构建dto
