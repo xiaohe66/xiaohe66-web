@@ -36,6 +36,7 @@ public class ArticleController {
 
     @Get("/{id}")
     public ArticleDto findById(@PathVariable("id") Long id){
+        //xh todo:需要控制 公开文章和私密文章的权限
         Article article = articleService.findById(id);
         return ClassUtils.convert(ArticleDto.class,article);
     }
@@ -61,7 +62,7 @@ public class ArticleController {
     @Paging
     @Get("/usr/{lookUsrId}")
     public List<ArticleDto> list2(@PathVariable("lookUsrId") Long lookUsrId){
-        return articleService.findDtoByUsrId(lookUsrId);
+        return articleService.findDtoByUsrId(lookUsrId,Final.Article.SECRET_LEVEL_PUBLIC);
     }
 
     @Put

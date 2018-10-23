@@ -15,19 +15,15 @@ public interface Final {
      */
     interface Article{
         /**
-         * 私密等级，仅自己可见
-         */
-        int SECRET_LEVEL_ONLY_ONESELF = 0;
-
-        /**
-         * 私密等级，我的关注
-         */
-        int SECRET_LEVEL_MY_ATTENTION = 1;
-
-        /**
          * 私密等级，全部可见
          */
-        int SECRET_LEVEL_ALL = 2;
+        int SECRET_LEVEL_PUBLIC = 0;
+
+        /**
+         * 私密等级，仅自己可见
+         */
+        int SECRET_LEVEL_ONLY_ONESELF = 1;
+
         /**
          * 发表状态，未发表
          */
@@ -35,7 +31,7 @@ public interface Final {
         /**
          * 发表状态，已发表
          */
-        int PUBLISH_STATE_IS_PUBLISH = 1;
+        int PUBLISH_STATE_PUBLISH = 1;
     }
 
     /**

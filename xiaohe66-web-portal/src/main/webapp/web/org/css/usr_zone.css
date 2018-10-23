@@ -1,5 +1,6 @@
 .c{
-    min-height: 620px;
+    width: 1200px;
+    min-height: 1070px;
 }
 .menu{
     text-align: center;
@@ -14,8 +15,9 @@
     color: blue;
 }
 .menu a:hover{
-    background: #e1f1ff;
+    background: #66b8ff;
     cursor: pointer;
+    text-decoration: none;
 }
 .r{
     background: #fff;
@@ -23,4 +25,8 @@
 }
 .c_c{
     min-height: 460px;
+}
+
+.active{
+    background: #66b8ff;
 }

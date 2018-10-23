@@ -23,6 +23,13 @@
 function Validator(){
 
     var params = [];
+    var message = {
+        ok:"",
+        empty:"不能为空",
+        regex:"格式错误",
+        maxLength:"字数过长",
+        check:"验证不通过"
+    };
 
     var verifyItem = function (param) {
         var dom = param.dom;
@@ -40,32 +47,38 @@ function Validator(){
         };
         var isVerifyEmpty = isEmpty(param.empty) || param.empty;
         if (isVerifyEmpty && isEmpty(val)) {
-            err("不能为空");
+            err(message.empty);
             return;
         }
         if (isNumber(param.maxLength) && val.length > param.maxLength) {
-            err("不可超过"+param.maxLength+"位");
+            err(message.regex);
             return;
         }
         if(isNotEmpty(param.regex) && !param.regex.test(val)){
-            err("格式错误");
+            err(message.regex);
             return;
         }
-        if(isFunc(param.func)){
-            var ret = param.func(dom,val);
+        if(isFunc(param.check)){
+            var ret = param.check(dom,val);
             if(typeof ret === "string"){
                 err(ret);
                 return;
             }else if(!ret){
-                err("验证不通过");
+                err(message.check);
                 return;
             }
         }
         if(isFunc(param.ok)){
-            param.ok(dom,"");
+            param.ok(dom,message.ok);
         }
         call("");
         return true;
+    };
+
+    this.setMessage = function (messages) {
+        for(var field in messages){
+            message[field] = messages[field];
+        }
     };
 
     this.add = function (param) {

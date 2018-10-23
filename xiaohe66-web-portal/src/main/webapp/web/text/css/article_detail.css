@@ -48,6 +48,7 @@ div.c_u{
 .editor p,
 .editor pre{
     margin: 10px 0;
+    word-break:break-all;
 }
 .editor table {
   border-top: 1px solid #ccc;

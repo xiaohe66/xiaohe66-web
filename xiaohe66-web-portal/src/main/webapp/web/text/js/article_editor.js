@@ -6,9 +6,9 @@
 var URL = "/text/article";
 var DETAIL_URL = "/text/article/detail/";
 var editor;
-var id;
 $(function(){
     mouseMoveOn=false;
+    mouseClickOn=false;
     var E = window.wangEditor;
     editor = new E(".tool",".editor");
     editor.customConfig.zIndex = 0;
@@ -72,17 +72,16 @@ $(function(){
         $(this).parent().remove();
     });
 
-    id = $("#id").val();
-    if(id !== undefined){
-        $("#sysCategory").find("input[value='"+$("#sysCategoryId").val()+"']").attr("checked","checked");
-        var perCategoryIds = $("#perCategoryIds").val();
+    if(articleId !== ""){
+        $("#sysCategory").find("input[value='"+sysCategoryId+"']").attr("checked","checked");
         $.each(perCategoryIds.split(","),function (i, data) {
             $("#perCategory").find("input[value='"+data+"']").attr("checked","checked");
         });
-
     }else{
         $("#sysCategory").find("input:first").attr("checked","checked");
     }
+
+    $("input[name='secretLevel']"+(secretLevel !== "" ? "[value='"+secretLevel+"']":":first")).attr('checked', 'checked');
 
     $(".addCategory").click(addCategory);
 
@@ -90,49 +89,69 @@ $(function(){
         "overflow-y":"hidden",
         "height":"auto"
     });
-});
 
-function publish() {
+    $("#editorArticle").addClass("active");
 
-    var title = $(".title").val();
-    if(isEmpty(title)){
-        alert("你忘了写标题哟!");
-        return;
-    }
-    var text = editor.txt.html();
-    if(isEmpty(title)){
-        alert("写点东西吧");
-        return;
-    }
-    var sysCategory = $("#sysCategory").find("input:checked").val();
-    var perCategory = [];
-    $.each($("#perCategory").find("input:checked"),function(i,data){
-        perCategory.push(parseInt($(data).val()));
+    var validator = new Validator();
+
+    validator.add({
+        dom:$("#articleTitle"),
+        maxLength:16,
+        err:function (dom, msg) {
+            dom.next().text("标题不能为空");
+        },
+        ok:function (dom,msg) {
+            dom.next().text("");
+        }
     });
 
-    var data = {
-        title:title,
-        text:text,
-        perCategoryIds:perCategory,
-        sysCategoryId:sysCategory,
-        id:id
-    };
+    var lock = true;
+    $("#publish").click(function () {
+        if(!validator.verify()){
+            alert("验证不通过，请修改后再重新发表");
+            return;
+        }
 
-    var okFunc = function(data){
-        alert("发表成功");
-        location.href = DETAIL_URL +data;
-    };
+        var sysCategory = $("#sysCategory").find("input:checked").val();
+        var perCategory = [];
+        $.each($("#perCategory").find("input:checked"),function(i,data){
+            perCategory.push(parseInt($(data).val()));
+        });
 
-    var errFunc = function (err) {
-        alert(err.data);
-    };
+        var data = {
+            title:$("#articleTitle").val(),
+            text:editor.txt.html(),
+            perCategoryIds:perCategory,
+            sysCategoryId:sysCategory,
+            secretLevel:$("input[name='secretLevel']:checked").val(),
+            id:articleId
+        };
 
-    if(id === undefined){
-        post(URL,data,okFunc,errFunc);
-    }else{
-        put(URL,data,okFunc,errFunc);
-    }
-}
+        //发布锁，防止重复发布
+        if(!lock)return;
+        lock = false;
+        $.hint("发表中……");
+
+        var okFunc = function(data){
+            $.hint("发表成功……");
+            setTimeout(function () {
+                location.href = DETAIL_URL +data;
+            },1000);
+        };
+
+        var errFunc = function (err) {
+            $.maskHint("sorry!系统出现未知错误");
+            lock = true;
+        };
+
+        if(articleId === ""){
+            post(URL,data,okFunc,errFunc);
+        }else{
+            put(URL,data,okFunc,errFunc);
+        }
+    });
+
+});
 
 function addCategory() {
     var div = $("#perCategory");

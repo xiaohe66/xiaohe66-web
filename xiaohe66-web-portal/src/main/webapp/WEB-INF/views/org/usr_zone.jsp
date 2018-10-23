@@ -18,10 +18,11 @@
 <div class="c">
     <div class="l l2">
         <div class="menu border1">
-            <a href="/org/usr/me">个人资料</a>
-            <a href="/text/article/admin">文章管理</a>
-            <a href="/org/usr/file/admin">文件管理</a>
-            <a href="/text/category/index">分类管理</a>
+            <a id="editorArticle" href="/text/article/add">文章编辑</a>
+            <a id="perManagement" href="/org/usr/me">个人资料</a>
+            <a id="articleManagement" href="/text/article/admin">文章管理</a>
+            <a id="fileManagement" href="/org/usr/file/admin">文件管理</a>
+            <a id="categoryManagement" href="/text/category/index">分类管理</a>
         </div>
     </div>
     <div class="r r2 border1">

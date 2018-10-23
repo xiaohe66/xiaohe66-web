@@ -10,6 +10,8 @@ public class ArticleDto extends BaseDtoDetailed{
 
     private String text;
     private String title;
+    private Boolean isPublish;
+    private Integer secretLevel;
     private Long sysCategoryId;
     private String sysCategoryName;
     private String perCategoryIds;
@@ -32,6 +34,22 @@ public class ArticleDto extends BaseDtoDetailed{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Boolean getIsPublish() {
+        return isPublish;
+    }
+
+    public void setIsPublish(Boolean publish) {
+        isPublish = publish;
+    }
+
+    public Integer getSecretLevel() {
+        return secretLevel;
+    }
+
+    public void setSecretLevel(Integer secretLevel) {
+        this.secretLevel = secretLevel;
     }
 
     public String getSysCategoryName() {
@@ -91,23 +109,4 @@ public class ArticleDto extends BaseDtoDetailed{
         this.count = count;
     }
 
-    @Override
-    public String toString() {
-        return "{" + "\"text\":\"" + text + "\""
-                + ",\"createId\":\"" + createId + "\""
-                + ",\"id\":\"" + id + "\""
-                + ",\"title\":\"" + title + "\""
-                + ",\"createTime\":\"" + createTime + "\""
-                + ",\"sysCategoryId\":\"" + sysCategoryId + "\""
-                + ",\"updateId\":\"" + updateId + "\""
-                + ",\"sysCategoryName\":\"" + sysCategoryName + "\""
-                + ",\"updateTime\":\"" + updateTime + "\""
-                + ",\"perCategoryIds\":\"" + perCategoryIds + "\""
-                + ",\"isDelete\":\"" + isDelete + "\""
-                + ",\"perCategoryNames\":\"" + perCategoryNames + "\""
-                + ",\"imgFileId\":\"" + imgFileId + "\""
-                + ",\"usrName\":\"" + usrName + "\""
-                + ",\"count\":\"" + count + "\""
-                + "}";
-    }
 }

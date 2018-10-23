@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
@@ -81,7 +81,9 @@ public class ArticleService extends AbstractService<Article>{
      */
     public List<ArticleDto> indexArticle(){
         PageHelper.startPage(1,5);
-        return installDto(findByParam(null));
+        ArticleParam articleParam = new ArticleParam();
+        articleParam.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
+        return installDto(findByParam(articleParam));
     }
 
     /**
@@ -145,17 +147,14 @@ public class ArticleService extends AbstractService<Article>{
      */
     @Transactional(rollbackFor = Exception.class)
     public void add(Article article,Long[] perCategoryIds){
-        if(StrUtils.isOneEmpty(article.getTitle(),article.getText())){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"title or text is null");
-        }
-        if(Check.isOneNull(article.getSysCategoryId())){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"sysCategoryId is null");
-        }
+
+        //xh todo:保存文章详情
+        Check.notEmptyCheck(article.getText(),article.getSysCategoryId());
 
         Long currentUsrId = UsrHelper.getCurrentUsrId();
 
         if (article.getSecretLevel() == null) {
-            article.setSecretLevel(Final.Article.SECRET_LEVEL_ALL);
+            article.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
         }
 
         LOG.info("创建一篇文章：title="+article.getTitle()+",usrId="+currentUsrId);
@@ -172,11 +171,11 @@ public class ArticleService extends AbstractService<Article>{
     }
 
     /**
-     * 分页查询
-     * @param usrId
-     * @return
+     * 查询一个用户的文章
+     * @param usrId     待查询的用户id，传入null时默认为站长的id
+     * @return      对应用户的文章列表
      */
-    public List<Article> findByUsrId(Long usrId){
+    public List<Article> findByUsrId(Long usrId,Integer secretLevel){
         if(Check.isOneNull(usrId)){
             //默认显示站长的列表
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
@@ -184,21 +183,31 @@ public class ArticleService extends AbstractService<Article>{
         }
         ArticleParam param = new ArticleParam();
         param.setCreateId(usrId);
+        param.setSecretLevel(secretLevel);
 
         return articleDao.findByParam(param);
     }
 
-    public List<ArticleDto> findDtoByUsrId(Long usrId){
-        return installDto(this.findByUsrId(usrId));
+    public List<ArticleDto> findDtoByUsrId(Long usrId,Integer secretLevel){
+        return installDto(findByUsrId(usrId,secretLevel));
     }
 
     public ArticleDto findDtoById(Long id){
-        Check.notEmptyCheck(id);
 
+        Long currentUsrId = UsrHelper.getCurrentUsrId();
+
+        Check.notEmptyCheck(id);
         Article article = this.findById(id);
+
+        //只有文章作者是自己 或者 文章的私密等级是公开时，才能查看
+        if (!currentUsrId.equals(article.getCreateId())&& Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()) {
+            throw new MsgException(CodeEnum.NOT_PERMISSION);
+        }
+
         ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,article);
 
         //保存日志
+        //xh todo:保存日志的方式需要改变
         articleLogService.add(new ArticleLog(id),UsrHelper.getCurrentUsrId());
 
         installDto(articleDto,article);
@@ -214,7 +223,8 @@ public class ArticleService extends AbstractService<Article>{
         if(StrUtils.isNotEmpty(search)){
             param.setTitle("%"+search+"%");
         }
-        return installDto(this.findByParam(param));
+        param.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
+        return installDto(findByParam(param));
     }
 
     public void installDto(ArticleDto articleDto,Article article){
@@ -271,7 +281,17 @@ public class ArticleService extends AbstractService<Article>{
         List<ArticleDto> articleDtoList = new ArrayList<>(hotSize);
         List<Map<String,Long>> mapList = articleLogService.countDownloadOfMonth(usrId);
         for (Map<String, Long> map : mapList) {
-            ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,this.findById(map.get("id")));
+
+            ArticleParam param = new ArticleParam();
+            param.setSecretLevel(Final.Article.PUBLISH_STATE_NOT_PUBLISH);
+            param.setId(map.get("id"));
+
+            List<Article> articleList = findByParam(param);
+            if(articleList == null || articleList.size() == 0){
+                continue;
+            }
+
+            ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,articleList.get(0));
             articleDtoList.add(articleDto);
 
             articleDto.setCount(map.get("count"));

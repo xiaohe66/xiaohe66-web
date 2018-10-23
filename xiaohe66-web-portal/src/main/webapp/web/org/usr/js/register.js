@@ -24,7 +24,7 @@ $(function(){
         dom:usrNameInp,
         maxLength:16,
         regex:/^([\u4e00-\u9fa5]|[a-z]|[A-Z]|[0-9]|_){1,16}$/,
-        func:function (dom,val) {
+        check:function (dom,val) {
             var $t = this;
             if (this.prev === val) {
                 return $t.ret;
@@ -42,7 +42,7 @@ $(function(){
         dom: emailInp,
         maxLength:32,
         regex:/^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/,
-        func:function (dom,val) {
+        check:function (dom,val) {
             var $t = this;
             if (this.prev === val) {
                 return $t.ret;
@@ -66,7 +66,7 @@ $(function(){
 
     validator.add({
         dom: $("#password2").find("input"),
-        func:function (dom,val) {
+        check:function (dom,val) {
             var pwd1 = $("#password").find("input").val();
             return pwd1 !== val?"2次密码不同":true;
         },
@@ -76,7 +76,7 @@ $(function(){
     validator.add({
         dom: codeInp,
         maxLength:4,
-        func:function (dom,val) {
+        check:function (dom,val) {
             var $t = this;
             if (this.prev === val) {
                 return $t.ret;

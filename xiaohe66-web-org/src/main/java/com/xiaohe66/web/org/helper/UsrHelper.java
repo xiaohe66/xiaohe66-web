@@ -1,6 +1,8 @@
 package com.xiaohe66.web.org.helper;
 
+import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.org.dto.UsrDto;
 
@@ -12,15 +14,23 @@ import com.xiaohe66.web.org.dto.UsrDto;
 public class UsrHelper {
 
     public static UsrDto getCurrentUsr(){
-        UsrDto usrDto = WebUtils.getSessionAttr(Final.Str.SESSION_UER_KEY);
-        /*if(usrDto == null){
+        UsrDto usrDto = getCurrentUsrNotEx();
+        if(usrDto == null){
             throw new XhException(CodeEnum.NOT_LOGGED_IN);
-        }*/
+        }
         return usrDto;
     }
 
     public static Long getCurrentUsrId(){
-        UsrDto usrDto = getCurrentUsr();
-        return usrDto == null ? null : getCurrentUsr().getId();
+        return getCurrentUsr().getId();
+    }
+
+    public static UsrDto getCurrentUsrNotEx(){
+        return WebUtils.getSessionAttr(Final.Str.SESSION_UER_KEY);
+    }
+
+    public static Long getCurrentUsrIdNotEx(){
+        UsrDto usrDto = getCurrentUsrNotEx();
+        return usrDto == null ? null : usrDto.getId();
     }
 }

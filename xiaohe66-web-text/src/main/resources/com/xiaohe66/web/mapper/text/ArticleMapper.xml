@@ -20,13 +20,16 @@
                     and title like #{param.title}
                 </if>
                 <if test="param.secretLevel != null">
-                    and publish_state = #{param.secretLevel}
+                    and secret_level = #{param.secretLevel}
                 </if>
-                <if test="param.publishState != null">
-                    and secret_level = #{param.publishState}
+                <if test="param.isPublish != null">
+                    and is_publish = #{param.isPublish}
                 </if>
                 <if test="param.createId != null">
                     and create_id = #{param.createId}
+                </if>
+                <if test="param.id != null">
+                    and id = #{param.id}
                 </if>
             </if>
         </where>
@@ -47,6 +50,9 @@
             </if>
             <if test="updateId != null">
                 update_id = #{updateId},
+            </if>
+            <if test="secretLevel != null">
+                secret_level = #{secretLevel},
             </if>
         </set>
         where id = #{id}

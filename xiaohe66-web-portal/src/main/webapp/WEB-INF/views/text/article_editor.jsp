@@ -7,29 +7,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>编辑</title>
-    <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
-    <link rel="stylesheet" type="text/css" href="/css/editor/wangEditor.min.css">
-    <link rel="stylesheet" type="text/css" href="/web/text/css/article_editor.css">
+<link rel="stylesheet" type="text/css" href="/css/editor/wangEditor.min.css">
+<link rel="stylesheet" type="text/css" href="/css/xh/xh-validator.css">
+<link rel="stylesheet" type="text/css" href="/web/text/css/article_editor.css">
 
-    <script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
-    <script type="text/javascript" src="/js/spark-md5.min.js"></script>
-    <script type="text/javascript" src="/web/text/js/article_editor.js"></script>
-</head>
-<body>
-<jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
-<div class="c">
-    <c:if test="${not empty article}">
-        <input id="id" type="hidden" value="${article.id}">
-        <input id="sysCategoryId" type="hidden" value="${article.sysCategoryId}">
-        <input id="perCategoryIds" type="hidden" value="${article.perCategoryIds}">
-    </c:if>
+<script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
+<script type="text/javascript" src="/js/xh/xh-validator.js"></script>
+<script>
+    var articleId = "${article.id}";
+    var secretLevel = "${article.secretLevel}";
+    var sysCategoryId = "${article.sysCategoryId}";
+    var perCategoryIds = "${article.perCategoryIds}";
+</script>
+<script type="text/javascript" src="/web/text/js/article_editor.js"></script>
+<div class="editorMain">
     <div>
-        <label>
-            <input class="title" placeholder="请输入文章标题" <c:if test="${not empty article}">value="${article.title}"</c:if>/>
-        </label>
+        <input id="articleTitle" class="title" placeholder="请输入文章标题" <c:if test="${not empty article}">value="${article.title}"</c:if>/>
+        <div class="warn"></div>
     </div>
     <div class="tool"></div>
     <div class="editor border1">
@@ -63,32 +57,19 @@
                     </div>
                 </div>
             </li>
-            <%--<li>
+            <li>
                 <span>是否公开</span>
                 <div>
-                    <div class="category circle">
-                        <label>
-                            <input type="radio" name="1">
-                            公开
-                        </label>
-                        <label>
-                            <input type="radio" name="1">
-                            好友可见
-                        </label>
-                        <label>
-                            <input type="radio" name="1">
-                            私密
-                        </label>
+                    <div class="secretLevel border1">
+                        <label><input type="radio" name="secretLevel" value="0" />公开</label>
+                        <label><input type="radio" name="secretLevel" value="1" />私密</label>
                     </div>
                 </div>
-            </li>--%>
+            </li>
         </ul>
         <div class="btn_d">
             <%--<a class="btn">保存草稿</a>--%>
-            <a class="btn" href="javascript:publish();">发表文章</a>
+            <a id="publish" class="btn">发表文章</a>
         </div>
     </div>
 </div>
-<jsp:include page="/WEB-INF/views/common/foot.jsp"></jsp:include>
-</body>
-</html>

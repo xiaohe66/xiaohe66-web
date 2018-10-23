@@ -38,13 +38,11 @@ $(function () {
     });
 
     $(document).on("click","#article_tab .name",function () {
-        var url = baseUrl+"detail/"+$(this).parent().parent().attr("id");
-        window.open(url);
+        location.href = baseUrl+"detail/"+$(this).parent().parent().attr("id");
     });
 
     $(document).on("click", ".editer", function () {
-        var url = baseUrl+"editor/"+$(this).parent().parent().attr("id");
-        window.open(url);
+        location.href = baseUrl+"editor/"+$(this).parent().parent().attr("id");
     });
 
 });

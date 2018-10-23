@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.common.dto.CategoryDto;
@@ -63,7 +64,9 @@ public class ArticlePageController {
         model.addAttribute("perCategoryList", ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
         model.addAttribute("perCategorySize",textCategoryList.size());
         model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));
-        return ARTICLE_EDITOR_PAGE_URL;
+        model.addAttribute("title","添加一篇文章");
+        model.addAttribute("page",ARTICLE_EDITOR_PAGE_URL);
+        return OtherPageController.USR_ZONE_PAGE_URL;
     }
 
     @Page("/editor/{id}")
@@ -80,11 +83,12 @@ public class ArticlePageController {
         model.addAttribute("article",articleDto);
 
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsrId);
-        model.addAttribute("title","编辑");
+        model.addAttribute("title","文章编辑");
         model.addAttribute("perCategoryList",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
         model.addAttribute("perCategorySize",textCategoryList.size());
         model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));
-        return ARTICLE_EDITOR_PAGE_URL;
+        model.addAttribute("page",ARTICLE_EDITOR_PAGE_URL);
+        return OtherPageController.USR_ZONE_PAGE_URL;
     }
 
     @Page("/detail/{id}")
@@ -109,7 +113,7 @@ public class ArticlePageController {
         UsrDto usrDto = usrService.lookAtUsr(usrId);
 
         PageHelper.startPage(1,10);
-        List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId());
+        List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId(),Final.Article.SECRET_LEVEL_PUBLIC);
 
         model.addAttribute("pageInfo",new PageInfo<>(dtoArticleList));
         model.addAttribute("usrDto",usrDto);
@@ -123,7 +127,7 @@ public class ArticlePageController {
     @Page("/admin")
     public String admin(Model model){
         PageHelper.startPage(1,10);
-        List<ArticleDto> list = articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId());
+        List<ArticleDto> list = articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId(),null);
         model.addAttribute("pageInfo",new PageInfo<>(list));
         model.addAttribute("size",list.size());
         model.addAttribute("page",ARTICLE_ADMIN_PAGE_URL);

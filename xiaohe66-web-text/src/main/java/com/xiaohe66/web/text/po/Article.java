@@ -10,9 +10,9 @@ public class Article extends BasePoDetailed {
 
     private String text;
     private String title;
-    private Integer publishState;
     private Integer secretLevel;
     private Long sysCategoryId;
+    private Boolean isPublish;
 
     public String getText() {
         return text;
@@ -30,12 +30,12 @@ public class Article extends BasePoDetailed {
         this.title = title;
     }
 
-    public Integer getPublishState() {
-        return publishState;
+    public Boolean getIsPublish() {
+        return isPublish;
     }
 
-    public void setPublishState(Integer publishState) {
-        this.publishState = publishState;
+    public void setIsPublish(Boolean publish) {
+        isPublish = publish;
     }
 
     public Integer getSecretLevel() {
@@ -62,11 +62,11 @@ public class Article extends BasePoDetailed {
                 + ",\"title\":\"" + title + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"updateId\":\"" + updateId + "\""
-                + ",\"publishState\":\"" + publishState + "\""
-                + ",\"updateTime\":" + updateTime
                 + ",\"secretLevel\":\"" + secretLevel + "\""
-                + ",\"isDelete\":\"" + isDelete + "\""
+                + ",\"updateTime\":" + updateTime
                 + ",\"sysCategoryId\":\"" + sysCategoryId + "\""
+                + ",\"isDelete\":\"" + isDelete + "\""
+                + ",\"isPublish\":\"" + isPublish + "\""
                 + "}";
     }
 }
