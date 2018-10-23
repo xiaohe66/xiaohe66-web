@@ -68,6 +68,13 @@ $(function(){
     ];
     editor.create();
 
+    //xh todo:只在修改了文章内容时弹出
+    /*window.onbeforeunload = function(e) {
+        var dialogText = '您要离开该页面吗？您所做的修改可能还未保存。';
+        e.returnValue = dialogText;
+        return dialogText;
+    };*/
+
     $(document).on("click",".close",function () {
         $(this).parent().remove();
     });

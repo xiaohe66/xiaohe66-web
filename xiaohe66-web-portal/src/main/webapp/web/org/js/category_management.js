@@ -6,6 +6,9 @@
  */
 $(function () {
     var url = "/text/category";
+
+    $("#categoryManagement").addClass("active");
+
     $(document).on("click",".del",function () {
         if(confirm("确定要删除吗")){
             var tr = $(this).parent().parent();

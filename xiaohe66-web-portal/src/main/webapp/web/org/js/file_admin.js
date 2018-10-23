@@ -8,6 +8,8 @@ $(function () {
     var baseUrl = "/org/usr/file";
     var tbody = $("#file_tab").find("tbody");
 
+    $("#fileManagement").addClass("active");
+
     var createTr = function (data) {
         var tr = $("<tr id=\""+data.id+"\"></tr>");
         tr.append("<td><a class='name'>" + data.fileName + "</a></td>");

@@ -12,6 +12,8 @@ $(function () {
        });
    });
 
+   $("#perManagement").addClass("active");
+
    $(".right").find(".btn").click(function () {
         $("#file").find("input").click();
    });
