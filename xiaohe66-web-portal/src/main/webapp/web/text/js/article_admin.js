@@ -20,21 +20,27 @@ $(function () {
     };
 
     var secretLevel;
-    $("#paging").paging(pages,pageNum,function (page) {
+    var showData = function (page) {
         tbody.html("");
         paging(baseUrl+"admin/"+(secretLevel!==undefined?secretLevel:""),function (data) {
             $.each(data,function (i, item) {
                 tbody.append(createTr(item));
             });
         },page,10);
-    });
+    };
+    $("#paging").paging(pages,pageNum,showData);
 
     $(".c_t .tab li").click(function () {
         $(".c_t .tab li").removeClass("active");
         $(this).addClass("active");
 
         secretLevel = $(this).attr("secretLevel");
-        $("#paging").find("div:first").click();
+        var first = $("#paging").find("div:first");
+        if(first.length !== 0){
+            first.click();
+        }else{
+            showData(1);
+        }
     });
 
     $(document).on("click", ".del", function () {

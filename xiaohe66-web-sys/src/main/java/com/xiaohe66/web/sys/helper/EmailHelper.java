@@ -50,7 +50,7 @@ public class EmailHelper {
         try {
             emailService.sendEmail(emailService.createMimeMessage(targetEmail,targetName,DEFAULT_EMAIL_SUBJECT,content));
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,"发送邮件失败");
+            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
         }
     }
 
