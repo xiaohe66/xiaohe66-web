@@ -20,7 +20,7 @@
         <div class="menu border1">
             <a id="editorArticle" href="/text/article/add">文章编辑</a>
             <a id="perManagement" href="/org/usr/me">个人资料</a>
-            <a id="articleManagement" href="/text/article/admin">文章管理</a>
+            <a id="articleManagement" href="/text/article/admin/index">文章管理</a>
             <a id="fileManagement" href="/org/usr/file/admin">文件管理</a>
             <a id="categoryManagement" href="/text/category/index">分类管理</a>
         </div>

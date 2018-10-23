@@ -1,6 +1,6 @@
 .c{
     width: 1200px;
-    min-height: 1070px;
+    min-height: 704px;
 }
 .menu{
     text-align: center;
@@ -27,6 +27,6 @@
     min-height: 460px;
 }
 
-.active{
+.menu .active{
     background: #66b8ff;
 }

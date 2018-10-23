@@ -47,15 +47,18 @@ function Validator(){
         };
         var isVerifyEmpty = isEmpty(param.empty) || param.empty;
         if (isVerifyEmpty && isEmpty(val)) {
-            err(message.empty);
+            var empty = param.msg.empty;
+            err(isEmpty(empty)?message.empty:empty);
             return;
         }
         if (isNumber(param.maxLength) && val.length > param.maxLength) {
-            err(message.regex);
+            var maxLength = param.msg.maxLength;
+            err(isEmpty(maxLength)?message.maxLength:maxLength);
             return;
         }
         if(isNotEmpty(param.regex) && !param.regex.test(val)){
-            err(message.regex);
+            var regex = param.msg.regex;
+            err(isEmpty(regex)?message.regex:regex);
             return;
         }
         if(isFunc(param.check)){
@@ -64,7 +67,8 @@ function Validator(){
                 err(ret);
                 return;
             }else if(!ret){
-                err(message.check);
+                var check = param.msg.check;
+                err(isEmpty(check)?message.check:check);
                 return;
             }
         }

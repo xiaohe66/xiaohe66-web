@@ -1,3 +1,6 @@
+.c{
+    min-height: 1070px;
+}
 div.editorMain{
     padding: 24px;
     margin-bottom: 0;

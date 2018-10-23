@@ -1,3 +1,30 @@
+div.c_t{
+    margin: 0;
+}
+.c_t .tab{
+    /*border-bottom: 10px solid #c5c5c5;*/
+}
+.c_t .tab li{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding:4px 10px;
+    margin-right: 20px;
+    text-align: center;
+    /*box-sizing: border-box;*/
+    cursor: pointer;
+    color: #a5a5a5;
+}
+.c_t .tab li:hover,
+.c_t .tab li.active{
+    border-bottom: 4px solid #66b8ff;
+    /*color: blue;*/
+    color: #000;
+}
+.c_c{
+    margin-top: 4px;
+    border-top: 6px solid #c5c5c5;
+}
 #article_tab{
     width: 100%;
     table-collapse:collapse;

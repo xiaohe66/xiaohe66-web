@@ -97,11 +97,12 @@ $(function(){
     validator.add({
         dom:$("#articleTitle"),
         maxLength:16,
-        err:function (dom, msg) {
-            dom.next().text("标题不能为空");
+        msg:{
+            empty:"标题不能为空",
+            maxLength:"标题字数过长"
         },
-        ok:function (dom,msg) {
-            dom.next().text("");
+        call:function (dom, msg) {
+            dom.next().text(msg);
         }
     });
 

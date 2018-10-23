@@ -124,7 +124,7 @@ public class ArticlePageController {
         return OtherPageController.RIGHT_PAGE_URL;
     }
 
-    @Page("/admin")
+    @Page("/admin/index")
     public String admin(Model model){
         PageHelper.startPage(1,10);
         List<ArticleDto> list = articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId(),null);

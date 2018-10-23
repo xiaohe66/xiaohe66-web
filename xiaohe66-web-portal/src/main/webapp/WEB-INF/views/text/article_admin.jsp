@@ -15,10 +15,13 @@
     var pageNum = ${pageInfo.pageNum};
 </script>
 <script type="text/javascript" src="/web/text/js/article_admin.js"></script>
-<div class="fr add">
-    <%--<a class="btn">上传</a>--%>
+<div class="c_t">
+    <ul class="tab">
+        <li class="active">全部</li>
+        <li secretLevel="0">公开</li>
+        <li secretLevel="1">私密</li>
+    </ul>
 </div>
-<p>文章管理</p>
 <div class="c_c">
     <table id="article_tab" border="0" cellpadding="0" cellspacing="0">
         <colgroup>

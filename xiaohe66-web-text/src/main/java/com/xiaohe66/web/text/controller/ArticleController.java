@@ -65,6 +65,18 @@ public class ArticleController {
         return articleService.findDtoByUsrId(lookUsrId,Final.Article.SECRET_LEVEL_PUBLIC);
     }
 
+    @Paging
+    @Get("/admin")
+    public List<ArticleDto> admin(){
+        return admin2(null);
+    }
+
+    @Paging
+    @Get("/admin/{secretLevel}")
+    public List<ArticleDto> admin2(@PathVariable("secretLevel") Integer secretLevel){
+        return articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId(),secretLevel);
+    }
+
     @Put
     public Long update(Article article,@RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
         articleService.updateById(article,perCategoryIds);

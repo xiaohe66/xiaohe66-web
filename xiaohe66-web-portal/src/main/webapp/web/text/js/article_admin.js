@@ -6,6 +6,8 @@ $(function () {
     var baseUrl = "/text/article/";
     var tbody = $("#article_tab").find("tbody");
 
+    $("#articleManagement").addClass("active");
+
     var createTr = function (data) {
         var tr = $("<tr id=\""+data.id+"\"></tr>");
         tr.append("<td><a class='name'>" + data.title + "</a></td>");
@@ -17,14 +19,22 @@ $(function () {
         return tr;
     };
 
-    $("#paging").paging(pages,pageNum, function (page) {
+    var secretLevel;
+    $("#paging").paging(pages,pageNum,function (page) {
         tbody.html("");
-        paging(baseUrl+"usr",function (data) {
-            console.log(data);
+        paging(baseUrl+"admin/"+(secretLevel!==undefined?secretLevel:""),function (data) {
             $.each(data,function (i, item) {
                 tbody.append(createTr(item));
             });
         },page,10);
+    });
+
+    $(".c_t .tab li").click(function () {
+        $(".c_t .tab li").removeClass("active");
+        $(this).addClass("active");
+
+        secretLevel = $(this).attr("secretLevel");
+        $("#paging").find("div:first").click();
     });
 
     $(document).on("click", ".del", function () {
