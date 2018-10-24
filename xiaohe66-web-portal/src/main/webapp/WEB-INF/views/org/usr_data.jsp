@@ -23,14 +23,15 @@
             <span>账号</span>
             <input value="${usrDto.usrName}" disabled="disabled">
         </li>
-        <%--<li>
+        <li>
             <span>邮箱</span>
-            <input placeholder="请输入邮箱">
-        </li>--%>
-        <%--<li>
-            <span>昵称</span>
-            <input placeholder="请输入昵称">
-        </li>--%>
+            <input value="${usrDto.email}" disabled="disabled">
+        </li>
+        <li>
+            <span>密码</span>
+            <input value="******" type="password" disabled="disabled">
+            <a href="/org/usr/pwd" target="_blank">修改密码</a>
+        </li>
         <li>
             <span>签名</span>
             <textarea class="signature border1" placeholder="请输入签名">${usrDto.signature}</textarea>

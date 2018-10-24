@@ -10,6 +10,7 @@ import com.xiaohe66.web.org.dao.UsrDao;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.org.po.Usr;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class UsrService extends AbstractService<Usr> {
         }
         super.updateById(po, currentUsrId);
 
-        if(signature != null ){
+        if(signature != null && SecurityUtils.getSubject().isAuthenticated()){
             UsrHelper.getCurrentUsr().setSignature(signature);
         }
     }

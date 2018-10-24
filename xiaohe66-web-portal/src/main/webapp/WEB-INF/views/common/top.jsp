@@ -18,6 +18,9 @@
         <li>
             <span>密码</span>
             <input id="usrPwd" type="password" placeholder="密码">
+            <div class="find_pwd">
+                <a href="/org/usr/pwd" target="_blank">找回密码</a>
+            </div>
         </li>
         <li  class="verify">
             <span>验证码</span>

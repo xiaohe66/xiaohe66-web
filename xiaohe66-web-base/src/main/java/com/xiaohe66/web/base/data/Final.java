@@ -58,6 +58,8 @@ public interface Final {
         String SESSION_IMG_AUTH_CODE_KEY = "imgAuthCode" ;
         String SESSION_EMAIL_AUTH_CODE_KEY = "emailAuthCode" ;
         String SESSION_REGISTERING_USR_KEY = "registeringUsr" ;
+
+        String SESSION_UPDATE_PWD_USR_KEY = "updatePwdUsr";
     
         String CONTENT_TYPE_IMAGE_PNG = "image/png" ;
         String FILE_TYPE_PNG = "png" ;

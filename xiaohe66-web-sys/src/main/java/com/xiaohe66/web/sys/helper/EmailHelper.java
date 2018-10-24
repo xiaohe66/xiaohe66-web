@@ -25,28 +25,23 @@ public class EmailHelper {
     public static void init(EmailService emailService) throws MessagingException {
         EmailHelper.emailService = emailService;
         emailService.init();
-
         codeTemplateStr = IoUtils.readStringInJar("com/xiaohe66/web/emailTemplate/codeTemplate.html");
         linkTemplateStr = IoUtils.readStringInJar("com/xiaohe66/web/emailTemplate/linkTemplate.html");
     }
 
     public static void sendAuthCode(String authCode,String targetEmail,String targetName,String handel){
         Check.notNullCheck(authCode,targetEmail,targetName,handel);
-
         String content = fetchAuthEmailContent(targetName,authCode,handel);
-
-        try {
-            emailService.createMimeMessage(targetEmail,targetName,DEFAULT_EMAIL_SUBJECT,content);
-        } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,"发送邮件失败");
-        }
+        sendEmail(targetEmail,targetName,content);
     }
 
     public static void sendLink(String link,String targetEmail,String targetName,String handel){
         Check.notNullCheck(link,targetEmail,targetName,handel);
-
         String content = fetchAuthLinkContent(targetName,link,handel);
+        sendEmail(targetEmail,targetName,content);
+    }
 
+    private static void sendEmail(String targetEmail,String targetName,String content){
         try {
             emailService.sendEmail(emailService.createMimeMessage(targetEmail,targetName,DEFAULT_EMAIL_SUBJECT,content));
         } catch (MessagingException | UnsupportedEncodingException e) {
@@ -54,11 +49,11 @@ public class EmailHelper {
         }
     }
 
-    public static String fetchAuthEmailContent(String usrName,String authCode,String handle){
+    private static String fetchAuthEmailContent(String usrName,String authCode,String handle){
         return codeTemplateStr.replace("${usrName}",usrName).replace("${handle}",handle).replace("${code}",authCode);
     }
 
-    public static String fetchAuthLinkContent(String usrName,String link,String handle){
+    private static String fetchAuthLinkContent(String usrName,String link,String handle){
         return linkTemplateStr.replace("${usrName}",usrName).replace("${handle}",handle).replace("${link}",link);
     }
 }

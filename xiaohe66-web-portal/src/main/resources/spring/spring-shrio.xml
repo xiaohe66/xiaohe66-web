@@ -80,10 +80,12 @@
                 /authCode/* = anon
 
                 /sec/login = anon
+                /sec/login/pwd = anon
 
                 /resume/** = anon
 
                 /org/usr/verify/* = http[get]
+                /org/usr/pwd = http[get]
                 /org/usr/index = anon
                 /org/usr/register = anon
                 /org/usr/img = anon

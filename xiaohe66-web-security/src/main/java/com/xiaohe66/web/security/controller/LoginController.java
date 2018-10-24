@@ -3,6 +3,7 @@ package com.xiaohe66.web.security.controller;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
+import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.security.service.LoginService;
@@ -40,5 +41,16 @@ public class LoginController {
         LOG.info("注销登录");
         loginService.logout();
     }
+
+    @Post("/pwd")
+    public void updatePwdPrepare(String email,String code){
+        loginService.updatePwdPrepare(email,code);
+    }
+
+    @Put("/pwd")
+    public void updatePwd(String password,String code){
+        loginService.updatePwd(password,code);
+    }
+
 
 }

@@ -348,6 +348,13 @@ input[type=file]{
     text-align: center;
     color: red;
 }
+.find_pwd{
+    text-align: right;
+    margin-right: 22px;
+}
+.find_pwd a{
+    color: #9c9c9c;
+}
 .verify{
     display: none;
 }

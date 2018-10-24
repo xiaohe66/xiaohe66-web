@@ -34,6 +34,7 @@ function Validator(){
     var verifyItem = function (param) {
         var dom = param.dom;
         var val = trim(dom.val());
+        var msg = param.msg === undefined ? {}:param.msg;
         var call = function (msg) {
             if(isFunc(param.call)){
                 param.call(dom,msg);
@@ -47,17 +48,17 @@ function Validator(){
         };
         var isVerifyEmpty = isEmpty(param.empty) || param.empty;
         if (isVerifyEmpty && isEmpty(val)) {
-            var empty = param.msg.empty;
+            var empty = msg.empty;
             err(isEmpty(empty)?message.empty:empty);
             return;
         }
         if (isNumber(param.maxLength) && val.length > param.maxLength) {
-            var maxLength = param.msg.maxLength;
+            var maxLength = msg.maxLength;
             err(isEmpty(maxLength)?message.maxLength:maxLength);
             return;
         }
         if(isNotEmpty(param.regex) && !param.regex.test(val)){
-            var regex = param.msg.regex;
+            var regex = msg.regex;
             err(isEmpty(regex)?message.regex:regex);
             return;
         }
@@ -67,7 +68,7 @@ function Validator(){
                 err(ret);
                 return;
             }else if(!ret){
-                var check = param.msg.check;
+                var check = msg.check;
                 err(isEmpty(check)?message.check:check);
                 return;
             }

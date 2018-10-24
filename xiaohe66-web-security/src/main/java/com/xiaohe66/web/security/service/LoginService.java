@@ -8,10 +8,12 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.base.util.RegexUtils;
 import com.xiaohe66.web.base.util.StrUtils;
+import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.cache.Cache5Helper;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
+import com.xiaohe66.web.security.auth.entity.EmailAuthCode;
 import com.xiaohe66.web.security.auth.helper.AuthCodeHelper;
 import com.xiaohe66.web.sys.helper.EmailHelper;
 import org.apache.shiro.SecurityUtils;
@@ -102,6 +104,38 @@ public class LoginService {
         }
 
         roleService.addDefaultUsrRole(usr.getId());
+    }
+
+    public void updatePwdPrepare(String email,String code){
+        Check.notEmptyCheck(email,code);
+        if (!AuthCodeHelper.verifyImgCode(code)) {
+            throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
+        }
+
+        Usr usr = usrService.findByEmail(email);
+        if(usr == null){
+            throw new MsgException(CodeEnum.USR_NOT_EXIST);
+        }
+
+        WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY,usr);
+
+        EmailAuthCode emailAuthCode = AuthCodeHelper.createEmailAuthCode(email);
+
+        LOG.debug("发送验证码邮件，内容为："+emailAuthCode.getCode());
+        EmailHelper.sendAuthCode(emailAuthCode.getCode(),email,usr.getUsrName(),"修改密码");
+    }
+
+    public void updatePwd(String password,String code){
+        Check.notEmptyCheck(password,code);
+        if (!AuthCodeHelper.verifyEmailCode(code)) {
+            throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
+        }
+
+        Usr usr = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
+
+        usr.setUsrPwd(PwdUtils.hashPassword(password));
+
+        usrService.updateById(usr,null);
     }
 
     public UsrDto login(String loginName, String usrPwd){

@@ -48,6 +48,12 @@ public class UsrPageController {
         return OtherPageController.USR_ZONE_PAGE_URL;
     }
 
+    @Page("/pwd")
+    public String pwdPage(Model model){
+        model.addAttribute("title","修改密码");
+        return "org/find_pwd";
+    }
+
     @Page("/verify/{token}")
     public String register(Model model,@PathVariable("token")String token){
         loginService.register(token);
