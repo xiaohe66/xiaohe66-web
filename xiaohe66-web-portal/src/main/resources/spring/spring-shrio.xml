@@ -74,6 +74,7 @@
                 /text/article/detail/* = anon
                 /text/article/list/* = anon
                 /text/article/editor = authc
+                /text/article/add = authc
                 /text/article/* = http[get]
 
                 /authCode/* = anon
@@ -108,7 +109,7 @@
     <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <!-- 开启shiro注解 -->
+    <!-- 开启shiro注解，不能和spring 的代理一起开启 -->
     <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>-->
 
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">

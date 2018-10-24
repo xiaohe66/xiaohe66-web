@@ -1,5 +1,6 @@
 package com.xiaohe66.web.aop;
 
+import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
@@ -46,8 +47,13 @@ public class XhPageAsp {
                 LOG.info(e.toString()+",msg="+e.getMessage());
                 request.setAttribute("msg",((XhException) e).getCode().desc());
             }else if(e instanceof XhException){
-                LOG.info(e.toString()+",msg="+e.getMessage(),e);
-                request.setAttribute("msg","系统异常");
+                if (((XhException) e).getCode().code() == CodeEnum.NOT_LOGGED_IN.code()) {
+                    LOG.info(e.toString()+",msg="+e.getMessage());
+                    return "redirect:/org/usr/register";
+                }else{
+                    LOG.info(e.toString()+",msg="+e.getMessage(),e);
+                    request.setAttribute("msg","系统异常");
+                }
             }else{
                 LOG.error("系统异常",e);
                 request.setAttribute("msg","系统异常");
