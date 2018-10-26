@@ -16,36 +16,23 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    private static final SimpleDateFormat DATE_TIME_FORMAT;
-    private static final SimpleDateFormat DATE_FORMAT;
-    private static final SimpleDateFormat TIME_FORMAT;
-
-
-    static {
-        DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-        TIME_FORMAT = new SimpleDateFormat("hh:mm:ss");
-    }
-
     public static synchronized String currentDateTime(){
-        return DATE_TIME_FORMAT.format(new Date());
+        return getDateTimeFormat().format(new Date());
     }
 
     public static synchronized String currentDate(){
-        return DATE_FORMAT.format(new Date());
+        return getDateFormat().format(new Date());
     }
 
     public static synchronized String currentTime(){
-        return TIME_FORMAT.format(new Date());
+        return getTimeFormat().format(new Date());
     }
 
     public static String formatDateTime(Date date){
         if(date == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION);
         }
-        synchronized (DATE_TIME_FORMAT){
-            return DATE_TIME_FORMAT.format(date);
-        }
+        return getDateTimeFormat().format(date);
     }
 
     /***
@@ -55,5 +42,17 @@ public class DateUtils {
      */
     public static String format(String format){
         return new SimpleDateFormat(format).format(new Date());
+    }
+
+    private static SimpleDateFormat getDateTimeFormat(){
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    }
+
+    private static SimpleDateFormat getDateFormat(){
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
+
+    private static SimpleDateFormat getTimeFormat(){
+        return new SimpleDateFormat("HH:mm:ss");
     }
 }
