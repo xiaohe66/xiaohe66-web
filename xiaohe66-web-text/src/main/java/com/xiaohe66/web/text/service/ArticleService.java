@@ -193,22 +193,22 @@ public class ArticleService extends AbstractService<Article>{
     }
 
     public ArticleDto findDtoById(Long id){
-
-        Long currentUsrId = UsrHelper.getCurrentUsrId();
-
         Check.notEmptyCheck(id);
         Article article = this.findById(id);
 
         //只有文章作者是自己 或者 文章的私密等级是公开时，才能查看
-        if (!currentUsrId.equals(article.getCreateId())&& Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()) {
-            throw new MsgException(CodeEnum.NOT_PERMISSION);
+        if(Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()){
+            Long currentUsrId = UsrHelper.getCurrentUsrId();
+            if(!currentUsrId.equals(article.getCreateId())){
+                throw new MsgException(CodeEnum.NOT_PERMISSION);
+            }
         }
 
         ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,article);
 
         //保存日志
         //xh todo:保存日志的方式需要改变
-        articleLogService.add(new ArticleLog(id),UsrHelper.getCurrentUsrId());
+        articleLogService.add(new ArticleLog(id),UsrHelper.getCurrentUsrIdNotEx());
 
         installDto(articleDto,article);
         return articleDto;

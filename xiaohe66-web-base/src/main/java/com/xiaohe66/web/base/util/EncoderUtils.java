@@ -2,6 +2,7 @@ package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhException;
+import org.apache.shiro.codec.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -30,6 +31,14 @@ public class EncoderUtils {
 
     public static String urlEncoder(String str){
         return urlEncoder(str,UTF_8);
+    }
+
+    public static String base64Encoder(String str){
+        return Base64.encodeToString(str.getBytes());
+    }
+
+    public static String base64Decode(String str){
+        return Base64.decodeToString(str.getBytes());
     }
 
 }

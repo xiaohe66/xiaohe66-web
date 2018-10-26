@@ -1,6 +1,8 @@
 package com.xiaohe66.web.sys.service;
 
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.util.EncoderUtils;
+import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,7 @@ public class EmailService {
             synchronized (EmailService.class){
                 if(!transport.isConnected()){
                     String emailHost = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
-                    String emailPwd = SysCfgHelper.getString(Final.Str.SYS_EMAIL_PWD_KEY);
+                    String emailPwd = EncoderUtils.base64Decode(SysCfgHelper.getString(Final.Str.SYS_EMAIL_PWD_KEY));
                     transport.connect(emailHost, emailPwd);
                 }
             }
