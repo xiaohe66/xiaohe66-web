@@ -160,7 +160,7 @@ public class LoginService {
         Usr dbUsr = loginName.contains("@") ? usrService.findByEmail(loginName) : usrService.findByUsrName(loginName);
 
         if(Check.isNull(dbUsr)){
-            throw new XhException(CodeEnum.USR_NOT_EXIST,"usr not exist:loginName="+loginName);
+            throw new MsgException(CodeEnum.USR_NOT_EXIST,"usr not exist:loginName="+loginName);
         }
 
         //验证密码

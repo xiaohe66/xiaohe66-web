@@ -14,6 +14,9 @@
         <li>
             <span>账号</span>
             <input id="loginName" placeholder="用户名/邮箱地址">
+            <div class="go_register">
+                <a href="/org/usr/register" target="_blank">注册账号</a>
+            </div>
         </li>
         <li>
             <span>密码</span>

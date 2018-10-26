@@ -327,7 +327,7 @@ input[type=file]{
     display: none;
 }
 #login_body li{
-    margin-top: 30px;
+    margin-top: 20px;
 }
 #login_body span{
     display: inline-block;
@@ -348,11 +348,13 @@ input[type=file]{
     text-align: center;
     color: red;
 }
-.find_pwd{
+.find_pwd,
+.go_register{
     text-align: right;
     margin-right: 22px;
 }
-.find_pwd a{
+.find_pwd a
+.go_register a{
     color: #9c9c9c;
 }
 .verify{
