@@ -70,6 +70,7 @@ public interface Final {
     
     
         String ARTICLE_LOG_CACHE = "ARTICLE_LOG_CACHE" ;
+        String ARTICLE_LOG_ADD_PREPARE = "ARTICLE_LOG_ADD_PREPARE" ;
         String USR_FILE_LOG_CACHE = "USR_FILE_LOG_CACHE" ;
     
         String SYS_EMAIL_HOST_KEY = "SYS_EMAIL_HOST";

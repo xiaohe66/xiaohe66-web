@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/css/xh/xh-validator.css">
 <link rel="stylesheet" type="text/css" href="/web/text/css/article_editor.css">
 
+<script type="text/javascript" src="/js/spark-md5.min.js"></script>
 <script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
 <script type="text/javascript" src="/js/xh/xh-validator.js"></script>
 <script>

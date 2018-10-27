@@ -1,13 +1,15 @@
 package com.xiaohe66.web.text.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.text.dao.ArticleLogDao;
 import com.xiaohe66.web.text.po.ArticleLog;
-import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,37 +43,51 @@ public class ArticleLogService extends AbstractService<ArticleLog>{
 
 
     /**
-     * 重写插入方法
-     * 定义查看数量的规则
-     * 每个session只能增加一次访问量
-     *
+     * 方法弃用，请使用 add()
      * @param po 插入的实体
      * @param currentUsrId 当前操作者id
      */
     @Override
+    @Deprecated
     public void add(ArticleLog po, Long currentUsrId) {
-        String ip = WebUtils.getRequestIP();
-        LOG.debug("ip："+ip);
+        throw new XhException(CodeEnum.NOT_IMPLEMENTED);
+    }
 
-        Long articleId = po.getArticleId();
+    public void addPrepare(Long articleId){
+        Check.notEmptyCheck(articleId);
+        WebUtils.setSessionAttr(Final.Str.ARTICLE_LOG_ADD_PREPARE,articleId);
+    }
 
+    /**
+     * 定义查看数量的规则
+     * 每个session只能增加一次访问量
+     */
+    public void add() {
+
+        Long articleId = WebUtils.getSessionAttr(Final.Str.ARTICLE_LOG_ADD_PREPARE);
+        Long currentUsrId = UsrHelper.getCurrentUsrIdNotEx();
+
+        //查看自己的文章不加查看量
         if(Check.eq(articleId,currentUsrId)){
             LOG.debug("look oneself article");
             return;
         }
 
-        Session session = WebUtils.getSession();
-        Set<Long> articleIdSet = (Set<Long>) session.getAttribute(Final.Str.ARTICLE_LOG_CACHE);
+        Set<Long> articleIdSet = WebUtils.getSessionAttr(Final.Str.ARTICLE_LOG_CACHE);
         if(CollectionUtils.isNull(articleIdSet)){
             articleIdSet = new HashSet<>(4);
-            session.setAttribute(Final.Str.ARTICLE_LOG_CACHE,articleIdSet);
+            WebUtils.setSessionAttr(Final.Str.ARTICLE_LOG_CACHE,articleIdSet);
         }
 
+        String ip = WebUtils.getRequestIP();
+        LOG.debug("ip："+ip);
+
         if(!articleIdSet.contains(articleId)){
-            po.setIp(ip);
-            po.setCreateId(currentUsrId);
-            po.setCreateTime(new Date());
-            super.add(po,currentUsrId);
+            ArticleLog articleLog = new ArticleLog(articleId);
+            articleLog.setIp(ip);
+            articleLog.setCreateId(currentUsrId);
+            articleLog.setCreateTime(new Date());
+            super.add(articleLog,currentUsrId);
 
             articleIdSet.add(articleId);
         }

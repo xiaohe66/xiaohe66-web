@@ -148,7 +148,6 @@ public class ArticleService extends AbstractService<Article>{
     @Transactional(rollbackFor = Exception.class)
     public void add(Article article,Long[] perCategoryIds){
 
-        //xh todo:保存文章详情
         Check.notEmptyCheck(article.getText(),article.getSysCategoryId());
 
         Long currentUsrId = UsrHelper.getCurrentUsrId();
@@ -206,9 +205,8 @@ public class ArticleService extends AbstractService<Article>{
 
         ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,article);
 
-        //保存日志
-        //xh todo:保存日志的方式需要改变
-        articleLogService.add(new ArticleLog(id),UsrHelper.getCurrentUsrIdNotEx());
+        //保存日志准备
+        articleLogService.addPrepare(id);
 
         installDto(articleDto,article);
         return articleDto;

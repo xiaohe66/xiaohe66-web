@@ -32,7 +32,7 @@ function trim(str) {
 function ajax(param,success,error) {
     param.success=function (data) {
         if(data.code === 200){
-            success(data.data);
+            if(typeof success === "function")success(data.data);
         }else if(data.code === 603){
             log("没有登录");
             alert("没有登录");
