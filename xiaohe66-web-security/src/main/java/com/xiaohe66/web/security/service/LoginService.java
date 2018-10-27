@@ -9,7 +9,7 @@ import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.base.util.RegexUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.base.util.WebUtils;
-import com.xiaohe66.web.cache.Cache5Helper;
+import com.xiaohe66.web.cache.CacheHelper;
 import com.xiaohe66.web.org.dto.UsrDto;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
@@ -83,17 +83,17 @@ public class LoginService {
         //发送邮件
         EmailHelper.sendLink(link,usr.getEmail(),usr.getUsrName(),"注册");
 
-        Cache5Helper.put(token,usr);
+        CacheHelper.put30(token,usr);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void register(String token){
-        Usr usr = Cache5Helper.get(token);
+        Usr usr = CacheHelper.get30(token);
 
         if(usr == null){
             throw new MsgException(CodeEnum.TOKEN_TIME_OUT);
         }
-        Cache5Helper.remove(token);
+        CacheHelper.remove30(token);
 
         usr.setUsrPwd(PwdUtils.hashPassword(usr.getUsrPwd()));
         try{

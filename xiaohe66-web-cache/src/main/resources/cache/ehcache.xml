@@ -43,6 +43,18 @@
             diskExpiryThreadIntervalSeconds="120"
             overflowToDisk="false"
             memoryStoreEvictionPolicy="LRU">
+    </cache>
 
+    <!-- 数据缓存30分钟 -->
+    <cache
+            name="thirty_minutes_cache"
+            eternal="false"
+            timeToIdleSeconds="1800"
+            timeToLiveSeconds="1800"
+            maxEntriesLocalHeap="10000"
+            maxEntriesLocalDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
     </cache>
 </ehcache>

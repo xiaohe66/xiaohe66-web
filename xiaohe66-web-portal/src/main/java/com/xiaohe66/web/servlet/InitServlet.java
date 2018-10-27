@@ -1,6 +1,7 @@
 package com.xiaohe66.web.servlet;
 
-import com.xiaohe66.web.cache.Cache5Helper;
+import com.xiaohe66.web.cache.CacheHelper;
+import com.xiaohe66.web.cache.XhCache;
 import com.xiaohe66.web.sys.helper.EmailHelper;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
 import com.xiaohe66.web.sys.service.EmailService;
@@ -36,7 +37,7 @@ public class InitServlet implements InitializingBean{
         LOG.info("系统初始化……");
 
         LOG.info("初始化缓存助手");
-        Cache5Helper.init();
+        CacheHelper.init(XhCache.getInstance());
 
         LOG.info("加载系统配置");
         SysCfgHelper.refresh(cfgService.findAll());
