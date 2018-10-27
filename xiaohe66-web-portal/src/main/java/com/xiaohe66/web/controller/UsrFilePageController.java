@@ -42,6 +42,7 @@ public class UsrFilePageController {
         PageHelper.startPage(1,10);
         List<UsrFileDto> list = usrFileService.findDtoByUsrId(UsrHelper.getCurrentUsrId());
         model.addAttribute("pageInfo",new PageInfo<>(list));
+        model.addAttribute("title","文件管理");
         model.addAttribute("size",list.size());
         model.addAttribute("page",USR_FILE_ADMIN_PAGE_URL);
 

@@ -226,7 +226,7 @@ input[type=file]{
     margin-right: 100px;
 }
 .t_c .tab a{
-    width: 84px;
+    width: 70px;
     font-weight: bold;
     text-align: center;
     font-size: 16px;
@@ -242,7 +242,7 @@ input[type=file]{
     position: absolute;
     top:50%;
     margin-top: -20px;
-    margin-left: 260px;
+    margin-left: 250px;
     height: 40px;
     border: 1px solid #04d0ff;
     border-radius: 4px;

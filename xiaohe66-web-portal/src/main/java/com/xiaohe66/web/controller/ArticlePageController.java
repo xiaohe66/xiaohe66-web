@@ -129,6 +129,7 @@ public class ArticlePageController {
         PageHelper.startPage(1,10);
         List<ArticleDto> list = articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId(),null);
         model.addAttribute("pageInfo",new PageInfo<>(list));
+        model.addAttribute("title","文章管理");
         model.addAttribute("size",list.size());
         model.addAttribute("page",ARTICLE_ADMIN_PAGE_URL);
 
