@@ -45,22 +45,12 @@ div.c_u{
 .category a:hover{
     text-decoration: underline;
 }
-.editor p,
-.editor pre{
-    margin: 10px 0;
-    word-break:break-all;
+.editor img{
+    cursor: zoom-in;
 }
-.editor table {
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
+
+.img_viewer{
+    margin-top: 30px;
+    cursor: zoom-out;
 }
-.editor td,
-.editor th {
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  padding: 3px 5px;
-}
-.editor th {
-  border-bottom: 2px solid #ccc;
-  text-align: center;
-}
+

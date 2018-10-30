@@ -18,23 +18,29 @@
     $(function () {
         $("body").append(mask);
         mask.click(maskClose);
-        mask.append(hint);
     });
     $.extend({
         mask : function (closeFunc) {
             close = closeFunc;
-            hint.hide();
+            mask.html("");
             mask.show();
         },
         maskHint : function (msg,closeFunc) {
             close = closeFunc;
             hint.text(msg);
+            mask.html(hint);
+            mask.show();
+        },
+        maskHtml : function (html,closeFunc) {
+            close = closeFunc;
+            mask.html(html);
             mask.show();
         },
         maskClose : maskClose,
         hint : function (msg) {
             closeOn = false;
             hint.text(msg);
+            mask.html(hint);
             mask.show();
         },
         hintClose : function () {

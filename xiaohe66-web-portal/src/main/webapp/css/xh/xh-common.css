@@ -1,6 +1,8 @@
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0;
+}
+body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, input, textarea, p, blockquote, th, td {
     font-size: 14px;
     font-family: "微软雅黑", serif;
 }
@@ -117,6 +119,7 @@ input[type=file]{
     background: rgba(0,0,0,0.7);
     z-index: 200;
     display: none;
+    text-align: center;
 }
 #hint{
     top: 50%;

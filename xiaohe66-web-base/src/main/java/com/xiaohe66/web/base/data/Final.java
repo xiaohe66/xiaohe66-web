@@ -25,6 +25,13 @@ public interface Final {
         int SECRET_LEVEL_ONLY_ONESELF = 1;
 
         /**
+         * 简历文章
+         *
+         * 列表不显示，但是可以被任意人查看详情
+         */
+        int SECRET_LEVEL_RESUME_ARTICLE = 2;
+
+        /**
          * 发表状态，未发表
          */
         int PUBLISH_STATE_NOT_PUBLISH = 0;

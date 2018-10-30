@@ -195,11 +195,15 @@ public class ArticleService extends AbstractService<Article>{
         Check.notEmptyCheck(id);
         Article article = this.findById(id);
 
-        //只有文章作者是自己 或者 文章的私密等级是公开时，才能查看
-        if(Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()){
-            Long currentUsrId = UsrHelper.getCurrentUsrId();
-            if(!currentUsrId.equals(article.getCreateId())){
-                throw new MsgException(CodeEnum.NOT_PERMISSION);
+        //如果该文章是简历文章，则任何人都可以查看
+        if(Final.Article.SECRET_LEVEL_RESUME_ARTICLE != article.getSecretLevel()){
+
+            //只有文章作者是自己 或者 文章的私密等级是公开时，才能查看
+            if(Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()){
+                Long currentUsrId = UsrHelper.getCurrentUsrId();
+                if(!currentUsrId.equals(article.getCreateId())){
+                    throw new MsgException(CodeEnum.NOT_PERMISSION);
+                }
             }
         }
 

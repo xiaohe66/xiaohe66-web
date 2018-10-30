@@ -26,8 +26,7 @@
         <input id="articleTitle" class="title" placeholder="请输入文章标题" <c:if test="${not empty article}">value="${article.title}"</c:if>/>
         <div class="warn"></div>
     </div>
-    <div class="tool"></div>
-    <div class="editor border1">
+    <div class="editor1">
         <c:if test="${not empty article}"><p>${article.text}</p></c:if>
     </div>
     <div class="option">
@@ -64,6 +63,9 @@
                     <div class="secretLevel border1">
                         <label><input type="radio" name="secretLevel" value="0" />公开</label>
                         <label><input type="radio" name="secretLevel" value="1" />私密</label>
+                        <c:if test="${usr.id == 3}">
+                            <label><input type="radio" name="secretLevel" value="2" />简历</label>
+                        </c:if>
                     </div>
                 </div>
             </li>

@@ -12,7 +12,7 @@ public class ResumeFunc extends BasePoDetailed{
 
     private Long projectId;
     private String funcName;
-    private String funcDesc;
+    private Long articleId;
 
     public Long getProjectId() {
         return projectId;
@@ -30,12 +30,12 @@ public class ResumeFunc extends BasePoDetailed{
         this.funcName = funcName;
     }
 
-    public String getFuncDesc() {
-        return funcDesc;
+    public Long getArticleId() {
+        return articleId;
     }
 
-    public void setFuncDesc(String funcDesc) {
-        this.funcDesc = funcDesc;
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ResumeFunc extends BasePoDetailed{
                 + ",\"id\":\"" + id + "\""
                 + ",\"funcName\":\"" + funcName + "\""
                 + ",\"updateId\":\"" + updateId + "\""
-                + ",\"funcDesc\":\"" + funcDesc + "\""
+                + ",\"articleId\":\"" + articleId + "\""
                 + ",\"updateTime\":" + updateTime
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";

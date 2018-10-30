@@ -10,7 +10,7 @@ $(function(){
     mouseMoveOn=false;
     mouseClickOn=false;
     var E = window.wangEditor;
-    editor = new E(".tool",".editor");
+    editor = new E(".editor1");
     editor.customConfig.zIndex = 0;
     editor.customConfig.customUploadImg = function (files, insert) {
         var file = files[0];
@@ -91,11 +91,6 @@ $(function(){
     $("input[name='secretLevel']"+(secretLevel !== "" ? "[value='"+secretLevel+"']":":first")).attr('checked', 'checked');
 
     $(".addCategory").click(addCategory);
-
-    $(".w-e-text").css({
-        "overflow-y":"hidden",
-        "height":"auto"
-    });
 
     $("#editorArticle").addClass("active");
 

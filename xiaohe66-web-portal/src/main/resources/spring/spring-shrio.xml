@@ -83,7 +83,8 @@
                 /sec/login = anon
                 /sec/login/pwd = anon
 
-                /resume/** = anon
+                /resume = anon
+                /resume/index = anon
 
                 /org/usr/verify/* = http[get]
                 /org/usr/pwd = http[get]

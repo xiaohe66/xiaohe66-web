@@ -30,3 +30,6 @@
     </div>
 </div>
 <div class="c_c editor">${article.text}</div>
+<div id="img_viewer">
+    <img>
+</div>

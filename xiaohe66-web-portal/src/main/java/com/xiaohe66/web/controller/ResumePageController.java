@@ -2,7 +2,6 @@ package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.file.service.UsrFileService;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.resume.service.ResumeMainService;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
@@ -27,6 +26,11 @@ public class ResumePageController {
 
     @Resource
     private ResumeMainService resumeMainService;
+
+    @Page
+    public String ind(Model model){
+        return index(model);
+    }
 
     @Page("/index")
     public String index(Model model){
