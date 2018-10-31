@@ -8,12 +8,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link type="text/css" rel="stylesheet" href="/web/org/css/file_all.css"/>
-<link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
+<link type="text/css" rel="stylesheet" href="/plugin/xh/css/xh-paging.css"/>
 <script>
     var max = ${pageInfo.pages};
     var num = ${pageInfo.pageNum};
 </script>
-<script type="text/javascript" src="/js/xh/xh-paging.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-paging.js"></script>
 <script type="text/javascript" src="/web/org/js/file_all.js"></script>
 <div class="c_u">
     <p class="fl">资源列表</p>

@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
+<link type="text/css" rel="stylesheet" href="/plugin/xh/css/xh-paging.css"/>
 <link type="text/css" rel="stylesheet" href="/web/text/css/message_board.css"/>
-<script type="text/javascript" src="/js/xh/xh-paging.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-paging.js"></script>
 <script type="text/javascript" src="/web/text/js/message_board.js"></script>
 <input type="hidden" id="usrId" value="${usr.id}">
 <input type="hidden" id="size" value="${pageInfo.pages}">

@@ -11,7 +11,7 @@
 <head>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/org/usr/css/register.css">
-    <script type="text/javascript" src="/js/xh/xh-validator.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-validator.js"></script>
     <script type="text/javascript" src="/web/org/usr/js/register.js"></script>
 </head>
 <body>

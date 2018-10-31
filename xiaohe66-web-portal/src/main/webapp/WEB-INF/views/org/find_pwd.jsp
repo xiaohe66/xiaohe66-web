@@ -11,7 +11,7 @@
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="/web/org/css/find_pwd.css">
 
-    <script type="text/javascript" src="/js/xh/xh-validator.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-validator.js"></script>
     <script type="text/javascript" src="/web/org/js/find_pwd.js"></script>
 </head>
 <body>

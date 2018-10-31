@@ -9,7 +9,7 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
-    <link type="text/css" rel="stylesheet" href="/css/about.css"/>
+    <link type="text/css" rel="stylesheet" href="/web/common/css/about.css"/>
 
 </head>
 <body>

@@ -7,13 +7,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" type="text/css" href="/css/editor/wangEditor.min.css">
-<link rel="stylesheet" type="text/css" href="/css/xh/xh-validator.css">
+<link rel="stylesheet" type="text/css" href="/plugin/editor/css/wangEditor.min.css">
+<link rel="stylesheet" type="text/css" href="/plugin/xh/css/xh-validator.css">
 <link rel="stylesheet" type="text/css" href="/web/text/css/article_editor.css">
 
-<script type="text/javascript" src="/js/spark-md5.min.js"></script>
-<script type="text/javascript" src="/js/editor/wangEditor.min.js"></script>
-<script type="text/javascript" src="/js/xh/xh-validator.js"></script>
+<script type="text/javascript" src="/web/common/js/spark-md5.min.js"></script>
+<script type="text/javascript" src="/plugin/editor/js/wangEditor.min.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-validator.js"></script>
 <script>
     var articleId = "${article.id}";
     var secretLevel = "${article.secretLevel}";

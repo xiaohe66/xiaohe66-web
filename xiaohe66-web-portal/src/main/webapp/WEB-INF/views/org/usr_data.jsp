@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link type="text/css" rel="stylesheet" href="/web/org/css/usr_data.css"/>
-<script type="text/javascript" src="/js/spark-md5.min.js"></script>
+<script type="text/javascript" src="/web/common/js/spark-md5.min.js"></script>
 <script type="text/javascript" src="/web/org/js/usr_data.js"></script>
 <p>个人资料</p>
 <div class="right">

@@ -7,9 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" type="text/css" href="<c:url value="/css/xh/xh-paging.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/plugin/xh/css/xh-paging.css"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/web/text/css/article_list.css"/>">
-<script type="text/javascript" src="<c:url value="/js/xh/xh-paging.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/plugin/xh/js/xh-paging.js"/>"></script>
 <script>
     $(function () {
         $(document).on("click",".item",function () {

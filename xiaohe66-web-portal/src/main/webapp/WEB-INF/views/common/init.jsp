@@ -14,8 +14,8 @@
 <meta name="author" content="小何">
 <meta name="keywords" content="小何,xiaohe,xh">
 <meta name="description" content="小何的个人小站">
-<link rel="stylesheet" type="text/css" href="/css/xh/xh-common.css">
-<script type="text/javascript" src="/js/jquery/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="/js/xh/xh-common.js"></script>
-<script type="text/javascript" src="/js/xh/mouse-anim.js"></script>
-<script type="text/javascript" src="/js/xh/xh-mask.js"></script>
+<link rel="stylesheet" type="text/css" href="/plugin/xh/css/xh-common.css">
+<script type="text/javascript" src="/plugin/jquery/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-common.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/mouse-anim.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-mask.js"></script>

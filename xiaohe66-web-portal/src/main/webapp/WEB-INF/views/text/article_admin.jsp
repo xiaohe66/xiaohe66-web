@@ -7,9 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
+<link type="text/css" rel="stylesheet" href="/plugin/xh/css/xh-paging.css"/>
 <link type="text/css" rel="stylesheet" href="/web/text/css/article_admin.css"/>
-<script type="text/javascript" src="/js/xh/xh-paging.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-paging.js"></script>
 <script>
     var pages = ${pageInfo.pages};
     var pageNum = ${pageInfo.pageNum};

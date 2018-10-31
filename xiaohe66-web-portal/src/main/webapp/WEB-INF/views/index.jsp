@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link type="text/css" rel="stylesheet" href="/css/index.css"/>
-<script type="text/javascript" src="/js/index.js"></script>
+<link type="text/css" rel="stylesheet" href="/web/common/css/index.css"/>
+<script type="text/javascript" src="/web/common/js/index.js"></script>
 <div class="module1">
     <div class="title">快速导航</div>
     <div class="body fast_link">

@@ -8,8 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link type="text/css" rel="stylesheet" href="/web/text/css/article_all.css"/>
-<link type="text/css" rel="stylesheet" href="/css/xh/xh-paging.css"/>
-<script type="text/javascript" src="/js/xh/xh-paging.js"></script>
+<link type="text/css" rel="stylesheet" href="/plugin/xh/css/xh-paging.css"/>
+<script type="text/javascript" src="/plugin/xh/js/xh-paging.js"></script>
 <script>
     var max = ${pageInfo.pages};
     var num = ${pageInfo.pageNum};

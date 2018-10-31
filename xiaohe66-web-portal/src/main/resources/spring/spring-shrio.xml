@@ -45,10 +45,9 @@
                 -->
 
                 /favicon.ico = anon
-                /css/** = anon
                 /icon/** = anon
                 /image/** anon
-                /js/** = anon
+                /plugin/** = anon
                 /web/** = anon
                 /about = anon
                 /index = anon
