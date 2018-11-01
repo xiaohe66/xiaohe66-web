@@ -68,7 +68,14 @@
                             <div>个人成果/亮点：</div>
                             <ul>
                                 <c:forEach items="${item.resumeFuncDtoList}" var="func">
-                                    <li><a href="/text/article/detail/${func.articleId}" target="_blank">${func.funcName}</a></li>
+                                    <li>
+                                        <c:if test="${empty func.articleId}">
+                                            ${func.funcName}
+                                        </c:if>
+                                        <c:if test="${not empty func.articleId}">
+                                            <a href="/text/article/detail/${func.articleId}" target="_blank">${func.funcName}</a>
+                                        </c:if>
+                                    </li>
                                 </c:forEach>
                             </ul>
                         </div>
