@@ -5,7 +5,8 @@ import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.ParamFinal;
+import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.JsonUtils;
 import com.xiaohe66.web.base.util.WebUtils;
@@ -56,8 +57,15 @@ public class XhResponseAsp {
             Object retVal = proceedingJoinPoint.proceed();
             result = Result.ok(retVal);
         }catch (Throwable e){
-            if(e instanceof XhException){
-                LOG.error("XhException:"+e.getMessage());
+            if(e instanceof MsgException){
+                LOG.info(e.toString()+",msg="+e.getMessage());
+                result = Result.err(((XhException) e).getCode(),e.getMessage());
+            }else if(e instanceof XhException){
+                /*
+                * xh todo:异常的输出需要更好的管理
+                * 1.提示类型的错误不应该输出完整日志（如：密码错误）
+                * */
+                LOG.error(e.getMessage(),e);
                 result = Result.err(((XhException) e).getCode(),e.getMessage());
             }else{
                 LOG.error("系统异常",e);
@@ -65,7 +73,7 @@ public class XhResponseAsp {
             }
         }
         HttpServletResponse response = WebUtils.getResponse();
-        response.setContentType(ParamFinal.HEADER_JSON_UTF_8);
+        response.setContentType(Final.Str.HEADER_JSON_UTF_8);
         response.getWriter().print(JsonUtils.toString(result));
         return null;
     }
