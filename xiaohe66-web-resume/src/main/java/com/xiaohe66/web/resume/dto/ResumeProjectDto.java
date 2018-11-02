@@ -16,6 +16,7 @@ public class ResumeProjectDto extends BaseDtoDetailed{
     private Long imgFileId;
     private String projectName;
     private String projectDesc;
+    private String projectLink;
 
     private List<ResumeFuncDto> resumeFuncDtoList;
 
@@ -49,5 +50,13 @@ public class ResumeProjectDto extends BaseDtoDetailed{
 
     public void setProjectDesc(String projectDesc) {
         this.projectDesc = projectDesc;
+    }
+
+    public String getProjectLink() {
+        return projectLink;
+    }
+
+    public void setProjectLink(String projectLink) {
+        this.projectLink = projectLink;
     }
 }

@@ -30,29 +30,41 @@
     height: 40px;
     margin: 10px 0 0 10px;
 }
-.u_r{
+.jobs .u_r{
     margin-left: 70px;
 }
-.u_r .name,
-.item .light>div{
-    font-weight: bold;
-}
-.u_r div{
+.jobs .u_r div{
     line-height: 30px;
     height: 30px;
 }
-.light{
-    padding: 4px 10px;
+
+
+.item .name{
+    font-weight: bold;
+    font-size: 16px;
 }
+
+.projects .item{
+    padding: 10px;
+}
+.projects .item>div{
+    padding: 6px 0;
+}
+
 .light ul{
     padding: 4px 6px;
 }
 .light li{
     line-height: 26px;
 }
-.light a{
+.light a,
+.project_link a{
     color: blue;
 }
+.project_link p{
+    margin-left: 6px;
+}
+
 .ability .body>div{
     display: inline-block;
     width: 48%;

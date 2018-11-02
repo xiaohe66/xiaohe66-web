@@ -11,9 +11,10 @@
 <head>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/common/css/right.css"/>
-    <link rel="stylesheet" type="text/css" href="/web/resume/css/resume_index.css">
+    <link type="text/css" rel="stylesheet" href="/plugin/editor/css/wangEditor.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/web/resume/css/resume_index.css">
 
-    <script type="text/javascript" src="/js/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/plugin/echarts/js/echarts.min.js"></script>
 
     <script>
         var abilityJson = ${resumeMain.abilityJson};
@@ -57,15 +58,12 @@
             <div class="body">
                 <c:forEach var="item" items="${resumeMain.resumeProjectDtoList}">
                     <div class="item">
-                        <div class="fl">
-                            <img class="logo" src="/org/usr/file/img/${item.imgFileId}" alt="logo">
-                        </div>
-                        <div class="u_r">
+                        <div class="desc">
                             <div class="name">${item.projectName}</div>
-                            <div class="desc">${item.projectDesc}</div>
+                            <div class="editor">${item.projectDesc}</div>
                         </div>
                         <div class="light">
-                            <div>个人成果/亮点：</div>
+                            <div class="name">个人成果/亮点：</div>
                             <ul>
                                 <c:forEach items="${item.resumeFuncDtoList}" var="func">
                                     <li>
@@ -78,6 +76,17 @@
                                     </li>
                                 </c:forEach>
                             </ul>
+                        </div>
+                        <div class="project_link">
+                            <div class="name">项目链接</div>
+                            <p>
+                            <c:if test="${empty item.projectLink}">
+                                暂无
+                            </c:if>
+                            <c:if test="${not empty item.projectLink}">
+                                <a href="${item.projectLink}">${item.projectLink}</a>
+                            </c:if>
+                            </p>
                         </div>
                     </div>
                 </c:forEach>

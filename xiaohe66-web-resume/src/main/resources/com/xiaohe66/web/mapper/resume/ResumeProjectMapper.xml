@@ -4,6 +4,7 @@
 
     <select id="findByResumeId" resultType="ResumeProject">
         select * from xiaohe66_web_resume_project where resume_id = #{resumeId} and is_delete = 0
+        order by sort
     </select>
 
 </mapper>

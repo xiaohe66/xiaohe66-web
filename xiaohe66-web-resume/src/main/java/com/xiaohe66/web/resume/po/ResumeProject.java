@@ -15,6 +15,7 @@ public class ResumeProject extends BasePoDetailed{
     private Long logo;
     private String projectName;
     private String projectDesc;
+    private String projectLink;
 
     public Long getResumeId() {
         return resumeId;
@@ -48,6 +49,14 @@ public class ResumeProject extends BasePoDetailed{
         this.projectDesc = projectDesc;
     }
 
+    public String getProjectLink() {
+        return projectLink;
+    }
+
+    public void setProjectLink(String projectLink) {
+        this.projectLink = projectLink;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
@@ -60,6 +69,7 @@ public class ResumeProject extends BasePoDetailed{
                 + ",\"projectName\":\"" + projectName + "\""
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + ",\"projectDesc\":\"" + projectDesc + "\""
+                + ",\"projectLink\":\"" + projectLink + "\""
                 + "}";
     }
 }
