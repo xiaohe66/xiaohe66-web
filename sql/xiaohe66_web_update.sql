@@ -14,6 +14,6 @@ ADD COLUMN `project_link` varchar(255) NULL COMMENT '项目链接' AFTER `projec
 
 -- 2018.12.24
 ALTER TABLE `xiaohe66_web_text_message_board`
-ADD COLUMN `usr_name` varchar(255) NULL COMMENT '匿名留言的用户名称' AFTER `anonymity`,
+ADD COLUMN `anonymity` varchar(255) NULL COMMENT '匿名留言的用户名称' AFTER `msg`,
 MODIFY COLUMN `create_id` bigint(20) NULL COMMENT '创建者id' AFTER `id`,
 MODIFY COLUMN `update_id` bigint(20) NULL COMMENT '更新者id' AFTER `create_time`;
