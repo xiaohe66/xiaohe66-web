@@ -10,6 +10,11 @@ public class MessageBoard extends BasePoDetailed{
     protected Long usrId;
     protected String msg;
 
+    /**
+     * 匿名留言的用户名称
+     */
+    protected String anonymity;
+
     public MessageBoard(){}
 
     public MessageBoard(Long usrId, String msg) {
@@ -33,6 +38,14 @@ public class MessageBoard extends BasePoDetailed{
         this.msg = msg;
     }
 
+    public String getAnonymity() {
+        return anonymity;
+    }
+
+    public void setAnonymity(String anonymity) {
+        this.anonymity = anonymity;
+    }
+
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
@@ -41,6 +54,7 @@ public class MessageBoard extends BasePoDetailed{
                 + ",\"msg\":\"" + msg + "\""
                 + ",\"id\":\"" + id + "\""
                 + ",\"updateId\":\"" + updateId + "\""
+                + ",\"anonymity\":\"" + anonymity + "\""
                 + ",\"updateTime\":" + updateTime
                 + ",\"isDelete\":\"" + isDelete + "\""
                 + "}";

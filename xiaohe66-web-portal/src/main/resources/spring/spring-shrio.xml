@@ -63,8 +63,8 @@
 
                 /text/category/* = http[get]
 
-                /text/messageBoard/index/* = anon
-                /text/messageBoard/* = http[get]
+                /text/messageBoard = anon
+                /text/messageBoard/* = anon
 
                 /text/article/log = http[post]
                 /text/article/all/*/* = http[get]

@@ -15,20 +15,24 @@
 <input type="hidden" id="usrId" value="${usr.id}">
 <input type="hidden" id="size" value="${pageInfo.pages}">
 <shiro:guest>
-<div class="msg border1">
-    <p class="title">发表留言</p>
-    <p class="hint"><a href="javascript:showLogin();">登录</a>后才能留言</p>
-</div>
+<input type="hidden" id="isLogin" value="0">
 </shiro:guest>
 <shiro:authenticated>
+<input type="hidden" id="isLogin" value="1">
+</shiro:authenticated>
 <div class="msg border1">
     <p class="title">发表留言</p>
     <div class="edit">
         <textarea placeholder="你在本站遇到的bug，或你想对站长说的话"></textarea>
     </div>
     <a class="btn">发表留言</a>
+    <shiro:guest>
+        <input class="anonymityOn" type="checkbox" checked="checked">匿名<input class="anonymity" placeholder="匿名名称">
+    </shiro:guest>
+    <shiro:authenticated>
+        <input class="anonymityOn" type="checkbox">匿名<input style="display: none;" class="anonymity" placeholder="匿名名称">
+    </shiro:authenticated>
 </div>
-</shiro:authenticated>
 <div class="content">
     <c:if test="${pageInfo.pages==0}">
         <div class="item">

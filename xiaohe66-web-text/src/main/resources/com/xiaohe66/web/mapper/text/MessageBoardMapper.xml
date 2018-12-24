@@ -3,8 +3,8 @@
 <mapper namespace="com.xiaohe66.web.text.dao.MessageBoardDao">
 
     <insert id="add" parameterType="MessageBoard" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xiaohe66_web_text_message_board(msg,usr_id,create_id,update_id)
-        values(#{msg},#{usrId},#{createId},#{createId})
+        insert into xiaohe66_web_text_message_board(msg,usr_id,anonymity,create_id,update_id)
+        values(#{msg},#{usrId},#{anonymity},#{createId},#{createId})
     </insert>
 
     <select id="findById" resultType="MessageBoard">

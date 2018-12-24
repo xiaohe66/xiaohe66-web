@@ -24,10 +24,10 @@ public class MessageBoardController {
     private MessageBoardService messageBoardService;
 
     @Post
-    public void add(String msg, Long usrId){
+    public void add(String msg, Long usrId,String anonymity){
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
         usrId = Final.Sys.XIAO_HE_USR_ID;
-        messageBoardService.add(msg,usrId, UsrHelper.getCurrentUsrId());
+        messageBoardService.add(msg,usrId,anonymity);
     }
 
     @Paging

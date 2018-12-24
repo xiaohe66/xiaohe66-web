@@ -10,6 +10,7 @@ public class MessageBoardDto extends BaseDtoDetailed{
     private String msg;
     private String usrName;
     private Long imgFileId;
+    private String anonymity;
 
     public String getMsg() {
         return msg;
@@ -33,5 +34,13 @@ public class MessageBoardDto extends BaseDtoDetailed{
 
     public void setImgFileId(Long imgFileId) {
         this.imgFileId = imgFileId;
+    }
+
+    public String getAnonymity() {
+        return anonymity;
+    }
+
+    public void setAnonymity(String anonymity) {
+        this.anonymity = anonymity;
     }
 }

@@ -8,6 +8,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
+import com.xiaohe66.web.org.helper.UsrHelper;
 import com.xiaohe66.web.org.po.Usr;
 import com.xiaohe66.web.org.service.UsrService;
 import com.xiaohe66.web.sys.helper.SysCfgHelper;
@@ -57,13 +58,18 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      * 增加一条留言方法
      * @param msg       留言
      * @param usrId     被留言的用户
-     * @param currentUsrId  当前登录用户
+     * @param anonymity  匿名留言名称
      */
-    public MessageBoard add(String msg,Long usrId, Long currentUsrId){
+    public MessageBoard add(String msg,Long usrId,String anonymity){
         msg = HtmlUtils.delHtmlTag(msg);
-        Check.notEmptyCheck(msg,usrId,currentUsrId);
+        Check.notEmptyCheck(msg,usrId);
+
         MessageBoard messageBoard = new MessageBoard(usrId,msg);
-        LOG.info("增加一条留言：msg="+msg+",usrId="+currentUsrId);
+        messageBoard.setAnonymity(anonymity);
+
+        Long currentUsrId = UsrHelper.getCurrentUsrIdNotEx();
+
+        LOG.info("增加一条留言：msg="+msg+",留言者="+(anonymity == null ? currentUsrId : anonymity));
         super.add(messageBoard,currentUsrId);
         return messageBoard;
     }
@@ -82,9 +88,15 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
         List<MessageBoard> messageBoardList = super.findByParam(new MessageBoardParam(usrId));
 
         return ClassUtils.convertList(MessageBoardDto.class,messageBoardList,(messageBoardDto,messageBoard)->{
-            Usr usr = usrService.findById(messageBoard.getCreateId());
-            messageBoardDto.setUsrName(usr.getUsrName());
-            messageBoardDto.setImgFileId(usr.getImgFileId());
+            String anonymity = messageBoard.getAnonymity();
+            if(anonymity == null || anonymity.length() == 0){
+                Usr usr = usrService.findById(messageBoard.getCreateId());
+                messageBoardDto.setUsrName(usr.getUsrName());
+                messageBoardDto.setImgFileId(usr.getImgFileId());
+            }else{
+                messageBoardDto.setUsrName(messageBoard.getAnonymity());
+                messageBoardDto.setImgFileId(1L);
+            }
         });
     }
 
