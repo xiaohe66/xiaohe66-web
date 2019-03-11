@@ -6,27 +6,25 @@
 var mouseMoveOn=true;
 var mouseClickOn=true;
 $(function () {
-    var str = ["富强","民主","文明","和谐","自由","平等","公正","法治","爱国","敬业","诚信","友善"];
-
-    var random = function () {
-        return Math.floor(Math.random()*256);
-    };
 
     $(document).on("click","body",function (e) {
         if(!mouseClickOn)return;
-        var index = Math.floor(Math.random()*str.length);
-        var div = $("<div class='barrage'>"+str[index]+"</div>");
+
+        var index = Math.floor(Math.random()*7);
+
+        var div = $("<div class='barrage'></div>");
+        div.css({"background-position":(-40*index-20)+"px -20px"});
+
         $("body").append(div);
         var top = e.pageY - $(this).scrollTop();
         div.css({
             "top":+top+"px",
-            "left":e.pageX+"px",
-            "color":"rgb("+random()+","+random()+","+random()+")"
+            "left":e.pageX+"px"
         });
         div.animate({
-            "top":top-200+"px",
-            "opacity":0.5
-        },1300,function(){
+            "top":top-250+"px",
+            "opacity":0.2
+        },1500,function(){
             div.remove();
         });
     });
@@ -46,18 +44,17 @@ $(function () {
         lastLeft = left;
 
         var index = Math.floor(Math.random()*4+1);
-        var img = $("<img class='barrage' src='/icon/star"+index+".png'>");
+        var img = $("<img class='barrage' alt='' src='/icon/star"+index+".png'>");
 
         $("body").append(img);
         img.css({
             "top":+top+"px",
-            "left":left+"px",
-            "color":"rgb("+random()+","+random()+","+random()+")"
+            "left":left+"px"
         });
         img.animate({
-            "top":top+120+"px",
+            "top":top+150+"px",
             "opacity":0.6
-        },1000,function(){
+        },1200,function(){
             img.remove();
         });
     });
