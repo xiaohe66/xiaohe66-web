@@ -22,6 +22,7 @@
         <module name="web" />
         <module name="xiaohe66-portal" />
         <module name="xiaohe66-web-base" />
+        <module name="xiaohe66-web-cache" />
         <module name="xiaohe66-web-common" />
         <module name="xiaohe66-web-file" />
         <module name="xiaohe66-web-org" />
@@ -49,6 +50,7 @@
       <module name="xiaohe66-portal" target="1.8" />
       <module name="xiaohe66-web" target="1.8" />
       <module name="xiaohe66-web-base" target="1.8" />
+      <module name="xiaohe66-web-cache" target="1.8" />
       <module name="xiaohe66-web-common" target="1.8" />
       <module name="xiaohe66-web-file" target="1.8" />
       <module name="xiaohe66-web-org" target="1.8" />

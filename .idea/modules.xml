@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/xiaohe66-web.iml" filepath="$PROJECT_DIR$/xiaohe66-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-base/xiaohe66-web-base.iml" filepath="$PROJECT_DIR$/xiaohe66-web-base/xiaohe66-web-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-cache/xiaohe66-web-cache.iml" filepath="$PROJECT_DIR$/xiaohe66-web-cache/xiaohe66-web-cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-common/xiaohe66-web-common.iml" filepath="$PROJECT_DIR$/xiaohe66-web-common/xiaohe66-web-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-file/xiaohe66-web-file.iml" filepath="$PROJECT_DIR$/xiaohe66-web-file/xiaohe66-web-file.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaohe66-web-org/xiaohe66-web-org.iml" filepath="$PROJECT_DIR$/xiaohe66-web-org/xiaohe66-web-org.iml" />
