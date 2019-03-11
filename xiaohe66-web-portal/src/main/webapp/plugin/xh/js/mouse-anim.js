@@ -16,10 +16,10 @@ $(function () {
         div.css({"background-position":(-40*index-20)+"px -20px"});
 
         $("body").append(div);
-        var top = e.pageY - $(this).scrollTop();
+        var top = e.pageY - $(this).scrollTop() -20;
         div.css({
             "top":+top+"px",
-            "left":e.pageX+"px"
+            "left":e.pageX-10+"px"
         });
         div.animate({
             "top":top-250+"px",
@@ -31,8 +31,8 @@ $(function () {
     var lastTop,lastLeft;
     $(document).on("mousemove","body",function (e) {
         if(!mouseMoveOn)return;
-        var top = e.pageY - $(this).scrollTop();
-        var left = e.pageX;
+        var top = e.pageY - $(this).scrollTop() +10;
+        var left = e.pageX + 6;
 
         var topDistance = top-lastTop;
         var leftDistance = left-lastLeft;
