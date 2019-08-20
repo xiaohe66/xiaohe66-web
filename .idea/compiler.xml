@@ -21,16 +21,7 @@
         <module name="usr" />
         <module name="web" />
         <module name="xiaohe66-portal" />
-        <module name="xiaohe66-web-base" />
-        <module name="xiaohe66-web-cache" />
-        <module name="xiaohe66-web-common" />
-        <module name="xiaohe66-web-file" />
-        <module name="xiaohe66-web-org" />
         <module name="xiaohe66-web-portal" />
-        <module name="xiaohe66-web-resume" />
-        <module name="xiaohe66-web-security" />
-        <module name="xiaohe66-web-sys" />
-        <module name="xiaohe66-web-text" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

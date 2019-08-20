@@ -3,7 +3,8 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/xiaohe66-web-base" />
     <file type="web" url="file://$PROJECT_DIR$/xiaohe66-web-portal" />
-    <file type="web" url="file://$PROJECT_DIR$/xiaohe66-web-portal" />
+    <file type="web" url="file://$PROJECT_DIR$/xiaohe66-web-portal/src/main/java" />
+    <file type="web" url="file://$PROJECT_DIR$/xiaohe66-web-portal/src/main/resources" />
     <file type="web" url="file://$PROJECT_DIR$/xiaohe66-web-resume" />
     <type id="Spring" />
   </component>
@@ -17,11 +18,21 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-portal/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/xiaohe66-base/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-base/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-cache/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-common/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-file/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-org/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-resume/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-security/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-sys/pom.xml" />
+        <option value="$PROJECT_DIR$/xiaohe66-web-text/pom.xml" />
       </set>
     </option>
   </component>
