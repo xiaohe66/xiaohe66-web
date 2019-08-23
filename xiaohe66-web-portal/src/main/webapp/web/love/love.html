@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xiaohe66 - my love</title>
+    <script type="text/javascript" src="../../plugin/jquery/js/jquery-3.1.1.min.js"></script>
+    <script>
+        $(function () {
+            var shade = $(".shade");
+            var audio = document.getElementById("audio");
+            $("#play").click(function () {
+                shade.attr("src", "img/snowflake.gif");
+                shade.show();
+
+                setTimeout(function () {
+                    // play music
+                    audio.src = "music/"+20+".mp3";
+                    audio.play();
+                }, 0);
+
+                shade.animate({
+                    opacity: 0
+                }, 4000, function () {
+                    shade.hide();
+                });
+            });
+            $("#stop").click(function () {
+                shade.stop();
+                shade.attr("src", "img/snowflake.png");
+                shade.css("opacity", 1);
+                shade.show();
+                audio.pause();
+            });
+        })
+    </script>
+    <style>
+        body {
+            background: #000;
+        }
+
+        audio{
+            display: none;
+        }
+
+        .c {
+            margin: 50px auto 0;
+            background: #fff;
+            width: 1024px;
+            height: 576px;
+            position: relative;
+        }
+
+        img {
+            width: 1024px;
+            height: 576px;
+        }
+
+        .shade {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #btn{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<audio id="audio" controls="controls"></audio>
+<div class="c">
+    <img src="img/14.jpg">
+    <img class="shade" src="img/snowflake.png">
+</div>
+<div id="btn">
+    <button id="play">Play</button>
+    <button id="stop">Stop</button>
+</div>
+</body>
+</html>
