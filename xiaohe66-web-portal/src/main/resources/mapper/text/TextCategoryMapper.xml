@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.text.dao.TextCategoryDao">
+
+    <insert id="add" parameterType="TextCategory" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xiaohe66_web_text_category
+        (create_id,create_time,update_id,update_time,category_name,category_desc,pid)
+        values
+        (#{createId},#{createTime},#{updateId},#{updateTime},#{categoryName},#{categoryDesc},#{pid})
+    </insert>
+
+    <select id="findById" resultType="TextCategory">
+        select * from xiaohe66_web_text_category where is_delete = 0 and id = #{id}
+    </select>
+
+    <select id="findByParam" resultType="TextCategory">
+        select * from xiaohe66_web_text_category
+        <where>
+            and is_delete = 0
+            <if test="param != null">
+                <if test="param.createId != null">
+                    and create_id = #{param.createId}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="findByPid" resultType="TextCategory">
+        select * from xiaohe66_web_text_category where pid = #{pid}
+    </select>
+
+    <update id="updateById" parameterType="TextCategory">
+        update xiaohe66_web_text_category
+        <set>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="categoryName != null">
+                category_name = #{categoryName},
+            </if>
+            <if test="categoryDesc != null">
+                category_desc = #{categoryDesc},
+            </if>
+            <!--<if test="pid != null">
+                pid = #{pid},
+            </if>-->
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delById" parameterType="TextCategory">
+        update xiaohe66_web_text_category
+        set is_delete = 1,update_id = #{currentUsrId},update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <select id="findNamesByArticleId" resultType="String">
+        select group_concat(c.category_name separator '、') from xiaohe66_web_text_category c
+        join xiaohe66_web_text_article_category_link l on c.id = l.category_id
+        where l.article_id = #{articleId}
+    </select>
+
+    <select id="findByArticleId" resultType="TextCategory">
+        select c.* from xiaohe66_web_text_category c
+        join xiaohe66_web_text_article_category_link l on c.id = l.category_id
+        where l.article_id = #{articleId}
+    </select>
+
+</mapper>

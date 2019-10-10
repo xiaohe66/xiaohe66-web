@@ -2,10 +2,10 @@ package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.org.service.UsrService;
-import com.xiaohe66.web.resume.service.ResumeMainService;
-import com.xiaohe66.web.sys.helper.SysCfgHelper;
-import com.xiaohe66.web.text.service.ArticleService;
+import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.resume.service.ResumeMainService;
+import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
+import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.ui.Model;
 
 import javax.annotation.Resource;

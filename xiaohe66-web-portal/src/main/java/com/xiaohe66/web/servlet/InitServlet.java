@@ -1,11 +1,9 @@
 package com.xiaohe66.web.servlet;
 
-import com.xiaohe66.web.cache.CacheHelper;
-import com.xiaohe66.web.cache.XhCache;
-import com.xiaohe66.web.sys.helper.EmailHelper;
-import com.xiaohe66.web.sys.helper.SysCfgHelper;
-import com.xiaohe66.web.sys.service.EmailService;
-import com.xiaohe66.web.sys.service.SysCfgService;
+import com.xiaohe66.web.code.sys.helper.EmailHelper;
+import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
+import com.xiaohe66.web.code.sys.service.EmailService;
+import com.xiaohe66.web.code.sys.service.SysCfgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @time 2018-07-24 10:50
  */
 @Component
-public class InitServlet implements InitializingBean{
+public class InitServlet implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
     private final SysCfgService cfgService;
@@ -35,9 +33,6 @@ public class InitServlet implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
         LOG.info("系统初始化……");
-
-        LOG.info("初始化缓存助手");
-        CacheHelper.init(XhCache.getInstance());
 
         LOG.info("加载系统配置");
         SysCfgHelper.refresh(cfgService.findAll());

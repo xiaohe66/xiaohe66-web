@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.security.dao.FuncDao">
+
+    <select id="findById" resultType="Func">
+        select * from xiaohe66_web_security_func where id = #{id}
+    </select>
+
+    <select id="findFuncByUsrId" resultType="Func">
+        select f.* from xiaohe66_web_security_func f
+        join xiaohe66_web_security_role_func rf on f.id = rf.func_id
+        join xiaohe66_web_security_usr_role ur on ur.role_id = rf.role_id
+        where ur.usr_id = #{usrId}
+    </select>
+
+    <select id="findFuncNameByUsrId" resultType="Func">
+        select f.func_name from xiaohe66_web_security_func f
+        join xiaohe66_web_security_role_func rf on f.id = rf.func_id
+        join xiaohe66_web_security_usr_role ur on ur.role_id = rf.role_id
+        where ur.usr_id = #{usrId}
+    </select>
+
+    <select id="findFuncNameInRoleIdSet" resultType="Func">
+        select f.func_name from xiaohe66_web_security_func f
+        join xiaohe66_web_security_role_func rf on f.id = rf.func_id
+        where rf.role_id in
+        <foreach collection="roleIdSet" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

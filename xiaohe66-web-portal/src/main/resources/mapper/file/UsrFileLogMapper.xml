@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.file.dao.UsrFileLogDao">
+
+    <insert id="add" parameterType="UsrFileLog" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xiaohe66_web_org_usr_file_log
+        (create_id,create_time,usr_file_id,ip)
+        values
+        (#{createId},#{createTime},#{usrFileId},#{ip})
+    </insert>
+
+    <select id="countDownloadOfMonth" resultType="Map">
+        select usr_file_id as id,count(*) as count from xiaohe66_web_org_usr_file_log
+        <where>
+            date_sub(curdate(), INTERVAL 30 DAY) &lt;= create_time
+            <if test="usrId != null">
+                and create_id = #{usrId}
+            </if>
+        </where>
+        group by usr_file_id order by count(*) desc
+    </select>
+
+</mapper>

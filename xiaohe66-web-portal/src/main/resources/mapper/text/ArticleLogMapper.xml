@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.text.dao.ArticleLogDao">
+
+    <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xiaohe66_web_text_article_log
+        (create_id,create_time,article_id,ip)
+        values
+        (#{createId},#{createTime},#{articleId},#{ip})
+    </insert>
+
+    <select id="countDownloadOfMonth" resultType="Map">
+        select l.article_id as id,count(*) as count from xiaohe66_web_text_article_log l
+        join xiaohe66_web_text_article a on a.id = l.article_id
+        <where>
+            a.is_delete = 0
+            and date_sub(curdate(), INTERVAL 30 DAY) &lt;= l.create_time
+            <if test="usrId != null">
+                and a.create_id = #{usrId}
+            </if>
+        </where>
+        group by l.article_id
+        order by count(*) desc
+    </select>
+
+    <select id="countByArticleId" resultType="Long">
+        select count(*) from xiaohe66_web_text_article_log
+        where article_id = #{articleId}
+    </select>
+
+</mapper>

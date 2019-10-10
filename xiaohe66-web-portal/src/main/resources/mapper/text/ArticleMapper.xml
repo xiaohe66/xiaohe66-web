@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.text.dao.ArticleDao">
+
+    <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xiaohe66_web_text_article(text,title,create_id,update_id,secret_level,sys_category_id)
+        values(#{text},#{title},#{createId},#{createId},#{secretLevel},#{sysCategoryId})
+    </insert>
+
+    <select id="findById" resultType="Article">
+        select * from xiaohe66_web_text_article where id = #{id} and is_delete = 0
+    </select>
+
+    <select id="findByParam" resultType="Article">
+        select * from xiaohe66_web_text_article
+        <where>
+            and is_delete = 0
+            <if test="param != null">
+                <if test="param.title != null">
+                    and title like #{param.title}
+                </if>
+                <if test="param.secretLevel != null">
+                    and secret_level = #{param.secretLevel}
+                </if>
+                <if test="param.isPublish != null">
+                    and is_publish = #{param.isPublish}
+                </if>
+                <if test="param.createId != null">
+                    and create_id = #{param.createId}
+                </if>
+                <if test="param.id != null">
+                    and id = #{param.id}
+                </if>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <update id="updateById" parameterType="Article">
+        update xiaohe66_web_text_article
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="text!=null">
+                text = #{text},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="secretLevel != null">
+                secret_level = #{secretLevel},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByParam" parameterType="Article">
+        update xiaohe66_web_text_article
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="text!=null">
+                text = #{text},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="delById">
+        update xiaohe66_web_text_article
+        set is_delete = 1,update_id = #{currentUsrId},update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+</mapper>

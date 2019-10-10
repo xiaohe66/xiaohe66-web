@@ -20,7 +20,7 @@
         <property name="filters">
             <map>
                 <entry key="http">
-                    <bean class="com.xiaohe66.web.security.auth.shrio.HttpMethodAuthorizationFilter"/>
+                    <bean class="com.xiaohe66.web.code.security.auth.shrio.HttpMethodAuthorizationFilter"/>
                 </entry>
             </map>
         </property>
@@ -102,7 +102,7 @@
     </bean>
 
     <!--  自定义Realm -->
-    <bean id="xhDefaultRealm" class="com.xiaohe66.web.security.realm.XhDefaultRealm"/>
+    <bean id="xhDefaultRealm" class="com.xiaohe66.web.code.security.realm.XhDefaultRealm"/>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">

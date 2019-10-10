@@ -1,7 +1,10 @@
 package com.xiaohe66.web.cache;
 
 
-import net.sf.ehcache.Element;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xh
@@ -9,50 +12,54 @@ import net.sf.ehcache.Element;
  */
 public class CacheHelper {
 
-    private static XhCache xhCache;
-
-    public static void init(XhCache xhCache){
-        CacheHelper.xhCache = xhCache;
+    private CacheHelper() {
     }
 
-    public static void put5(String key, Object value){
-        xhCache.getCache5().put(new Element(key,value));
+    private static Cache<String, Object> cache30 = CacheBuilder.newBuilder()
+            .expireAfterAccess(30, TimeUnit.MINUTES)
+            .build();
+
+    private static Cache<String, Object> cache5 = CacheBuilder.newBuilder()
+            .expireAfterAccess(5, TimeUnit.MINUTES)
+            .build();
+
+    public static void put5(String key, Object value) {
+        cache5.put(key, value);
     }
 
-    public static void remove5(String key){
-        xhCache.getCache5().remove(key);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T get5(String key){
-        Element element = xhCache.getCache5().get(key);
-        return element == null ? null : (T) element.getObjectValue();
-    }
-
-    public static String getStr5(String key){
-        Element element = xhCache.getCache5().get(key);
-        return element == null ? "" : element.getObjectValue().toString();
-    }
-
-    public static void put30(String key, Object value){
-        xhCache.getCache30().put(new Element(key,value));
-    }
-
-    public static void remove30(String key){
-        xhCache.getCache30().remove(key);
+    public static void remove5(String key) {
+        cache5.invalidate(key);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T get30(String key){
-        Element element = xhCache.getCache30().get(key);
-        return element == null ? null : (T) element.getObjectValue();
+    public static <T> T get5(String key) {
+        Object value = cache5.getIfPresent(key);
+        return value == null ? null : (T) value;
     }
 
-    public static String getStr30(String key){
-        Element element = xhCache.getCache30().get(key);
-        return element == null ? "" : element.getObjectValue().toString();
+    public static String getStr5(String key) {
+        Object value = cache5.getIfPresent(key);
+        return value == null ? "" : value.toString();
     }
 
+    public static void put30(String key, Object value) {
+        cache30.put(key, value);
+    }
+
+    public static void remove30(String key) {
+        cache30.invalidate(key);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T get30(String key) {
+        Object value = cache30.getIfPresent(key);
+        return value == null ? null : (T) value;
+    }
+
+    public static String getStr30(String key) {
+        Object value = cache30.getIfPresent(key);
+        return value == null ? "" : value.toString();
+    }
 
 
 }

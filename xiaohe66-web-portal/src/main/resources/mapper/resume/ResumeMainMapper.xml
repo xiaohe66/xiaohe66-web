@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.resume.dao.ResumeMainDao">
+
+    <insert id="add" parameterType="ResumeMain" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into xiaohe66_web_resume_main (create_id,
+          update_id, is_delete,
+          name, phone, email, education,
+          school, graduation_date)
+        values (#{createId},
+          #{updateId}, #{isDelete},
+          #{name}, #{phone}, #{email}, #{education},
+          #{school}, #{graduationDate})
+    </insert>
+
+    <update id="updateById" parameterType="ResumeMain">
+        update xiaohe66_web_resume_main
+        <set>
+            <if test="updateId != null">
+                update_id = #{updateId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="education != null">
+                education = #{education},
+            </if>
+            <if test="school != null">
+                school = #{school},
+            </if>
+            <if test="graduationDate != null">
+                graduation_date = #{graduationDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findByUsrId" resultType="ResumeMain">
+        select * from xiaohe66_web_resume_main where create_id = #{usrId} and is_delete = 0
+    </select>
+</mapper>

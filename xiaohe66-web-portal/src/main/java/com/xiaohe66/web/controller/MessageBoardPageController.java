@@ -4,12 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.file.service.UsrFileService;
-import com.xiaohe66.web.org.dto.UsrDto;
-import com.xiaohe66.web.org.service.UsrService;
-import com.xiaohe66.web.text.dto.MessageBoardDto;
-import com.xiaohe66.web.text.service.ArticleService;
-import com.xiaohe66.web.text.service.MessageBoardService;
+import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.org.dto.UsrDto;
+import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.text.dto.MessageBoardDto;
+import com.xiaohe66.web.code.text.service.ArticleService;
+import com.xiaohe66.web.code.text.service.MessageBoardService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
