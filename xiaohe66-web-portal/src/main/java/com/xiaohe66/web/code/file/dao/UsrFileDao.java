@@ -15,7 +15,7 @@ public interface UsrFileDao extends BaseDao<UsrFile>{
      * @param commonFileId    commonFileId
      * @return  UsrFile
      */
-    UsrFile findByCommonFileId(@Param("commonFileId") Long commonFileId);
+    UsrFile findByCommonFileId(@Param("commonFileId") Integer commonFileId);
 
     /**
      * 取得commonFileId
@@ -23,5 +23,5 @@ public interface UsrFileDao extends BaseDao<UsrFile>{
      * @return commonFileId
      */
     @Select("select file_id from xiaohe66_web_org_usr_file where id = #{id}")
-    Long findCommonFileId(@Param("id") Long id);
+    Integer findCommonFileId(@Param("id") Integer id);
 }

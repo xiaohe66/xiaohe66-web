@@ -34,7 +34,7 @@ public class ResumePageController {
 
     @Page("/index")
     public String index(Model model){
-        Long xhUsrId = SysCfgHelper.findXhUsrId();
+        Integer xhUsrId = SysCfgHelper.findXhUsrId();
         model.addAttribute("title","小何的简历");
         model.addAttribute("usrDivTitle","小何");
         model.addAttribute("usrDto",usrService.lookAtUsr(xhUsrId));

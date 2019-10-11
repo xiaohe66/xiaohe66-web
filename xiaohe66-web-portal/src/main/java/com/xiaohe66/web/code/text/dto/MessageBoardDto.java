@@ -9,7 +9,7 @@ import com.xiaohe66.web.base.base.BaseDtoDetailed;
 public class MessageBoardDto extends BaseDtoDetailed{
     private String msg;
     private String usrName;
-    private Long imgFileId;
+    private Integer imgFileId;
     private String anonymity;
 
     public String getMsg() {
@@ -28,11 +28,11 @@ public class MessageBoardDto extends BaseDtoDetailed{
         this.usrName = usrName;
     }
 
-    public Long getImgFileId() {
+    public Integer getImgFileId() {
         return imgFileId;
     }
 
-    public void setImgFileId(Long imgFileId) {
+    public void setImgFileId(Integer imgFileId) {
         this.imgFileId = imgFileId;
     }
 

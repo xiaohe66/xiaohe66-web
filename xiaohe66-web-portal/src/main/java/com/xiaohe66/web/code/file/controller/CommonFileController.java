@@ -26,7 +26,7 @@ public class CommonFileController {
     private CommonFileService commonFileService;
 
     @Get("/img/{id}")
-    public void showImg(HttpServletResponse response,@PathVariable("id")Long id) throws IOException {
+    public void showImg(HttpServletResponse response,@PathVariable("id")Integer id) throws IOException {
         if(id == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
         }

@@ -11,7 +11,7 @@ import com.xiaohe66.web.base.base.BaseDtoDetailed;
 public class ResumeFuncDto extends BaseDtoDetailed {
 
     private String funcName;
-    private Long articleId;
+    private Integer articleId;
 
     public String getFuncName() {
         return funcName;
@@ -21,11 +21,11 @@ public class ResumeFuncDto extends BaseDtoDetailed {
         this.funcName = funcName;
     }
 
-    public Long getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
 }

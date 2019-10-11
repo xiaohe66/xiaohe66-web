@@ -32,20 +32,20 @@ public class ClassConvertTest {
     public void test4(){
         int integer1 = 1;
         int integer2 = 2;
-        Long createId = 3L;
+        Integer createId = 3;
         String str1 = "str1";
         String str2 = "str2";
 
         Obj1 obj1 = new Obj1(integer1,str1,str2,integer2);
-        obj1.setId(100L);
+        obj1.setId(100);
         obj1.setCreateId(createId);
         Obj2 obj2 = ClassUtils.convert(Obj2.class,obj1);
 
-        assertEquals(new Long(100),obj2.getId());
+        assertEquals(new Integer(100),obj2.getId());
         assertEquals(integer1,obj2.getInteger());
         assertEquals(str1,obj2.getString());
         assertEquals(null,obj2.getObj1NotHave());
-        assertEquals(0,obj2.getTypeDifferent());
+        assertEquals(0,obj2.getTypeDifferent().intValue());
         assertEquals(createId,obj2.getCreateId());
     }
 }

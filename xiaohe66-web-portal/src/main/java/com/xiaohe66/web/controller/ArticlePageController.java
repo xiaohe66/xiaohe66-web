@@ -70,9 +70,9 @@ public class ArticlePageController {
     }
 
     @Page("/editor/{id}")
-    public String editor(Model model,@PathVariable("id") Long id){
+    public String editor(Model model,@PathVariable("id") Integer id){
 
-        Long currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UsrHelper.getCurrentUsrId();
         ArticleDto articleDto = articleService.findDtoById(id);
         if(articleDto == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
@@ -92,7 +92,7 @@ public class ArticlePageController {
     }
 
     @Page("/detail/{id}")
-    public String detail(Model model,@PathVariable("id") Long id){
+    public String detail(Model model,@PathVariable("id") Integer id){
         ArticleDto articleDto = articleService.findDtoById(id);
         model.addAttribute("article",articleDto);
         model.addAttribute("title",articleDto.getTitle());
@@ -109,7 +109,7 @@ public class ArticlePageController {
     }
 
     @Page("/list/{usrId}")
-    public String list(Model model,@PathVariable("usrId") Long usrId){
+    public String list(Model model,@PathVariable("usrId") Integer usrId){
         UsrDto usrDto = usrService.lookAtUsr(usrId);
 
         PageHelper.startPage(1,10);

@@ -12,13 +12,13 @@ public class ArticleDto extends BaseDtoDetailed{
     private String title;
     private Boolean isPublish;
     private Integer secretLevel;
-    private Long sysCategoryId;
+    private Integer sysCategoryId;
     private String sysCategoryName;
     private String perCategoryIds;
     private String perCategoryNames;
-    private Long imgFileId;
+    private Integer imgFileId;
     private String usrName;
-    private Long count;
+    private Integer count;
 
     public String getText() {
         return text;
@@ -68,11 +68,11 @@ public class ArticleDto extends BaseDtoDetailed{
         this.perCategoryNames = perCategoryNames;
     }
 
-    public Long getSysCategoryId() {
+    public Integer getSysCategoryId() {
         return sysCategoryId;
     }
 
-    public void setSysCategoryId(Long sysCategoryId) {
+    public void setSysCategoryId(Integer sysCategoryId) {
         this.sysCategoryId = sysCategoryId;
     }
 
@@ -92,20 +92,20 @@ public class ArticleDto extends BaseDtoDetailed{
         this.usrName = usrName;
     }
 
-    public Long getImgFileId() {
+    public Integer getImgFileId() {
         return imgFileId;
     }
 
-    public void setImgFileId(Long imgFileId) {
+    public void setImgFileId(Integer imgFileId) {
         this.imgFileId = imgFileId;
     }
 
 
-    public Long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 

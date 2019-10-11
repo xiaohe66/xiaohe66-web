@@ -10,15 +10,15 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  */
 public class ResumeFunc extends BasePoDetailed{
 
-    private Long projectId;
+    private Integer projectId;
     private String funcName;
-    private Long articleId;
+    private Integer articleId;
 
-    public Long getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Long projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
@@ -30,11 +30,11 @@ public class ResumeFunc extends BasePoDetailed{
         this.funcName = funcName;
     }
 
-    public Long getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
 

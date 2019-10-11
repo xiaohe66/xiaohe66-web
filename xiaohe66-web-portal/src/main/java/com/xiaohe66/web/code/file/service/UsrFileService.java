@@ -13,6 +13,7 @@ import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.param.UsrFileParam;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.UsrFile;
+import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
 import com.xiaohe66.web.code.org.service.UsrService;
 import org.slf4j.Logger;
@@ -78,12 +79,12 @@ public class UsrFileService extends AbstractService<UsrFile>{
         this.usrFileDao = usrFileDao;
     }
 
-    public Set<Integer> uploadDefaultFilePrepare(Long currentUsrId,String md5,Float mb,String fileName,String extension){
+    public Set<Integer> uploadDefaultFilePrepare(Integer currentUsrId,String md5,Float mb,String fileName,String extension){
         return uploadFilePrepare(currentUsrId,md5,mb,fileName,extension,DEFAULT_FILE_TYPE);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Set<Integer> uploadFilePrepare(Long currentUsrId,String md5,Float mb,String fileName,String extension,Integer fileType){
+    public Set<Integer> uploadFilePrepare(Integer currentUsrId,String md5,Float mb,String fileName,String extension,Integer fileType){
         Check.notEmptyCheck(currentUsrId,fileName);
 
         if(fileType != DEFAULT_FILE_TYPE && fileType != USR_HEAD_IMG_FILE_TYPE){
@@ -110,7 +111,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
         return notUploadChunkSet;
     }
 
-    public Long uploadImg(MultipartFile file, String md5, Long currentUsrId, int fileType){
+    public Integer uploadImg(MultipartFile file, String md5, Integer currentUsrId, int fileType){
         if(Check.isNull(file)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
         }
@@ -127,7 +128,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public UsrFileDto uploadImgFile(Long currentUsrId, MultipartFile multipartFile, String md5, int fileType){
+    public UsrFileDto uploadImgFile(Integer currentUsrId, MultipartFile multipartFile, String md5, int fileType){
         CommonFile commonFile = commonFileService.uploadFileDefault(currentUsrId,multipartFile,md5);
 
         String name = multipartFile.getOriginalFilename();
@@ -146,19 +147,19 @@ public class UsrFileService extends AbstractService<UsrFile>{
         return ClassUtils.convert(UsrFileDto.class,usrFile);
     }
 
-    public UsrFile findByCommonFileId(Long commonFileId){
+    public UsrFile findByCommonFileId(Integer commonFileId){
         if(Check.isOneNull(commonFileId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"commonFileId is null");
         }
         return usrFileDao.findByCommonFileId(commonFileId);
     }
 
-    public Long findCommonFileId(Long usrFileId){
+    public Integer findCommonFileId(Integer usrFileId){
         Check.notNullCheck(usrFileId);
         return usrFileDao.findCommonFileId(usrFileId);
     }
 
-    public List<UsrFileDto> findDtoByUsrId(Long usrId){
+    public List<UsrFileDto> findDtoByUsrId(Integer usrId){
         if(Check.isOneNull(usrId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION);
         }
@@ -199,19 +200,19 @@ public class UsrFileService extends AbstractService<UsrFile>{
         });
     }
 
-    public List<UsrFileDto> findDtoHotTop5(Long usrId){
-        List<Map<String,Long>> mapList = usrFileLogService.countDownloadOfMonth(usrId);
+    public List<UsrFileDto> findDtoHotTop5(Integer usrId){
+        List<UsrFileDownloadCount> mapList = usrFileLogService.countDownloadOfMonth(usrId);
         int i = 0;
         final int maxSize = 5;
         List<UsrFileDto> usrFileDtoList = new ArrayList<>(maxSize);
-        for (Map<String, Long> map : mapList) {
-            UsrFile usrFile = this.findById(map.get("id"));
+        for (UsrFileDownloadCount downloadCount : mapList) {
+            UsrFile usrFile = this.findById(downloadCount.getId());
             if(usrFile == null){
                 continue;
             }
             UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class,usrFile);
             usrFileDtoList.add(usrFileDto);
-            usrFileDto.setDownloadCount(map.get("count"));
+            usrFileDto.setDownloadCount(downloadCount.getCount());
             if(++i >= maxSize){
                 break;
             }
@@ -219,7 +220,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
         return usrFileDtoList;
     }
 
-    public void showImg(HttpServletResponse response,Long usrFileId){
+    public void showImg(HttpServletResponse response,Integer usrFileId){
         if(usrFileId == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
         }
@@ -250,7 +251,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
      * @param response HttpServletResponse
      * @param usrFileId 用户文件id
      */
-    public void downloadFile(HttpServletResponse response,Long usrFileId,Long currentUsrId){
+    public void downloadFile(HttpServletResponse response,Integer usrFileId,Integer currentUsrId){
         if(usrFileId == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
         }
@@ -277,7 +278,7 @@ public class UsrFileService extends AbstractService<UsrFile>{
         usrFileLogService.add(new UsrFileLog(usrFileId),currentUsrId);
     }
 
-    public void updateNameById(Long fileId,String fileName,Long currentUsrId){
+    public void updateNameById(Integer fileId,String fileName,Integer currentUsrId){
         fileName = fileNameFormat(fileName);
         Check.notEmptyCheck(fileId,fileName,currentUsrId);
         updateById(new UsrFile(fileId,fileName),currentUsrId);

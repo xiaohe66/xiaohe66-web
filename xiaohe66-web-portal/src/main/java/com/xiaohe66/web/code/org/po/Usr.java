@@ -11,7 +11,7 @@ public class Usr extends BasePoDetailed {
     private String usrName;
     private String usrPwd;
     private String signature;
-    private Long imgFileId;
+    private Integer imgFileId;
     private String email;
 
     public String getUsrName() {
@@ -38,11 +38,11 @@ public class Usr extends BasePoDetailed {
         this.signature = signature;
     }
 
-    public Long getImgFileId() {
+    public Integer getImgFileId() {
         return imgFileId;
     }
 
-    public void setImgFileId(Long imgFileId) {
+    public void setImgFileId(Integer imgFileId) {
         this.imgFileId = imgFileId;
     }
 

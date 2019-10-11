@@ -7,7 +7,7 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  * @date 18-04-01 001
  */
 public class MessageBoard extends BasePoDetailed{
-    protected Long usrId;
+    protected Integer usrId;
     protected String msg;
 
     /**
@@ -17,16 +17,16 @@ public class MessageBoard extends BasePoDetailed{
 
     public MessageBoard(){}
 
-    public MessageBoard(Long usrId, String msg) {
+    public MessageBoard(Integer usrId, String msg) {
         this.usrId = usrId;
         this.msg = msg;
     }
 
-    public Long getUsrId() {
+    public Integer getUsrId() {
         return usrId;
     }
 
-    public void setUsrId(Long usrId) {
+    public void setUsrId(Integer usrId) {
         this.usrId = usrId;
     }
 

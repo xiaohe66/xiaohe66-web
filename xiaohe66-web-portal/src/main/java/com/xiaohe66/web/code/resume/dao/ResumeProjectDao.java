@@ -17,5 +17,5 @@ public interface ResumeProjectDao extends BaseDao<ResumeProject>{
      * @param resumeId 简历id
      * @return List<ResumeProject>
      */
-    List<ResumeProject> findByResumeId(@Param("resumeId") Long resumeId);
+    List<ResumeProject> findByResumeId(@Param("resumeId") Integer resumeId);
 }

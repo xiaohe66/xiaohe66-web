@@ -5,6 +5,7 @@ import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.dao.UsrFileLogDao;
+import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,13 +44,13 @@ public class UsrFileLogService extends AbstractService<UsrFileLog>{
      * @param currentUsrId 当前操作者id
      */
     @Override
-    public void add(UsrFileLog po, Long currentUsrId) {
+    public void add(UsrFileLog po, Integer currentUsrId) {
         String ip = WebUtils.getRequestIP();
         LOG.debug("ip："+ip);
 
-        Long usrFileId = po.getUsrFileId();
+        Integer usrFileId = po.getUsrFileId();
 
-        Set<Long> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
+        Set<Integer> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
 
         if(CollectionUtils.isNull(usrFileIdSet)){
             usrFileIdSet = new HashSet<>(4);
@@ -74,7 +75,7 @@ public class UsrFileLogService extends AbstractService<UsrFileLog>{
      * @return  id:用户文件id;
      *          count:该文件的下载数量
      */
-    public List<Map<String,Long>> countDownloadOfMonth(Long usrId){
+    public List<UsrFileDownloadCount> countDownloadOfMonth(Integer usrId){
         return usrFileLogDao.countDownloadOfMonth(usrId);
     }
 }

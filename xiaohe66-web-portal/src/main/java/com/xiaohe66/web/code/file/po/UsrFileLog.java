@@ -10,21 +10,21 @@ import java.util.Date;
  */
 public class UsrFileLog extends BasePo{
 
-    private Long createId;
+    private Integer createId;
     private Date createTime;
     private Integer logType;
-    private Long usrFileId;
+    private Integer usrFileId;
     private String ip;
 
-    public UsrFileLog(Long usrFileId) {
+    public UsrFileLog(Integer usrFileId) {
         this.usrFileId = usrFileId;
     }
 
-    public Long getCreateId() {
+    public Integer getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Long createId) {
+    public void setCreateId(Integer createId) {
         this.createId = createId;
     }
 
@@ -44,11 +44,11 @@ public class UsrFileLog extends BasePo{
         this.logType = logType;
     }
 
-    public Long getUsrFileId() {
+    public Integer getUsrFileId() {
         return usrFileId;
     }
 
-    public void setUsrFileId(Long usrFileId) {
+    public void setUsrFileId(Integer usrFileId) {
         this.usrFileId = usrFileId;
     }
 

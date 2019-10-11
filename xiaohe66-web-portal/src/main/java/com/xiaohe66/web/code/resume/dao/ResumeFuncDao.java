@@ -17,5 +17,5 @@ public interface ResumeFuncDao extends BaseDao<ResumeFunc>{
      * @param projectId 项目id
      * @return List<ResumeFunc>
      */
-    List<ResumeFunc> findByProjectId(@Param("projectId") Long projectId);
+    List<ResumeFunc> findByProjectId(@Param("projectId") Integer projectId);
 }

@@ -11,7 +11,7 @@ public class ResumeJobDto extends BaseDtoDetailed{
     /**
      * 对应 commonFile 表 Id
      */
-    private Long imgFileId;
+    private Integer imgFileId;
 
     private String orgName;
     private String orgDesc;
@@ -22,11 +22,11 @@ public class ResumeJobDto extends BaseDtoDetailed{
      */
     private String obligation;
 
-    public Long getImgFileId() {
+    public Integer getImgFileId() {
         return imgFileId;
     }
 
-    public void setImgFileId(Long imgFileId) {
+    public void setImgFileId(Integer imgFileId) {
         this.imgFileId = imgFileId;
     }
 

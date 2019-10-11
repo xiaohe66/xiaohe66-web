@@ -29,7 +29,7 @@ public class ResumeFuncService extends AbstractService<ResumeFunc>{
         this.resumeFuncDao = resumeFuncDao;
     }
 
-    public List<ResumeFuncDto> findDtoByProjectId(Long projectId){
+    public List<ResumeFuncDto> findDtoByProjectId(Integer projectId){
         Check.notNullCheck(projectId);
         List<ResumeFunc> resumeFuncList = resumeFuncDao.findByProjectId(projectId);
         return ClassUtils.convertList(ResumeFuncDto.class, resumeFuncList);

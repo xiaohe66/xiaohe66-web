@@ -7,17 +7,17 @@ package com.xiaohe66.web.base.base;
  * @time 17-10-28 028
  */
 public abstract class BaseDtoDetailed extends BaseDto {
-    protected Long createId;
+    protected Integer createId;
     protected String createTime;
-    protected Long updateId;
+    protected Integer updateId;
     protected String updateTime;
     protected Boolean isDelete;
 
-    public Long getCreateId() {
+    public Integer getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Long createId) {
+    public void setCreateId(Integer createId) {
         this.createId = createId;
     }
 
@@ -29,11 +29,11 @@ public abstract class BaseDtoDetailed extends BaseDto {
         this.createTime = createTime;
     }
 
-    public Long getUpdateId() {
+    public Integer getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Long updateId) {
+    public void setUpdateId(Integer updateId) {
         this.updateId = updateId;
     }
 

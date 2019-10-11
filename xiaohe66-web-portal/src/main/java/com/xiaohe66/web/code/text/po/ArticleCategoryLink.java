@@ -7,34 +7,34 @@ import com.xiaohe66.web.base.base.BasePo;
  * @date 18-03-17 017
  */
 public class ArticleCategoryLink extends BasePo{
-    private Long articleId;
-    private Long categoryId;
+    private Integer articleId;
+    private Integer categoryId;
 
     public ArticleCategoryLink() {
     }
 
-    public ArticleCategoryLink(Long articleId) {
+    public ArticleCategoryLink(Integer articleId) {
         this.articleId = articleId;
     }
 
-    public ArticleCategoryLink(Long articleId, Long categoryId) {
+    public ArticleCategoryLink(Integer articleId, Integer categoryId) {
         this.articleId = articleId;
         this.categoryId = categoryId;
     }
 
-    public Long getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 }

@@ -8,28 +8,28 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  */
 public class ResumeProject extends BasePoDetailed{
 
-    private Long resumeId;
+    private Integer resumeId;
     /**
      * usrFile表id
      */
-    private Long logo;
+    private Integer logo;
     private String projectName;
     private String projectDesc;
     private String projectLink;
 
-    public Long getResumeId() {
+    public Integer getResumeId() {
         return resumeId;
     }
 
-    public void setResumeId(Long resumeId) {
+    public void setResumeId(Integer resumeId) {
         this.resumeId = resumeId;
     }
 
-    public Long getLogo() {
+    public Integer getLogo() {
         return logo;
     }
 
-    public void setLogo(Long logo) {
+    public void setLogo(Integer logo) {
         this.logo = logo;
     }
 

@@ -43,7 +43,7 @@ public class UsrService extends AbstractService<Usr> {
     }
 
     @Override
-    public void updateById(Usr po, Long currentUsrId) {
+    public void updateById(Usr po, Integer currentUsrId) {
         String signature = HtmlUtils.delHtmlTag(po.getSignature());
         if(signature != null ){
             po.setSignature(signature);
@@ -55,8 +55,8 @@ public class UsrService extends AbstractService<Usr> {
         }
     }
 
-    public void updateImgFile(Long imgFileId){
-        Long currentUsrId = UsrHelper.getCurrentUsrId();
+    public void updateImgFile(Integer imgFileId){
+        Integer currentUsrId = UsrHelper.getCurrentUsrId();
 
         Usr usr = new Usr();
         usr.setImgFileId(imgFileId);
@@ -88,7 +88,7 @@ public class UsrService extends AbstractService<Usr> {
      * @param usrId     被查看的用户id，若传入null，则默认使用站长的
      * @return  UsrDto
      */
-    public UsrDto lookAtUsr(Long usrId){
+    public UsrDto lookAtUsr(Integer usrId){
         if(Check.isNull(usrId)){
             usrId = Final.Sys.XIAO_HE_USR_ID;
         }

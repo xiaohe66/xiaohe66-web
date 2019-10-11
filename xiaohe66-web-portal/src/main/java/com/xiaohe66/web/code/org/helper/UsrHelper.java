@@ -21,7 +21,7 @@ public class UsrHelper {
         return usrDto;
     }
 
-    public static Long getCurrentUsrId(){
+    public static Integer getCurrentUsrId(){
         return getCurrentUsr().getId();
     }
 
@@ -29,7 +29,7 @@ public class UsrHelper {
         return WebUtils.getSessionAttr(Final.Str.SESSION_UER_KEY);
     }
 
-    public static Long getCurrentUsrIdNotEx(){
+    public static Integer getCurrentUsrIdNotEx(){
         UsrDto usrDto = getCurrentUsrNotEx();
         return usrDto == null ? null : usrDto.getId();
     }

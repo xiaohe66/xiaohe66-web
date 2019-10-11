@@ -7,8 +7,8 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  * @date 18-10-11 011
  */
 public class ResumeJob extends BasePoDetailed{
-    private Long resumeId;
-    private Long logo;
+    private Integer resumeId;
+    private Integer logo;
     private String orgName;
     private String orgDesc;
     private String startDate;
@@ -18,19 +18,19 @@ public class ResumeJob extends BasePoDetailed{
      */
     private String obligation;
 
-    public Long getResumeId() {
+    public Integer getResumeId() {
         return resumeId;
     }
 
-    public void setResumeId(Long resumeId) {
+    public void setResumeId(Integer resumeId) {
         this.resumeId = resumeId;
     }
 
-    public Long getLogo() {
+    public Integer getLogo() {
         return logo;
     }
 
-    public void setLogo(Long logo) {
+    public void setLogo(Integer logo) {
         this.logo = logo;
     }
 

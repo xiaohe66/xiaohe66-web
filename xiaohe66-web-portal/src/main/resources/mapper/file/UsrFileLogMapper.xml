@@ -9,8 +9,13 @@
         (#{createId},#{createTime},#{usrFileId},#{ip})
     </insert>
 
-    <select id="countDownloadOfMonth" resultType="Map">
-        select usr_file_id as id,count(*) as count from xiaohe66_web_org_usr_file_log
+    <!--<resultMap id="downloadCountMap" type="com.xiaohe66.web.code.file.po.UsrFileDownloadCount">
+        <result column="id" property="id" javaType="int" jdbcType="int"/>
+        <result column="count" property="count" javaType="int" jdbcType="int"/>
+    </resultMap>-->
+
+    <select id="countDownloadOfMonth" resultType="UsrFileDownloadCount">
+        select usr_file_id as id,count(*) as `count` from xiaohe66_web_org_usr_file_log
         <where>
             date_sub(curdate(), INTERVAL 30 DAY) &lt;= create_time
             <if test="usrId != null">

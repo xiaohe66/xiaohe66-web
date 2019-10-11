@@ -9,13 +9,13 @@ import java.io.Serializable;
  * @time 17-10-28 028
  */
 public abstract class BasePo implements Serializable, BaseParam {
-    protected Long id;
+    protected Integer id;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

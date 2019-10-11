@@ -33,7 +33,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param currentUsrId 当前登录用户id
      */
     @Override
-    public void add(T po, Long currentUsrId) {
+    public void add(T po, Integer currentUsrId) {
         daoNotNullCheck();
         if(po == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"po is null");
@@ -53,7 +53,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param currentUsrId 当前登录用户id
      */
     @Override
-    public void addAll(List<T> list,Long currentUsrId) {
+    public void addAll(List<T> list,Integer currentUsrId) {
         daoNotNullCheck();
         if(list == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"list is null");
@@ -76,7 +76,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param id 待删除的数据库id
      */
     @Override
-    public void delByIdOfHard(Long id){
+    public void delByIdOfHard(Integer id){
         daoNotNullCheck();
         if(id == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
@@ -90,7 +90,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param id 待删除的数据库id
      */
     @Override
-    public void delById(Long id,Long currentUsrId){
+    public void delById(Integer id,Integer currentUsrId){
         daoNotNullCheck();
         if(id == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
@@ -102,10 +102,10 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
     /**
      * 通用根据参数删除方法(硬删除，数据库不留数据)
      * @param param 传入mybatis的参数
-     * @return long 删除的数量
+     * @return Integer 删除的数量
      */
 //    @Override
-    protected long delByParamOfHard(BaseParam param){
+    protected Integer delByParamOfHard(BaseParam param){
         if (param == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"param is null");
         }
@@ -115,10 +115,10 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
     /**
      * 通用根据参数删除方法(软删除，数据库保留数据)
      * @param param 传入mybatis的参数
-     * @return long 删除的数量
+     * @return Integer 删除的数量
      */
 //    @Override
-    protected long delByParam(BaseParam param, Long currentUsrId){
+    protected Integer delByParam(BaseParam param, Integer currentUsrId){
         if (param == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"param is null");
         }
@@ -131,7 +131,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param currentUsrId 当前登录用户id
      */
     @Override
-    public void updateById(T po, Long currentUsrId) {
+    public void updateById(T po, Integer currentUsrId) {
         daoNotNullCheck();
         if(po == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"po is null");
@@ -153,7 +153,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @return 对应id实体
      */
     @Override
-    public T findById(Long id) {
+    public T findById(Integer id) {
         daoNotNullCheck();
         if(id == null){
             throw new NullPointerException("id is null");
@@ -167,7 +167,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @param param 传入mybatis的参数
      * @param currentUsrId 当前登录用户id
      */
-    protected void updateByParam(T po, BaseParam param, Long currentUsrId) {
+    protected void updateByParam(T po, BaseParam param, Integer currentUsrId) {
         if (po == null) {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"po is null");
         }
@@ -204,7 +204,7 @@ public abstract class AbstractService<T extends BasePo> implements BaseService<T
      * @return  返回表的数据数量
      */
     @Override
-    public Long count() {
+    public Integer count() {
         daoNotNullCheck();
         return baseDao.count();
     }

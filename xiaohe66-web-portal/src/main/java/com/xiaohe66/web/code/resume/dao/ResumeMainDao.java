@@ -15,5 +15,5 @@ public interface ResumeMainDao extends BaseDao<ResumeMain>{
      * @param usrId usrId
      * @return ResumeMain
      */
-    ResumeMain findByUsrId(@Param("usrId") Long usrId);
+    ResumeMain findByUsrId(@Param("usrId") Integer usrId);
 }

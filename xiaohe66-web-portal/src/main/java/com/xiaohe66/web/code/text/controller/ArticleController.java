@@ -29,13 +29,13 @@ public class ArticleController {
     private ArticleService articleService;
 
     @Post
-    public Long add(Article article,@RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
+    public Integer add(Article article,@RequestParam(value = "perCategoryIds[]",required=false) Integer[] perCategoryIds){
         articleService.add(article,perCategoryIds);
         return article.getId();
     }
 
     @Get("/{id}")
-    public ArticleDto findById(@PathVariable("id") Long id){
+    public ArticleDto findById(@PathVariable("id") Integer id){
         Article article = articleService.findById(id);
         return ClassUtils.convert(ArticleDto.class,article);
     }
@@ -60,7 +60,7 @@ public class ArticleController {
 
     @Paging
     @Get("/usr/{lookUsrId}")
-    public List<ArticleDto> list2(@PathVariable("lookUsrId") Long lookUsrId){
+    public List<ArticleDto> list2(@PathVariable("lookUsrId") Integer lookUsrId){
         return articleService.findDtoByUsrId(lookUsrId,Final.Article.SECRET_LEVEL_PUBLIC);
     }
 
@@ -77,13 +77,13 @@ public class ArticleController {
     }
 
     @Put
-    public Long update(Article article,@RequestParam(value = "perCategoryIds[]",required=false) Long[] perCategoryIds){
+    public Integer update(Article article,@RequestParam(value = "perCategoryIds[]",required=false) Integer[] perCategoryIds){
         articleService.updateById(article,perCategoryIds);
         return article.getId();
     }
 
     @Del("/{id}")
-    public void delete(@PathVariable("id") Long id){
+    public void delete(@PathVariable("id") Integer id){
         articleService.delById(id, UsrHelper.getCurrentUsrId());
     }
 }

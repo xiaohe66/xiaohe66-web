@@ -11,12 +11,12 @@ public class UsrFile extends BasePoDetailed {
     private String fileName;
     private String fileDesc;
     private Integer fileType;
-    private Long fileId;
+    private Integer fileId;
     private String extension;
 
     public UsrFile(){}
 
-    public UsrFile(Long id,String fileName) {
+    public UsrFile(Integer id,String fileName) {
         super.id = id;
         this.fileName = fileName;
     }
@@ -29,11 +29,11 @@ public class UsrFile extends BasePoDetailed {
         this.fileName = fileName;
     }
 
-    public Long getFileId() {
+    public Integer getFileId() {
         return fileId;
     }
 
-    public void setFileId(Long fileId) {
+    public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
 

@@ -39,7 +39,7 @@ public class ResumeProjectService extends AbstractService<ResumeProject>{
         this.resumeProjectDao = resumeProjectDao;
     }
 
-    public List<ResumeProjectDto> findDtoByResumeId(Long resumeId){
+    public List<ResumeProjectDto> findDtoByResumeId(Integer resumeId){
 
         List<ResumeProject> resumeProjectList =  resumeProjectDao.findByResumeId(resumeId);
         return ClassUtils.convertList(ResumeProjectDto.class,resumeProjectList,(dto,po)->{

@@ -55,24 +55,24 @@ public class UsrFileController {
     }
 
     @Put("/{id}")
-    public void update(@PathVariable("id")Long id,String fileName){
+    public void update(@PathVariable("id")Integer id,String fileName){
         usrFileService.updateNameById(id,fileName, UsrHelper.getCurrentUsrId());
     }
 
     @Del("/{id}")
-    public void del(@PathVariable("id")Long id){
+    public void del(@PathVariable("id")Integer id){
         usrFileService.delById(id,UsrHelper.getCurrentUsrId());
     }
 
     @Post("/head")
-    public Long uploadHeadImg(@RequestParam("file") MultipartFile file, String md5){
-        Long imgFileId =  usrFileService.uploadImg(file,md5,UsrHelper.getCurrentUsrId(),UsrFileService.USR_HEAD_IMG_FILE_TYPE);
+    public Integer uploadHeadImg(@RequestParam("file") MultipartFile file, String md5){
+        Integer imgFileId =  usrFileService.uploadImg(file,md5,UsrHelper.getCurrentUsrId(),UsrFileService.USR_HEAD_IMG_FILE_TYPE);
         usrService.updateImgFile(imgFileId);
         return imgFileId;
     }
 
     @Post("/article")
-    public Long uploadArticleImg(@RequestParam("file") MultipartFile file, String md5){
+    public Integer uploadArticleImg(@RequestParam("file") MultipartFile file, String md5){
         return usrFileService.uploadImg(file,md5,UsrHelper.getCurrentUsrId(),UsrFileService.USR_ARTICLE_IMG_FILE_TYPE);
     }
 

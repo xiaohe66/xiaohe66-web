@@ -48,7 +48,7 @@ public interface Final {
         /**
          * xiaohe usrId
          */
-        long XIAO_HE_USR_ID = 3;
+        int XIAO_HE_USR_ID = 3;
     }
 
     /**

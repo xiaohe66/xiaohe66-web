@@ -28,14 +28,14 @@ public class TextCategoryService extends AbstractService<TextCategory> {
         this.categoryDao = textCategoryDao;
     }
 
-    public List<TextCategory> findByPid(Long pid){
+    public List<TextCategory> findByPid(Integer pid){
         if(Check.isOneNull(pid)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"pid is null");
         }
         return categoryDao.findByPid(pid);
     }
 
-    public List<TextCategory> findByUsrId(Long usrId){
+    public List<TextCategory> findByUsrId(Integer usrId){
         if(Check.isOneNull(usrId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrId is null");
         }
@@ -45,14 +45,14 @@ public class TextCategoryService extends AbstractService<TextCategory> {
         return findByParam(param);
     }
 
-    public String findNamesByArticleId(Long articleId){
+    public String findNamesByArticleId(Integer articleId){
         if(Check.isOneNull(articleId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"articleId is null");
         }
         return categoryDao.findNamesByArticleId(articleId);
     }
 
-    public List<TextCategory> findByArticleId(Long articleId){
+    public List<TextCategory> findByArticleId(Integer articleId){
         if(Check.isOneNull(articleId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"articleId is null");
         }

@@ -9,21 +9,21 @@ import java.util.Date;
  * @date 18-04-16 016
  */
 public class ArticleLog extends BasePo{
-    private Long createId;
+    private Integer createId;
     private Date createTime;
     private Integer logType;
-    private Long articleId;
+    private Integer articleId;
     private String ip;
 
-    public ArticleLog(Long articleId) {
+    public ArticleLog(Integer articleId) {
         this.articleId = articleId;
     }
 
-    public Long getCreateId() {
+    public Integer getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Long createId) {
+    public void setCreateId(Integer createId) {
         this.createId = createId;
     }
 
@@ -43,11 +43,11 @@ public class ArticleLog extends BasePo{
         this.logType = logType;
     }
 
-    public Long getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
 

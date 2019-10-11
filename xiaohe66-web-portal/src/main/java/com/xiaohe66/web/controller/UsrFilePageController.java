@@ -72,12 +72,12 @@ public class UsrFilePageController {
 
 
     @Page("/img/{id}")
-    public void showImg(HttpServletResponse response, @PathVariable("id")Long id){
+    public void showImg(HttpServletResponse response, @PathVariable("id")Integer id){
         usrFileService.showImg(response,id);
     }
 
     @Page("/download/{id}")
-    public void download(HttpServletResponse response,@PathVariable("id")Long id){
+    public void download(HttpServletResponse response,@PathVariable("id")Integer id){
         usrFileService.downloadFile(response,id,UsrHelper.getCurrentUsrId());
     }
 

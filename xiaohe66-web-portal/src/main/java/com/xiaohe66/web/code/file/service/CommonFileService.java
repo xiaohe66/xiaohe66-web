@@ -213,7 +213,7 @@ public class CommonFileService extends AbstractService<CommonFile>{
      * @param multipartFile 文件
      * @param md5           文件的md5值
      */
-    public CommonFile uploadFileDefault(Long currentUsrId,MultipartFile multipartFile, String md5){
+    public CommonFile uploadFileDefault(Integer currentUsrId,MultipartFile multipartFile, String md5){
         Check.notEmptyCheck(currentUsrId,multipartFile,md5);
 
         CommonFile commonFile = findByMd5(md5);
@@ -251,7 +251,7 @@ public class CommonFileService extends AbstractService<CommonFile>{
         this.updateByParam(commonFile,commonFile,null);
     }
 
-    public void outputFile(Long id,OutputStream outputStream){
+    public void outputFile(Integer id,OutputStream outputStream){
         Check.notEmptyCheck(id);
         CommonFile commonFile = findById(id);
         String url = fileHomeUrl + commonFile.getFileUrl();

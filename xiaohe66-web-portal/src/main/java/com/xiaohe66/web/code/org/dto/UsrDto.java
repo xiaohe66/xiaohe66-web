@@ -11,7 +11,7 @@ public class UsrDto extends BaseDto {
 
     private String usrName;
     private String signature;
-    private Long imgFileId;
+    private Integer imgFileId;
     private String email;
 
     public UsrDto(){
@@ -39,11 +39,11 @@ public class UsrDto extends BaseDto {
         this.signature = signature;
     }
 
-    public Long getImgFileId() {
+    public Integer getImgFileId() {
         return imgFileId;
     }
 
-    public void setImgFileId(Long imgFileId) {
+    public void setImgFileId(Integer imgFileId) {
         this.imgFileId = imgFileId;
     }
 

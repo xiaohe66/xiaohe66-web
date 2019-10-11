@@ -8,16 +8,16 @@ import com.xiaohe66.web.base.base.BaseDtoDetailed;
  */
 public class Obj2 extends BaseDtoDetailed{
 
-    private Long id;
+    private Integer id;
     private int integer;
     private String string;
 
     private String obj1NotHave;
 
-    private long typeDifferent;
+    private Integer typeDifferent;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -33,7 +33,7 @@ public class Obj2 extends BaseDtoDetailed{
         return obj1NotHave;
     }
 
-    public long getTypeDifferent() {
+    public Integer getTypeDifferent() {
         return typeDifferent;
     }
 

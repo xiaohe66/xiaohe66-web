@@ -12,6 +12,8 @@ import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Stream;
+
 /**
  * 用户角色关联service
  *
@@ -33,18 +35,21 @@ public class UsrRoleService extends AbstractService<UsrRole>{
         this.usrRoleDao = usrRoleDao;
     }
 
-    public void addDefaultUsrRole(Long usrId){
+    public void addDefaultUsrRole(Integer usrId){
         if(Check.isNull(usrId)){
             throw new XhException(CodeEnum.PARAM_ERR,"usrId is null");
         }
-        //xh todo:需要优化掉string转long代码
+        //xh todo:需要优化掉string转Integer代码
         String cfgKeysStr = SysCfgHelper.getString(Final.Str.DEFAULT_ROLE_IDS_KEY);
         String[] roleStrIds =  cfgKeysStr.split(",");
-        Long[] roleIds = StrUtils.toLongNotException(roleStrIds);
+        Integer[] roleIds = new Integer[roleStrIds.length];
+        for (int i = 0; i < roleStrIds.length; i++) {
+            roleIds[i] = StrUtils.toIntNotException(roleStrIds[i]);
+        }
         this.addUsrRoles(usrId,roleIds);
     }
 
-    public void addUsrRoles(Long usrId, Long[] roleIds){
+    public void addUsrRoles(Integer usrId, Integer[] roleIds){
         if(Check.isNull(usrId)){
             throw new XhException(CodeEnum.PARAM_ERR,"usrId is null");
         }

@@ -40,7 +40,7 @@ public class ResumeMainService extends AbstractService<ResumeMain>{
         this.resumeMainDao = resumeMainDao;
     }
 
-    public ResumeMainDto findDtoByUsrId(Long usrId){
+    public ResumeMainDto findDtoByUsrId(Integer usrId){
         ResumeMain resumeMain = resumeMainDao.findByUsrId(usrId);
         ResumeMainDto resumeMainDto =  ClassUtils.convert(ResumeMainDto.class,resumeMain);
         loadDto(resumeMainDto,resumeMain);
@@ -64,7 +64,7 @@ public class ResumeMainService extends AbstractService<ResumeMain>{
                 LOG.info("无法识别的学历："+resumeMain.getEducation());
         }
 
-        Long resumeId = resumeMain.getId();
+        Integer resumeId = resumeMain.getId();
 
         //工作经历
         resumeMainDto.setResumeJobDtoList(resumeJobService.findDtoByResumeId(resumeId));

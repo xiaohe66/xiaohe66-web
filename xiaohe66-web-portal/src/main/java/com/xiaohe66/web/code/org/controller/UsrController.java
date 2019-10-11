@@ -22,7 +22,7 @@ public class UsrController{
 
     @Put
     public void update(String signature){
-        Long currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UsrHelper.getCurrentUsrId();
 
         Usr usr = new Usr();
         usr.setId(currentUsrId);

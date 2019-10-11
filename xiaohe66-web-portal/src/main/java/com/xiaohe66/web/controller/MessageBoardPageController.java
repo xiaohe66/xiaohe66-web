@@ -41,7 +41,7 @@ public class MessageBoardPageController {
     }
 
     @Page("/index/{usrId}")
-    public String index(Model model,@PathVariable("usrId") Long usrId){
+    public String index(Model model,@PathVariable("usrId") Integer usrId){
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
         usrId = null;
         UsrDto usrDto = usrService.lookAtUsr(usrId);

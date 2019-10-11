@@ -20,6 +20,7 @@ import com.xiaohe66.web.code.text.dto.ArticleDto;
 import com.xiaohe66.web.code.text.param.ArticleParam;
 import com.xiaohe66.web.code.text.po.Article;
 import com.xiaohe66.web.code.text.po.ArticleCategoryLink;
+import com.xiaohe66.web.code.text.po.ArticleDownloadCount;
 import com.xiaohe66.web.code.text.po.TextCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +93,7 @@ public class ArticleService extends AbstractService<Article>{
      */
     @Deprecated
     @Override
-    public void updateById(Article article, Long currentUsrId) {
+    public void updateById(Article article, Integer currentUsrId) {
         throw new XhException(CodeEnum.DISABLE_FUNCTION,"pls invoke updateById(p1,p2,p3)");
     }
 
@@ -102,7 +103,7 @@ public class ArticleService extends AbstractService<Article>{
      * @param perCategoryIds
      */
     @Transactional(rollbackFor = Exception.class)
-    public void updateById(Article article,Long[] perCategoryIds) {
+    public void updateById(Article article,Integer[] perCategoryIds) {
         if(Check.isNull(article) || Check.isNull(article.getId())){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"article or id is null");
         }
@@ -110,7 +111,7 @@ public class ArticleService extends AbstractService<Article>{
         if(Check.isNull(dbArticle)){
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND,"object not found");
         }
-        Long currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UsrHelper.getCurrentUsrId();
         if(!currentUsrId.equals(dbArticle.getCreateId())){
             throw new XhException(CodeEnum.NOT_PERMISSION,"this article not is current usr article");
         }
@@ -120,7 +121,7 @@ public class ArticleService extends AbstractService<Article>{
         articleCategoryLinkService.delByArticleId(dbArticle.getId());
         if(Check.isNotEmpty(perCategoryIds)){
             List<ArticleCategoryLink> linkList = new ArrayList<>(perCategoryIds.length);
-            for (Long perCategoryId : perCategoryIds) {
+            for (Integer perCategoryId : perCategoryIds) {
                 linkList.add(new ArticleCategoryLink(article.getId(),perCategoryId));
             }
             //增加新的个人分类关联
@@ -135,7 +136,7 @@ public class ArticleService extends AbstractService<Article>{
      */
     @Deprecated
     @Override
-    public void add(Article article, Long currentUsrId) {
+    public void add(Article article, Integer currentUsrId) {
         throw new XhException(CodeEnum.DISABLE_FUNCTION,"pls invoke add(p1,p2,p3)");
     }
 
@@ -145,11 +146,11 @@ public class ArticleService extends AbstractService<Article>{
      * @param perCategoryIds    文章个人分类
      */
     @Transactional(rollbackFor = Exception.class)
-    public void add(Article article,Long[] perCategoryIds){
+    public void add(Article article,Integer[] perCategoryIds){
 
         Check.notEmptyCheck(article.getText(),article.getSysCategoryId());
 
-        Long currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UsrHelper.getCurrentUsrId();
 
         if (article.getSecretLevel() == null) {
             article.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
@@ -160,7 +161,7 @@ public class ArticleService extends AbstractService<Article>{
 
         if(Check.isNotEmpty(perCategoryIds)){
             List<ArticleCategoryLink> linkList = new ArrayList<>();
-            for (Long perCategoryId : perCategoryIds) {
+            for (Integer perCategoryId : perCategoryIds) {
                 ArticleCategoryLink link = new ArticleCategoryLink(article.getId(),perCategoryId);
                 linkList.add(link);
             }
@@ -173,11 +174,11 @@ public class ArticleService extends AbstractService<Article>{
      * @param usrId     待查询的用户id，传入null时默认为站长的id
      * @return      对应用户的文章列表
      */
-    public List<Article> findByUsrId(Long usrId,Integer secretLevel){
+    public List<Article> findByUsrId(Integer usrId,Integer secretLevel){
         if(Check.isOneNull(usrId)){
             //默认显示站长的列表
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-            usrId = StrUtils.toLong(usrIdStr);
+            usrId = StrUtils.toInt(usrIdStr);
         }
         ArticleParam param = new ArticleParam();
         param.setCreateId(usrId);
@@ -186,11 +187,11 @@ public class ArticleService extends AbstractService<Article>{
         return articleDao.findByParam(param);
     }
 
-    public List<ArticleDto> findDtoByUsrId(Long usrId,Integer secretLevel){
+    public List<ArticleDto> findDtoByUsrId(Integer usrId,Integer secretLevel){
         return installDto(findByUsrId(usrId,secretLevel));
     }
 
-    public ArticleDto findDtoById(Long id){
+    public ArticleDto findDtoById(Integer id){
         Check.notEmptyCheck(id);
         Article article = this.findById(id);
 
@@ -199,7 +200,7 @@ public class ArticleService extends AbstractService<Article>{
 
             //只有文章作者是自己 或者 文章的私密等级是公开时，才能查看
             if(Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()){
-                Long currentUsrId = UsrHelper.getCurrentUsrId();
+                Integer currentUsrId = UsrHelper.getCurrentUsrId();
                 if(!currentUsrId.equals(article.getCreateId())){
                     throw new MsgException(CodeEnum.NOT_PERMISSION);
                 }
@@ -219,7 +220,7 @@ public class ArticleService extends AbstractService<Article>{
         ArticleParam param = new ArticleParam();
         if(onlyWebmaster){
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-            param.setCreateId(StrUtils.toLong(usrIdStr));
+            param.setCreateId(StrUtils.toInt(usrIdStr));
         }
         if(StrUtils.isNotEmpty(search)){
             param.setTitle("%"+search+"%");
@@ -276,16 +277,16 @@ public class ArticleService extends AbstractService<Article>{
      * @param usrId 传入用户id，则查该用户的，否则查全部用户的
      * @return  热门文章top5
      */
-    public List<ArticleDto> findDtoHotTop5(Long usrId){
+    public List<ArticleDto> findDtoHotTop5(Integer usrId){
         final int hotSize = 5;
         int i = 0;
         List<ArticleDto> articleDtoList = new ArrayList<>(hotSize);
-        List<Map<String,Long>> mapList = articleLogService.countDownloadOfMonth(usrId);
-        for (Map<String, Long> map : mapList) {
+        List<ArticleDownloadCount> downloadCountList = articleLogService.countDownloadOfMonth(usrId);
+        for (ArticleDownloadCount downloadCount : downloadCountList) {
 
             ArticleParam param = new ArticleParam();
             param.setSecretLevel(Final.Article.PUBLISH_STATE_NOT_PUBLISH);
-            param.setId(map.get("id"));
+            param.setId(downloadCount.getId());
 
             List<Article> articleList = findByParam(param);
             if(articleList == null || articleList.size() == 0){
@@ -295,7 +296,7 @@ public class ArticleService extends AbstractService<Article>{
             ArticleDto articleDto = ClassUtils.convert(ArticleDto.class,articleList.get(0));
             articleDtoList.add(articleDto);
 
-            articleDto.setCount(map.get("count"));
+            articleDto.setCount(downloadCount.getCount());
 
             if(++i >= hotSize){
                 break;

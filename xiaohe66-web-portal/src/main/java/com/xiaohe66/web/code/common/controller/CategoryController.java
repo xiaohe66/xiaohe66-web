@@ -26,13 +26,13 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Get("/{id}")
-    public CategoryDto get(@PathVariable("id") Long id){
+    public CategoryDto get(@PathVariable("id") Integer id){
         Category category = categoryService.findById(id);
         return ClassUtils.convert(CategoryDto.class,category);
     }
 
     @Post
-    public Long add(Category category){
+    public Integer add(Category category){
         categoryService.add(category, UsrHelper.getCurrentUsrId());
         return category.getId();
     }
@@ -43,12 +43,12 @@ public class CategoryController {
     }
 
     @Del("/{id}")
-    public void del(@PathVariable("id")Long id){
+    public void del(@PathVariable("id")Integer id){
         categoryService.delById(id, UsrHelper.getCurrentUsrId());
     }
 
     @Get("/p/{pid}")
-    public List<CategoryDto> getByPid(@PathVariable("pid")Long pid){
+    public List<CategoryDto> getByPid(@PathVariable("pid")Integer pid){
         List<Category> categoryList = categoryService.findByPid(pid);
         return ClassUtils.convertList(CategoryDto.class,categoryList);
     }

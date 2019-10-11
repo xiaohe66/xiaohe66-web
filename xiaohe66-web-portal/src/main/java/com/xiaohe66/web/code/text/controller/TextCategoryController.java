@@ -26,7 +26,7 @@ public class TextCategoryController {
     private TextCategoryService categoryService;
 
     @Get("/{id}")
-    public TextCategoryDto get(@PathVariable("id") Long id){
+    public TextCategoryDto get(@PathVariable("id") Integer id){
         TextCategory textCategory = categoryService.findById(id);
         return ClassUtils.convert(TextCategoryDto.class, textCategory);
     }
@@ -43,12 +43,12 @@ public class TextCategoryController {
     }
 
     @Del("/{id}")
-    public void del(@PathVariable("id")Long id){
+    public void del(@PathVariable("id")Integer id){
         categoryService.delById(id,UsrHelper.getCurrentUsrId());
     }
 
     @Get("/p/{pid}")
-    public List<TextCategoryDto> getByPid(@PathVariable("pid")Long pid){
+    public List<TextCategoryDto> getByPid(@PathVariable("pid")Integer pid){
         List<TextCategory> textCategoryList = categoryService.findByPid(pid);
         return ClassUtils.convertList(TextCategoryDto.class, textCategoryList);
     }

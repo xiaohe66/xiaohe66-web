@@ -28,8 +28,8 @@ public class ResumeProjectPageController {
     private ResumeProjectService resumeProjectService;
 
     @Page("/{resumeId}")
-    public String index(Model model, @PathVariable("resumeId") Long resumeId){
-        Long xhUsrId = SysCfgHelper.findXhUsrId();
+    public String index(Model model, @PathVariable("resumeId") Integer resumeId){
+        Integer xhUsrId = SysCfgHelper.findXhUsrId();
         model.addAttribute("title","小何的简历-项目详情");
         model.addAttribute("usrDivTitle","小何");
         model.addAttribute("usrDto",usrService.lookAtUsr(xhUsrId));

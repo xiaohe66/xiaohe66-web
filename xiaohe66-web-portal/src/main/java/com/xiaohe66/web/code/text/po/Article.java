@@ -11,7 +11,7 @@ public class Article extends BasePoDetailed {
     private String text;
     private String title;
     private Integer secretLevel;
-    private Long sysCategoryId;
+    private Integer sysCategoryId;
     private Boolean isPublish;
 
     public String getText() {
@@ -46,11 +46,11 @@ public class Article extends BasePoDetailed {
         this.secretLevel = secretLevel;
     }
 
-    public Long getSysCategoryId() {
+    public Integer getSysCategoryId() {
         return sysCategoryId;
     }
 
-    public void setSysCategoryId(Long sysCategoryId) {
+    public void setSysCategoryId(Integer sysCategoryId) {
         this.sysCategoryId = sysCategoryId;
     }
 

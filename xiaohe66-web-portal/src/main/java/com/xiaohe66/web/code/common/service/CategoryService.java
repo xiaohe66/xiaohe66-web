@@ -30,7 +30,7 @@ public class CategoryService extends AbstractService<Category> {
         this.categoryDao = categoryDao;
     }
 
-    public List<Category> findByPid(Long pid){
+    public List<Category> findByPid(Integer pid){
         if(Check.isOneNull(pid)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"pid is null");
         }
@@ -39,6 +39,6 @@ public class CategoryService extends AbstractService<Category> {
 
     public List<Category> findTextSysCategory(){
         String val = SysCfgHelper.getString(Final.Str.DEFAULT_ARTICLE_PID);
-        return findByPid(StrUtils.toLongNotException(val));
+        return findByPid(StrUtils.toIntNotException(val));
     }
 }

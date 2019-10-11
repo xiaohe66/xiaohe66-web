@@ -25,7 +25,7 @@ public class ArticleCategoryLinkService extends AbstractService<ArticleCategoryL
         this.articleCategoryLinkDao = articleCategoryLinkDao;
     }
 
-    public void delByArticleId(Long articleId){
+    public void delByArticleId(Integer articleId){
         Check.notEmptyCheck(articleId);
         delByParamOfHard(new ArticleCategoryLink(articleId));
     }

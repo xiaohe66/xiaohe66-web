@@ -13,7 +13,7 @@ public class ResumeProjectDto extends BaseDtoDetailed{
     /**
      * 项目图片（logo），commonFile 表 id
      */
-    private Long imgFileId;
+    private Integer imgFileId;
     private String projectName;
     private String projectDesc;
     private String projectLink;
@@ -28,11 +28,11 @@ public class ResumeProjectDto extends BaseDtoDetailed{
         this.resumeFuncDtoList = resumeFuncDtoList;
     }
 
-    public Long getImgFileId() {
+    public Integer getImgFileId() {
         return imgFileId;
     }
 
-    public void setImgFileId(Long imgFileId) {
+    public void setImgFileId(Integer imgFileId) {
         this.imgFileId = imgFileId;
     }
 

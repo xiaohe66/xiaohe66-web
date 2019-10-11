@@ -50,7 +50,7 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      */
     @Deprecated
     @Override
-    public void add(MessageBoard po, Long currentUsrId) {
+    public void add(MessageBoard po, Integer currentUsrId) {
         throw new XhException(CodeEnum.DISABLE_FUNCTION,"invoke add(?,?,?) pls");
     }
 
@@ -60,14 +60,14 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      * @param usrId     被留言的用户
      * @param anonymity  匿名留言名称
      */
-    public MessageBoard add(String msg,Long usrId,String anonymity){
+    public MessageBoard add(String msg,Integer usrId,String anonymity){
         msg = HtmlUtils.delHtmlTag(msg);
         Check.notEmptyCheck(msg,usrId);
 
         MessageBoard messageBoard = new MessageBoard(usrId,msg);
         messageBoard.setAnonymity(anonymity);
 
-        Long currentUsrId = UsrHelper.getCurrentUsrIdNotEx();
+        Integer currentUsrId = UsrHelper.getCurrentUsrIdNotEx();
 
         LOG.info("增加一条留言：msg="+msg+",留言者="+(anonymity == null ? currentUsrId : anonymity));
         super.add(messageBoard,currentUsrId);
@@ -79,10 +79,10 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
      * @param usrId 被留言的用户id，默认为站长
      * @return  List<MessageBoardDto>
      */
-    public List<MessageBoardDto> findByUsrId(Long usrId){
+    public List<MessageBoardDto> findByUsrId(Integer usrId){
         if(usrId == null){
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-            usrId = StrUtils.toLong(usrIdStr);
+            usrId = StrUtils.toInt(usrIdStr);
         }
 
         List<MessageBoard> messageBoardList = super.findByParam(new MessageBoardParam(usrId));
@@ -95,7 +95,7 @@ public class MessageBoardService extends AbstractService<MessageBoard>{
                 messageBoardDto.setImgFileId(usr.getImgFileId());
             }else{
                 messageBoardDto.setUsrName(messageBoard.getAnonymity());
-                messageBoardDto.setImgFileId(1L);
+                messageBoardDto.setImgFileId(1);
             }
         });
     }

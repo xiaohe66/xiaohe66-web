@@ -15,14 +15,14 @@ public interface TextCategoryDao extends BaseDao<TextCategory> {
      * @param pid pid
      * @return List<TextCategory>
      */
-    List<TextCategory> findByPid(Long pid);
+    List<TextCategory> findByPid(Integer pid);
 
     /**
      * 查询某个文章的所有分类，将其名称用“、”连接起来返回
      * @param articleId     文章id
      * @return  string  分类1、分类2
      */
-    String findNamesByArticleId(Long articleId);
+    String findNamesByArticleId(Integer articleId);
 
 
     /**
@@ -30,5 +30,5 @@ public interface TextCategoryDao extends BaseDao<TextCategory> {
      * @param articleId     文章id
      * @return  string  分类1、分类2
      */
-    List<TextCategory> findByArticleId(Long articleId);
+    List<TextCategory> findByArticleId(Integer articleId);
 }

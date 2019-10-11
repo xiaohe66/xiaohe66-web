@@ -19,6 +19,6 @@ public interface UsrRoleDao extends BaseDao<UsrRole>{
      * @param usrId     用户id
      * @param roleIds   角色id数组
      */
-    void addUsrRoles(@Param("usrId") Long usrId, @Param("list") Long[] roleIds);
+    void addUsrRoles(@Param("usrId") Integer usrId, @Param("list") Integer[] roleIds);
 
 }

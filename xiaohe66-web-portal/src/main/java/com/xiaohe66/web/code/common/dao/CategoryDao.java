@@ -15,5 +15,5 @@ public interface CategoryDao extends BaseDao<Category> {
      * @param pid pid
      * @return List<TextCategory>
      */
-    List<Category> findByPid(Long pid);
+    List<Category> findByPid(Integer pid);
 }

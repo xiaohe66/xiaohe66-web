@@ -7,17 +7,17 @@ import java.util.Date;
  * @time 17-11-08 008
  */
 public abstract class BasePoDetailed extends BasePo {
-    protected Long createId;
+    protected Integer createId;
     protected Date createTime;
-    protected Long updateId;
+    protected Integer updateId;
     protected Date updateTime;
     protected Boolean isDelete;
 
-    public Long getCreateId() {
+    public Integer getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Long createId) {
+    public void setCreateId(Integer createId) {
         this.createId = createId;
     }
 
@@ -29,11 +29,11 @@ public abstract class BasePoDetailed extends BasePo {
         this.createTime = createTime;
     }
 
-    public Long getUpdateId() {
+    public Integer getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Long updateId) {
+    public void setUpdateId(Integer updateId) {
         this.updateId = updateId;
     }
 

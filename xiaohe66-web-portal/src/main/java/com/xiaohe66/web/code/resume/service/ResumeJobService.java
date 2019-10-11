@@ -37,7 +37,7 @@ public class ResumeJobService extends AbstractService<ResumeJob>{
         this.resumeJobDao = resumeJobDao;
     }
 
-    public List<ResumeJobDto> findDtoByResumeId(Long resumeId){
+    public List<ResumeJobDto> findDtoByResumeId(Integer resumeId){
         Check.notNullCheck(resumeId);
         List<ResumeJob> resumeJobList = resumeJobDao.findByResumeId(resumeId);
 
