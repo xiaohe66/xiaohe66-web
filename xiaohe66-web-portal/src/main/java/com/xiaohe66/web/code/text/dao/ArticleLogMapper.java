@@ -1,6 +1,6 @@
 package com.xiaohe66.web.code.text.dao;
 
-import com.xiaohe66.web.base.base.BaseDao;
+import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.text.po.ArticleDownloadCount;
 import com.xiaohe66.web.code.text.po.ArticleLog;
 import org.apache.ibatis.annotations.Param;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author xh
  * @date 18-04-16 016
  */
-public interface ArticleLogDao extends BaseDao<ArticleLog> {
+public interface ArticleLogMapper extends IBaseMapper<ArticleLog> {
 
     /**
      * 月查看数量

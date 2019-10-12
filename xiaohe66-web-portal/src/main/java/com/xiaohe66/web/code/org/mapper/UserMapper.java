@@ -1,28 +1,28 @@
-package com.xiaohe66.web.code.org.dao;
+package com.xiaohe66.web.code.org.mapper;
 
-import com.xiaohe66.web.base.base.BaseDao;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.base.base.IBaseMapper;
+import com.xiaohe66.web.code.org.po.User;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * @author xiaohe
  * @time 17-10-28 028
  */
-public interface UsrDao extends BaseDao<Usr> {
+public interface UserMapper extends IBaseMapper<User> {
 
     /**
      * 根据用户名查询
      * @param usrName   用户名
      * @return  Usr
      */
-    Usr findByUsrName(String usrName);
+    User findByUsrName(String usrName);
 
     /**
      * 根据邮箱地址查询
      * @param email   邮箱地址
      * @return  Usr
      */
-    Usr findByEmail(String email);
+    User findByEmail(String email);
 
     /**
      * 根据用户名和密码查询
@@ -30,7 +30,7 @@ public interface UsrDao extends BaseDao<Usr> {
      * @param usrPwd    密码
      * @return  Usr
      */
-    Usr findByUsrNameAndPwd(String usrName, String usrPwd);
+    User findByUsrNameAndPwd(String usrName, String usrPwd);
 
 
     /**

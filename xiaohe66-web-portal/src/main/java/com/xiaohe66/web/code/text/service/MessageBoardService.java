@@ -9,10 +9,10 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UsrService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
-import com.xiaohe66.web.code.text.dao.MessageBoardDao;
+import com.xiaohe66.web.code.text.dao.MessageBoardMapper;
 import com.xiaohe66.web.code.text.dto.MessageBoardDto;
 import com.xiaohe66.web.code.text.param.MessageBoardParam;
 import com.xiaohe66.web.code.text.po.MessageBoard;
@@ -28,7 +28,7 @@ import java.util.List;
  * @date 18-04-01 001
  */
 @Service
-public class MessageBoardService extends AbstractService<MessageBoardDao,MessageBoard>{
+public class MessageBoardService extends AbstractService<MessageBoardMapper,MessageBoard>{
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageBoardService.class);
 
@@ -82,9 +82,9 @@ public class MessageBoardService extends AbstractService<MessageBoardDao,Message
         return ClassUtils.convertList(MessageBoardDto.class,messageBoardList,(messageBoardDto,messageBoard)->{
             String anonymity = messageBoard.getAnonymity();
             if(anonymity == null || anonymity.length() == 0){
-                Usr usr = usrService.findById(messageBoard.getCreateId());
-                messageBoardDto.setUsrName(usr.getUsrName());
-                messageBoardDto.setImgFileId(usr.getImgFileId());
+                User user = usrService.findById(messageBoard.getCreateId());
+                messageBoardDto.setUsrName(user.getUsrName());
+                messageBoardDto.setImgFileId(user.getImgFileId());
             }else{
                 messageBoardDto.setUsrName(messageBoard.getAnonymity());
                 messageBoardDto.setImgFileId(1);

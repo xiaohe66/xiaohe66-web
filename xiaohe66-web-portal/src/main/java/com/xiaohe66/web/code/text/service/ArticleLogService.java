@@ -8,7 +8,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.text.dao.ArticleLogDao;
+import com.xiaohe66.web.code.text.dao.ArticleLogMapper;
 import com.xiaohe66.web.code.text.po.ArticleDownloadCount;
 import com.xiaohe66.web.code.text.po.ArticleLog;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import java.util.Set;
  * @date 18-04-16 016
  */
 @Service
-public class ArticleLogService extends AbstractService<ArticleLogDao, ArticleLog> {
+public class ArticleLogService extends AbstractService<ArticleLogMapper, ArticleLog> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArticleLogService.class);
 

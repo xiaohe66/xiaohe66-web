@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.base.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xiaohe66.web.base.base.BaseDao;
+import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.base.base.BaseParam;
 import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.base.BasePoDetailed;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author xiaohe
  * @time 17-10-28 028
  */
-public abstract class AbstractService<M extends BaseDao<T>, T extends BasePo>
+public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo>
         extends ServiceImpl<M, T>
         implements BaseService<T> {
 

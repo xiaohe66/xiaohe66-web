@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiaohe66.web.code.security.dao.FuncDao">
+<mapper namespace="com.xiaohe66.web.code.security.mapper.FuncMapper">
 
     <select id="findFuncByUsrId" resultType="Func">
         select f.* from xiaohe66_web_security_func f

@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.file.dao;
+package com.xiaohe66.web.code.file.mapper;
 
-import com.xiaohe66.web.base.base.BaseDao;
+import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +12,7 @@ import java.util.Set;
  * @version 1.0
  * @time 2018-07-09 15:13
  */
-public interface CommonFileTmpDao extends BaseDao<CommonFileTmp>{
+public interface CommonFileTmpMapper extends IBaseMapper<CommonFileTmp> {
 
     /**
      * 返回md5对应的已上传完的临时文件区块序号

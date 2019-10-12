@@ -4,18 +4,16 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
-import com.xiaohe66.web.code.file.dao.UsrFileLogDao;
+import com.xiaohe66.web.code.file.mapper.UsrFileLogMapper;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -23,7 +21,7 @@ import java.util.Set;
  * @date 18-04-15 015
  */
 @Service
-public class UsrFileLogService extends AbstractService<UsrFileLogDao,UsrFileLog>{
+public class UsrFileLogService extends AbstractService<UsrFileLogMapper,UsrFileLog>{
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrFileLogService.class);
 

@@ -12,10 +12,10 @@ import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.common.service.CategoryService;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UsrService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
-import com.xiaohe66.web.code.text.dao.ArticleDao;
+import com.xiaohe66.web.code.text.dao.ArticleMapper;
 import com.xiaohe66.web.code.text.dto.ArticleDto;
 import com.xiaohe66.web.code.text.param.ArticleParam;
 import com.xiaohe66.web.code.text.po.Article;
@@ -36,7 +36,7 @@ import java.util.List;
  * @time 17-11-08 008
  */
 @Service
-public class ArticleService extends AbstractService<ArticleDao, Article> {
+public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArticleService.class);
 
@@ -106,7 +106,7 @@ public class ArticleService extends AbstractService<ArticleDao, Article> {
         }
         Integer currentUsrId = UsrHelper.getCurrentUsrId();
         if (!currentUsrId.equals(dbArticle.getCreateId())) {
-            throw new XhException(CodeEnum.NOT_PERMISSION, "this article not is current usr article");
+            throw new XhException(CodeEnum.NOT_PERMISSION, "this article not is current user article");
         }
         super.updateById(article, currentUsrId);
 
@@ -262,9 +262,9 @@ public class ArticleService extends AbstractService<ArticleDao, Article> {
 
             articleDto.setText(HtmlUtils.digest(articleDto.getText(), 110));
 
-            Usr usr = usrService.findById(article.getCreateId());
-            articleDto.setUsrName(usr.getUsrName());
-            articleDto.setImgFileId(usr.getImgFileId());
+            User user = usrService.findById(article.getCreateId());
+            articleDto.setUsrName(user.getUsrName());
+            articleDto.setImgFileId(user.getImgFileId());
             articleDto.setCount(articleLogService.countByArticleId(article.getId()));
         });
     }

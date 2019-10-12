@@ -18,7 +18,7 @@ public class PhotoController extends BaseController<PhotoService> {
 
     @Get
     public Result query() {
-        IPage<Photo> page = service.page(new Page<>());
+        IPage<Photo> page = baseService.page(new Page<>());
         return Result.ok(page);
     }
 }

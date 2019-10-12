@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiaohe66.web.code.org.dao.UsrDao">
+<mapper namespace="com.xiaohe66.web.code.org.mapper.UserMapper">
 
-    <select id="findByUsrName" resultType="Usr">
+    <select id="findByUsrName" resultType="User">
         select * from xiaohe66_web_org_usr where usr_name = #{usrName}
     </select>
 
-    <select id="findByEmail" resultType="Usr">
+    <select id="findByEmail" resultType="User">
         select * from xiaohe66_web_org_usr where email = #{email}
     </select>
 
-    <select id="findByUsrNameAndPwd" resultType="Usr">
+    <select id="findByUsrNameAndPwd" resultType="User">
         select * from xiaohe66_web_org_usr where usr_name = #{usrName} and usr_pwd = #{usrPwd}
     </select>
 

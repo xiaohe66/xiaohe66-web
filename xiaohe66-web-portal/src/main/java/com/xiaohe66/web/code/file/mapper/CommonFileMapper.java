@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.file.dao;
+package com.xiaohe66.web.code.file.mapper;
 
-import com.xiaohe66.web.base.base.BaseDao;
+import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
  * @author xh
  * @date 18-03-22 022
  */
-public interface CommonFileDao extends BaseDao<CommonFile>{
+public interface CommonFileMapper extends IBaseMapper<CommonFile> {
 
     /**
      * 根据md5查询文件

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiaohe66.web.code.file.dao.CommonFileDao">
+<mapper namespace="com.xiaohe66.web.code.file.mapper.CommonFileMapper">
 
     <!-- 在上传小文件时，需要一次性插入链接、文件大小等数据 -->
     <!--<insert id="add" parameterType="CommonFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">

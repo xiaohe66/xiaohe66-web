@@ -1,7 +1,7 @@
 package com.xiaohe66.web.code.org.dto;
 
 import com.xiaohe66.web.base.base.BaseDto;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.code.org.po.User;
 
 /**
  * @author xiaohe
@@ -17,10 +17,10 @@ public class UsrDto extends BaseDto {
     public UsrDto(){
 
     }
-    public UsrDto(Usr usr){
-        id = usr.getId();
-        usrName = usr.getUsrName();
-        imgFileId = usr.getImgFileId();
+    public UsrDto(User user){
+        id = user.getId();
+        usrName = user.getUsrName();
+        imgFileId = user.getImgFileId();
     }
 
     public String getUsrName() {

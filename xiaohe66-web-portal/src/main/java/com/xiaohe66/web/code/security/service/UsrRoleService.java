@@ -6,13 +6,10 @@ import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.code.security.dao.UsrRoleDao;
+import com.xiaohe66.web.code.security.mapper.UsrRoleMapper;
 import com.xiaohe66.web.code.security.po.UsrRole;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Stream;
 
 /**
  * 用户角色关联service
@@ -22,7 +19,7 @@ import java.util.stream.Stream;
  * @time 2018-08-20 16:54
  */
 @Service
-public class UsrRoleService extends AbstractService<UsrRoleDao,UsrRole>{
+public class UsrRoleService extends AbstractService<UsrRoleMapper,UsrRole>{
 
     public void addDefaultUsrRole(Integer usrId){
         if(Check.isNull(usrId)){

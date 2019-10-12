@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiaohe66.web.code.text.dao.ArticleCategoryLinkDao">
+<mapper namespace="com.xiaohe66.web.code.text.dao.ArticleCategoryLinkMapper">
 
     <!--todo:这里返回主键会报错-->
     <!--<insert id="addAll" parameterType="ArticleCategoryLink" keyProperty="id" useGeneratedKeys="true" keyColumn="id">-->

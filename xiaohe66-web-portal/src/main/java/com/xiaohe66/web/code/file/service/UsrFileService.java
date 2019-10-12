@@ -8,7 +8,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.EncoderUtils;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.code.file.dao.UsrFileDao;
+import com.xiaohe66.web.code.file.mapper.UsrFileMapper;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.param.UsrFileParam;
 import com.xiaohe66.web.code.file.po.CommonFile;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -37,7 +36,7 @@ import java.util.Set;
  * @date 18-03-12 012
  */
 @Service
-public class UsrFileService extends AbstractService<UsrFileDao,UsrFile>{
+public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrFileService.class);
 

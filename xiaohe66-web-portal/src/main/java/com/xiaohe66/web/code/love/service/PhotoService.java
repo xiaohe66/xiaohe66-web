@@ -3,7 +3,6 @@ package com.xiaohe66.web.code.love.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.base.XhPage;
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.base.impl.BaseServiceImpl;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.love.dto.PhotoDto;
 import com.xiaohe66.web.code.love.mapper.PhotoMapper;

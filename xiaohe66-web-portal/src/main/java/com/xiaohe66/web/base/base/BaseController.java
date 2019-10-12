@@ -3,7 +3,6 @@ package com.xiaohe66.web.base.base;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.base.impl.BaseServiceImpl;
 import com.xiaohe66.web.base.data.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class BaseController<S extends AbstractService> {
 
     @Autowired
-    protected S service;
+    protected S baseService;
 
     @Get("/{id}")
     public Result get(@PathVariable("id") Integer id){
-        return Result.ok(service.getById(id));
+        return Result.ok(baseService.getById(id));
     }
 
     @Del("/{id}")
     public Result del(@PathVariable("id") Integer id){
-        return Result.ok(service.removeById(id));
+        return Result.ok(baseService.removeById(id));
     }
 }

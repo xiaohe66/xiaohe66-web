@@ -7,7 +7,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.DateUtils;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.base.util.WebUtils;
-import com.xiaohe66.web.code.file.dao.CommonFileDao;
+import com.xiaohe66.web.code.file.mapper.CommonFileMapper;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
 import org.slf4j.Logger;
@@ -36,11 +36,11 @@ import java.util.Set;
  * @date 18-03-22 022
  */
 @Service
-public class CommonFileService extends AbstractService<CommonFileDao,CommonFile>{
+public class CommonFileService extends AbstractService<CommonFileMapper,CommonFile>{
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFileService.class);
 
-    private CommonFileDao baseMapper;
+    private CommonFileMapper baseMapper;
 
     @Value("${file.home}")
     private String fileHomeUrl;

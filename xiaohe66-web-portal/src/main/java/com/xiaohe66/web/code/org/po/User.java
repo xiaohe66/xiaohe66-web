@@ -9,7 +9,7 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  * @time 17-10-28 028
  */
 @TableName("xiaohe66_web_org_usr")
-public class Usr extends BasePoDetailed {
+public class User extends BasePoDetailed {
     private String usrName;
     private String usrPwd;
     private String signature;

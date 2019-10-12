@@ -4,10 +4,9 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.code.text.dao.TextCategoryDao;
+import com.xiaohe66.web.code.text.dao.TextCategoryMapper;
 import com.xiaohe66.web.code.text.param.TextCategoryParam;
 import com.xiaohe66.web.code.text.po.TextCategory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
  * @time 17-11-12 012
  */
 @Service
-public class TextCategoryService extends AbstractService<TextCategoryDao,TextCategory> {
+public class TextCategoryService extends AbstractService<TextCategoryMapper,TextCategory> {
 
     public List<TextCategory> findByPid(Integer pid){
         if(Check.isOneNull(pid)){

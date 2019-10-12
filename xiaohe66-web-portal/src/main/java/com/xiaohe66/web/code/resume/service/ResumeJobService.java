@@ -4,7 +4,7 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.resume.dao.ResumeJobDao;
+import com.xiaohe66.web.code.resume.mapper.ResumeJobMapper;
 import com.xiaohe66.web.code.resume.dto.ResumeJobDto;
 import com.xiaohe66.web.code.resume.po.ResumeJob;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import java.util.List;
  * @date 18-10-11 011
  */
 @Service
-public class ResumeJobService extends AbstractService<ResumeJobDao,ResumeJob>{
+public class ResumeJobService extends AbstractService<ResumeJobMapper,ResumeJob>{
 
     private static final Logger LOG = LoggerFactory.getLogger(ResumeJobService.class);
 

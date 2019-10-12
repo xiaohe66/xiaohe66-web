@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.security.dao;
+package com.xiaohe66.web.code.security.mapper;
 
-import com.xiaohe66.web.base.base.BaseDao;
+import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.security.po.UsrRole;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * @version 1.0
  * @time 2018-08-20 16:54
  */
-public interface UsrRoleDao extends BaseDao<UsrRole>{
+public interface UsrRoleMapper extends IBaseMapper<UsrRole> {
 
 
     /**

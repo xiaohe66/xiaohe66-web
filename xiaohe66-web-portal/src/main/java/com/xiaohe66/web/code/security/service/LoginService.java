@@ -11,7 +11,7 @@ import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.cache.CacheHelper;
 import com.xiaohe66.web.code.org.dto.UsrDto;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UsrService;
 import com.xiaohe66.web.code.security.auth.entity.EmailAuthCode;
 import com.xiaohe66.web.code.security.auth.helper.AuthCodeHelper;
@@ -50,16 +50,16 @@ public class LoginService {
     /**
      * 注册准备方法，发送注册邮件
      *
-     * @param usr   Usr
+     * @param user   Usr
      * @param code  当前操作的图片验证码
      */
-    public void registerPrepare(Usr usr, String code){
+    public void registerPrepare(User user, String code){
         if(!AuthCodeHelper.verifyImgCode(code)){
             throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 
-        String usrName = usr.getUsrName();
-        String email = usr.getEmail();
+        String usrName = user.getUsrName();
+        String email = user.getEmail();
         Check.notEmptyCheck(usrName,email);
 
         if(!RegexUtils.testUsrName(usrName) || !RegexUtils.testEmail(email)){
@@ -81,29 +81,29 @@ public class LoginService {
         LOG.debug("发送link邮件，内容为："+link);
 
         //发送邮件
-        EmailHelper.sendLink(link,usr.getEmail(),usr.getUsrName(),"注册");
+        EmailHelper.sendLink(link,user.getEmail(),user.getUsrName(),"注册");
 
-        CacheHelper.put30(token,usr);
+        CacheHelper.put30(token,user);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void register(String token){
-        Usr usr = CacheHelper.get30(token);
+        User user = CacheHelper.get30(token);
 
-        if(usr == null){
+        if(user == null){
             throw new MsgException(CodeEnum.TOKEN_TIME_OUT);
         }
         CacheHelper.remove30(token);
 
-        usr.setUsrPwd(PwdUtils.hashPassword(usr.getUsrPwd()));
+        user.setUsrPwd(PwdUtils.hashPassword(user.getUsrPwd()));
         try{
-            usrService.add(usr,null);
+            usrService.add(user,null);
         }catch (Exception e){
             LOG.error("注册失败",e.getMessage());
             throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
         }
 
-        roleService.addDefaultUsrRole(usr.getId());
+        roleService.addDefaultUsrRole(user.getId());
     }
 
     public void updatePwdPrepare(String email,String code){
@@ -112,17 +112,17 @@ public class LoginService {
             throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 
-        Usr usr = usrService.findByEmail(email);
-        if(usr == null){
+        User user = usrService.findByEmail(email);
+        if(user == null){
             throw new MsgException(CodeEnum.USR_NOT_EXIST);
         }
 
-        WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY,usr);
+        WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY,user);
 
         EmailAuthCode emailAuthCode = AuthCodeHelper.createEmailAuthCode(email);
 
         LOG.debug("发送验证码邮件，内容为："+emailAuthCode.getCode());
-        EmailHelper.sendAuthCode(emailAuthCode.getCode(),email,usr.getUsrName(),"修改密码");
+        EmailHelper.sendAuthCode(emailAuthCode.getCode(),email,user.getUsrName(),"修改密码");
     }
 
     public void updatePwd(String password,String code){
@@ -131,11 +131,11 @@ public class LoginService {
             throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 
-        Usr usr = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
+        User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
 
-        usr.setUsrPwd(PwdUtils.hashPassword(password));
+        user.setUsrPwd(PwdUtils.hashPassword(password));
 
-        usrService.updateById(usr,null);
+        usrService.updateById(user,null);
     }
 
     public UsrDto login(String loginName, String usrPwd){
@@ -157,10 +157,10 @@ public class LoginService {
         }
 
         //登录名中存在@，则为邮箱账号
-        Usr dbUsr = loginName.contains("@") ? usrService.findByEmail(loginName) : usrService.findByUsrName(loginName);
+        User dbUsr = loginName.contains("@") ? usrService.findByEmail(loginName) : usrService.findByUsrName(loginName);
 
         if(Check.isNull(dbUsr)){
-            throw new MsgException(CodeEnum.USR_NOT_EXIST,"usr not exist:loginName="+loginName);
+            throw new MsgException(CodeEnum.USR_NOT_EXIST,"user not exist:loginName="+loginName);
         }
 
         //验证密码
@@ -170,10 +170,10 @@ public class LoginService {
         return this.loginToShiro(dbUsr);
     }
 
-    private UsrDto loginToShiro(Usr usr){
-        LOG.info("登录到系统："+usr.getUsrName());
-        String usrName = usr.getUsrName();
-        String usrPwd = usr.getUsrPwd();
+    private UsrDto loginToShiro(User user){
+        LOG.info("登录到系统："+user.getUsrName());
+        String usrName = user.getUsrName();
+        String usrPwd = user.getUsrPwd();
         UsernamePasswordToken token = new UsernamePasswordToken(usrName,usrPwd);
 
         Subject subject = SecurityUtils.getSubject();
@@ -184,7 +184,7 @@ public class LoginService {
             return null;
         }
         //构建dto
-        UsrDto dtoUsr = new UsrDto(usr);
+        UsrDto dtoUsr = new UsrDto(user);
         //注入session
         subject.getSession().setAttribute(Final.Str.SESSION_UER_KEY,dtoUsr);
         return dtoUsr;

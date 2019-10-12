@@ -3,11 +3,10 @@ package com.xiaohe66.web.code.file.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.IoUtils;
-import com.xiaohe66.web.code.file.dao.CommonFileTmpDao;
+import com.xiaohe66.web.code.file.mapper.CommonFileTmpMapper;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ import java.util.Set;
  * @time 2018-06-05 10:11
  */
 @Service
-public class CommonFileTmpService extends AbstractService<CommonFileTmpDao,CommonFileTmp>{
+public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper,CommonFileTmp>{
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFileTmpService.class);
 

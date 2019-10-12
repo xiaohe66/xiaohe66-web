@@ -78,7 +78,7 @@ public class ArticlePageController {
             throw new XhException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
         }
         if(!currentUsrId.equals(articleDto.getCreateId())){
-            throw new XhException(CodeEnum.NOT_PERMISSION,"this article not is current usr article");
+            throw new XhException(CodeEnum.NOT_PERMISSION,"this article not is current user article");
         }
         model.addAttribute("article",articleDto);
 

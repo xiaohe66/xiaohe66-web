@@ -48,7 +48,7 @@
     <!--自动扫描dao接口，并注入sqlsession-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.xiaohe66.web.code"/>
-        <property name="markerInterface" value="com.xiaohe66.web.base.base.BaseDao"/>
+        <property name="markerInterface" value="com.xiaohe66.web.base.base.IBaseMapper"/>
         <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
     </bean>
 

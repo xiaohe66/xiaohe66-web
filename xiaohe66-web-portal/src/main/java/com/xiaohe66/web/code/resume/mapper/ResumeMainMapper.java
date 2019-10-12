@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.resume.dao;
+package com.xiaohe66.web.code.resume.mapper;
 
-import com.xiaohe66.web.base.base.BaseDao;
+import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.resume.po.ResumeMain;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
  * @author xh
  * @date 18-10-09 009
  */
-public interface ResumeMainDao extends BaseDao<ResumeMain>{
+public interface ResumeMainMapper extends IBaseMapper<ResumeMain> {
 
     /**
      * 创建者id查询

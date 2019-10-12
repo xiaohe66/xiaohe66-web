@@ -6,14 +6,13 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.code.org.dao.UsrDao;
+import com.xiaohe66.web.code.org.mapper.UserMapper;
 import com.xiaohe66.web.code.org.dto.UsrDto;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.code.org.po.User;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -26,12 +25,12 @@ import org.springframework.stereotype.Service;
  * @time 17-10-28 028
  */
 @Service
-public class UsrService extends AbstractService<UsrDao,Usr> {
+public class UsrService extends AbstractService<UserMapper, User> {
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrService.class);
 
     @Override
-    public void updateById(Usr po, Integer currentUsrId) {
+    public void updateById(User po, Integer currentUsrId) {
         String signature = HtmlUtils.delHtmlTag(po.getSignature());
         if(signature != null ){
             po.setSignature(signature);
@@ -46,25 +45,25 @@ public class UsrService extends AbstractService<UsrDao,Usr> {
     public void updateImgFile(Integer imgFileId){
         Integer currentUsrId = UsrHelper.getCurrentUsrId();
 
-        Usr usr = new Usr();
-        usr.setImgFileId(imgFileId);
+        User user = new User();
+        user.setImgFileId(imgFileId);
 
-        usr.setId(currentUsrId);
-        updateById(usr,currentUsrId);
+        user.setId(currentUsrId);
+        updateById(user,currentUsrId);
 
         UsrHelper.getCurrentUsr().setImgFileId(imgFileId);
     }
 
-    public Usr findByUsrName(String usrName){
+    public User findByUsrName(String usrName){
         Check.notEmptyCheck(usrName);
         return baseMapper.findByUsrName(usrName);
     }
 
-    public Usr findByEmail(String email){
+    public User findByEmail(String email){
         return baseMapper.findByEmail(email);
     }
 
-    public Usr findByUsrNameAndPwd(String usrName,String usrPwd){
+    public User findByUsrNameAndPwd(String usrName, String usrPwd){
         if(StrUtils.isAllNotEmpty(usrName,usrPwd)){
             throw new NullPointerException("usrName or usrPwd is null");
         }
@@ -80,10 +79,10 @@ public class UsrService extends AbstractService<UsrDao,Usr> {
         if(Check.isNull(usrId)){
             usrId = Final.Sys.XIAO_HE_USR_ID;
         }
-        Usr usr = findById(usrId);
-        UsrDto usrDto = ClassUtils.convert(UsrDto.class,usr);
+        User user = findById(usrId);
+        UsrDto usrDto = ClassUtils.convert(UsrDto.class,user);
 
-        usrDto.setImgFileId(usr.getImgFileId());
+        usrDto.setImgFileId(user.getImgFileId());
         return usrDto;
     }
 

@@ -1,7 +1,7 @@
 package com.xiaohe66.web.resolver;
 
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.po.Usr;
+import com.xiaohe66.web.code.org.po.User;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -23,7 +23,7 @@ public class CurrentUsrResolver implements HandlerMethodArgumentResolver{
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         //判断参数的类型，返回true表示注入
-        parameter.getParameterType().equals(Usr.class);
+        parameter.getParameterType().equals(User.class);
         return false;
     }
 

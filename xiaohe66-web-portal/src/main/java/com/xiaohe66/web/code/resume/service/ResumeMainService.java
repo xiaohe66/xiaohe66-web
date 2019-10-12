@@ -3,7 +3,7 @@ package com.xiaohe66.web.code.resume.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.resume.dao.ResumeMainDao;
+import com.xiaohe66.web.code.resume.mapper.ResumeMainMapper;
 import com.xiaohe66.web.code.resume.dto.ResumeMainDto;
 import com.xiaohe66.web.code.resume.po.ResumeMain;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @date 18-10-09 009
  */
 @Service
-public class ResumeMainService extends AbstractService<ResumeMainDao,ResumeMain>{
+public class ResumeMainService extends AbstractService<ResumeMainMapper,ResumeMain>{
 
     private static final Logger LOG = LoggerFactory.getLogger(ResumeMainService.class);
 

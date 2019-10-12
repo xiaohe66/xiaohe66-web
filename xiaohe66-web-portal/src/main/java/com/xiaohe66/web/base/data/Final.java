@@ -56,7 +56,7 @@ public interface Final {
      */
     interface Str{
         String UTF_8 = "UTF-8";
-        String SESSION_UER_KEY = "usr" ;
+        String SESSION_UER_KEY = "user" ;
         String HEADER_JSON_UTF_8 = "application/json; charset=UTF-8" ;
         String DEFAULT_ROLE_IDS_KEY = "DEFAULT_ROLE_IDS" ;
         String PAGING_SIZE_KEY = "pageSize" ;
