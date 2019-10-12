@@ -60,7 +60,7 @@
                     </webApp>
                     <httpConnector>
                         <!-- 端口，默认为8080 -->
-                        <port>80</port>
+                        <port>8080</port>
                     </httpConnector>
                 </configuration>
             </plugin>
@@ -197,15 +197,15 @@
         <!--servlet/jsp api end-->
 
         <!--mybatis-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-        </dependency>
+        </dependency>-->
         <!--mybatis spring整合-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -217,6 +217,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+        </dependency>
+
 
         <!--jstl-->
         <dependency>

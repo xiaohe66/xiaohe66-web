@@ -15,10 +15,12 @@
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <context:component-scan base-package="com.xiaohe66.web.**.service"/>
-    <context:component-scan base-package="com.xiaohe66.web.**.controller" name-generator="com.xiaohe66.web.spring.XhControllerBeanNameGenerator"/>
+    <!--<context:component-scan base-package="com.xiaohe66.web.code.**.service"/>-->
+    <!--<context:component-scan base-package="com.xiaohe66.web.code.**.controller" name-generator="com.xiaohe66.web.spring.XhControllerBeanNameGenerator"/>-->
+    <context:component-scan base-package="com.xiaohe66.web.code.love.service"/>
+    <context:component-scan base-package="com.xiaohe66.web.code.love.controller" name-generator="com.xiaohe66.web.spring.XhControllerBeanNameGenerator"/>
     <context:component-scan base-package="com.xiaohe66.web.aop"/>
-    <context:component-scan base-package="com.xiaohe66.web.servlet"/>
+    <!--<context:component-scan base-package="com.xiaohe66.web.servlet"/>-->
 
     <!-- 开启注解 -->
     <context:annotation-config/>
@@ -36,6 +38,6 @@
     <bean id="springUtils" class="com.xiaohe66.web.base.util.SpringUtils"/>
 
     <import resource="spring-mybatis.xml"/>
-    <import resource="spring-shrio.xml"/>
+    <!--<import resource="spring-shrio.xml"/>-->
 
 </beans>

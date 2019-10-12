@@ -1,5 +1,7 @@
 package com.xiaohe66.web.base.base;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
+
 import java.util.Date;
 
 /**
@@ -11,6 +13,7 @@ public abstract class BasePoDetailed extends BasePo {
     protected Date createTime;
     protected Integer updateId;
     protected Date updateTime;
+    @TableLogic
     protected Boolean isDelete;
 
     public Integer getCreateId() {

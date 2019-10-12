@@ -280,11 +280,11 @@
             <!--servlet/jsp api end-->
 
             <!--mybatis-->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>3.3.0</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.mybatis</groupId>-->
+                <!--<artifactId>mybatis</artifactId>-->
+                <!--<version>3.3.0</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.mybatis.generator</groupId>
@@ -294,11 +294,11 @@
                 <optional>true</optional>
             </dependency>
 
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-spring</artifactId>
-                <version>1.2.3</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.mybatis</groupId>-->
+                <!--<artifactId>mybatis-spring</artifactId>-->
+                <!--<version>1.2.3</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -312,6 +312,12 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>5.1.17</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>3.2.0</version>
             </dependency>
 
             <!--jstl-->

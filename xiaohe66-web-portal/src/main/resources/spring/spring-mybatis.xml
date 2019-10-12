@@ -25,7 +25,7 @@
     </bean>
 
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- 配置MyBaties全局配置文件:mybaconfnfig.xml -->
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
@@ -33,13 +33,9 @@
         给包中的类注册别名，注册后可以直接使用类名
         属性可以配置多个，可以用,;\t\n进行分割。但是不支持Ant风格的路径。如：com.xiaohe66.web.**.po
          -->
-        <property name="typeAliasesPackage" value="com.xiaohe66.web.code.common.po
-                                                    com.xiaohe66.web.code.org.po
-                                                    com.xiaohe66.web.code.security.po
-                                                    com.xiaohe66.web.code.sys.po
-                                                    com.xiaohe66.web.code.file.po
-                                                    com.xiaohe66.web.code.text.po
-                                                    com.xiaohe66.web.code.resume.po" />
+        <property name="typeAliasesPackage" value="com.xiaohe66.web.code" />
+        <!-- 和 typeAliasesPackage 配合使用，表示仅描述该类的子类 -->
+        <property name="typeAliasesSuperType" value="com.xiaohe66.web.base.base.BasePo"/>
 
         <!-- 自动扫描mapper目录,classpath后面加个*表示扫描jar包中的xml -->
         <property name="mapperLocations" value="classpath*:mapper/**/*Mapper.xml"/>
@@ -51,7 +47,8 @@
 
     <!--自动扫描dao接口，并注入sqlsession-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.xiaohe66.web.**.dao"/>
+        <property name="basePackage" value="com.xiaohe66.web.code.love"/>
+        <property name="markerInterface" value="com.xiaohe66.web.base.base.IBaseMapper"/>
         <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
     </bean>
 
