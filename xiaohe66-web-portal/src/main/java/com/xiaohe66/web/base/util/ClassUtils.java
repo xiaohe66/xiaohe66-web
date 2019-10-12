@@ -12,6 +12,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author xh
@@ -206,7 +209,7 @@ public class ClassUtils {
      *
      * @return 目标类的实例集合
      */
-    public static <T extends BaseDto,E extends BasePo> List<T> convertList(Class<T> targetCls, List<E> sourceObjList, Task<T,E> task){
+    public static <T extends BaseDto,E extends BasePo> List<T> convertList(Class<T> targetCls, List<E> sourceObjList, BiConsumer<T,E> task){
         if(sourceObjList == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"list is null");
         }
@@ -228,19 +231,10 @@ public class ClassUtils {
             T targetObj = convert(targetCls,basePo);
             targetObjList.add(targetObj);
             if(task != null){
-                task.run(targetObj,basePo);
+                task.accept(targetObj,basePo);
             }
         }
         return targetObjList;
-    }
-
-    public interface Task<T,E>{
-        /**
-         * 在类转换过程中自定义的任务
-         * @param dto   正在进行转任务的dto
-         * @param po   正在进行转任务的po
-         */
-        void run(T dto, E po);
     }
 
 }
