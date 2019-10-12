@@ -19,6 +19,7 @@
     <context:component-scan base-package="com.xiaohe66.web.code.**.controller" name-generator="com.xiaohe66.web.spring.XhControllerBeanNameGenerator"/>
     <context:component-scan base-package="com.xiaohe66.web.aop"/>
     <context:component-scan base-package="com.xiaohe66.web.servlet"/>
+    <context:component-scan base-package="com.xiaohe66.web.config"/>
 
     <!-- 开启注解 -->
     <context:annotation-config/>
@@ -29,6 +30,13 @@
             <bean class="com.xiaohe66.web.resolver.CurrentUsrResolver" lazy-init="false"/>
         </mvc:argument-resolvers>
     </mvc:annotation-driven>-->
+
+    <mvc:annotation-driven >
+        <!-- 使用 gson 作为response 的json解析器 -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- 导入配置 -->
     <context:property-placeholder location="classpath:*.properties"/>
