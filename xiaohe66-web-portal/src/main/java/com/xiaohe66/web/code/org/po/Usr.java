@@ -1,12 +1,14 @@
 package com.xiaohe66.web.code.org.po;
 
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-10-28 028
  */
+@TableName("xiaohe66_web_org_usr")
 public class Usr extends BasePoDetailed {
     private String usrName;
     private String usrPwd;

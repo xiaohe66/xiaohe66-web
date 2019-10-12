@@ -37,7 +37,7 @@ import java.util.Set;
  * @date 18-03-12 012
  */
 @Service
-public class UsrFileService extends AbstractService<UsrFile>{
+public class UsrFileService extends AbstractService<UsrFileDao,UsrFile>{
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrFileService.class);
 
@@ -60,8 +60,6 @@ public class UsrFileService extends AbstractService<UsrFile>{
      */
     private static final int USR_HEAD_IMG_MAX_BYTE_LENGTH = 1024*1024*2;
 
-    private UsrFileDao usrFileDao;
-
     @Autowired
     private CommonFileService commonFileService;
 
@@ -70,14 +68,6 @@ public class UsrFileService extends AbstractService<UsrFile>{
 
     @Autowired
     private UsrService usrService;
-
-    public UsrFileService() {}
-
-    @Autowired
-    public UsrFileService(UsrFileDao usrFileDao) {
-        super(usrFileDao);
-        this.usrFileDao = usrFileDao;
-    }
 
     public Set<Integer> uploadDefaultFilePrepare(Integer currentUsrId,String md5,Float mb,String fileName,String extension){
         return uploadFilePrepare(currentUsrId,md5,mb,fileName,extension,DEFAULT_FILE_TYPE);
@@ -151,12 +141,12 @@ public class UsrFileService extends AbstractService<UsrFile>{
         if(Check.isOneNull(commonFileId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"commonFileId is null");
         }
-        return usrFileDao.findByCommonFileId(commonFileId);
+        return baseMapper.findByCommonFileId(commonFileId);
     }
 
     public Integer findCommonFileId(Integer usrFileId){
         Check.notNullCheck(usrFileId);
-        return usrFileDao.findCommonFileId(usrFileId);
+        return baseMapper.findCommonFileId(usrFileId);
     }
 
     public List<UsrFileDto> findDtoByUsrId(Integer usrId){

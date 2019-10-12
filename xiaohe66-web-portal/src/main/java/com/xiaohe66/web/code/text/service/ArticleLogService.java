@@ -13,7 +13,6 @@ import com.xiaohe66.web.code.text.po.ArticleDownloadCount;
 import com.xiaohe66.web.code.text.po.ArticleLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,21 +25,9 @@ import java.util.Set;
  * @date 18-04-16 016
  */
 @Service
-public class ArticleLogService extends AbstractService<ArticleLog> {
+public class ArticleLogService extends AbstractService<ArticleLogDao, ArticleLog> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArticleLogService.class);
-
-    private ArticleLogDao articleLogDao;
-
-    public ArticleLogService() {
-    }
-
-    @Autowired
-    public ArticleLogService(ArticleLogDao articleLogDao) {
-        super(articleLogDao);
-        this.articleLogDao = articleLogDao;
-    }
-
 
     /**
      * 方法弃用，请使用 add()
@@ -105,11 +92,11 @@ public class ArticleLogService extends AbstractService<ArticleLog> {
      * count:被阅读数量
      */
     public List<ArticleDownloadCount> countDownloadOfMonth(Integer usrId) {
-        return articleLogDao.countDownloadOfMonth(usrId);
+        return baseMapper.countDownloadOfMonth(usrId);
     }
 
     public Integer countByArticleId(Integer articleId) {
         Check.notEmptyCheck(articleId);
-        return articleLogDao.countByArticleId(articleId);
+        return baseMapper.countByArticleId(articleId);
     }
 }

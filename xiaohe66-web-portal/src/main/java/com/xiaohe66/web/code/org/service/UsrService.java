@@ -26,21 +26,9 @@ import org.springframework.stereotype.Service;
  * @time 17-10-28 028
  */
 @Service
-public class UsrService extends AbstractService<Usr> {
+public class UsrService extends AbstractService<UsrDao,Usr> {
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrService.class);
-
-    private UsrDao usrDao;
-
-    public UsrService(){
-
-    }
-
-    @Autowired
-    public UsrService(UsrDao usrDao) {
-        super(usrDao);
-        this.usrDao = usrDao;
-    }
 
     @Override
     public void updateById(Usr po, Integer currentUsrId) {
@@ -69,18 +57,18 @@ public class UsrService extends AbstractService<Usr> {
 
     public Usr findByUsrName(String usrName){
         Check.notEmptyCheck(usrName);
-        return usrDao.findByUsrName(usrName);
+        return baseMapper.findByUsrName(usrName);
     }
 
     public Usr findByEmail(String email){
-        return usrDao.findByEmail(email);
+        return baseMapper.findByEmail(email);
     }
 
     public Usr findByUsrNameAndPwd(String usrName,String usrPwd){
         if(StrUtils.isAllNotEmpty(usrName,usrPwd)){
             throw new NullPointerException("usrName or usrPwd is null");
         }
-        return usrDao.findByUsrNameAndPwd(usrName,usrPwd);
+        return baseMapper.findByUsrNameAndPwd(usrName,usrPwd);
     }
 
     /**
@@ -113,6 +101,6 @@ public class UsrService extends AbstractService<Usr> {
      */
     public boolean emailIsExist(String email){
         Check.notEmptyCheck(email);
-        return usrDao.isExistEmail(email);
+        return baseMapper.isExistEmail(email);
     }
 }

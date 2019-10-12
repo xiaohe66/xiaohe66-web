@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.file.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePo;
 
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
  * @author xh
  * @date 18-03-22 022
  */
+@TableName("xiaohe66_web_comm_file")
 public class CommonFile extends BasePo{
     protected String md5;
     protected String fileUrl;

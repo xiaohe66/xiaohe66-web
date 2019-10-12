@@ -16,22 +16,13 @@ import java.util.List;
  * @date 18-10-12 012
  */
 @Service
-public class ResumeFuncService extends AbstractService<ResumeFunc>{
+public class ResumeFuncService extends AbstractService<ResumeFuncDao,ResumeFunc>{
 
-    private ResumeFuncDao resumeFuncDao;
-
-    public ResumeFuncService() {
-    }
-
-    @Autowired
-    public ResumeFuncService(ResumeFuncDao resumeFuncDao) {
-        super(resumeFuncDao);
-        this.resumeFuncDao = resumeFuncDao;
-    }
+    private ResumeFuncDao baseMapper;
 
     public List<ResumeFuncDto> findDtoByProjectId(Integer projectId){
         Check.notNullCheck(projectId);
-        List<ResumeFunc> resumeFuncList = resumeFuncDao.findByProjectId(projectId);
+        List<ResumeFunc> resumeFuncList = baseMapper.findByProjectId(projectId);
         return ClassUtils.convertList(ResumeFuncDto.class, resumeFuncList);
     }
 }

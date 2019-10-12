@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.text.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-11-08 008
  */
+@TableName("xiaohe66_web_text_article")
 public class Article extends BasePoDetailed {
 
     private String text;

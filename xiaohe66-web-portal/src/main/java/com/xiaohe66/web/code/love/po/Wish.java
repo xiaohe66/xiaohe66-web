@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.love.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 2019.10.11 10:54
  */
+@TableName("xiaohe66_web_love_wish")
 public class Wish extends BasePoDetailed {
 
     private String name;

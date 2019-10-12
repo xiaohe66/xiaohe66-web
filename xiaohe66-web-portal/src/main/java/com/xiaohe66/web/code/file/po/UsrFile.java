@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.file.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-11-11 011
  */
+@TableName("xiaohe66_web_org_usr_file")
 public class UsrFile extends BasePoDetailed {
 
     private String fileName;

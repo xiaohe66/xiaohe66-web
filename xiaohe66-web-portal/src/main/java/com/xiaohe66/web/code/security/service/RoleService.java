@@ -13,22 +13,10 @@ import java.util.Set;
  * @time 17-10-28 028
  */
 @Service
-public class RoleService extends AbstractService<Role> {
-
-    private RoleDao roleDao;
-
-
-    public RoleService() {
-    }
-
-    @Autowired
-    public RoleService(RoleDao roleDao) {
-        super(roleDao);
-        this.roleDao = roleDao;
-    }
+public class RoleService extends AbstractService<RoleDao,Role> {
 
     public Set<String> findRoleNameByUsrId(Long usrId){
-        return roleDao.findRoleNameByUsrId(usrId);
+        return baseMapper.findRoleNameByUsrId(usrId);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.text.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xh
  * @date 18-04-01 001
  */
+@TableName("xiaohe66_web_text_message_board")
 public class MessageBoard extends BasePoDetailed{
     protected Integer usrId;
     protected String msg;

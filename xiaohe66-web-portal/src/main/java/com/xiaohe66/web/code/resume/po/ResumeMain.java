@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.resume.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
@@ -7,6 +8,7 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  * @version 1.0
  * @time 2018-10-09 13:02
  */
+@TableName("xiaohe66_web_resume_main")
 public class ResumeMain extends BasePoDetailed{
     private String name;
     private String phone;

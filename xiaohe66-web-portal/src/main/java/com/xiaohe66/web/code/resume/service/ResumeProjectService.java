@@ -18,11 +18,9 @@ import java.util.List;
  * @date 18-10-12 012
  */
 @Service
-public class ResumeProjectService extends AbstractService<ResumeProject>{
+public class ResumeProjectService extends AbstractService<ResumeProjectDao,ResumeProject>{
 
     private static final Logger LOG = LoggerFactory.getLogger(ResumeProjectService.class);
-
-    private ResumeProjectDao resumeProjectDao;
 
     @Autowired
     private UsrFileService usrFileService;
@@ -30,18 +28,9 @@ public class ResumeProjectService extends AbstractService<ResumeProject>{
     @Autowired
     private ResumeFuncService resumeFuncService;
 
-    public ResumeProjectService() {
-    }
-
-    @Autowired
-    public ResumeProjectService(ResumeProjectDao resumeProjectDao) {
-        super(resumeProjectDao);
-        this.resumeProjectDao = resumeProjectDao;
-    }
-
     public List<ResumeProjectDto> findDtoByResumeId(Integer resumeId){
 
-        List<ResumeProject> resumeProjectList =  resumeProjectDao.findByResumeId(resumeId);
+        List<ResumeProject> resumeProjectList =  baseMapper.findByResumeId(resumeId);
         return ClassUtils.convertList(ResumeProjectDto.class,resumeProjectList,(dto,po)->{
             try {
                 dto.setImgFileId(usrFileService.findCommonFileId(po.getLogo()));

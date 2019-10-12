@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.file.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePo;
 
 /**
@@ -9,6 +10,7 @@ import com.xiaohe66.web.base.base.BasePo;
  * @version 1.0
  * @time 2018-06-05 10:11
  */
+@TableName("xiaohe66_web_comm_file_tmp")
 public class CommonFileTmp extends BasePo {
 
     private String md5;

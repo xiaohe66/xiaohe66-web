@@ -36,11 +36,11 @@ import java.util.Set;
  * @date 18-03-22 022
  */
 @Service
-public class CommonFileService extends AbstractService<CommonFile>{
+public class CommonFileService extends AbstractService<CommonFileDao,CommonFile>{
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFileService.class);
 
-    private CommonFileDao commonFileDao;
+    private CommonFileDao baseMapper;
 
     @Value("${file.home}")
     private String fileHomeUrl;
@@ -53,14 +53,6 @@ public class CommonFileService extends AbstractService<CommonFile>{
 
     @Autowired
     private CommonFileTmpService commonFileTmpService;
-
-    public CommonFileService(){}
-
-    @Autowired
-    public CommonFileService(CommonFileDao commonFileDao) {
-        super(commonFileDao);
-        this.commonFileDao = commonFileDao;
-    }
 
     /**
      * 分块上传准备，返回未上传的文件区块
@@ -270,7 +262,7 @@ public class CommonFileService extends AbstractService<CommonFile>{
 
     public CommonFile findByMd5(String md5){
         Check.notEmptyCheck(md5);
-        return commonFileDao.findByMd5(md5);
+        return baseMapper.findByMd5(md5);
     }
 
 

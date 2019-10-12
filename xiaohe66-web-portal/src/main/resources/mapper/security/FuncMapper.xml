@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.security.dao.FuncDao">
 
-    <select id="findById" resultType="Func">
-        select * from xiaohe66_web_security_func where id = #{id}
-    </select>
-
     <select id="findFuncByUsrId" resultType="Func">
         select f.* from xiaohe66_web_security_func f
         join xiaohe66_web_security_role_func rf on f.id = rf.func_id

@@ -22,18 +22,7 @@ import java.util.stream.Stream;
  * @time 2018-08-20 16:54
  */
 @Service
-public class UsrRoleService extends AbstractService<UsrRole>{
-
-    private UsrRoleDao usrRoleDao;
-
-    public UsrRoleService() {
-    }
-
-    @Autowired
-    public UsrRoleService(UsrRoleDao usrRoleDao) {
-        super(usrRoleDao);
-        this.usrRoleDao = usrRoleDao;
-    }
+public class UsrRoleService extends AbstractService<UsrRoleDao,UsrRole>{
 
     public void addDefaultUsrRole(Integer usrId){
         if(Check.isNull(usrId)){
@@ -56,6 +45,6 @@ public class UsrRoleService extends AbstractService<UsrRole>{
         if(Check.isNull(roleIds) || roleIds.length == 0){
             throw new XhException(CodeEnum.PARAM_ERR,"roleIds is null or size is 0");
         }
-        usrRoleDao.addUsrRoles(usrId,roleIds);
+        baseMapper.addUsrRoles(usrId,roleIds);
     }
 }

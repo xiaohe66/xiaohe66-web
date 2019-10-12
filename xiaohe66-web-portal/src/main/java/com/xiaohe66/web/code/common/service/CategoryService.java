@@ -19,22 +19,13 @@ import java.util.List;
  * @time 17-11-12 012
  */
 @Service
-public class CategoryService extends AbstractService<Category> {
-    private CategoryDao categoryDao;
-
-    public CategoryService(){}
-
-    @Autowired
-    public CategoryService(CategoryDao categoryDao){
-        super(categoryDao);
-        this.categoryDao = categoryDao;
-    }
+public class CategoryService extends AbstractService<CategoryDao,Category> {
 
     public List<Category> findByPid(Integer pid){
         if(Check.isOneNull(pid)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"pid is null");
         }
-        return categoryDao.findByPid(pid);
+        return baseMapper.findByPid(pid);
     }
 
     public List<Category> findTextSysCategory(){

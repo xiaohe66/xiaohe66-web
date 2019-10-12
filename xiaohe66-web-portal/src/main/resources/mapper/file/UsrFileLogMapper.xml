@@ -2,13 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.file.dao.UsrFileLogDao">
 
-    <insert id="add" parameterType="UsrFileLog" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xiaohe66_web_org_usr_file_log
-        (create_id,create_time,usr_file_id,ip)
-        values
-        (#{createId},#{createTime},#{usrFileId},#{ip})
-    </insert>
-
     <!--<resultMap id="downloadCountMap" type="com.xiaohe66.web.code.file.po.UsrFileDownloadCount">
         <result column="id" property="id" javaType="int" jdbcType="int"/>
         <result column="count" property="count" javaType="int" jdbcType="int"/>

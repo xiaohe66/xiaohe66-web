@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.resume.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xh
  * @date 18-10-11 011
  */
+@TableName("xiaohe66_web_resume_job")
 public class ResumeJob extends BasePoDetailed{
     private Integer resumeId;
     private Integer logo;

@@ -13,20 +13,9 @@ import java.util.Set;
  * @time 17-10-28 028
  */
 @Service
-public class FuncService extends AbstractService<Func> {
-
-    private FuncDao funcDao;
-
-    public FuncService() {
-    }
-
-    @Autowired
-    public FuncService(FuncDao funcDao) {
-        super(funcDao);
-        this.funcDao = funcDao;
-    }
+public class FuncService extends AbstractService<FuncDao,Func> {
 
     public Set<String> findFuncNameByUsrId(Long usrId){
-        return funcDao.findFuncNameByUsrId(usrId);
+        return baseMapper.findFuncNameByUsrId(usrId);
     }
 }

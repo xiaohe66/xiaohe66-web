@@ -25,22 +25,12 @@ import java.util.Set;
  * @time 2018-06-05 10:11
  */
 @Service
-public class CommonFileTmpService extends AbstractService<CommonFileTmp>{
+public class CommonFileTmpService extends AbstractService<CommonFileTmpDao,CommonFileTmp>{
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFileTmpService.class);
 
-    private CommonFileTmpDao commonFileTmpDao;
-
     @Value("${file.home}")
     private String fileHomeUrl;
-
-    public CommonFileTmpService(){}
-
-    @Autowired
-    public CommonFileTmpService(CommonFileTmpDao commonFileTmpDao){
-        super(commonFileTmpDao);
-        this.commonFileTmpDao = commonFileTmpDao;
-    }
 
     /**
      * 上传一个临时文件，若文件已存在，则不上传，直接返回结果
@@ -73,7 +63,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmp>{
      */
     public Set<Integer> findFinishChunk(String md5){
         Check.notEmptyCheck(md5);
-        return commonFileTmpDao.findFinishChunk(md5);
+        return baseMapper.findFinishChunk(md5);
     }
 
     /**
@@ -83,7 +73,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmp>{
      */
     public List<CommonFileTmp> findFileTmp(String md5){
         Check.notEmptyCheck(md5);
-        return commonFileTmpDao.findFileTmp(md5);
+        return baseMapper.findFileTmp(md5);
     }
 
     /**
@@ -93,7 +83,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmp>{
      */
     public int countFinish(String md5){
         Check.notEmptyCheck(md5);
-        return commonFileTmpDao.countFinish(md5);
+        return baseMapper.countFinish(md5);
     }
 
     /**
@@ -134,7 +124,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmp>{
      */
     public boolean isExist(String md5,int chunk){
         Check.notEmptyCheck(md5,chunk);
-        return commonFileTmpDao.isExist(md5,chunk);
+        return baseMapper.isExist(md5,chunk);
     }
 
     /**

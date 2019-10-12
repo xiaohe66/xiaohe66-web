@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.resume.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
@@ -8,6 +9,7 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  * @author xh
  * @date 18-10-12 012
  */
+@TableName("xiaohe66_web_resume_func")
 public class ResumeFunc extends BasePoDetailed{
 
     private Integer projectId;

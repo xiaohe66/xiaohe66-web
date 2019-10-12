@@ -16,11 +16,9 @@ import org.springframework.stereotype.Service;
  * @date 18-10-09 009
  */
 @Service
-public class ResumeMainService extends AbstractService<ResumeMain>{
+public class ResumeMainService extends AbstractService<ResumeMainDao,ResumeMain>{
 
     private static final Logger LOG = LoggerFactory.getLogger(ResumeMainService.class);
-
-    private ResumeMainDao resumeMainDao;
 
     @Autowired
     private ResumeJobService resumeJobService;
@@ -31,17 +29,8 @@ public class ResumeMainService extends AbstractService<ResumeMain>{
     @Autowired
     private UsrFileService usrFileService;
 
-    public ResumeMainService() {
-    }
-
-    @Autowired
-    public ResumeMainService(ResumeMainDao resumeMainDao) {
-        super(resumeMainDao);
-        this.resumeMainDao = resumeMainDao;
-    }
-
     public ResumeMainDto findDtoByUsrId(Integer usrId){
-        ResumeMain resumeMain = resumeMainDao.findByUsrId(usrId);
+        ResumeMain resumeMain = baseMapper.findByUsrId(usrId);
         ResumeMainDto resumeMainDto =  ClassUtils.convert(ResumeMainDto.class,resumeMain);
         loadDto(resumeMainDto,resumeMain);
         return resumeMainDto;

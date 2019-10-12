@@ -1,12 +1,14 @@
 package com.xiaohe66.web.code.common.po;
 
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-11-11 011
  */
+@TableName("xiaohe66_web_common_category")
 public class Category extends BasePoDetailed {
 
     private String categoryName;

@@ -28,20 +28,12 @@ import java.util.List;
  * @date 18-04-01 001
  */
 @Service
-public class MessageBoardService extends AbstractService<MessageBoard>{
+public class MessageBoardService extends AbstractService<MessageBoardDao,MessageBoard>{
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageBoardService.class);
 
     @Autowired
     private UsrService usrService;
-
-    public MessageBoardService() {
-    }
-
-    @Autowired
-    public MessageBoardService(MessageBoardDao messageBoardDao) {
-        super(messageBoardDao);
-    }
 
     /**
      * 方法弃用，请使用add(?,?,?);

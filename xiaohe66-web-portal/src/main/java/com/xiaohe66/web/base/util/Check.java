@@ -2,6 +2,7 @@ package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.param.EmptyException;
 
 import java.util.Collection;
 
@@ -42,22 +43,25 @@ public class Check {
     /**
      * 非null检查,如果传入的对象有一个为null，则抛出{@link XhException}
      *
+     * todo : rename to notNull
      * @param objects Object[]
      * @throws XhException 如果传入的对象有一个为null，则抛出该异常
      */
     public static void notNullCheck(Object... objects){
         if(objects == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION);
+            throw new EmptyException();
         }
         for (Object object : objects) {
             if (object == null){
-                throw new XhException(CodeEnum.NULL_EXCEPTION);
+                throw new EmptyException();
             }
         }
     }
 
     /**
      * 非空检查，有一个为空的，就抛出异常
+     *
+     * todo : rename to notEmpty
      * @param objects Object[]
      */
     public static void notEmptyCheck(Object... objects){
@@ -67,9 +71,9 @@ public class Check {
         for (Object object : objects) {
             //当对象类型是string时，长度为0时，也表示该对象为空
             boolean isEmpty = object == null||(object instanceof String && ((String) object).length() == 0)
-                    ||(object instanceof Collection && ((Collection) object).size() == 0);
+                    ||(object instanceof Collection && ((Collection) object).isEmpty());
             if (isEmpty){
-                throw new XhException(CodeEnum.NULL_EXCEPTION);
+                throw new EmptyException();
             }
         }
     }

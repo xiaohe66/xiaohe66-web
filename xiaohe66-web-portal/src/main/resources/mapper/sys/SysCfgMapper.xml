@@ -2,14 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.sys.dao.SysCfgDao">
 
-    <insert id="add" parameterType="Usr" keyProperty="id">
-
-    </insert>
-
-    <select id="findById" resultType="SysCfg">
-        select * from xiaohe66_web_sys_cfg where id = #{id}
-    </select>
-
     <select id="findValByName" resultType="String">
         select cfg_val from xiaohe66_web_sys_cfg where cfg_key = #{cfgKey}
     </select>
@@ -18,7 +10,7 @@
 
     </select>
 
-    <select id="findByParam" resultType="SysCfg">
+    <select id="listByParam" resultType="SysCfg">
         select * from xiaohe66_web_sys_cfg
         <where>
             and is_delete = 0

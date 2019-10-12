@@ -23,20 +23,9 @@ import java.util.Set;
  * @date 18-04-15 015
  */
 @Service
-public class UsrFileLogService extends AbstractService<UsrFileLog>{
+public class UsrFileLogService extends AbstractService<UsrFileLogDao,UsrFileLog>{
 
     private static final Logger LOG = LoggerFactory.getLogger(UsrFileLogService.class);
-
-    private UsrFileLogDao usrFileLogDao;
-
-    public UsrFileLogService() {
-    }
-
-    @Autowired
-    public UsrFileLogService(UsrFileLogDao usrFileLogDao) {
-        super(usrFileLogDao);
-        this.usrFileLogDao = usrFileLogDao;
-    }
 
     /**
      * 每个会话只能增加1的下载量
@@ -76,6 +65,6 @@ public class UsrFileLogService extends AbstractService<UsrFileLog>{
      *          count:该文件的下载数量
      */
     public List<UsrFileDownloadCount> countDownloadOfMonth(Integer usrId){
-        return usrFileLogDao.countDownloadOfMonth(usrId);
+        return baseMapper.countDownloadOfMonth(usrId);
     }
 }

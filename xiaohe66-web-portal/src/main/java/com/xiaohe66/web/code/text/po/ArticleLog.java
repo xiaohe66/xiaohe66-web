@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.text.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePo;
 
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
  * @author xh
  * @date 18-04-16 016
  */
+@TableName("xiaohe66_web_text_article_log")
 public class ArticleLog extends BasePo{
     private Integer createId;
     private Date createTime;

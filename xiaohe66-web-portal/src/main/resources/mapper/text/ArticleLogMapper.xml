@@ -2,13 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.text.dao.ArticleLogDao">
 
-    <insert id="add" parameterType="Article" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xiaohe66_web_text_article_log
-        (create_id,create_time,article_id,ip)
-        values
-        (#{createId},#{createTime},#{articleId},#{ip})
-    </insert>
-
     <select id="countDownloadOfMonth" resultType="ArticleDownloadCount">
         select l.article_id as id,count(*) as `count` from xiaohe66_web_text_article_log l
         join xiaohe66_web_text_article a on a.id = l.article_id

@@ -84,5 +84,5 @@ public interface BaseService<T extends BasePo> {
      * 数据统计
      * @return  返回表的数据数量
      */
-    Integer count();
+//    Integer count();
 }

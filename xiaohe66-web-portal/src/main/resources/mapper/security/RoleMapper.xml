@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.security.dao.RoleDao">
 
-    <select id="findById" resultType="Role">
-        select * from xiaohe66_web_security_role where id = #{id}
-    </select>
-
     <select id="findRoleNameByUsrId" resultType="Role">
         select r.role_name from xiaohe66_web_security_role r
         join xiaohe66_web_security_usr_role ur on r.id = ur.role_id

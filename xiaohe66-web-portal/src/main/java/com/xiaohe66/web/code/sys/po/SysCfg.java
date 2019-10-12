@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.sys.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 17-11-07 007
  */
+@TableName("xiaohe66_web_sys_cfg")
 public class SysCfg extends BasePoDetailed {
 
     private String cfgKey;

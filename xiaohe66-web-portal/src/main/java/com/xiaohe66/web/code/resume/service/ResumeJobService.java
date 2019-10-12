@@ -19,27 +19,16 @@ import java.util.List;
  * @date 18-10-11 011
  */
 @Service
-public class ResumeJobService extends AbstractService<ResumeJob>{
+public class ResumeJobService extends AbstractService<ResumeJobDao,ResumeJob>{
 
     private static final Logger LOG = LoggerFactory.getLogger(ResumeJobService.class);
-
-    private ResumeJobDao resumeJobDao;
 
     @Autowired
     private UsrFileService usrFileService;
 
-    public ResumeJobService() {
-    }
-
-    @Autowired
-    public ResumeJobService(ResumeJobDao resumeJobDao) {
-        super(resumeJobDao);
-        this.resumeJobDao = resumeJobDao;
-    }
-
     public List<ResumeJobDto> findDtoByResumeId(Integer resumeId){
         Check.notNullCheck(resumeId);
-        List<ResumeJob> resumeJobList = resumeJobDao.findByResumeId(resumeId);
+        List<ResumeJob> resumeJobList = baseMapper.findByResumeId(resumeId);
 
         return ClassUtils.convertList(ResumeJobDto.class,resumeJobList,(dto, po)->{
             try {

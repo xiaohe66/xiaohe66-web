@@ -15,18 +15,9 @@ import java.util.List;
  * @time 17-11-07 007
  */
 @Service
-public class SysCfgService extends AbstractService<SysCfg>{
-
-    public SysCfgService(){
-
-    }
-
-    @Autowired
-    public SysCfgService(SysCfgDao sysCfgDao){
-        super(sysCfgDao);
-    }
+public class SysCfgService extends AbstractService<SysCfgDao,SysCfg>{
 
     public List<SysCfg> findAll(){
-        return findByParam(null);
+        return list();
     }
 }

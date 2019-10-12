@@ -3,31 +3,14 @@
 <mapper namespace="com.xiaohe66.web.code.file.dao.CommonFileDao">
 
     <!-- 在上传小文件时，需要一次性插入链接、文件大小等数据 -->
-    <insert id="add" parameterType="CommonFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+    <!--<insert id="add" parameterType="CommonFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into xiaohe66_web_comm_file(md5,file_url,file_byte,end_time)
         values(#{md5},#{fileUrl},#{fileByte},#{endTime})
-    </insert>
-
-    <select id="findById" resultType="CommonFile">
-        select * from xiaohe66_web_comm_file where id = #{id}
-    </select>
+    </insert>-->
 
     <select id="findByMd5" resultType="CommonFile">
         select * from xiaohe66_web_comm_file where md5 = #{md5}
     </select>
-
-    <update id="updateById" parameterType="CommonFile">
-        update xiaohe66_web_comm_file
-        <set>
-            <if test="endTime != null">
-                end_time = #{endTime},
-            </if>
-            <if test="fileUrl != null">
-                file_url = #{fileUrl},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
 
     <update id="updateByParam" parameterType="CommonFile">
         update xiaohe66_web_comm_file

@@ -12,18 +12,7 @@ import org.springframework.stereotype.Service;
  * @date 18-03-17 017
  */
 @Service
-public class ArticleCategoryLinkService extends AbstractService<ArticleCategoryLink>{
-
-    private ArticleCategoryLinkDao articleCategoryLinkDao;
-
-    public ArticleCategoryLinkService() {
-    }
-
-    @Autowired
-    public ArticleCategoryLinkService(ArticleCategoryLinkDao articleCategoryLinkDao) {
-        super(articleCategoryLinkDao);
-        this.articleCategoryLinkDao = articleCategoryLinkDao;
-    }
+public class ArticleCategoryLinkService extends AbstractService<ArticleCategoryLinkDao,ArticleCategoryLink>{
 
     public void delByArticleId(Integer articleId){
         Check.notEmptyCheck(articleId);

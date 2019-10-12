@@ -17,22 +17,13 @@ import java.util.List;
  * @time 17-11-12 012
  */
 @Service
-public class TextCategoryService extends AbstractService<TextCategory> {
-    private TextCategoryDao categoryDao;
-
-    public TextCategoryService(){}
-
-    @Autowired
-    public TextCategoryService(TextCategoryDao textCategoryDao){
-        super(textCategoryDao);
-        this.categoryDao = textCategoryDao;
-    }
+public class TextCategoryService extends AbstractService<TextCategoryDao,TextCategory> {
 
     public List<TextCategory> findByPid(Integer pid){
         if(Check.isOneNull(pid)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"pid is null");
         }
-        return categoryDao.findByPid(pid);
+        return baseMapper.findByPid(pid);
     }
 
     public List<TextCategory> findByUsrId(Integer usrId){
@@ -49,13 +40,13 @@ public class TextCategoryService extends AbstractService<TextCategory> {
         if(Check.isOneNull(articleId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"articleId is null");
         }
-        return categoryDao.findNamesByArticleId(articleId);
+        return baseMapper.findNamesByArticleId(articleId);
     }
 
     public List<TextCategory> findByArticleId(Integer articleId){
         if(Check.isOneNull(articleId)){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"articleId is null");
         }
-        return categoryDao.findByArticleId(articleId);
+        return baseMapper.findByArticleId(articleId);
     }
 }

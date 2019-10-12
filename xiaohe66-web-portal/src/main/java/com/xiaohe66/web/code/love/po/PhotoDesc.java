@@ -1,11 +1,13 @@
 package com.xiaohe66.web.code.love.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 
 /**
  * @author xiaohe
  * @time 2019.10.11 10:51
  */
+@TableName("xiaohe66_web_love_photo_desc")
 public class PhotoDesc extends BasePoDetailed {
 
     private Integer photoId;

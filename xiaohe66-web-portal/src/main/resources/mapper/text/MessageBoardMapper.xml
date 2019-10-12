@@ -2,16 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.text.dao.MessageBoardDao">
 
-    <insert id="add" parameterType="MessageBoard" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into xiaohe66_web_text_message_board(msg,usr_id,anonymity,create_id,update_id)
-        values(#{msg},#{usrId},#{anonymity},#{createId},#{createId})
-    </insert>
-
-    <select id="findById" resultType="MessageBoard">
-        select * from xiaohe66_web_text_message_board where id = #{id} and is_delete = 0
-    </select>
-
-    <select id="findByParam" resultType="MessageBoard">
+    <select id="listByParam" resultType="MessageBoard">
         select * from xiaohe66_web_text_message_board
         <where>
             is_delete = 0
