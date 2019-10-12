@@ -27,24 +27,26 @@ public class CategoryController {
 
     @Get("/{id}")
     public CategoryDto get(@PathVariable("id") Integer id){
-        Category category = categoryService.findById(id);
+        Category category = categoryService.getById(id);
         return ClassUtils.convert(CategoryDto.class,category);
     }
 
     @Post
     public Integer add(Category category){
-        categoryService.add(category, UsrHelper.getCurrentUsrId());
+        category.setCreateId(UsrHelper.getCurrentUsrId());
+        categoryService.save(category);
         return category.getId();
     }
 
     @Put
     public void update(Category category){
-        categoryService.updateById(category, UsrHelper.getCurrentUsrId());
+        category.setUpdateId(UsrHelper.getCurrentUsrId());
+        categoryService.updateById(category);
     }
 
     @Del("/{id}")
     public void del(@PathVariable("id")Integer id){
-        categoryService.delById(id, UsrHelper.getCurrentUsrId());
+        categoryService.removeById(id);
     }
 
     @Get("/p/{pid}")

@@ -12,7 +12,7 @@ import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.cache.CacheHelper;
 import com.xiaohe66.web.code.org.dto.UsrDto;
 import com.xiaohe66.web.code.org.po.User;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.auth.entity.EmailAuthCode;
 import com.xiaohe66.web.code.security.auth.helper.AuthCodeHelper;
 import com.xiaohe66.web.code.sys.helper.EmailHelper;
@@ -42,7 +42,7 @@ public class LoginService {
     private final Object REGISTER_LOCK = new Object();
 
     @Autowired
-    private UsrService usrService;
+    private UserService userService;
 
     @Autowired
     private UsrRoleService roleService;
@@ -66,11 +66,11 @@ public class LoginService {
             throw new MsgException(CodeEnum.FORMAT_ERROR);
         }
 
-        if(usrService.usrNameIsExist(usrName)){
+        if(userService.usrNameIsExist(usrName)){
             throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST,"usrName is exist");
         }
 
-        if(usrService.emailIsExist(email)){
+        if(userService.emailIsExist(email)){
             throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST,"email is exist");
         }
 
@@ -97,7 +97,7 @@ public class LoginService {
 
         user.setUsrPwd(PwdUtils.hashPassword(user.getUsrPwd()));
         try{
-            usrService.add(user,null);
+            userService.save(user);
         }catch (Exception e){
             LOG.error("注册失败",e.getMessage());
             throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
@@ -112,7 +112,7 @@ public class LoginService {
             throw new MsgException(CodeEnum.AUTH_CODE_ERR,"code is wrong");
         }
 
-        User user = usrService.findByEmail(email);
+        User user = userService.findByEmail(email);
         if(user == null){
             throw new MsgException(CodeEnum.USR_NOT_EXIST);
         }
@@ -135,7 +135,7 @@ public class LoginService {
 
         user.setUsrPwd(PwdUtils.hashPassword(password));
 
-        usrService.updateById(user,null);
+        userService.updateById(user);
     }
 
     public UsrDto login(String loginName, String usrPwd){
@@ -157,7 +157,7 @@ public class LoginService {
         }
 
         //登录名中存在@，则为邮箱账号
-        User dbUsr = loginName.contains("@") ? usrService.findByEmail(loginName) : usrService.findByUsrName(loginName);
+        User dbUsr = loginName.contains("@") ? userService.findByEmail(loginName) : userService.findByUsrName(loginName);
 
         if(Check.isNull(dbUsr)){
             throw new MsgException(CodeEnum.USR_NOT_EXIST,"user not exist:loginName="+loginName);

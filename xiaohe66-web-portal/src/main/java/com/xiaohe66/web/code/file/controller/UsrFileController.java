@@ -9,7 +9,7 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.service.UsrFileService;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +29,7 @@ public class UsrFileController {
     private UsrFileService usrFileService;
 
     @Autowired
-    private UsrService usrService;
+    private UserService userService;
 
     @Paging
     @Get("/all/{onlyWebmaster}")
@@ -61,13 +61,13 @@ public class UsrFileController {
 
     @Del("/{id}")
     public void del(@PathVariable("id")Integer id){
-        usrFileService.delById(id,UsrHelper.getCurrentUsrId());
+        usrFileService.removeById(id);
     }
 
     @Post("/head")
     public Integer uploadHeadImg(@RequestParam("file") MultipartFile file, String md5){
         Integer imgFileId =  usrFileService.uploadImg(file,md5,UsrHelper.getCurrentUsrId(),UsrFileService.USR_HEAD_IMG_FILE_TYPE);
-        usrService.updateImgFile(imgFileId);
+        userService.updateImgFile(imgFileId);
         return imgFileId;
     }
 

@@ -15,7 +15,7 @@ import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.UsrFile;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +66,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
     private UsrFileLogService usrFileLogService;
 
     @Autowired
-    private UsrService usrService;
+    private UserService userService;
 
     public Set<Integer> uploadDefaultFilePrepare(Integer currentUsrId,String md5,Float mb,String fileName,String extension){
         return uploadFilePrepare(currentUsrId,md5,mb,fileName,extension,DEFAULT_FILE_TYPE);
@@ -90,11 +90,12 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         * */
 //        if(commonFile.getEndTime()!=null){
             UsrFile usrFile = new UsrFile();
+            usrFile.setCreateId(currentUsrId);
             usrFile.setFileName(fileNameFormat(fileName));
             usrFile.setExtension(fileExtensionFormat(extension));
             usrFile.setFileType(fileType);
             usrFile.setFileId(commonFile.getId());
-            add(usrFile,currentUsrId);
+            save(usrFile);
 //        }
 
         return notUploadChunkSet;
@@ -126,12 +127,13 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         String extension = fileExtensionFormat(name.substring(dotIndex));
 
         UsrFile usrFile = new UsrFile();
+        usrFile.setCreateId(currentUsrId);
         usrFile.setFileId(commonFile.getId());
         usrFile.setFileType(fileType);
         usrFile.setFileName(fileName);
         usrFile.setExtension(extension);
 
-        add(usrFile,currentUsrId);
+        save(usrFile);
 
         return ClassUtils.convert(UsrFileDto.class,usrFile);
     }
@@ -155,10 +157,10 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         UsrFileParam param = new UsrFileParam();
         param.setCreateId(usrId);
 
-        List<UsrFile> usrFileList = this.findByParam(param);
+        List<UsrFile> usrFileList = this.listByParam(param);
 
         return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
-            CommonFile commonFile = commonFileService.findById(usrFile.getFileId());
+            CommonFile commonFile = commonFileService.getById(usrFile.getFileId());
 
             usrFileDto.setIsFinish(commonFile.getEndTime()!=null);
 
@@ -178,14 +180,14 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
             param.setFileName("%"+search+"%");
         }
 
-        List<UsrFile> usrFileList = this.findByParam(param);
+        List<UsrFile> usrFileList = this.listByParam(param);
 
         return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
-            Integer size = commonFileService.findById(usrFile.getFileId()).getFileByte();
+            Integer size = commonFileService.getById(usrFile.getFileId()).getFileByte();
 
             //todo:需转成可视化单位
             usrFileDto.setFileSize(size+"字节");
-            usrFileDto.setUsrName(usrService.findById(usrFile.getCreateId()).getUsrName());
+            usrFileDto.setUsrName(userService.getById(usrFile.getCreateId()).getUsrName());
         });
     }
 
@@ -195,7 +197,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         final int maxSize = 5;
         List<UsrFileDto> usrFileDtoList = new ArrayList<>(maxSize);
         for (UsrFileDownloadCount downloadCount : mapList) {
-            UsrFile usrFile = this.findById(downloadCount.getId());
+            UsrFile usrFile = this.getById(downloadCount.getId());
             if(usrFile == null){
                 continue;
             }
@@ -214,7 +216,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
             throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
         }
 
-        UsrFile usrFile = findById(usrFileId);
+        UsrFile usrFile = getById(usrFileId);
         if(usrFile == null){
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
         }
@@ -248,7 +250,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
             throw new XhException(CodeEnum.NULL_EXCEPTION,"currentUsrId is null");
         }
 
-        UsrFile usrFile = findById(usrFileId);
+        UsrFile usrFile = getById(usrFileId);
         if(usrFile == null){
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
         }
@@ -264,13 +266,15 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         }
 
         //记录下载日志
-        usrFileLogService.add(new UsrFileLog(usrFileId),currentUsrId);
+        usrFileLogService.save(new UsrFileLog(usrFileId));
     }
 
     public void updateNameById(Integer fileId,String fileName,Integer currentUsrId){
         fileName = fileNameFormat(fileName);
         Check.notEmptyCheck(fileId,fileName,currentUsrId);
-        updateById(new UsrFile(fileId,fileName),currentUsrId);
+        UsrFile usrFile = new UsrFile(fileId, fileName);
+        usrFile.setUpdateId(currentUsrId);
+        updateById(usrFile);
     }
 
     /**

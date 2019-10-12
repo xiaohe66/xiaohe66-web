@@ -2,7 +2,7 @@ package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.resume.service.ResumeProjectService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
 import com.xiaohe66.web.code.text.service.ArticleService;
@@ -22,7 +22,7 @@ public class ResumeProjectPageController {
     private ArticleService articleService;
 
     @Resource
-    private UsrService usrService;
+    private UserService userService;
 
     @Resource
     private ResumeProjectService resumeProjectService;
@@ -32,7 +32,7 @@ public class ResumeProjectPageController {
         Integer xhUsrId = SysCfgHelper.findXhUsrId();
         model.addAttribute("title","小何的简历-项目详情");
         model.addAttribute("usrDivTitle","小何");
-        model.addAttribute("usrDto",usrService.lookAtUsr(xhUsrId));
+        model.addAttribute("usrDto",userService.lookAtUsr(xhUsrId));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(xhUsrId));
         model.addAttribute("resumeProject",resumeProjectService.findDtoByResumeId(resumeId));
         return "resume/resume_project_view";

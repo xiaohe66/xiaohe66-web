@@ -7,7 +7,7 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.service.UsrFileService;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +31,7 @@ public class UsrFilePageController {
     private UsrFileService usrFileService;
 
     @Resource
-    private UsrService usrService;
+    private UserService userService;
 
     @Resource
     private ArticleService articleService;
@@ -52,7 +52,7 @@ public class UsrFilePageController {
     @Page("/index")
     public String index(Model model){
         model.addAttribute("page",USR_FILE_INDEX_PAGE_URL);
-        model.addAttribute("usrDto",usrService.lookAtUsr(null));
+        model.addAttribute("usrDto",userService.lookAtUsr(null));
 
         return OtherPageController.RIGHT_PAGE_URL;
     }
@@ -61,7 +61,7 @@ public class UsrFilePageController {
     public String all(Model model){
         PageHelper.startPage(1,20);
         model.addAttribute("pageInfo",new PageInfo<>(usrFileService.findDtoAll(null,false)));
-        model.addAttribute("usrDto",usrService.lookAtUsr(null));
+        model.addAttribute("usrDto",userService.lookAtUsr(null));
         model.addAttribute("title","资源列表");
         model.addAttribute("usrDivTitle","站长");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));

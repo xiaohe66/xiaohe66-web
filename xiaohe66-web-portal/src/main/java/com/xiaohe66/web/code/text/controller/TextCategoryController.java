@@ -27,24 +27,26 @@ public class TextCategoryController {
 
     @Get("/{id}")
     public TextCategoryDto get(@PathVariable("id") Integer id){
-        TextCategory textCategory = categoryService.findById(id);
+        TextCategory textCategory = categoryService.getById(id);
         return ClassUtils.convert(TextCategoryDto.class, textCategory);
     }
 
     @Post
     public TextCategoryDto add(TextCategory textCategory){
-        categoryService.add(textCategory, UsrHelper.getCurrentUsrId());
+        textCategory.setCreateId(UsrHelper.getCurrentUsrId());
+        categoryService.save(textCategory);
         return ClassUtils.convert(TextCategoryDto.class,textCategory);
     }
 
     @Put
     public void update(TextCategory textCategory){
-        categoryService.updateById(textCategory,UsrHelper.getCurrentUsrId());
+        textCategory.setUpdateId(UsrHelper.getCurrentUsrId());
+        categoryService.updateById(textCategory);
     }
 
     @Del("/{id}")
     public void del(@PathVariable("id")Integer id){
-        categoryService.delById(id,UsrHelper.getCurrentUsrId());
+        categoryService.removeById(id);
     }
 
     @Get("/p/{pid}")

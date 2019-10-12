@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
 import com.xiaohe66.web.code.org.po.User;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UsrController{
 
     @Autowired
-    private UsrService usrService;
+    private UserService userService;
 
     @Put
     public void update(String signature){
@@ -27,17 +27,18 @@ public class UsrController{
         User user = new User();
         user.setId(currentUsrId);
         user.setSignature(signature);
-        usrService.updateById(user,currentUsrId);
+        user.setUpdateId(currentUsrId);
+        userService.updateById(user);
     }
 
     @Get("/usrName/{usrName}")
     public Boolean usrNameIsExist(@PathVariable("usrName") String usrName){
-        return usrService.usrNameIsExist(usrName);
+        return userService.usrNameIsExist(usrName);
     }
 
     @Post("/email")
     public Boolean emailIsExist(String email){
-        return usrService.emailIsExist(email);
+        return userService.emailIsExist(email);
     }
 
 }

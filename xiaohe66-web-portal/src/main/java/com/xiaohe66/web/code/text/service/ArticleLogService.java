@@ -33,11 +33,10 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
      * 方法弃用，请使用 add()
      *
      * @param po           插入的实体
-     * @param currentUsrId 当前操作者id
      */
     @Override
     @Deprecated
-    public void add(ArticleLog po, Integer currentUsrId) {
+    public boolean save(ArticleLog po) {
         throw new XhException(CodeEnum.NOT_IMPLEMENTED);
     }
 
@@ -50,7 +49,7 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
      * 定义查看数量的规则
      * 每个session只能增加一次访问量
      */
-    public void add() {
+    public void save() {
 
         Integer articleId = WebUtils.getSessionAttr(Final.Str.ARTICLE_LOG_ADD_PREPARE);
         Integer currentUsrId = UsrHelper.getCurrentUsrIdNotEx();
@@ -63,19 +62,18 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
 
         Set<Integer> articleIdSet = WebUtils.getSessionAttr(Final.Str.ARTICLE_LOG_CACHE);
         if (CollectionUtils.isNull(articleIdSet)) {
-            articleIdSet = new HashSet<>(4);
+            articleIdSet = new HashSet<>();
             WebUtils.setSessionAttr(Final.Str.ARTICLE_LOG_CACHE, articleIdSet);
         }
 
         String ip = WebUtils.getRequestIP();
-        LOG.debug("ip：" + ip);
+        LOG.debug("ip：{}", ip);
 
         if (!articleIdSet.contains(articleId)) {
             ArticleLog articleLog = new ArticleLog(articleId);
             articleLog.setIp(ip);
             articleLog.setCreateId(currentUsrId);
-            articleLog.setCreateTime(new Date());
-            super.add(articleLog, currentUsrId);
+            super.save(articleLog);
 
             articleIdSet.add(articleId);
         }

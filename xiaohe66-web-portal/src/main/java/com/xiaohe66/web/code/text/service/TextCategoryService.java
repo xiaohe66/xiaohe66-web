@@ -32,7 +32,7 @@ public class TextCategoryService extends AbstractService<TextCategoryMapper,Text
         TextCategoryParam param = new TextCategoryParam();
         param.setCreateId(usrId);
 
-        return findByParam(param);
+        return listByParam(param);
     }
 
     public String findNamesByArticleId(Integer articleId){

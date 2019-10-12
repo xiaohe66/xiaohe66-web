@@ -21,48 +21,44 @@ import java.util.Set;
  * @date 18-04-15 015
  */
 @Service
-public class UsrFileLogService extends AbstractService<UsrFileLogMapper,UsrFileLog>{
+public class UsrFileLogService extends AbstractService<UsrFileLogMapper, UsrFileLog> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UsrFileLogService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UsrFileLogService.class);
 
     /**
      * 每个会话只能增加1的下载量
+     *
      * @param po 插入的实体
-     * @param currentUsrId 当前操作者id
      */
     @Override
-    public void add(UsrFileLog po, Integer currentUsrId) {
+    public boolean save(UsrFileLog po) {
         String ip = WebUtils.getRequestIP();
-        LOG.debug("ip："+ip);
+        logger.debug("ip：{}", ip);
 
         Integer usrFileId = po.getUsrFileId();
 
         Set<Integer> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
 
-        if(CollectionUtils.isNull(usrFileIdSet)){
-            usrFileIdSet = new HashSet<>(4);
-            WebUtils.setSessionAttr(Final.Str.USR_FILE_LOG_CACHE,usrFileIdSet);
+        if (CollectionUtils.isNull(usrFileIdSet)) {
+            usrFileIdSet = new HashSet<>();
+            WebUtils.setSessionAttr(Final.Str.USR_FILE_LOG_CACHE, usrFileIdSet);
         }
 
         if (!usrFileIdSet.contains(usrFileId)) {
-
             po.setIp(ip);
-            po.setCreateTime(new Date());
-            po.setCreateId(currentUsrId);
-            super.add(po,currentUsrId);
-
             usrFileIdSet.add(usrFileId);
         }
-
+        return super.save(po);
     }
 
     /**
      * 月下载量统计（近30天）
+     *
      * @param usrId 针对某个用户，若传入null，则为全部用户
-     * @return  id:用户文件id;
-     *          count:该文件的下载数量
+     * @return id:用户文件id;
+     * count:该文件的下载数量
      */
-    public List<UsrFileDownloadCount> countDownloadOfMonth(Integer usrId){
+    public List<UsrFileDownloadCount> countDownloadOfMonth(Integer usrId) {
         return baseMapper.countDownloadOfMonth(usrId);
     }
 }

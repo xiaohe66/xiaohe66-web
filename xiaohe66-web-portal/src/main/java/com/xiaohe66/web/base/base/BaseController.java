@@ -2,6 +2,7 @@ package com.xiaohe66.web.base.base;
 
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
+import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Result;
 import org.springframework.beans.factory.annotation.Autowired;

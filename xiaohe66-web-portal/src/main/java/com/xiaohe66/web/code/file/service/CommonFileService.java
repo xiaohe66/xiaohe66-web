@@ -91,7 +91,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
         if(commonFile == null){
             LOG.info("文件未上传过，生成主文件记录");
             //生成主文件记录
-            this.add(new CommonFile(md5),null);
+            save(new CommonFile(md5));
 
             return resultSet;
         }
@@ -234,18 +234,18 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
         commonFile.setEndTime(new Date());
         commonFile.setMd5(md5);
 
-        add(commonFile,currentUsrId);
+        save(commonFile);
 
         return commonFile;
     }
 
     public void updateByMd5(CommonFile commonFile){
-        this.updateByParam(commonFile,commonFile,null);
+        this.updateByParam(commonFile, commonFile);
     }
 
     public void outputFile(Integer id,OutputStream outputStream){
         Check.notEmptyCheck(id);
-        CommonFile commonFile = findById(id);
+        CommonFile commonFile = getById(id);
         String url = fileHomeUrl + commonFile.getFileUrl();
 
         IoUtils.writeToOutput(new File(url),outputStream);

@@ -13,7 +13,7 @@ import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.common.service.CategoryService;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
 import com.xiaohe66.web.code.org.po.User;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
 import com.xiaohe66.web.code.text.dao.ArticleMapper;
 import com.xiaohe66.web.code.text.dto.ArticleDto;
@@ -38,7 +38,7 @@ import java.util.List;
 @Service
 public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ArticleService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
 
     @Autowired
     private ArticleCategoryLinkService articleCategoryLinkService;
@@ -50,7 +50,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     private TextCategoryService textCategoryService;
 
     @Autowired
-    private UsrService usrService;
+    private UserService userService;
 
     @Autowired
     private ArticleLogService articleLogService;
@@ -62,7 +62,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
      * @return 匹配的结果
      */
     public List<Article> list(Article article) {
-        return this.findByParam(article);
+        return this.listByParam(article);
     }
 
     /**
@@ -74,18 +74,17 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
         PageHelper.startPage(1, 5);
         ArticleParam articleParam = new ArticleParam();
         articleParam.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
-        return installDto(findByParam(articleParam));
+        return installDto(listByParam(articleParam));
     }
 
     /**
      * 禁用该方法，调用该方法会抛出异常，请调用add(p1,p2,p3)
      *
      * @param article      禁用
-     * @param currentUsrId 当前操作者id
      */
     @Deprecated
     @Override
-    public void updateById(Article article, Integer currentUsrId) {
+    public boolean updateById(Article article) {
         throw new XhException(CodeEnum.DISABLE_FUNCTION, "pls invoke updateById(p1,p2,p3)");
     }
 
@@ -100,7 +99,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
         if (Check.isNull(article) || Check.isNull(article.getId())) {
             throw new XhException(CodeEnum.NULL_EXCEPTION, "article or id is null");
         }
-        Article dbArticle = findById(article.getId());
+        Article dbArticle = getById(article.getId());
         if (Check.isNull(dbArticle)) {
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND, "object not found");
         }
@@ -108,7 +107,8 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
         if (!currentUsrId.equals(dbArticle.getCreateId())) {
             throw new XhException(CodeEnum.NOT_PERMISSION, "this article not is current user article");
         }
-        super.updateById(article, currentUsrId);
+        article.setUpdateId(currentUsrId);
+        super.updateById(article);
 
         //删除个人分类关联
         articleCategoryLinkService.delByArticleId(dbArticle.getId());
@@ -118,20 +118,8 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
                 linkList.add(new ArticleCategoryLink(article.getId(), perCategoryId));
             }
             //增加新的个人分类关联
-            articleCategoryLinkService.addAll(linkList, currentUsrId);
+            articleCategoryLinkService.saveBatch(linkList);
         }
-    }
-
-    /**
-     * 禁用该方法，调用该方法会抛出异常，请调用add(p1,p2,p3)
-     *
-     * @param article      禁用
-     * @param currentUsrId 当前操作者id
-     */
-    @Deprecated
-    @Override
-    public void add(Article article, Integer currentUsrId) {
-        throw new XhException(CodeEnum.DISABLE_FUNCTION, "pls invoke add(p1,p2,p3)");
     }
 
     /**
@@ -151,8 +139,9 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             article.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
         }
 
-        LOG.info("创建一篇文章：title=" + article.getTitle() + ",usrId=" + currentUsrId);
-        super.add(article, currentUsrId);
+        logger.info("创建一篇文章：title={},usrId={}", article.getTitle(), currentUsrId);
+        article.setCreateId(currentUsrId);
+        super.save(article);
 
         if (Check.isNotEmpty(perCategoryIds)) {
             List<ArticleCategoryLink> linkList = new ArrayList<>();
@@ -160,8 +149,20 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
                 ArticleCategoryLink link = new ArticleCategoryLink(article.getId(), perCategoryId);
                 linkList.add(link);
             }
-            articleCategoryLinkService.addAll(linkList, currentUsrId);
+            articleCategoryLinkService.saveBatch(linkList);
         }
+    }
+
+    /**
+     * 禁用该方法，调用该方法会抛出异常，请调用add(p1,p2,p3)
+     *
+     * @param article 禁用
+     * @deprecated sss
+     */
+    @Deprecated
+    @Override
+    public boolean save(Article article) {
+        throw new XhException(CodeEnum.DISABLE_FUNCTION, "pls invoke add(p1,p2,p3)");
     }
 
     /**
@@ -180,7 +181,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
         param.setCreateId(usrId);
         param.setSecretLevel(secretLevel);
 
-        return baseMapper.listByParam(param);
+        return baseMapper.selectByParam(param);
     }
 
     public List<ArticleDto> findDtoByUsrId(Integer usrId, Integer secretLevel) {
@@ -189,7 +190,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
     public ArticleDto findDtoById(Integer id) {
         Check.notEmptyCheck(id);
-        Article article = this.findById(id);
+        Article article = this.getById(id);
 
         //如果该文章是简历文章，则任何人都可以查看
         if (Final.Article.SECRET_LEVEL_RESUME_ARTICLE != article.getSecretLevel()) {
@@ -222,12 +223,12 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             param.setTitle("%" + search + "%");
         }
         param.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
-        return installDto(findByParam(param));
+        return installDto(listByParam(param));
     }
 
     public void installDto(ArticleDto articleDto, Article article) {
 
-        articleDto.setSysCategoryName(categoryService.findById(article.getSysCategoryId()).getCategoryName());
+        articleDto.setSysCategoryName(categoryService.getById(article.getSysCategoryId()).getCategoryName());
         articleDto.setCount(articleLogService.countByArticleId(article.getId()));
 
         List<TextCategory> textCategoryList = textCategoryService.findByArticleId(article.getId());
@@ -262,7 +263,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
             articleDto.setText(HtmlUtils.digest(articleDto.getText(), 110));
 
-            User user = usrService.findById(article.getCreateId());
+            User user = userService.getById(article.getCreateId());
             articleDto.setUsrName(user.getUsrName());
             articleDto.setImgFileId(user.getImgFileId());
             articleDto.setCount(articleLogService.countByArticleId(article.getId()));
@@ -286,7 +287,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             param.setSecretLevel(Final.Article.PUBLISH_STATE_NOT_PUBLISH);
             param.setId(downloadCount.getId());
 
-            List<Article> articleList = findByParam(param);
+            List<Article> articleList = listByParam(param);
             if (articleList == null || articleList.size() == 0) {
                 continue;
             }

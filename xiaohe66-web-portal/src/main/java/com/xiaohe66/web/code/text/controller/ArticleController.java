@@ -36,7 +36,7 @@ public class ArticleController {
 
     @Get("/{id}")
     public ArticleDto findById(@PathVariable("id") Integer id){
-        Article article = articleService.findById(id);
+        Article article = articleService.getById(id);
         return ClassUtils.convert(ArticleDto.class,article);
     }
 
@@ -84,6 +84,6 @@ public class ArticleController {
 
     @Del("/{id}")
     public void delete(@PathVariable("id") Integer id){
-        articleService.delById(id, UsrHelper.getCurrentUsrId());
+        articleService.removeById(id);
     }
 }

@@ -3,7 +3,7 @@ package com.xiaohe66.web.controller;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.service.LoginService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +24,7 @@ public class UsrPageController {
     private static final String USR_DATA_PAGE_URL = "org/usr_data";
 
     @Resource
-    private UsrService usrService;
+    private UserService userService;
 
     @Resource
     private LoginService loginService;
@@ -44,7 +44,7 @@ public class UsrPageController {
     public String me(Model model){
         model.addAttribute("title","我的");
         model.addAttribute("page",USR_DATA_PAGE_URL);
-        model.addAttribute("usrDto",usrService.lookAtUsr(UsrHelper.getCurrentUsrId()));
+        model.addAttribute("usrDto",userService.lookAtUsr(UsrHelper.getCurrentUsrId()));
         return OtherPageController.USR_ZONE_PAGE_URL;
     }
 

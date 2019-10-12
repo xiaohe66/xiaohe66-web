@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.service.UsrFileService;
 import com.xiaohe66.web.code.org.dto.UsrDto;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.dto.MessageBoardDto;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import com.xiaohe66.web.code.text.service.MessageBoardService;
@@ -27,7 +27,7 @@ public class MessageBoardPageController {
     private MessageBoardService messageBoardService;
 
     @Resource
-    private UsrService usrService;
+    private UserService userService;
 
     @Resource
     private UsrFileService usrFileService;
@@ -44,7 +44,7 @@ public class MessageBoardPageController {
     public String index(Model model,@PathVariable("usrId") Integer usrId){
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
         usrId = null;
-        UsrDto usrDto = usrService.lookAtUsr(usrId);
+        UsrDto usrDto = userService.lookAtUsr(usrId);
         model.addAttribute("usrDto",usrDto);
         PageHelper.startPage(1,10);
         List<MessageBoardDto> list = messageBoardService.findByUsrId(usrId);

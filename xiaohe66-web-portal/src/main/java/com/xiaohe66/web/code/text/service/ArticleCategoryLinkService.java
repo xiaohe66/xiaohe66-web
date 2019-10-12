@@ -15,6 +15,6 @@ public class ArticleCategoryLinkService extends AbstractService<ArticleCategoryL
 
     public void delByArticleId(Integer articleId){
         Check.notEmptyCheck(articleId);
-        delByParamOfHard(new ArticleCategoryLink(articleId));
+        removeByParamPhysics(new ArticleCategoryLink(articleId));
     }
 }

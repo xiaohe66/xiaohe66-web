@@ -16,8 +16,8 @@ public class ArticleLogController {
     private ArticleLogService articleLogService;
 
     @Post
-    public void add(){
-        articleLogService.add();
+    public void save(){
+        articleLogService.save();
     }
 
 }

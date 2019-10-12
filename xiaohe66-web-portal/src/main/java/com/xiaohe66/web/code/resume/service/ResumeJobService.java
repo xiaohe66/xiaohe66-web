@@ -32,7 +32,7 @@ public class ResumeJobService extends AbstractService<ResumeJobMapper,ResumeJob>
 
         return ClassUtils.convertList(ResumeJobDto.class,resumeJobList,(dto, po)->{
             try {
-                dto.setImgFileId(usrFileService.findById(po.getLogo()).getFileId());
+                dto.setImgFileId(usrFileService.getById(po.getLogo()).getFileId());
             }catch (Exception e){
                 LOG.error("取得commonFileId出现问题",e);
             }

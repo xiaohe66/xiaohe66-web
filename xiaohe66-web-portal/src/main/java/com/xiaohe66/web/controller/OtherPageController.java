@@ -2,7 +2,7 @@ package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,7 @@ public class OtherPageController {
     private ArticleService articleService;
 
     @Resource
-    private UsrService usrService;
+    private UserService userService;
 
     @Resource
     private UsrFileService usrFileService;
@@ -44,7 +44,7 @@ public class OtherPageController {
     public String index(Model model){
         model.addAttribute("list",articleService.indexArticle());
         model.addAttribute("title","乱七八糟导航");
-        model.addAttribute("usrDto",usrService.lookAtUsr(null));
+        model.addAttribute("usrDto",userService.lookAtUsr(null));
         model.addAttribute("page",INDEX_PAGE_HTML);
         model.addAttribute("usrDivTitle","站长");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));

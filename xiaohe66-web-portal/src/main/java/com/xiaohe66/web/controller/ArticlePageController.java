@@ -13,7 +13,7 @@ import com.xiaohe66.web.code.common.service.CategoryService;
 import com.xiaohe66.web.code.file.service.UsrFileService;
 import com.xiaohe66.web.code.org.dto.UsrDto;
 import com.xiaohe66.web.code.org.helper.UsrHelper;
-import com.xiaohe66.web.code.org.service.UsrService;
+import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.dto.ArticleDto;
 import com.xiaohe66.web.code.text.dto.TextCategoryDto;
 import com.xiaohe66.web.code.text.po.TextCategory;
@@ -53,7 +53,7 @@ public class ArticlePageController {
     private CategoryService categoryService;
 
     @Resource
-    private UsrService usrService;
+    private UserService userService;
 
     @Resource
     private UsrFileService usrFileService;
@@ -97,7 +97,7 @@ public class ArticlePageController {
         model.addAttribute("article",articleDto);
         model.addAttribute("title",articleDto.getTitle());
         model.addAttribute("page",ARTICLE_DETAIL_PAGE_URL);
-        model.addAttribute("usrDto",usrService.lookAtUsr(articleDto.getCreateId()));
+        model.addAttribute("usrDto",userService.lookAtUsr(articleDto.getCreateId()));
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(articleDto.getCreateId()));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(articleDto.getCreateId()));
         return OtherPageController.RIGHT_PAGE_URL;
@@ -110,7 +110,7 @@ public class ArticlePageController {
 
     @Page("/list/{usrId}")
     public String list(Model model,@PathVariable("usrId") Integer usrId){
-        UsrDto usrDto = usrService.lookAtUsr(usrId);
+        UsrDto usrDto = userService.lookAtUsr(usrId);
 
         PageHelper.startPage(1,10);
         List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId(),Final.Article.SECRET_LEVEL_PUBLIC);
@@ -138,7 +138,7 @@ public class ArticlePageController {
 
     @Page("/all")
     public String all(Model model){
-        UsrDto usrDto = usrService.lookAtUsr(null);
+        UsrDto usrDto = userService.lookAtUsr(null);
 
         PageHelper.startPage(1,10);
         model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));

@@ -25,22 +25,28 @@ import org.springframework.stereotype.Service;
  * @time 17-10-28 028
  */
 @Service
-public class UsrService extends AbstractService<UserMapper, User> {
+public class UserService extends AbstractService<UserMapper, User> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UsrService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Override
-    public void updateById(User po, Integer currentUsrId) {
+    public boolean save(User po) {
+        return retBool(baseMapper.insert(po));
+    }
+
+    @Override
+    public boolean updateById(User po) {
         String signature = HtmlUtils.delHtmlTag(po.getSignature());
         if(signature != null ){
             po.setSignature(signature);
         }
-        super.updateById(po, currentUsrId);
-
         if(signature != null && SecurityUtils.getSubject().isAuthenticated()){
             UsrHelper.getCurrentUsr().setSignature(signature);
         }
+
+        return super.updateById(po);
     }
+
 
     public void updateImgFile(Integer imgFileId){
         Integer currentUsrId = UsrHelper.getCurrentUsrId();
@@ -49,7 +55,8 @@ public class UsrService extends AbstractService<UserMapper, User> {
         user.setImgFileId(imgFileId);
 
         user.setId(currentUsrId);
-        updateById(user,currentUsrId);
+        user.setUpdateId(currentUsrId);
+        updateById(user);
 
         UsrHelper.getCurrentUsr().setImgFileId(imgFileId);
     }
@@ -79,7 +86,7 @@ public class UsrService extends AbstractService<UserMapper, User> {
         if(Check.isNull(usrId)){
             usrId = Final.Sys.XIAO_HE_USR_ID;
         }
-        User user = findById(usrId);
+        User user = getById(usrId);
         UsrDto usrDto = ClassUtils.convert(UsrDto.class,user);
 
         usrDto.setImgFileId(user.getImgFileId());
