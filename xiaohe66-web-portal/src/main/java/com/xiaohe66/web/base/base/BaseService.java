@@ -1,5 +1,6 @@
 package com.xiaohe66.web.base.base;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,6 +10,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @time 17-10-28 028
  */
 public interface BaseService<T extends BasePo> extends IService<T> {
+
+    IPage<T> page(long pageSize);
+
+    IPage<T> page(long pageSize, long pageNo);
 
     /**
      * 数据统计

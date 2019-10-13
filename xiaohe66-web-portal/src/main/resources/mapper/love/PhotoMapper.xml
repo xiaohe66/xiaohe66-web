@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.love.mapper.PhotoDescMapper">
+
+    <select id="listByPhotoId" resultType="PhotoDesc">
+        select * from xiaohe66_web_love_photo_desc where photo_id = #{photoId} and is_delete = 0
+    </select>
+
+</mapper>

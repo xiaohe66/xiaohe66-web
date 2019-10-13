@@ -9,12 +9,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  */
 public class XhPage<T extends BasePo> extends Page<T> {
 
+    public static final int DEFAULT_PAGE_SIZE = 20;
+
     public XhPage() {
-        super(1, 20, false);
+        super(1, DEFAULT_PAGE_SIZE, false);
     }
 
-    public XhPage(long current, long size) {
-        super(current, size, false);
+    public XhPage(long pageSize) {
+        super(1, pageSize, false);
+    }
+
+    public XhPage(long size, long pageNo) {
+        super(pageNo, size, false);
     }
 
     public XhPage(long current, long size, boolean isSearchCount) {
