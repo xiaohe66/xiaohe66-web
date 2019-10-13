@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.text.dto.TextCategoryDto;
 import com.xiaohe66.web.code.text.po.TextCategory;
 import com.xiaohe66.web.code.text.service.TextCategoryService;
@@ -33,14 +33,14 @@ public class TextCategoryController {
 
     @Post
     public TextCategoryDto add(TextCategory textCategory){
-        textCategory.setCreateId(UsrHelper.getCurrentUsrId());
+        textCategory.setCreateId(UserHelper.getCurrentUsrId());
         categoryService.save(textCategory);
         return ClassUtils.convert(TextCategoryDto.class,textCategory);
     }
 
     @Put
     public void update(TextCategory textCategory){
-        textCategory.setUpdateId(UsrHelper.getCurrentUsrId());
+        textCategory.setUpdateId(UserHelper.getCurrentUsrId());
         categoryService.updateById(textCategory);
     }
 
@@ -52,6 +52,6 @@ public class TextCategoryController {
     @Get("/p/{pid}")
     public List<TextCategoryDto> getByPid(@PathVariable("pid")Integer pid){
         List<TextCategory> textCategoryList = categoryService.findByPid(pid);
-        return ClassUtils.convertList(TextCategoryDto.class, textCategoryList);
+        return ClassUtils.convert(TextCategoryDto.class, textCategoryList);
     }
 }

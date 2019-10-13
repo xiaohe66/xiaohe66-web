@@ -9,7 +9,7 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.common.dto.CategoryDto;
 import com.xiaohe66.web.code.common.po.Category;
 import com.xiaohe66.web.code.common.service.CategoryService;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -33,14 +33,14 @@ public class CategoryController {
 
     @Post
     public Integer add(Category category){
-        category.setCreateId(UsrHelper.getCurrentUsrId());
+        category.setCreateId(UserHelper.getCurrentUsrId());
         categoryService.save(category);
         return category.getId();
     }
 
     @Put
     public void update(Category category){
-        category.setUpdateId(UsrHelper.getCurrentUsrId());
+        category.setUpdateId(UserHelper.getCurrentUsrId());
         categoryService.updateById(category);
     }
 
@@ -52,6 +52,6 @@ public class CategoryController {
     @Get("/p/{pid}")
     public List<CategoryDto> getByPid(@PathVariable("pid")Integer pid){
         List<Category> categoryList = categoryService.findByPid(pid);
-        return ClassUtils.convertList(CategoryDto.class,categoryList);
+        return ClassUtils.convert(CategoryDto.class,categoryList);
     }
 }

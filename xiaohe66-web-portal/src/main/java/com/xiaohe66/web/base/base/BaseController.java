@@ -1,5 +1,6 @@
 package com.xiaohe66.web.base.base;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
@@ -8,7 +9,7 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.NotPermittedException;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * @author xiaohe
@@ -54,7 +54,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     public Result post(T po) {
         checkSavePermitted();
         if (po instanceof BasePoDetailed) {
-            Integer currentUsrId = UsrHelper.getCurrentUsrId();
+            Integer currentUsrId = UserHelper.getCurrentUsrId();
             ((BasePoDetailed) po).setCreateId(currentUsrId);
         }
         return Result.ok(baseService.save(po));
@@ -70,7 +70,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     public Result put(T po) {
         checkUpdatePermitted();
         if (po instanceof BasePoDetailed) {
-            Integer currentUsrId = UsrHelper.getCurrentUsrId();
+            Integer currentUsrId = UserHelper.getCurrentUsrId();
             ((BasePoDetailed) po).setUpdateId(currentUsrId);
         }
         return Result.ok(baseService.updateById(po));
@@ -85,30 +85,29 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         return Result.ok(dto);
     }
 
-    // todo : 改成分页查询
     @Get
     public Result list() {
         checkSelectPermitted();
         checkPermitted(moduleName + ":select");
-        List<T> poList = baseService.list();
-        List<D> dtoList = ClassUtils.convertList(dtoClass, poList, this::convertTask);
-        return Result.ok(dtoList);
+        IPage<T> poPage = baseService.page(new XhPage<>());
+        IPage<D> dtoPage = ClassUtils.convert(dtoClass, poPage, this::convertTask);
+        return Result.ok(dtoPage);
     }
 
-    protected void checkSavePermitted(){
-        checkPermitted(moduleName+":insert");
+    protected void checkSavePermitted() {
+        checkPermitted(moduleName + ":insert");
     }
 
-    protected void checkDeletePermitted(){
-        checkPermitted(moduleName+":delete");
+    protected void checkDeletePermitted() {
+        checkPermitted(moduleName + ":delete");
     }
 
-    protected void checkUpdatePermitted(){
-        checkPermitted(moduleName+":update");
+    protected void checkUpdatePermitted() {
+        checkPermitted(moduleName + ":update");
     }
 
-    protected void checkSelectPermitted(){
-        checkPermitted(moduleName+":select");
+    protected void checkSelectPermitted() {
+        checkPermitted(moduleName + ":select");
     }
 
     protected final void checkPermitted(String permittedName) {

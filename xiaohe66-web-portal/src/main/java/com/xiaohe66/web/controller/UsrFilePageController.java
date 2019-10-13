@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.ui.Model;
@@ -40,7 +40,7 @@ public class UsrFilePageController {
     public String admin(Model model){
 
         PageHelper.startPage(1,10);
-        List<UsrFileDto> list = usrFileService.findDtoByUsrId(UsrHelper.getCurrentUsrId());
+        List<UsrFileDto> list = usrFileService.findDtoByUsrId(UserHelper.getCurrentUsrId());
         model.addAttribute("pageInfo",new PageInfo<>(list));
         model.addAttribute("title","文件管理");
         model.addAttribute("size",list.size());
@@ -78,7 +78,7 @@ public class UsrFilePageController {
 
     @Page("/download/{id}")
     public void download(HttpServletResponse response,@PathVariable("id")Integer id){
-        usrFileService.downloadFile(response,id,UsrHelper.getCurrentUsrId());
+        usrFileService.downloadFile(response,id, UserHelper.getCurrentUsrId());
     }
 
 }

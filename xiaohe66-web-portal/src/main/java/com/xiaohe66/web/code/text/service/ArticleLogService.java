@@ -7,7 +7,7 @@ import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.text.dao.ArticleLogMapper;
 import com.xiaohe66.web.code.text.po.ArticleDownloadCount;
 import com.xiaohe66.web.code.text.po.ArticleLog;
@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,7 +51,7 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
     public void save() {
 
         Integer articleId = WebUtils.getSessionAttr(Final.Str.ARTICLE_LOG_ADD_PREPARE);
-        Integer currentUsrId = UsrHelper.getCurrentUsrIdNotEx();
+        Integer currentUsrId = UserHelper.getCurrentUsrIdNotEx();
 
         //查看自己的文章不加查看量
         if (Check.eq(articleId, currentUsrId)) {

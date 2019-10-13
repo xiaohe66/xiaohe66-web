@@ -11,8 +11,8 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.common.dto.CategoryDto;
 import com.xiaohe66.web.code.common.service.CategoryService;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.org.dto.UsrDto;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.dto.ArticleDto;
 import com.xiaohe66.web.code.text.dto.TextCategoryDto;
@@ -60,10 +60,10 @@ public class ArticlePageController {
 
     @Page("/add")
     public String index(Model model){
-        List<TextCategory> textCategoryList = textCategoryService.findByUsrId(UsrHelper.getCurrentUsrId());
-        model.addAttribute("perCategoryList", ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
+        List<TextCategory> textCategoryList = textCategoryService.findByUsrId(UserHelper.getCurrentUsrId());
+        model.addAttribute("perCategoryList", ClassUtils.convert(TextCategoryDto.class,textCategoryList));
         model.addAttribute("perCategorySize",textCategoryList.size());
-        model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));
+        model.addAttribute("sysCategoryList",ClassUtils.convert(CategoryDto.class,categoryService.findTextSysCategory()));
         model.addAttribute("title","添加一篇文章");
         model.addAttribute("page",ARTICLE_EDITOR_PAGE_URL);
         return OtherPageController.USR_ZONE_PAGE_URL;
@@ -72,7 +72,7 @@ public class ArticlePageController {
     @Page("/editor/{id}")
     public String editor(Model model,@PathVariable("id") Integer id){
 
-        Integer currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UserHelper.getCurrentUsrId();
         ArticleDto articleDto = articleService.findDtoById(id);
         if(articleDto == null){
             throw new XhException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
@@ -84,9 +84,9 @@ public class ArticlePageController {
 
         List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsrId);
         model.addAttribute("title","文章编辑");
-        model.addAttribute("perCategoryList",ClassUtils.convertList(TextCategoryDto.class,textCategoryList));
+        model.addAttribute("perCategoryList",ClassUtils.convert(TextCategoryDto.class,textCategoryList));
         model.addAttribute("perCategorySize",textCategoryList.size());
-        model.addAttribute("sysCategoryList",ClassUtils.convertList(CategoryDto.class,categoryService.findTextSysCategory()));
+        model.addAttribute("sysCategoryList",ClassUtils.convert(CategoryDto.class,categoryService.findTextSysCategory()));
         model.addAttribute("page",ARTICLE_EDITOR_PAGE_URL);
         return OtherPageController.USR_ZONE_PAGE_URL;
     }
@@ -110,7 +110,7 @@ public class ArticlePageController {
 
     @Page("/list/{usrId}")
     public String list(Model model,@PathVariable("usrId") Integer usrId){
-        UsrDto usrDto = userService.lookAtUsr(usrId);
+        UserDto usrDto = userService.lookAtUsr(usrId);
 
         PageHelper.startPage(1,10);
         List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId(),Final.Article.SECRET_LEVEL_PUBLIC);
@@ -127,7 +127,7 @@ public class ArticlePageController {
     @Page("/admin/index")
     public String admin(Model model){
         PageHelper.startPage(1,10);
-        List<ArticleDto> list = articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId(),null);
+        List<ArticleDto> list = articleService.findDtoByUsrId(UserHelper.getCurrentUsrId(),null);
         model.addAttribute("pageInfo",new PageInfo<>(list));
         model.addAttribute("title","文章管理");
         model.addAttribute("size",list.size());
@@ -138,7 +138,7 @@ public class ArticlePageController {
 
     @Page("/all")
     public String all(Model model){
-        UsrDto usrDto = userService.lookAtUsr(null);
+        UserDto usrDto = userService.lookAtUsr(null);
 
         PageHelper.startPage(1,10);
         model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));

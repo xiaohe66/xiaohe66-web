@@ -10,7 +10,7 @@ import com.xiaohe66.web.base.util.RegexUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.cache.CacheHelper;
-import com.xiaohe66.web.code.org.dto.UsrDto;
+import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.auth.entity.EmailAuthCode;
@@ -138,7 +138,7 @@ public class LoginService {
         userService.updateById(user);
     }
 
-    public UsrDto login(String loginName, String usrPwd) {
+    public UserDto login(String loginName, String usrPwd) {
         logger.debug("loginName={}", loginName);
 
         loginName = StrUtils.trim(loginName);
@@ -148,7 +148,7 @@ public class LoginService {
         }
 
         Subject subject = SecurityUtils.getSubject();
-        UsrDto currentUsr = (UsrDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
+        UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
 
         if (Check.isAllNotNull(currentUsr) && loginName.equals(currentUsr.getUsrName())) {
             //该用户已经登录
@@ -170,7 +170,7 @@ public class LoginService {
         return this.loginToShiro(dbUsr);
     }
 
-    private UsrDto loginToShiro(User user) {
+    private UserDto loginToShiro(User user) {
         logger.info("登录到系统：{}", user.getUsrName());
         String userName = user.getUsrName();
         String userPwd = user.getUsrPwd();
@@ -184,7 +184,7 @@ public class LoginService {
             return null;
         }
         //构建dto
-        UsrDto dtoUsr = new UsrDto(user);
+        UserDto dtoUsr = new UserDto(user);
         //注入session
         subject.getSession().setAttribute(Final.Str.SESSION_UER_KEY, dtoUsr);
         return dtoUsr;

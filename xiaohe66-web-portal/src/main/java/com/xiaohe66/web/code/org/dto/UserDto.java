@@ -7,17 +7,17 @@ import com.xiaohe66.web.code.org.po.User;
  * @author xiaohe
  * @time 17-11-01 001
  */
-public class UsrDto extends BaseDto {
+public class UserDto extends BaseDto {
 
     private String usrName;
     private String signature;
     private Integer imgFileId;
     private String email;
 
-    public UsrDto(){
+    public UserDto(){
 
     }
-    public UsrDto(User user){
+    public UserDto(User user){
         id = user.getId();
         usrName = user.getUsrName();
         imgFileId = user.getImgFileId();

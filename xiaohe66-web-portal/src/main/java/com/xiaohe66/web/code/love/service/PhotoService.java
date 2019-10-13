@@ -32,7 +32,7 @@ public class PhotoService extends AbstractService<PhotoMapper, Photo> {
         IPage<Photo> page = this.page(12);
         List<Photo> photoList = page.getRecords();
 
-        return ClassUtils.convertList(LovePhotoDto.class, photoList, (dto, po) -> {
+        return ClassUtils.convert(LovePhotoDto.class, photoList, (dto, po) -> {
 
             List<PhotoDesc> photoDescList = photoDescService.listByPhotoId(po.getId());
 

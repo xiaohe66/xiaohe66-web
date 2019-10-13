@@ -11,7 +11,7 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.common.service.CategoryService;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
@@ -103,7 +103,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
         if (Check.isNull(dbArticle)) {
             throw new XhException(CodeEnum.RESOURCE_NOT_FOUND, "object not found");
         }
-        Integer currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UserHelper.getCurrentUsrId();
         if (!currentUsrId.equals(dbArticle.getCreateId())) {
             throw new XhException(CodeEnum.NOT_PERMISSION, "this article not is current user article");
         }
@@ -133,7 +133,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
         Check.notEmptyCheck(article.getText(), article.getSysCategoryId());
 
-        Integer currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UserHelper.getCurrentUsrId();
 
         if (article.getSecretLevel() == null) {
             article.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
@@ -197,7 +197,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
             //只有文章作者是自己 或者 文章的私密等级是公开时，才能查看
             if (Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()) {
-                Integer currentUsrId = UsrHelper.getCurrentUsrId();
+                Integer currentUsrId = UserHelper.getCurrentUsrId();
                 if (!currentUsrId.equals(article.getCreateId())) {
                     throw new MsgException(CodeEnum.NOT_PERMISSION);
                 }
@@ -258,7 +258,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
      * @return
      */
     public List<ArticleDto> installDto(List<Article> articleList) {
-        return ClassUtils.convertList(ArticleDto.class, articleList, (articleDto, article) -> {
+        return ClassUtils.convert(ArticleDto.class, articleList, (articleDto, article) -> {
             installDto(articleDto, article);
 
             articleDto.setText(HtmlUtils.digest(articleDto.getText(), 110));
