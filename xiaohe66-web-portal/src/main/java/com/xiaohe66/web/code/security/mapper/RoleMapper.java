@@ -4,6 +4,7 @@ package com.xiaohe66.web.code.security.mapper;
 import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.security.po.Role;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,5 +17,7 @@ public interface RoleMapper extends IBaseMapper<Role> {
      * @param usrId 角色名
      * @return Set<String>
      */
-    Set<String> findRoleNameByUsrId(Long usrId);
+    Set<String> listRoleNameByUsrId(Integer usrId);
+
+    List<Role> listRoleByUserName(String userName);
 }

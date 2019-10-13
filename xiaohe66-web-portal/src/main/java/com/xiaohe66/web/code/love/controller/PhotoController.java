@@ -13,13 +13,6 @@ import com.xiaohe66.web.code.love.service.PhotoService;
 @XhController("/love/photo")
 public class PhotoController extends BaseController<PhotoService, Photo, PhotoDto> {
 
-    @Override
-    protected void convertTask(PhotoDto dto, Photo po) {
-        dto.setId(1000);
-    }
 
-    @Override
-    protected Class<PhotoDto> dtoClass() {
-        return PhotoDto.class;
-    }
+
 }

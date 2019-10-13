@@ -44,6 +44,6 @@
     <bean id="springUtils" class="com.xiaohe66.web.base.util.SpringUtils"/>
 
     <import resource="spring-mybatis.xml"/>
-    <!--<import resource="spring-shrio.xml"/>-->
+    <import resource="spring-shrio.xml"/>
 
 </beans>
