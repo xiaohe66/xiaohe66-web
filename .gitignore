@@ -1,3 +1,10 @@
+# 输出目录
 **/target/
 out/
+
+# intellij idea配置文件
 .idea/
+*.iml
+
+# 开发环境配置
+xiaohe66-web-portal/src/main/resources/dev
