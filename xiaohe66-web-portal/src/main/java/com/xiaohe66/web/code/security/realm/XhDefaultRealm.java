@@ -1,8 +1,8 @@
 package com.xiaohe66.web.code.security.realm;
 
-import com.xiaohe66.web.code.security.service.FuncService;
+import com.xiaohe66.web.code.security.po.Role;
+import com.xiaohe66.web.code.security.service.PermissionService;
 import com.xiaohe66.web.code.security.service.RoleService;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -14,6 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,39 +25,46 @@ import java.util.Set;
  */
 public class XhDefaultRealm extends AuthorizingRealm {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(XhDefaultRealm.class);
+    private static final Logger logger = LoggerFactory.getLogger(XhDefaultRealm.class);
 
     @Autowired
     private RoleService roleService;
 
     @Autowired
-    private FuncService funcService;
+    private PermissionService permissionService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        LOGGER.debug("权限赋予:"+principals);
+        logger.debug("权限赋予:{}", principals);
 
-        Long usrId = (Long) principals.getPrimaryPrincipal();
+        String userName = principals.toString();
 
         //获取用户角色
-        Set<String> roleSet = roleService.findRoleNameByUsrId(usrId);
+        List<Role> roleList = roleService.listRoleByUserName(userName);
 
-        LOGGER.debug("roles:"+roleSet.toString());
+        List<Integer> roleIdList = new ArrayList<>(roleList.size());
+        Set<String> roleSet = new HashSet<>(roleList.size());
 
+        for (Role role : roleList) {
+            roleIdList.add(role.getId());
+            roleSet.add(role.getRoleName());
+        }
+
+        logger.debug("roles : {}", roleSet);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleSet);
 
         //获取用户权限
-        Set<String> funcSet = funcService.findFuncNameByUsrId(usrId);
+        Set<String> permissionSet = permissionService.listPermissionInRoleId(roleIdList);
 
-        LOGGER.debug("func:"+funcSet.toString());
+        logger.debug("permissions : {}", permissionSet);
 
-        info.setStringPermissions(funcSet);
+        info.setStringPermissions(permissionSet);
 
         return info;
     }
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException{
-        return new SimpleAuthenticationInfo(token.getPrincipal(),token.getCredentials(),getName());
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) {
+        return new SimpleAuthenticationInfo(token.getPrincipal(), token.getCredentials(), getName());
     }
 }

@@ -1,6 +1,6 @@
 package com.xiaohe66.web.resolver;
 
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -15,7 +15,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @author xiaohe
  * @time 17-08-04 004
  * @deprecated 改用静态方法获取用户，该类废弃
- * @see UsrHelper
+ * @see UserHelper
  */
 @Deprecated
 public class CurrentUsrResolver implements HandlerMethodArgumentResolver{

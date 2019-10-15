@@ -159,7 +159,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
         List<UsrFile> usrFileList = this.listByParam(param);
 
-        return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
+        return ClassUtils.convert(UsrFileDto.class,usrFileList,(usrFileDto, usrFile)->{
             CommonFile commonFile = commonFileService.getById(usrFile.getFileId());
 
             usrFileDto.setIsFinish(commonFile.getEndTime()!=null);
@@ -182,7 +182,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
         List<UsrFile> usrFileList = this.listByParam(param);
 
-        return ClassUtils.convertList(UsrFileDto.class,usrFileList,(usrFileDto,usrFile)->{
+        return ClassUtils.convert(UsrFileDto.class,usrFileList,(usrFileDto, usrFile)->{
             Integer size = commonFileService.getById(usrFile.getFileId()).getFileByte();
 
             //todo:需转成可视化单位

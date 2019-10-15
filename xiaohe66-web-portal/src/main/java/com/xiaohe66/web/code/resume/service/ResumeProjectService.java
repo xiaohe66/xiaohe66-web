@@ -31,7 +31,7 @@ public class ResumeProjectService extends AbstractService<ResumeProjectMapper,Re
     public List<ResumeProjectDto> findDtoByResumeId(Integer resumeId){
 
         List<ResumeProject> resumeProjectList =  baseMapper.findByResumeId(resumeId);
-        return ClassUtils.convertList(ResumeProjectDto.class,resumeProjectList,(dto,po)->{
+        return ClassUtils.convert(ResumeProjectDto.class,resumeProjectList,(dto, po)->{
             try {
                 dto.setImgFileId(usrFileService.findCommonFileId(po.getLogo()));
             }catch (Exception e){

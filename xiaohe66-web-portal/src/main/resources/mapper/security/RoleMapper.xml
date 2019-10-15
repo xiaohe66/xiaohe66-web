@@ -2,10 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.security.mapper.RoleMapper">
 
-    <select id="findRoleNameByUsrId" resultType="Role">
+    <select id="listRoleNameByUsrId" resultType="java.lang.String">
         select r.role_name from xiaohe66_web_security_role r
         join xiaohe66_web_security_usr_role ur on r.id = ur.role_id
         where ur.usr_id = #{usrId}
+    </select>
+
+    <select id="listRoleByUserName" resultType="Role">
+        select r.* from xiaohe66_web_security_role r
+        join xiaohe66_web_security_usr_role ur on r.id = ur.role_id
+        join xiaohe66_web_org_usr u on u.id = ur.usr_id
+        where u.usr_name = #{userName}
     </select>
 
 </mapper>

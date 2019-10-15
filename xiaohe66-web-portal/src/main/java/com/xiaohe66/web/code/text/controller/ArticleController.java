@@ -8,7 +8,7 @@ import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.text.dto.ArticleDto;
 import com.xiaohe66.web.code.text.po.Article;
 import com.xiaohe66.web.code.text.service.ArticleService;
@@ -73,7 +73,7 @@ public class ArticleController {
     @Paging
     @Get("/admin/{secretLevel}")
     public List<ArticleDto> admin2(@PathVariable("secretLevel") Integer secretLevel){
-        return articleService.findDtoByUsrId(UsrHelper.getCurrentUsrId(),secretLevel);
+        return articleService.findDtoByUsrId(UserHelper.getCurrentUsrId(),secretLevel);
     }
 
     @Put

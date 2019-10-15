@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
@@ -37,7 +37,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
     public boolean save(MessageBoard po) {
         logger.info("增加一条留言：msg={},留言者={}",
                 po.getMsg(),
-                po.getAnonymity() == null ? UsrHelper.getCurrentUsrIdNotEx() : po.getAnonymity());
+                po.getAnonymity() == null ? UserHelper.getCurrentUsrIdNotEx() : po.getAnonymity());
 
         return super.save(po);
     }
@@ -74,7 +74,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
 
         List<MessageBoard> messageBoardList = super.listByParam(new MessageBoardParam(usrId));
 
-        return ClassUtils.convertList(MessageBoardDto.class, messageBoardList, (messageBoardDto, messageBoard) -> {
+        return ClassUtils.convert(MessageBoardDto.class, messageBoardList, (messageBoardDto, messageBoard) -> {
             String anonymity = messageBoard.getAnonymity();
             if (anonymity == null || anonymity.length() == 0) {
                 User user = userService.getById(messageBoard.getCreateId());

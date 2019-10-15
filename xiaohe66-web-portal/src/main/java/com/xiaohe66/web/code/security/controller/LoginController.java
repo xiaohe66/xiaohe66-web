@@ -5,7 +5,7 @@ import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.code.org.dto.UsrDto;
+import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.security.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @XhController("/sec/login")
 public class LoginController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private LoginService loginService;
@@ -32,13 +32,13 @@ public class LoginController {
     }
 
     @Post
-    public UsrDto login(String loginName, String usrPwd){
+    public UserDto login(String loginName, String usrPwd){
         return loginService.login(loginName,usrPwd);
     }
 
     @Del
     public  void logout(){
-        LOG.info("注销登录");
+        log.info("注销登录");
         loginService.logout();
     }
 

@@ -8,8 +8,8 @@ package com.xiaohe66.web.base.data;
  * @time 17-11-02 002
  */
 public enum CodeEnum {
-    OK(200,"成功")
-    ,EXCEPTION(500,"未知异常")
+    OK(0,"成功")
+    ,EXCEPTION(-1,"未知异常")
 
     ,NULL_EXCEPTION(501,"传入对象为空")
     ,NOT_IMPLEMENTED(502,"抽象方法未实现，请重写后再使用")

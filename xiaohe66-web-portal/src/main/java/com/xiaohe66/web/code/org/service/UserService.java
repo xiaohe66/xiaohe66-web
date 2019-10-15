@@ -7,8 +7,8 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.org.mapper.UserMapper;
-import com.xiaohe66.web.code.org.dto.UsrDto;
-import com.xiaohe66.web.code.org.helper.UsrHelper;
+import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public class UserService extends AbstractService<UserMapper, User> {
             po.setSignature(signature);
         }
         if(signature != null && SecurityUtils.getSubject().isAuthenticated()){
-            UsrHelper.getCurrentUsr().setSignature(signature);
+            UserHelper.getCurrentUsr().setSignature(signature);
         }
 
         return super.updateById(po);
@@ -49,7 +49,7 @@ public class UserService extends AbstractService<UserMapper, User> {
 
 
     public void updateImgFile(Integer imgFileId){
-        Integer currentUsrId = UsrHelper.getCurrentUsrId();
+        Integer currentUsrId = UserHelper.getCurrentUsrId();
 
         User user = new User();
         user.setImgFileId(imgFileId);
@@ -58,7 +58,7 @@ public class UserService extends AbstractService<UserMapper, User> {
         user.setUpdateId(currentUsrId);
         updateById(user);
 
-        UsrHelper.getCurrentUsr().setImgFileId(imgFileId);
+        UserHelper.getCurrentUsr().setImgFileId(imgFileId);
     }
 
     public User findByUsrName(String usrName){
@@ -82,12 +82,12 @@ public class UserService extends AbstractService<UserMapper, User> {
      * @param usrId     被查看的用户id，若传入null，则默认使用站长的
      * @return  UsrDto
      */
-    public UsrDto lookAtUsr(Integer usrId){
+    public UserDto lookAtUsr(Integer usrId){
         if(Check.isNull(usrId)){
             usrId = Final.Sys.XIAO_HE_USR_ID;
         }
         User user = getById(usrId);
-        UsrDto usrDto = ClassUtils.convert(UsrDto.class,user);
+        UserDto usrDto = ClassUtils.convert(UserDto.class,user);
 
         usrDto.setImgFileId(user.getImgFileId());
         return usrDto;

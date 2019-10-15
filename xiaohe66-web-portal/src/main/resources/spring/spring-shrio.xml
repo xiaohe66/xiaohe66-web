@@ -96,6 +96,8 @@
 
                 /usr/register = http[post]
 
+                /love/photo/wall = anon
+
                 /** = authc
             </value>
         </property>

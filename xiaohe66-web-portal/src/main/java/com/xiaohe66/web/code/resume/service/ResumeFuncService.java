@@ -22,6 +22,6 @@ public class ResumeFuncService extends AbstractService<ResumeFuncMapper,ResumeFu
     public List<ResumeFuncDto> findDtoByProjectId(Integer projectId){
         Check.notNullCheck(projectId);
         List<ResumeFunc> resumeFuncList = baseMapper.findByProjectId(projectId);
-        return ClassUtils.convertList(ResumeFuncDto.class, resumeFuncList);
+        return ClassUtils.convert(ResumeFuncDto.class, resumeFuncList);
     }
 }

@@ -1,10 +1,11 @@
 package com.xiaohe66.web.base.util;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaohe66.web.base.base.BaseDto;
 import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhException;
-import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * @author xh
@@ -22,7 +21,10 @@ import java.util.function.Function;
  */
 public class ClassUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Class.class);
+    private ClassUtils() {
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(ClassUtils.class);
 
     /**
      * 不同类的同名同类型属性复制
@@ -30,10 +32,10 @@ public class ClassUtils {
      * @param targetCls 目标类的Class对象<br>
      *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
      * @param sourceObj 源类的实例
-     * @param <T> 目标类
+     * @param <T>       目标类
      * @return 目标类的实例
      */
-    public static <T extends BaseDto> T convert(Class<T> targetCls, BasePo sourceObj){
+    public static <T extends BaseDto> T convert(Class<T> targetCls, BasePo sourceObj) {
 
         //源为null，则返回null
         if (sourceObj == null) {
@@ -41,24 +43,24 @@ public class ClassUtils {
         }
 
         /*
-        * 判断参数是否为null
-        * */
-        if(targetCls == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"targetCls is null");
+         * 判断参数是否为null
+         * */
+        if (targetCls == null) {
+            throw new XhException(CodeEnum.NULL_EXCEPTION, "targetCls is null");
         }
 
         /*
-        * 创建目标类的实例
-        * */
+         * 创建目标类的实例
+         * */
         T targetObj;
         try {
-            targetObj =  targetCls.newInstance();
+            targetObj = targetCls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.error("instance err",e);
+            log.error("instance err", e);
             return null;
         }
 
-        convert(targetObj,sourceObj);
+        convert(targetObj, sourceObj);
 
         return targetObj;
     }
@@ -71,50 +73,50 @@ public class ClassUtils {
      * @param targetObj 目标类的实例
      * @param sourceObj 源类的实例
      */
-    public static void convert(BaseDto targetObj, BasePo sourceObj){
+    public static void convert(BaseDto targetObj, BasePo sourceObj) {
         /*
-        * 判断参数是否为null
-        * */
-        if(targetObj == null || sourceObj == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"targetObj or sourceObj is null");
+         * 判断参数是否为null
+         * */
+        if (targetObj == null || sourceObj == null) {
+            throw new XhException(CodeEnum.NULL_EXCEPTION, "targetObj or sourceObj is null");
         }
 
         /*
-        * 获取源类的Class
-        * */
-        Class sourceClass =  sourceObj.getClass();
+         * 获取源类的Class
+         * */
+        Class sourceClass = sourceObj.getClass();
 
         /*
-        * 源类的字段，一开始保存的是当前类的字段，在循环时，保存的是超类的字段
-        * */
+         * 源类的字段，一开始保存的是当前类的字段，在循环时，保存的是超类的字段
+         * */
         Field[] sourceOperandFields;
 
         /*
-        * 当前操作的源Class。一开始保存的是源类Class，在循环时，保存的是源类的超类Class
-        * */
+         * 当前操作的源Class。一开始保存的是源类Class，在循环时，保存的是源类的超类Class
+         * */
         Class sourceOperandCls = sourceClass;
 
         /*
-        * 目标类，当前操作中的Class
-        * */
+         * 目标类，当前操作中的Class
+         * */
         Class targetOperandCls;
 
         /*
-        * 当前操作的目标类字段
-        * */
+         * 当前操作的目标类字段
+         * */
         Field targetOperandField;
 
         /*
-        * 字段名
-        * */
+         * 字段名
+         * */
         String fieldName;
         /*
-        * 字段的值
-        * */
+         * 字段的值
+         * */
         Object val;
 
         //取当前源类，和源的超类
-        while (sourceOperandCls != null){
+        while (sourceOperandCls != null) {
 
             sourceOperandFields = sourceOperandCls.getDeclaredFields();
 
@@ -127,10 +129,10 @@ public class ClassUtils {
 
                 targetOperandField = null;
                 /*
-                * 遍历每一个目标类的超类
-                * 获取目标的Field对象，当前类找不到时，就去超类找
-                * */
-                while(targetOperandField == null && targetOperandCls != null){
+                 * 遍历每一个目标类的超类
+                 * 获取目标的Field对象，当前类找不到时，就去超类找
+                 * */
+                while (targetOperandField == null && targetOperandCls != null) {
                     try {
                         targetOperandField = targetOperandCls.getDeclaredField(fieldName);
                     } catch (NoSuchFieldException e) {
@@ -140,14 +142,14 @@ public class ClassUtils {
                 }
 
                 //未找到相关字段，跳出
-                if(targetOperandField == null){
+                if (targetOperandField == null) {
                     continue;
                 }
 
                 Class<?> targetOperandFieldType = targetOperandField.getType();
                 Class<?> sourceOperandFieldType = sourceOperandField.getType();
                 //字段类型相同
-                if(targetOperandFieldType.equals(sourceOperandFieldType)){
+                if (targetOperandFieldType.equals(sourceOperandFieldType)) {
                     try {
                         //将accessible的值设置为true后，会取消java的访问检查，即可访问私有(private)属性
                         sourceOperandField.setAccessible(true);
@@ -155,14 +157,14 @@ public class ClassUtils {
 
                         //设置该属性的值，包括私有属性
                         targetOperandField.setAccessible(true);
-                        targetOperandField.set(targetObj,val);
+                        targetOperandField.set(targetObj, val);
 
                     } catch (IllegalAccessException e) {
-                        LOGGER.error("set value err",e);
+                        log.error("set value err", e);
                     }
                 }
                 //字段类型不同，且是Date和String类型
-                else if(Date.class.equals(sourceOperandFieldType)&&String.class.equals(targetOperandFieldType)){
+                else if (Date.class.equals(sourceOperandFieldType) && String.class.equals(targetOperandFieldType)) {
 
                     try {
                         //将accessible的值设置为true后，会取消java的访问检查，即可访问私有(private)属性
@@ -170,13 +172,13 @@ public class ClassUtils {
                         val = sourceOperandField.get(sourceObj);
 
                         //设置该属性的值，包括私有属性
-                        if(val != null){
+                        if (val != null) {
                             targetOperandField.setAccessible(true);
                             targetOperandField.set(targetObj, DateUtils.formatDateTime((Date) val));
                         }
 
                     } catch (IllegalAccessException e) {
-                        LOGGER.error("set value err",e);
+                        log.error("set value err", e);
                     }
                 }
 
@@ -188,53 +190,77 @@ public class ClassUtils {
     /**
      * 不同类的同名同类型属性复制
      *
-     * @param targetCls 目标类的Class对象<br>
-     *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
+     * @param targetCls     目标类的Class对象<br>
+     *                      该类必须要有public的无参构造方法，否则无法通过反射创建实例
      * @param sourceObjList 源类的实例集合
-     * @param <T> 目标类
+     * @param <T>           目标类
      * @return 目标类的实例集合
      */
-    public static <T extends BaseDto,E extends BasePo> List<T> convertList(Class<T> targetCls, List<E> sourceObjList){
-        return convertList(targetCls,sourceObjList,null);
+    public static <T extends BaseDto, E extends BasePo> List<T> convert(Class<T> targetCls, List<E> sourceObjList) {
+        return convert(targetCls, sourceObjList, null);
     }
 
     /**
      * 不同类的同名同类型属性复制，本方法支持转换中调用自定义方法
      *
-     * @param targetCls 目标类的Class对象<br>
-     *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
+     * @param targetCls     目标类的Class对象<br>
+     *                      该类必须要有public的无参构造方法，否则无法通过反射创建实例
      * @param sourceObjList 源类的实例集合
-     * @param <T> 目标类
-     * @param task  转换中自定义任务
-     *
+     * @param <T>           目标类
+     * @param task          转换中自定义任务
      * @return 目标类的实例集合
      */
-    public static <T extends BaseDto,E extends BasePo> List<T> convertList(Class<T> targetCls, List<E> sourceObjList, BiConsumer<T,E> task){
-        if(sourceObjList == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"list is null");
+    public static <T extends BaseDto, E extends BasePo> List<T> convert(Class<T> targetCls, List<E> sourceObjList, BiConsumer<T, E> task) {
+        if (sourceObjList == null) {
+            throw new XhException(CodeEnum.NULL_EXCEPTION, "list is null");
         }
         List<T> targetObjList;
 
-        if(sourceObjList instanceof Page){
-            Page<E> sourcePage = ((Page<E>) sourceObjList);
-            Page<T> targetPage  = new Page<>();
-            targetPage.setPages(sourcePage.getPages());
-            targetPage.setPageNum(sourcePage.getPageNum());
-            targetPage.setPageSize(sourcePage.getPageSize());
-            targetPage.setTotal(sourcePage.getTotal());
-            targetObjList = targetPage;
-        }else{
-            targetObjList = new ArrayList<>(sourceObjList.size());
-        }
+//        if(sourceObjList instanceof Page){
+//            Page<E> sourcePage = ((Page<E>) sourceObjList);
+//            Page<T> targetPage  = new Page<>();
+//            targetPage.setPages(sourcePage.getPages());
+//            targetPage.setPageNum(sourcePage.getPageNum());
+//            targetPage.setPageSize(sourcePage.getPageSize());
+//            targetPage.setTotal(sourcePage.getTotal());
+//            targetObjList = targetPage;
+//        }else{
+        targetObjList = new ArrayList<>(sourceObjList.size());
+//        }
 
         for (E basePo : sourceObjList) {
-            T targetObj = convert(targetCls,basePo);
+            T targetObj = convert(targetCls, basePo);
             targetObjList.add(targetObj);
-            if(task != null){
-                task.accept(targetObj,basePo);
+            if (task != null) {
+                task.accept(targetObj, basePo);
             }
         }
         return targetObjList;
+    }
+
+    public static <T extends BaseDto, E extends BasePo> IPage<T> convert(Class<T> targetCls, IPage<E> sourcePage) {
+        return convert(targetCls, sourcePage, null);
+    }
+
+    public static <T extends BaseDto, E extends BasePo> IPage<T> convert(Class<T> targetCls, IPage<E> sourcePage, BiConsumer<T, E> task) {
+        IPage<T> targetPage = new Page<>();
+
+        targetPage.setPages(sourcePage.getPages());
+        targetPage.setTotal(sourcePage.getTotal());
+        targetPage.setCurrent(sourcePage.getCurrent());
+        targetPage.setSize(sourcePage.getSize());
+
+        List<E> sourceList = sourcePage.getRecords();
+        List<T> targetList = new ArrayList<>(sourceList.size());
+        for (E basePo : sourcePage.getRecords()) {
+            T targetObj = convert(targetCls, basePo);
+            targetList.add(targetObj);
+            if (task != null) {
+                task.accept(targetObj, basePo);
+            }
+        }
+        targetPage.setRecords(targetList);
+        return targetPage;
     }
 
 }

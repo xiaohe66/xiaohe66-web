@@ -30,7 +30,7 @@ public class ResumeJobService extends AbstractService<ResumeJobMapper,ResumeJob>
         Check.notNullCheck(resumeId);
         List<ResumeJob> resumeJobList = baseMapper.findByResumeId(resumeId);
 
-        return ClassUtils.convertList(ResumeJobDto.class,resumeJobList,(dto, po)->{
+        return ClassUtils.convert(ResumeJobDto.class,resumeJobList,(dto, po)->{
             try {
                 dto.setImgFileId(usrFileService.getById(po.getLogo()).getFileId());
             }catch (Exception e){
