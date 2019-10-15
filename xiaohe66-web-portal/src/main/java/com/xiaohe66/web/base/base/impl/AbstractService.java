@@ -1,5 +1,6 @@
 package com.xiaohe66.web.base.base.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaohe66.web.base.base.BaseParam;
@@ -81,6 +82,10 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
 
     public IPage<T> page(long pageSize) {
         return super.page(new XhPage<>(pageSize));
+    }
+
+    public IPage<T> page(long pageSize, Wrapper<T> queryWrapper) {
+        return super.page(new XhPage<>(pageSize), queryWrapper);
     }
 
     public IPage<T> page(long pageSize, long pageNo) {

@@ -2,32 +2,24 @@ package com.xiaohe66.web.code.love.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author xiaohe
  * @time 2019.10.11 09:46
  */
+@EqualsAndHashCode(callSuper = true)
 @TableName("xiaohe66_web_love_photo")
+@Data
 public class Photo extends BasePoDetailed {
 
     private Integer fileId;
     private String name;
-
-    public Integer getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(Integer fileId) {
-        this.fileId = fileId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String one;
+    private String two;
+    private String three;
+    private Boolean isShow;
 
     @Override
     public String toString() {

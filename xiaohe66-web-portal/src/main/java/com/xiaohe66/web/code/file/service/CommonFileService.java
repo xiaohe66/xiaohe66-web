@@ -40,8 +40,6 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFileService.class);
 
-    private CommonFileMapper baseMapper;
-
     @Value("${file.home}")
     private String fileHomeUrl;
 
@@ -205,8 +203,8 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
      * @param multipartFile 文件
      * @param md5           文件的md5值
      */
-    public CommonFile uploadFileDefault(Integer currentUsrId,MultipartFile multipartFile, String md5){
-        Check.notEmptyCheck(currentUsrId,multipartFile,md5);
+    public CommonFile uploadFileDefault(MultipartFile multipartFile, String md5){
+        Check.notEmptyCheck(multipartFile,md5);
 
         CommonFile commonFile = findByMd5(md5);
         if(commonFile != null && commonFile.getEndTime() != null){

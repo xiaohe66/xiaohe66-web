@@ -8,7 +8,6 @@ import com.xiaohe66.web.code.love.dto.LovePhotoDto;
 import com.xiaohe66.web.code.love.dto.PhotoDto;
 import com.xiaohe66.web.code.love.po.Photo;
 import com.xiaohe66.web.code.love.service.PhotoService;
-import org.apache.shiro.authz.annotation.RequiresGuest;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ import java.util.List;
 @XhController("/love/photo")
 public class PhotoController extends BaseController<PhotoService, Photo, PhotoDto> {
 
-    @RequiresGuest
     @Get("/wall")
     public Result list12() {
         List<LovePhotoDto> photoDtoList = baseService.listPhoto12();

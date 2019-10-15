@@ -1,13 +1,14 @@
 package com.xiaohe66.web.code.file.controller;
 
-import com.xiaohe66.web.base.annotation.Get;
+import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.service.CommonFileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,26 +23,35 @@ import java.util.Set;
 @XhController("/comm/file")
 public class CommonFileController {
 
-    @Autowired
     private CommonFileService commonFileService;
 
-    @Get("/img/{id}")
-    public void showImg(HttpServletResponse response,@PathVariable("id")Integer id) throws IOException {
-        if(id == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
+    public CommonFileController(CommonFileService commonFileService) {
+        this.commonFileService = commonFileService;
+    }
+
+    @Page("/img/{id}")
+    public void showImg(HttpServletResponse response, @PathVariable("id") Integer id) throws IOException {
+        if (id == null) {
+            throw new XhException(CodeEnum.NULL_EXCEPTION, "id is null");
         }
         response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
-        commonFileService.outputFile(id,response.getOutputStream());
+        commonFileService.outputFile(id, response.getOutputStream());
     }
 
     @Post("/prepare")
-    public Set<Integer> uploadFilePrepare(String md5, Float mb){
-        return commonFileService.uploadFilePrepare(md5,mb);
+    public Set<Integer> uploadFilePrepare(String md5, Float mb) {
+        return commonFileService.uploadFilePrepare(md5, mb);
     }
 
     @Post
-    public Boolean uploadFile(MultipartFile file,String md5,Integer chunk) throws IOException {
-        return commonFileService.uploadFile(file,md5,chunk);
+    public Boolean uploadFile(MultipartFile file, String md5, Integer chunk) throws IOException {
+        return commonFileService.uploadFile(file, md5, chunk);
+    }
+
+    @Post("/img")
+    public Result uploadImg(MultipartFile file, String md5) {
+        CommonFile commonFile = commonFileService.uploadFileDefault(file, md5);
+        return Result.ok(commonFile.getId());
     }
 
 

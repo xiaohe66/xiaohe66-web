@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/admin/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/Css/style.css"/>
+    <script type="text/javascript" src="/admin/Js/jquery.js"></script>
+    <!--<script type="text/javascript" src="/admin/Js/jquery.sorted.js"></script>-->
+    <script type="text/javascript" src="/admin/Js/bootstrap.js"></script>
+    <script type="text/javascript" src="/admin/Js/ckform.js"></script>
+    <script type="text/javascript" src="/admin/Js/common.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-common.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-mask.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-validator.js"></script>
+    <script type="text/javascript" src="/web/common/js/spark-md5.min.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-upload.js"></script>
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+        input {
+            width: 500px;
+            height: 30px;
+        }
+
+        label {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .table {
+            width: auto;
+        }
+
+        .table td {
+            height: 40px;
+            line-height: 40px;
+        }
+
+    </style>
+</head>
+<body>
+<form>
+    <table class="table edit-table table-bordered table-hover m10">
+        <tr>
+            <td width="10%">照片</td>
+            <td>
+                <img id="img" class="thumbnail" style="display: none"/>
+                <input id="file" type="file"/>
+                <input id="fileId" type="hidden"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>照片名称</td>
+            <td><input id="name"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>第一段话</td>
+            <td><input id="one"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>第二段话</td>
+            <td><input id="two"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>第三段话</td>
+            <td><input id="three"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>
+                <label><input type="radio" name="status" value="1" checked/> 启用</label>
+                <label><input type="radio" name="status" value="0"/> 禁用</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>操作</td>
+            <td>
+                <button type="button" class="btn btn-primary" id="save">保存</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-success" id="back">返回列表</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+<script>
+    $(function () {
+        $('#back').click(function () {
+            location.href = "/admin/love/photo/index.html";
+        });
+
+        $("#img").click(function () {
+            $("#file").click();
+        });
+
+        var fileId;
+        $("#file").upload(function (url,id) {
+            $("#file").hide();
+            $("#img").show();
+            $("#img").attr("src",url);
+            fileId = id;
+        });
+
+        let validator = new Validator();
+
+        var lock = true;
+        $("#save").click(function () {
+            if(!fileId){
+                alert("请上传图片");
+                return;
+            }
+
+            if(!validator.verify()){
+                alert("验证不通过，请检查参数");
+                return;
+            }
+            if(!lock)return;
+            lock = false;
+            $.hint("保存中……");
+            post("/love/photo",{
+                fileId : fileId,
+                name : $("#name").val(),
+                one : $("#one").val(),
+                two : $("#two").val(),
+                three : $("#three").val(),
+                isShow : $("input[name='status']:checked").val()
+            },function (data) {
+                window.location.href = "/admin/love/photo/index.html";
+            },function (err) {
+                $.maskHint("sorry!系统出现未知错误");
+                lock = true;
+            });
+        });
+
+        validator.add({
+            dom: $("#name"),
+            maxLength: 16,
+            call: function (dom, msg) {
+                dom.parent().next().text(msg);
+            }
+        });
+        validator.add({
+            dom: $("#one"),
+            maxLength: 255,
+            call: function (dom, msg) {
+                dom.parent().next().text(msg);
+            }
+        });
+        validator.add({
+            dom: $("#two"),
+            maxLength: 255,
+            empty: false,
+            call: function (dom, msg) {
+                dom.parent().next().text(msg);
+            }
+        });
+        validator.add({
+            dom: $("#three"),
+            maxLength: 255,
+            empty: false,
+            call: function (dom, msg) {
+                dom.parent().next().text(msg);
+            }
+        });
+
+    });
+</script>
