@@ -37,7 +37,7 @@ public class ResumePageController {
         Integer xhUsrId = SysCfgHelper.findXhUsrId();
         model.addAttribute("title","小何的简历");
         model.addAttribute("usrDivTitle","小何");
-        model.addAttribute("usrDto",userService.lookAtUsr(xhUsrId));
+        model.addAttribute("usrDto",userService.lookAtUser(xhUsrId));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(xhUsrId));
         model.addAttribute("resumeMain",resumeMainService.findDtoByUsrId(xhUsrId));
         return "resume/resume_index";

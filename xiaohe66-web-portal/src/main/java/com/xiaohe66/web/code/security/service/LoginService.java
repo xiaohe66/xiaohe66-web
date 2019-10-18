@@ -66,11 +66,11 @@ public class LoginService {
             throw new MsgException(CodeEnum.FORMAT_ERROR);
         }
 
-        if (userService.usrNameIsExist(usrName)) {
+        if (userService.isExistUserName(usrName)) {
             throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST, "usrName is exist");
         }
 
-        if (userService.emailIsExist(email)) {
+        if (userService.isExistEmail(email)) {
             throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST, "email is exist");
         }
 
@@ -112,7 +112,7 @@ public class LoginService {
             throw new MsgException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
         }
 
-        User user = userService.findByEmail(email);
+        User user = userService.getByEmail(email);
         if (user == null) {
             throw new MsgException(CodeEnum.USR_NOT_EXIST);
         }
@@ -157,7 +157,7 @@ public class LoginService {
         }
 
         //登录名中存在@，则为邮箱账号
-        User dbUsr = loginName.contains("@") ? userService.findByEmail(loginName) : userService.findByUsrName(loginName);
+        User dbUsr = loginName.contains("@") ? userService.getByEmail(loginName) : userService.getByUserName(loginName);
 
         if (Check.isNull(dbUsr)) {
             throw new MsgException(CodeEnum.USR_NOT_EXIST, "user not exist:loginName=" + loginName);
@@ -180,7 +180,7 @@ public class LoginService {
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            logger.info("login failing:userName:{}, userPwd:{}", userName, userPwd);
+            logger.debug("login failing:userName:{}, userPwd:{}", userName, userPwd);
             return null;
         }
         //构建dto

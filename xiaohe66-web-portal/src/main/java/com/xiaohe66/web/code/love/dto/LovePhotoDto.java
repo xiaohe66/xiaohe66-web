@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * @author xiaohe
- * @date 2019.10.13 17:00
+ * @time 2019.10.13 17:00
  */
 @Data
 public class LovePhotoDto extends BaseDto {

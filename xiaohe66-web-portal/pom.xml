@@ -83,6 +83,13 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.xiaohe66</groupId>
+            <artifactId>commons</artifactId>
+            <version>${xh-commons.version}</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>

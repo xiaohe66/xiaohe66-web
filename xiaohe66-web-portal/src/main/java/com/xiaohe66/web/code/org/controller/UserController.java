@@ -18,12 +18,12 @@ public class UserController extends BaseController<UserService, User, UserDto> {
 
     @Get("name/{usrName}")
     public Boolean usrNameIsExist(@PathVariable String usrName) {
-        return baseService.usrNameIsExist(usrName);
+        return baseService.isExistUserName(usrName);
     }
 
     @Post("email/email")
     public Boolean emailIsExist(String email) {
-        return baseService.emailIsExist(email);
+        return baseService.isExistEmail(email);
     }
 
 }
