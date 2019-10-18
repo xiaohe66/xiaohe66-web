@@ -4,8 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.MsgException;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
@@ -80,12 +79,12 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     /**
      * 禁用该方法，调用该方法会抛出异常，请调用add(p1,p2,p3)
      *
-     * @param article      禁用
+     * @param article 禁用
      */
     @Deprecated
     @Override
     public boolean updateById(Article article) {
-        throw new XhException(CodeEnum.DISABLE_FUNCTION, "pls invoke updateById(p1,p2,p3)");
+        throw new XhWebException(CodeEnum.DISABLE_FUNCTION, "pls invoke updateById(p1,p2,p3)");
     }
 
     /**
@@ -97,15 +96,15 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     @Transactional(rollbackFor = Exception.class)
     public void updateById(Article article, Integer[] perCategoryIds) {
         if (Check.isNull(article) || Check.isNull(article.getId())) {
-            throw new XhException(CodeEnum.NULL_EXCEPTION, "article or id is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "article or id is null");
         }
         Article dbArticle = getById(article.getId());
         if (Check.isNull(dbArticle)) {
-            throw new XhException(CodeEnum.RESOURCE_NOT_FOUND, "object not found");
+            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND, "object not found");
         }
         Integer currentUsrId = UserHelper.getCurrentUsrId();
         if (!currentUsrId.equals(dbArticle.getCreateId())) {
-            throw new XhException(CodeEnum.NOT_PERMISSION, "this article not is current user article");
+            throw new XhWebException(CodeEnum.NOT_PERMISSION, "this article not is current user article");
         }
         article.setUpdateId(currentUsrId);
         super.updateById(article);
@@ -162,7 +161,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     @Deprecated
     @Override
     public boolean save(Article article) {
-        throw new XhException(CodeEnum.DISABLE_FUNCTION, "pls invoke add(p1,p2,p3)");
+        throw new XhWebException(CodeEnum.DISABLE_FUNCTION, "pls invoke add(p1,p2,p3)");
     }
 
     /**
@@ -199,7 +198,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             if (Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()) {
                 Integer currentUsrId = UserHelper.getCurrentUsrId();
                 if (!currentUsrId.equals(article.getCreateId())) {
-                    throw new MsgException(CodeEnum.NOT_PERMISSION);
+                    throw new XhWebException(CodeEnum.NOT_PERMISSION);
                 }
             }
         }

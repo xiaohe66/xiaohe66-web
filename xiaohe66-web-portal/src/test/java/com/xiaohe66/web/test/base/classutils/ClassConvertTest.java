@@ -1,5 +1,6 @@
 package com.xiaohe66.web.test.base.classutils;
 
+import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.util.ClassUtils;
 import org.junit.Test;
 
@@ -18,7 +19,8 @@ public class ClassConvertTest {
 
     @Test
     public void test2(){
-        Obj2 obj2 = ClassUtils.convert(Obj2.class,null);
+        BasePo po = null;
+        Obj2 obj2 = ClassUtils.convert(Obj2.class, po);
         assertEquals(null,obj2);
     }
 

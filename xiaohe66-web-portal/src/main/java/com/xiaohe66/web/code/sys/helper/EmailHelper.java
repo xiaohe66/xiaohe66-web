@@ -1,7 +1,7 @@
 package com.xiaohe66.web.code.sys.helper;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.code.sys.service.EmailService;
@@ -45,7 +45,7 @@ public class EmailHelper {
         try {
             emailService.sendEmail(emailService.createMimeMessage(targetEmail,targetName,DEFAULT_EMAIL_SUBJECT,content));
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION,e);
         }
     }
 

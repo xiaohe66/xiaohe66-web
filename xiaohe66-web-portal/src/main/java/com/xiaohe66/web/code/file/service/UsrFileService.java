@@ -3,7 +3,7 @@ package com.xiaohe66.web.code.file.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.EncoderUtils;
@@ -77,7 +77,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         Check.notEmptyCheck(currentUsrId,fileName);
 
         if(fileType != DEFAULT_FILE_TYPE && fileType != USR_HEAD_IMG_FILE_TYPE){
-            throw new XhException(CodeEnum.PARAM_ERR);
+            throw new XhWebException(CodeEnum.PARAM_ERR);
         }
 
         Set<Integer> notUploadChunkSet = commonFileService.uploadFilePrepare(md5,mb);
@@ -103,15 +103,15 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
     public Integer uploadImg(MultipartFile file, String md5, Integer currentUsrId, int fileType){
         if(Check.isNull(file)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"file is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"file is null");
         }
         try {
             int bytes = file.getBytes().length;
             if(bytes > USR_HEAD_IMG_MAX_BYTE_LENGTH){
-                throw new XhException(CodeEnum.MAX_VALUE_EXCEPTION);
+                throw new XhWebException(CodeEnum.MAX_VALUE_EXCEPTION);
             }
         } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION,e);
         }
 
         return uploadImgFile(currentUsrId,file,md5,fileType).getId();
@@ -140,7 +140,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
     public UsrFile findByCommonFileId(Integer commonFileId){
         if(Check.isOneNull(commonFileId)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"commonFileId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"commonFileId is null");
         }
         return baseMapper.findByCommonFileId(commonFileId);
     }
@@ -152,7 +152,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
     public List<UsrFileDto> findDtoByUsrId(Integer usrId){
         if(Check.isOneNull(usrId)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION);
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
         }
         UsrFileParam param = new UsrFileParam();
         param.setCreateId(usrId);
@@ -213,25 +213,25 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
 
     public void showImg(HttpServletResponse response,Integer usrFileId){
         if(usrFileId == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
         }
 
         UsrFile usrFile = getById(usrFileId);
         if(usrFile == null){
-            throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
+            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
         }
         String extension = usrFile.getExtension();
 
         //不是图片类型，不返回
         if(!IMG_TYPE_SET.contains(extension)){
-            throw new XhException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
+            throw new XhWebException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
         }
 
         response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
         try {
             commonFileService.outputFile(usrFile.getFileId(),response.getOutputStream());
         } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION);
         }
     }
 
@@ -244,15 +244,15 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
      */
     public void downloadFile(HttpServletResponse response,Integer usrFileId,Integer currentUsrId){
         if(usrFileId == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"usrFileId is null");
         }
         if(currentUsrId == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"currentUsrId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"currentUsrId is null");
         }
 
         UsrFile usrFile = getById(usrFileId);
         if(usrFile == null){
-            throw new XhException(CodeEnum.RESOURCE_NOT_FOUND);
+            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
         }
 
         String name = EncoderUtils.urlEncoder(usrFile.getFileName())+usrFile.getExtension();
@@ -262,7 +262,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         try {
             commonFileService.outputFile(usrFile.getFileId(),response.getOutputStream());
         } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION);
         }
 
         //记录下载日志
@@ -290,7 +290,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         Check.notEmptyCheck(fileName);
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (fileName.contains(String.valueOf(fileIllegalChar))) {
-                throw new XhException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
+                throw new XhWebException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
             }
         }
         //文件名字符长度不能超过20
@@ -309,7 +309,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper,UsrFile>{
         Check.notNullCheck(extension);
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (extension.contains(String.valueOf(fileIllegalChar))) {
-                throw new XhException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
+                throw new XhWebException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
             }
         }
         //文件名字符长度不能超过20

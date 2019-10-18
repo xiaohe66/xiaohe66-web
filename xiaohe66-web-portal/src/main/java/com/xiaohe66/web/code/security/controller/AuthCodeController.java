@@ -5,7 +5,7 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.security.auth.helper.AuthCodeHelper;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +35,9 @@ public class AuthCodeController {
     }
 
     @Get("/{code}")
-    public Boolean authCode(@PathVariable("code") String code){
-        if(StrUtils.isEmpty(code)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"code is null");
+    public Boolean authCode(@PathVariable("code") String code) {
+        if (StrUtils.isEmpty(code)) {
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "code is null");
         }
 
         return AuthCodeHelper.verifyImgCodeNotClearSession(code);

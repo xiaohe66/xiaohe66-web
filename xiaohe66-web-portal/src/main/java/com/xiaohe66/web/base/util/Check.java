@@ -1,7 +1,8 @@
 package com.xiaohe66.web.base.util;
 
+import com.xiaohe66.common.ex.XhException;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.exception.param.EmptyException;
 
 import java.util.Collection;
@@ -66,7 +67,7 @@ public class Check {
      */
     public static void notEmptyCheck(Object... objects){
         if(objects == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION);
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
         }
         for (Object object : objects) {
             //当对象类型是string时，长度为0时，也表示该对象为空

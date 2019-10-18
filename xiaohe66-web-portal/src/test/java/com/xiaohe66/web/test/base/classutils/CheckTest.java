@@ -1,6 +1,6 @@
 package com.xiaohe66.web.test.base.classutils;
 
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CheckTest {
 
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void test1(){
         Check.notEmptyCheck(new ArrayList<>(0));
     }
@@ -26,7 +26,7 @@ public class CheckTest {
         Check.notEmptyCheck(list);
     }
 
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void test3(){
         Check.notEmptyCheck("");
     }

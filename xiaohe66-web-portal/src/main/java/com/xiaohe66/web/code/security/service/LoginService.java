@@ -2,8 +2,7 @@ package com.xiaohe66.web.code.security.service;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.MsgException;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.base.util.RegexUtils;
@@ -55,7 +54,7 @@ public class LoginService {
      */
     public void registerPrepare(User user, String code) {
         if (!AuthCodeHelper.verifyImgCode(code)) {
-            throw new MsgException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
+            throw new XhWebException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
         }
 
         String usrName = user.getUsrName();
@@ -63,15 +62,15 @@ public class LoginService {
         Check.notEmptyCheck(usrName, email);
 
         if (!RegexUtils.testUsrName(usrName) || !RegexUtils.testEmail(email)) {
-            throw new MsgException(CodeEnum.FORMAT_ERROR);
+            throw new XhWebException(CodeEnum.FORMAT_ERROR);
         }
 
         if (userService.isExistUserName(usrName)) {
-            throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST, "usrName is exist");
+            throw new XhWebException(CodeEnum.OBJ_ALREADY_EXIST, "usrName is exist");
         }
 
         if (userService.isExistEmail(email)) {
-            throw new MsgException(CodeEnum.OBJ_ALREADY_EXIST, "email is exist");
+            throw new XhWebException(CodeEnum.OBJ_ALREADY_EXIST, "email is exist");
         }
 
         String token = PwdUtils.createToken();
@@ -91,7 +90,7 @@ public class LoginService {
         User user = CacheHelper.get30(token);
 
         if (user == null) {
-            throw new MsgException(CodeEnum.TOKEN_TIME_OUT);
+            throw new XhWebException(CodeEnum.TOKEN_TIME_OUT);
         }
         CacheHelper.remove30(token);
 
@@ -99,8 +98,7 @@ public class LoginService {
         try {
             userService.save(user);
         } catch (Exception e) {
-            logger.error("注册失败", e.getMessage());
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION, e);
+            throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION, "注册失败", e);
         }
 
         roleService.addDefaultUsrRole(user.getId());
@@ -109,12 +107,12 @@ public class LoginService {
     public void updatePwdPrepare(String email, String code) {
         Check.notEmptyCheck(email, code);
         if (!AuthCodeHelper.verifyImgCode(code)) {
-            throw new MsgException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
+            throw new XhWebException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
         }
 
         User user = userService.getByEmail(email);
         if (user == null) {
-            throw new MsgException(CodeEnum.USR_NOT_EXIST);
+            throw new XhWebException(CodeEnum.USR_NOT_EXIST);
         }
 
         WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY, user);
@@ -128,7 +126,7 @@ public class LoginService {
     public void updatePwd(String password, String code) {
         Check.notEmptyCheck(password, code);
         if (!AuthCodeHelper.verifyEmailCode(code)) {
-            throw new MsgException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
+            throw new XhWebException(CodeEnum.AUTH_CODE_ERR, "code is wrong");
         }
 
         User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
@@ -144,7 +142,7 @@ public class LoginService {
         loginName = StrUtils.trim(loginName);
 
         if (Check.isOneNull(loginName, usrPwd)) {
-            throw new XhException(CodeEnum.NULL_EXCEPTION, "loginName or usrPwd or code is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "loginName or usrPwd or code is null");
         }
 
         Subject subject = SecurityUtils.getSubject();
@@ -160,12 +158,12 @@ public class LoginService {
         User dbUsr = loginName.contains("@") ? userService.getByEmail(loginName) : userService.getByUserName(loginName);
 
         if (Check.isNull(dbUsr)) {
-            throw new MsgException(CodeEnum.USR_NOT_EXIST, "user not exist:loginName=" + loginName);
+            throw new XhWebException(CodeEnum.USR_NOT_EXIST, "user not exist:loginName=" + loginName);
         }
 
         //验证密码
         if (!PwdUtils.passwordsMatch(usrPwd, dbUsr.getUsrPwd())) {
-            throw new XhException(CodeEnum.PASSWORD_ERROR, "password is wrong");
+            throw new XhWebException(CodeEnum.PASSWORD_ERROR, "password is wrong");
         }
         return this.loginToShiro(dbUsr);
     }

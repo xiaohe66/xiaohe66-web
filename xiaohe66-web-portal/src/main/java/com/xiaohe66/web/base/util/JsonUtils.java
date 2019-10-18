@@ -3,8 +3,7 @@ package com.xiaohe66.web.base.util;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.common.ex.XhRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +19,8 @@ public class JsonUtils {
 
     private static final Gson gson = new Gson();
 
-    private JsonUtils(){}
+    private JsonUtils() {
+    }
 
     /**
      * 对象转json字符串
@@ -41,7 +41,7 @@ public class JsonUtils {
      * @return JSONObject
      */
     public static JsonObject toObject(String jsonStr) {
-        throw new XhException(CodeEnum.NOT_IMPLEMENTED, "not implemented");
+        throw new XhRuntimeException("not implemented");
     }
 
     /**
@@ -53,6 +53,6 @@ public class JsonUtils {
      * @return JSONArray
      */
     public static JsonArray toArray(String jsonStr) {
-        throw new XhException(CodeEnum.NOT_IMPLEMENTED, "not implemented");
+        throw new XhRuntimeException("not implemented");
     }
 }

@@ -3,7 +3,7 @@ package com.xiaohe66.web.code.sys.controller;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 
 /**
  *
@@ -15,12 +15,12 @@ public class SysController {
 
     @Get("/notLoggedIn")
     public void notLoggedIn(){
-        throw new XhException(CodeEnum.NOT_LOGGED_IN);
+        throw new XhWebException(CodeEnum.NOT_LOGGED_IN);
     }
 
     @Get("/notPermission")
     public void notPermission(){
-        throw new XhException(CodeEnum.NOT_PERMISSION);
+        throw new XhWebException(CodeEnum.NOT_PERMISSION);
     }
 
 }

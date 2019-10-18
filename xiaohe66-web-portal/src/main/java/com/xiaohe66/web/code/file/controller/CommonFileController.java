@@ -5,7 +5,7 @@ import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.code.file.service.CommonFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +28,7 @@ public class CommonFileController {
     @Get("/img/{id}")
     public void showImg(HttpServletResponse response,@PathVariable("id")Integer id) throws IOException {
         if(id == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"id is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"id is null");
         }
         response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
         commonFileService.outputFile(id,response.getOutputStream());

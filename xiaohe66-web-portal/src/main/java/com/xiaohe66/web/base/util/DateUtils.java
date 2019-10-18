@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +30,7 @@ public class DateUtils {
 
     public static String formatDateTime(Date date){
         if(date == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION);
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
         }
         return getDateTimeFormat().format(date);
     }

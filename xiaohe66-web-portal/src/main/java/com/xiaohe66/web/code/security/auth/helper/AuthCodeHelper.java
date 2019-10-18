@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.security.auth.helper;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.MsgException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.security.auth.entity.AuthCode;
@@ -64,7 +64,7 @@ public class AuthCodeHelper {
         long difference = System.currentTimeMillis()-authCodeObj.getCreateTime().getTime();
 
         if(difference >= AUTH_CODE_TIME_OUT_MS){
-            throw new MsgException(CodeEnum.AUTH_CODE_TIME_OUT);
+            throw new XhWebException(CodeEnum.AUTH_CODE_TIME_OUT);
         }
 
         if(code.equalsIgnoreCase(authCodeObj.getCode())){
@@ -82,7 +82,7 @@ public class AuthCodeHelper {
         long difference = System.currentTimeMillis()-authCodeObj.getCreateTime().getTime();
 
         if(difference >= AUTH_CODE_TIME_OUT_MS){
-            throw new MsgException(CodeEnum.AUTH_CODE_TIME_OUT);
+            throw new XhWebException(CodeEnum.AUTH_CODE_TIME_OUT);
         }
 
         return code.equalsIgnoreCase(authCodeObj.getCode());

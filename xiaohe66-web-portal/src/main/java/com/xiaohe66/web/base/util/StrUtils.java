@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,13 +105,13 @@ public class StrUtils {
      *      待转换的值
      * @return
      *      传入参数的int形式
-     * @throws XhException  转换失败时，异常此异常
+     * @throws XhWebException  转换失败时，异常此异常
      */
     public static int toInt(String val){
         try {
             return Integer.parseInt(val);
         }catch (NumberFormatException e){
-            throw new XhException(CodeEnum.NUMBER_FORMAT_EXCEPTION,"cast failing,val="+val);
+            throw new XhWebException(CodeEnum.NUMBER_FORMAT_EXCEPTION,"cast failing,val="+val);
         }
     }
 
@@ -138,13 +138,13 @@ public class StrUtils {
      *      待转换的值
      * @return
      *      传入参数的long形式
-     * @throws XhException  转换失败时，抛出此异常
+     * @throws XhWebException  转换失败时，抛出此异常
      */
     public static long toLong(String val){
         try {
             return Long.parseLong(val);
         }catch (NumberFormatException e){
-            throw new XhException(CodeEnum.NUMBER_FORMAT_EXCEPTION,"cast failing,val="+val);
+            throw new XhWebException(CodeEnum.NUMBER_FORMAT_EXCEPTION,"cast failing,val="+val);
         }
     }
 

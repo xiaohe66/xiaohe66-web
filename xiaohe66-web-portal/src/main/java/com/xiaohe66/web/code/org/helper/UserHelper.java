@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.org.helper;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.org.dto.UserDto;
 
@@ -19,7 +19,7 @@ public class UserHelper {
     public static UserDto getCurrentUsr() {
         UserDto usrDto = getCurrentUsrNotEx();
         if (usrDto == null) {
-            throw new XhException(CodeEnum.NOT_LOGGED_IN);
+            throw new XhWebException(CodeEnum.NOT_LOGGED_IN);
         }
         return usrDto;
     }

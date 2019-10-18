@@ -4,25 +4,18 @@ import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
-import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
-import com.xiaohe66.web.base.exception.GeneralException;
-import com.xiaohe66.web.base.exception.MsgException;
-import com.xiaohe66.web.base.exception.SystemException;
-import com.xiaohe66.web.base.exception.XhException;
 import com.xiaohe66.web.base.util.JsonUtils;
 import com.xiaohe66.web.base.util.WebUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 请求响应统一格式
@@ -42,51 +35,22 @@ import java.io.IOException;
  */
 @Aspect
 @Component
+@Slf4j
 public class XhResponseAsp {
-
-    private static final Logger logger = LoggerFactory.getLogger(XhResponseAsp.class);
 
     @Pointcut("@annotation(com.xiaohe66.web.base.annotation.Get)||" +
             "@annotation(com.xiaohe66.web.base.annotation.Post)||" +
             "@annotation(com.xiaohe66.web.base.annotation.Put)||" +
             "@annotation(com.xiaohe66.web.base.annotation.Del)")
     private void responsePointCut() {
+        // 切面
     }
 
     @Around("responsePointCut()")
-    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws IOException {
-        Result result;
-        try {
-            Object retVal = proceedingJoinPoint.proceed();
-            result = retVal instanceof Result ? (Result) retVal : Result.ok(retVal);
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        Object retVal = proceedingJoinPoint.proceed();
+        Result result = retVal instanceof Result ? (Result) retVal : Result.ok(retVal);
 
-        } catch (Throwable e) {
-            if (e instanceof MsgException) {
-                logger.info(e.toString() + ",msg=" + e.getMessage());
-                result = Result.err(((XhException) e).getCode(), e.getMessage());
-            } else if (e instanceof XhException) {
-                /*
-                 * xh todo:异常的输出需要更好的管理
-                 * 1.提示类型的错误不应该输出完整日志（如：密码错误）
-                 * */
-                logger.error(e.getMessage(), e);
-                result = Result.err(((XhException) e).getCode(), e.getMessage());
-
-            } else if (e instanceof GeneralException) {
-
-                logger.info("业务异常", e.getMessage());
-                result = Result.err(e.getMessage());
-
-            } else if (e instanceof SystemException) {
-
-                logger.info("重大异常", e);
-                result = Result.err(e.getMessage());
-
-            } else {
-                logger.error("系统异常", e);
-                result = Result.err(CodeEnum.EXCEPTION, e.getMessage());
-            }
-        }
         HttpServletResponse response = WebUtils.getResponse();
         response.setContentType(Final.Str.HEADER_JSON_UTF_8);
         response.getWriter().print(JsonUtils.toString(result));

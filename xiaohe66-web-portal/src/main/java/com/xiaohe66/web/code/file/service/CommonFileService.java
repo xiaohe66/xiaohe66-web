@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.file.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.DateUtils;
 import com.xiaohe66.web.base.util.IoUtils;
@@ -68,13 +68,13 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
     public Set<Integer> uploadFilePrepare(String md5,Float mb){
         final int md5Length = 32;
         if(md5 == null||md5.length()!= md5Length){
-            throw new XhException(CodeEnum.PARAM_ERR,"md5为null，或长度不为"+ md5Length +"位");
+            throw new XhWebException(CodeEnum.PARAM_ERR,"md5为null，或长度不为"+ md5Length +"位");
         }
         if(mb == null||mb < 0){
-            throw new XhException(CodeEnum.PARAM_ERR,"param mb is error,mb="+mb);
+            throw new XhWebException(CodeEnum.PARAM_ERR,"param mb is error,mb="+mb);
         }
         if(mb > fileMaxMb){
-            throw new XhException(CodeEnum.PARAM_ERR,"param mb cannot be greater than fileMaxMb:mb="+mb+",fileMaxMb="+fileMaxMb);
+            throw new XhWebException(CodeEnum.PARAM_ERR,"param mb cannot be greater than fileMaxMb:mb="+mb+",fileMaxMb="+fileMaxMb);
         }
         int chunkCount = mb.intValue()/chunkMaxMb+1;
 
@@ -118,17 +118,17 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
     public boolean uploadFile(MultipartFile multipartFile, String md5, Integer chunk) throws IOException {
         String sessionMd5 = WebUtils.getSessionAttr("md5");
         if(sessionMd5 == null||sessionMd5.length()==0){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"没有调用prepare接口");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"没有调用prepare接口");
         }
 
         if (!sessionMd5.equals(md5)) {
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"参数md5和准备接口不一致");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"参数md5和准备接口不一致");
         }
 
         Check.notEmptyCheck(chunk);
         int chunkCount = WebUtils.getSessionAttr("chunkCount");
         if(chunk<1 || chunk>chunkCount){
-            throw new XhException(CodeEnum.PARAM_ERR,"上传的块数不在区间内");
+            throw new XhWebException(CodeEnum.PARAM_ERR,"上传的块数不在区间内");
         }
 
 
@@ -218,14 +218,14 @@ public class CommonFileService extends AbstractService<CommonFileMapper,CommonFi
         try {
              fileInput = multipartFile.getInputStream();
         } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION,e);
         }
         IoUtils.writeToFile(fileInput,new File(fileHomeUrl+fileUrl),false);
         int fileBytes;
         try {
             fileBytes = multipartFile.getBytes().length;
         } catch (IOException e) {
-            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION,e);
         }
 
         commonFile = new CommonFile();
