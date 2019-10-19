@@ -9,7 +9,6 @@ import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.security.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 普通登录
@@ -23,33 +22,36 @@ public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    @Autowired
     private LoginService loginService;
 
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
     @Get
-    public Boolean isLogin(){
+    public Boolean isLogin() {
         return loginService.isLogin();
     }
 
     @Post
-    public UserDto login(String loginName, String usrPwd){
-        return loginService.login(loginName,usrPwd);
+    public UserDto login(String loginName, String usrPwd) {
+        return loginService.login(loginName, usrPwd);
     }
 
     @Del
-    public  void logout(){
-        log.info("注销登录");
+    public void logout() {
         loginService.logout();
     }
 
+    // 用于邮箱找回密码
     @Post("/pwd")
-    public void updatePwdPrepare(String email,String code){
-        loginService.updatePwdPrepare(email,code);
+    public void updatePwdPrepare(String email, String code) {
+        loginService.updatePwdPrepare(email, code);
     }
 
     @Put("/pwd")
-    public void updatePwd(String password,String code){
-        loginService.updatePwd(password,code);
+    public void updatePwd(String password, String code) {
+        loginService.updatePwd(password, code);
     }
 
 

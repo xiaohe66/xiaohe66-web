@@ -3,13 +3,12 @@ package com.xiaohe66.web.code.common.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.common.dao.CategoryDao;
 import com.xiaohe66.web.code.common.po.Category;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class CategoryService extends AbstractService<CategoryDao,Category> {
 
     public List<Category> findByPid(Integer pid){
         if(Check.isOneNull(pid)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"pid is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"pid is null");
         }
         return baseMapper.findByPid(pid);
     }

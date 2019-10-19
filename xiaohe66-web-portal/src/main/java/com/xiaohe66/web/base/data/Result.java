@@ -30,7 +30,7 @@ public class Result {
     }
 
     public static Result err(CodeEnum codeEnum) {
-        return new Result(codeEnum.code(), codeEnum.desc(), null);
+        return new Result(codeEnum.code(), null, codeEnum.desc());
     }
 
     public static Result err(CodeEnum codeEnum, String data) {

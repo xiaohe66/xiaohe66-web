@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import org.apache.shiro.codec.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -17,7 +17,7 @@ public class EncoderUtils {
 
     public static String urlEncoder(String str,String enc){
         if(StrUtils.isEmpty(enc)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"enc is empty");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"enc is empty");
         }
         if(StrUtils.isEmpty(str)){
             return "";
@@ -25,7 +25,7 @@ public class EncoderUtils {
         try {
             return URLEncoder.encode(str,enc);
         } catch (UnsupportedEncodingException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION);
+            throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION);
         }
     }
 

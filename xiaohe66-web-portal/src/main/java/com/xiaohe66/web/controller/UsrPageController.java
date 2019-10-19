@@ -44,7 +44,7 @@ public class UsrPageController {
     public String me(Model model){
         model.addAttribute("title","我的");
         model.addAttribute("page",USR_DATA_PAGE_URL);
-        model.addAttribute("usrDto",userService.lookAtUsr(UserHelper.getCurrentUsrId()));
+        model.addAttribute("usrDto",userService.lookAtUser(UserHelper.getCurrentUsrId()));
         return OtherPageController.USR_ZONE_PAGE_URL;
     }
 

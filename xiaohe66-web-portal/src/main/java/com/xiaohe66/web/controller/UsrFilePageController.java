@@ -52,7 +52,7 @@ public class UsrFilePageController {
     @Page("/index")
     public String index(Model model){
         model.addAttribute("page",USR_FILE_INDEX_PAGE_URL);
-        model.addAttribute("usrDto",userService.lookAtUsr(null));
+        model.addAttribute("usrDto",userService.lookAtUser(null));
 
         return OtherPageController.RIGHT_PAGE_URL;
     }
@@ -61,7 +61,7 @@ public class UsrFilePageController {
     public String all(Model model){
         PageHelper.startPage(1,20);
         model.addAttribute("pageInfo",new PageInfo<>(usrFileService.findDtoAll(null,false)));
-        model.addAttribute("usrDto",userService.lookAtUsr(null));
+        model.addAttribute("usrDto",userService.lookAtUser(null));
         model.addAttribute("title","资源列表");
         model.addAttribute("usrDivTitle","站长");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));

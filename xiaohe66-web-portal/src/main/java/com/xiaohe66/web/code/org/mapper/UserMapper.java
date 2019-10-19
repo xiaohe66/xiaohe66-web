@@ -15,14 +15,14 @@ public interface UserMapper extends IBaseMapper<User> {
      * @param usrName   用户名
      * @return  Usr
      */
-    User findByUsrName(String usrName);
+    User getByUserName(String usrName);
 
     /**
      * 根据邮箱地址查询
      * @param email   邮箱地址
      * @return  Usr
      */
-    User findByEmail(String email);
+    User getByEmail(String email);
 
     /**
      * 根据用户名和密码查询
@@ -32,13 +32,6 @@ public interface UserMapper extends IBaseMapper<User> {
      */
     User findByUsrNameAndPwd(String usrName, String usrPwd);
 
-
-    /**
-     * 判断邮箱是否已存在
-     * @param email   邮箱地址
-     * @return  返回true表示已存在，返回false则不存在
-     */
-    boolean isExistEmail(String email);
 
     /**
      * 给用户添加角色

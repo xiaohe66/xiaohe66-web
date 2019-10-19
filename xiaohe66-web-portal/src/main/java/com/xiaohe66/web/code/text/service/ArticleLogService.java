@@ -3,7 +3,7 @@ package com.xiaohe66.web.code.text.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
@@ -31,12 +31,12 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
     /**
      * 方法弃用，请使用 add()
      *
-     * @param po           插入的实体
+     * @param po 插入的实体
      */
     @Override
     @Deprecated
     public boolean save(ArticleLog po) {
-        throw new XhException(CodeEnum.NOT_IMPLEMENTED);
+        throw new XhWebException(CodeEnum.NOT_IMPLEMENTED);
     }
 
     public void addPrepare(Integer articleId) {

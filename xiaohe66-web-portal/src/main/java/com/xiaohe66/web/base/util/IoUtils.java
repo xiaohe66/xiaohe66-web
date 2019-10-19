@@ -2,7 +2,7 @@ package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,13 +57,13 @@ public class IoUtils {
     public static String readStringInClassPath(String filePath){
         URL url = IoUtils.class.getClassLoader().getResource(filePath);
         if(url == null){
-            throw new XhException(CodeEnum.RESOURCE_NOT_FOUND,"filePath="+filePath);
+            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND,"filePath="+filePath);
         }
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(new File(url.toURI()));
         } catch (FileNotFoundException | URISyntaxException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION,e);
         }
         return readStringWithInput(inputStream);
     }
@@ -84,7 +84,7 @@ public class IoUtils {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                throw new XhException(CodeEnum.IO_EXCEPTION,e);
+                throw new XhWebException(CodeEnum.IO_EXCEPTION,e);
             }
         }
     }
@@ -117,7 +117,7 @@ public class IoUtils {
                 bufferedOutputStream.write(bytes,0,len);
             }
         } catch (IOException e){
-            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION,e);
         }finally {
             close(bufferedOutputStream,fileOutputStream);
         }
@@ -130,7 +130,7 @@ public class IoUtils {
             fileInputStream = new FileInputStream(file1);
             writeToFile(fileInputStream,file2,append);
         } catch (FileNotFoundException e) {
-            throw new XhException(CodeEnum.RUNTIME_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION,e);
         } finally {
             close(fileInputStream);
         }
@@ -150,7 +150,7 @@ public class IoUtils {
                 bufferedOutputStream.write(bytes,0,len);
             }
         } catch (IOException e){
-            throw new XhException(CodeEnum.IO_EXCEPTION,e);
+            throw new XhWebException(CodeEnum.IO_EXCEPTION,e);
         }finally {
             close(bufferedOutputStream,fileInputStream);
         }
@@ -199,7 +199,7 @@ public class IoUtils {
                 try {
                     closeable.close();
                 } catch (IOException e) {
-                    throw new XhException(CodeEnum.EXCEPTION, e);
+                    throw new XhWebException(CodeEnum.EXCEPTION, e);
                 }
             }
         }

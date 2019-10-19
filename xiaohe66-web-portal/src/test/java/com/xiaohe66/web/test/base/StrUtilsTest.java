@@ -1,6 +1,6 @@
 package com.xiaohe66.web.test.base;
 
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.StrUtils;
 import org.junit.Test;
 
@@ -71,15 +71,15 @@ public class StrUtilsTest {
         assertEquals(new Integer(12),StrUtils.toIntNotException("12"));
     }
 
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void toIntTest1(){
         StrUtils.toInt("");
     }
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void toIntTest2(){
         StrUtils.toInt("x");
     }
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void toIntTest3(){
         StrUtils.toInt("1.");
     }
@@ -98,15 +98,15 @@ public class StrUtilsTest {
         assertEquals(new Long(12),StrUtils.toLongNotException("12"));
     }
 
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void toLong1(){
         StrUtils.toLong("");
     }
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void toLong2(){
         StrUtils.toLong("x");
     }
-    @Test(expected = XhException.class)
+    @Test(expected = XhWebException.class)
     public void toLong3(){
         StrUtils.toLong("1.");
     }

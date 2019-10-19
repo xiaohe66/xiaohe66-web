@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.text.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.code.text.dao.TextCategoryMapper;
 import com.xiaohe66.web.code.text.param.TextCategoryParam;
@@ -20,14 +20,14 @@ public class TextCategoryService extends AbstractService<TextCategoryMapper,Text
 
     public List<TextCategory> findByPid(Integer pid){
         if(Check.isOneNull(pid)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"pid is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"pid is null");
         }
         return baseMapper.findByPid(pid);
     }
 
     public List<TextCategory> findByUsrId(Integer usrId){
         if(Check.isOneNull(usrId)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"usrId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"usrId is null");
         }
         TextCategoryParam param = new TextCategoryParam();
         param.setCreateId(usrId);
@@ -37,14 +37,14 @@ public class TextCategoryService extends AbstractService<TextCategoryMapper,Text
 
     public String findNamesByArticleId(Integer articleId){
         if(Check.isOneNull(articleId)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"articleId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"articleId is null");
         }
         return baseMapper.findNamesByArticleId(articleId);
     }
 
     public List<TextCategory> findByArticleId(Integer articleId){
         if(Check.isOneNull(articleId)){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"articleId is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"articleId is null");
         }
         return baseMapper.findByArticleId(articleId);
     }

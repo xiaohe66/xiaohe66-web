@@ -6,12 +6,12 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.common.dto.CategoryDto;
 import com.xiaohe66.web.code.common.service.CategoryService;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.dto.LookAtUserDto;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.dto.ArticleDto;
@@ -75,10 +75,10 @@ public class ArticlePageController {
         Integer currentUsrId = UserHelper.getCurrentUsrId();
         ArticleDto articleDto = articleService.findDtoById(id);
         if(articleDto == null){
-            throw new XhException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
         }
         if(!currentUsrId.equals(articleDto.getCreateId())){
-            throw new XhException(CodeEnum.NOT_PERMISSION,"this article not is current user article");
+            throw new XhWebException(CodeEnum.NOT_PERMISSION,"this article not is current user article");
         }
         model.addAttribute("article",articleDto);
 
@@ -97,7 +97,7 @@ public class ArticlePageController {
         model.addAttribute("article",articleDto);
         model.addAttribute("title",articleDto.getTitle());
         model.addAttribute("page",ARTICLE_DETAIL_PAGE_URL);
-        model.addAttribute("usrDto",userService.lookAtUsr(articleDto.getCreateId()));
+        model.addAttribute("usrDto",userService.lookAtUser(articleDto.getCreateId()));
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(articleDto.getCreateId()));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(articleDto.getCreateId()));
         return OtherPageController.RIGHT_PAGE_URL;
@@ -110,7 +110,7 @@ public class ArticlePageController {
 
     @Page("/list/{usrId}")
     public String list(Model model,@PathVariable("usrId") Integer usrId){
-        UserDto usrDto = userService.lookAtUsr(usrId);
+        LookAtUserDto usrDto = userService.lookAtUser(usrId);
 
         PageHelper.startPage(1,10);
         List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId(),Final.Article.SECRET_LEVEL_PUBLIC);
@@ -138,7 +138,7 @@ public class ArticlePageController {
 
     @Page("/all")
     public String all(Model model){
-        UserDto usrDto = userService.lookAtUsr(null);
+        LookAtUserDto usrDto = userService.lookAtUser(null);
 
         PageHelper.startPage(1,10);
         model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));

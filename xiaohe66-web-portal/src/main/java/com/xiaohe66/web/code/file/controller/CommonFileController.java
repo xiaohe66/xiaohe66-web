@@ -6,7 +6,7 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.service.CommonFileService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * @author xh
- * @date 18-03-25 025
+ * @author xiaohe
+ * @time 18-03-25 025
  */
 @XhController("/comm/file")
 public class CommonFileController {
@@ -31,21 +31,21 @@ public class CommonFileController {
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable("id") Integer id) throws IOException {
-        if (id == null) {
-            throw new XhException(CodeEnum.NULL_EXCEPTION, "id is null");
+        if(id == null){
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"id is null");
         }
         response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
-        commonFileService.outputFile(id, response.getOutputStream());
+        commonFileService.outputFile(id,response.getOutputStream());
     }
 
     @Post("/prepare")
-    public Set<Integer> uploadFilePrepare(String md5, Float mb) {
-        return commonFileService.uploadFilePrepare(md5, mb);
+    public Set<Integer> uploadFilePrepare(String md5, Float mb){
+        return commonFileService.uploadFilePrepare(md5,mb);
     }
 
     @Post
-    public Boolean uploadFile(MultipartFile file, String md5, Integer chunk) throws IOException {
-        return commonFileService.uploadFile(file, md5, chunk);
+    public Boolean uploadFile(MultipartFile file,String md5,Integer chunk) throws IOException {
+        return commonFileService.uploadFile(file,md5,chunk);
     }
 
     @Post("/img")

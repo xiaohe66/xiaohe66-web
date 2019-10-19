@@ -1,12 +1,12 @@
 package com.xiaohe66.web.base.exception.param;
 
-import com.xiaohe66.web.base.exception.GeneralException;
+import com.xiaohe66.common.ex.XhRuntimeException;
 
 /**
  * @author xiaohe
  * @time 2019.10.12 09:54
  */
-public class EmptyException extends GeneralException {
+public class EmptyException extends XhRuntimeException {
 
     public EmptyException() {
         this("param cannot be empty");

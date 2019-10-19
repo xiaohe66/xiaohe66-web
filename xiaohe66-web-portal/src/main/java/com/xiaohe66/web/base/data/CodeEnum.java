@@ -9,7 +9,7 @@ package com.xiaohe66.web.base.data;
  */
 public enum CodeEnum {
     OK(0,"成功")
-    ,EXCEPTION(-1,"未知异常")
+    ,EXCEPTION(-1,"系统繁忙")
 
     ,NULL_EXCEPTION(501,"传入对象为空")
     ,NOT_IMPLEMENTED(502,"抽象方法未实现，请重写后再使用")
@@ -66,4 +66,8 @@ public enum CodeEnum {
     public String desc() {
         return desc;
     }
-}
+
+    @Override
+    public String toString() {
+        return "{"+code+", "+desc+"}";
+    }}

@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.dto.LookAtUserDto;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.dto.MessageBoardDto;
 import com.xiaohe66.web.code.text.service.ArticleService;
@@ -36,25 +36,25 @@ public class MessageBoardPageController {
     private ArticleService articleService;
 
     @Page("/index")
-    public String index(Model model){
-        return index(model,null);
+    public String index(Model model) {
+        return index(model, null);
     }
 
     @Page("/index/{usrId}")
-    public String index(Model model,@PathVariable("usrId") Integer usrId){
+    public String index(Model model, @PathVariable("usrId") Integer usrId) {
         //todo:目前只能给站长留言，以后开放所有用户的留言板后再删除掉这行代码
         usrId = null;
-        UserDto usrDto = userService.lookAtUsr(usrId);
-        model.addAttribute("usrDto",usrDto);
-        PageHelper.startPage(1,10);
+        LookAtUserDto usrDto = userService.lookAtUser(usrId);
+        model.addAttribute("usrDto", usrDto);
+        PageHelper.startPage(1, 10);
         List<MessageBoardDto> list = messageBoardService.findByUsrId(usrId);
-        model.addAttribute("pageInfo",new PageInfo<>(list));
-        model.addAttribute("size",list.size());
-        model.addAttribute("title",usrDto.getUsrName()+"的留言板");
-        model.addAttribute("usrDivTitle","站长");
-        model.addAttribute("page","text/message_board");
-        model.addAttribute("fileList",usrFileService.findDtoHotTop5(usrId));
-        model.addAttribute("hotArticle",articleService.findDtoHotTop5(usrId));
+        model.addAttribute("pageInfo", new PageInfo<>(list));
+        model.addAttribute("size", list.size());
+        model.addAttribute("title", usrDto.getUsrName() + "的留言板");
+        model.addAttribute("usrDivTitle", "站长");
+        model.addAttribute("page", "text/message_board");
+        model.addAttribute("fileList", usrFileService.findDtoHotTop5(usrId));
+        model.addAttribute("hotArticle", articleService.findDtoHotTop5(usrId));
         return OtherPageController.RIGHT_PAGE_URL;
     }
 

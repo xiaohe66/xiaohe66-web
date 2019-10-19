@@ -44,7 +44,7 @@ public class OtherPageController {
     public String index(Model model){
         model.addAttribute("list",articleService.indexArticle());
         model.addAttribute("title","乱七八糟导航");
-        model.addAttribute("usrDto",userService.lookAtUsr(null));
+        model.addAttribute("usrDto",userService.lookAtUser(null));
         model.addAttribute("page",INDEX_PAGE_HTML);
         model.addAttribute("usrDivTitle","站长");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));

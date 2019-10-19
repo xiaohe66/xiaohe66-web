@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 
 import java.util.regex.Pattern;
 
@@ -34,7 +34,7 @@ public class RegexUtils {
 
     public static boolean test(String regex,String value){
         if(value == null || regex == null || regex.length() == 0){
-            throw new XhException(CodeEnum.NULL_EXCEPTION);
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
         }
         return Pattern.matches(regex,value);
     }

@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhException;
+import com.xiaohe66.web.base.exception.XhWebException;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
@@ -39,7 +39,7 @@ public class PwdUtils {
      */
     public static boolean passwordsMatch(String pwd,String hashPwd){
         if (hashPwd == null || hashPwd.length() != HASH_PWD_LENGTH) {
-            throw new XhException(CodeEnum.NULL_EXCEPTION);
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
         }
 
         String hash = hashPwd.substring(0,HASH_SEPARATE_INDEX);

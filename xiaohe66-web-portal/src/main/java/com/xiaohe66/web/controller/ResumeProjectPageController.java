@@ -32,7 +32,7 @@ public class ResumeProjectPageController {
         Integer xhUsrId = SysCfgHelper.findXhUsrId();
         model.addAttribute("title","小何的简历-项目详情");
         model.addAttribute("usrDivTitle","小何");
-        model.addAttribute("usrDto",userService.lookAtUsr(xhUsrId));
+        model.addAttribute("usrDto",userService.lookAtUser(xhUsrId));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(xhUsrId));
         model.addAttribute("resumeProject",resumeProjectService.findDtoByResumeId(resumeId));
         return "resume/resume_project_view";
