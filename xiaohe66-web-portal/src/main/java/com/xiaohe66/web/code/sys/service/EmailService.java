@@ -9,6 +9,7 @@ import com.xiaohe66.web.code.sys.vo.Email;
 import com.xiaohe66.web.code.sys.vo.EmailAttachment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +40,8 @@ import java.util.stream.Stream;
  */
 @Service
 @Slf4j
+@DependsOn("sysCfgService")
 public class EmailService implements InitializingBean {
-
-    private static final String UTF_8 = "UTF-8";
 
     private Session session;
 
@@ -56,9 +56,6 @@ public class EmailService implements InitializingBean {
         String smtpHost = SysCfgHelper.getString(Final.Str.SYS_EMAIL_SMTP_HOST_KEY);
 
         log.debug("smtpHost : {}", smtpHost);
-//        log.debug("emailAccount : {}", emailAccount);
-//        log.debug("emailUserName : {}", emailUserName);
-//        log.debug("emailPwd : {}", emailPwd);
 
         Security.addProvider(new Provider());
         Properties props = new Properties();
@@ -73,6 +70,19 @@ public class EmailService implements InitializingBean {
         session = Session.getInstance(props);
 
         log.info("邮件发送服务session初始化完成");
+    }
+
+    public void sendEmail(String targetEmail, String targetName, String subject, String content) throws MessagingException, EmailSendException {
+        InternetAddress[] internetAddress;
+        try {
+            internetAddress = new InternetAddress[]{
+                    new InternetAddress(targetEmail, targetName, Final.Str.UTF_8)
+            };
+        } catch (UnsupportedEncodingException e) {
+            throw new EmailSendException(e);
+        }
+        Email email = new Email(internetAddress, subject, content);
+        sendEmail(email);
     }
 
     public void sendEmail(Email email) throws MessagingException {
@@ -186,8 +196,8 @@ public class EmailService implements InitializingBean {
         String emailUserName = SysCfgHelper.getString(Final.Str.SYS_EMAIL_USR_NAME_KEY);
         String emailAccount = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
 
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8);
-        helper.setFrom(new InternetAddress(emailAccount, emailUserName, UTF_8));
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, Final.Str.UTF_8);
+        helper.setFrom(new InternetAddress(emailAccount, emailUserName, Final.Str.UTF_8));
         helper.setTo(email.getTargetAddressArr());
         helper.setSubject(email.getSubject());
         helper.setText(email.getContent(), true);

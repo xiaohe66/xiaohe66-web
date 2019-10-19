@@ -21,28 +21,31 @@ import java.util.Map;
  */
 public class SysCfgHelper {
 
-    private static Map<String,Object> cfgMap;
+    private SysCfgHelper() {
+    }
 
-    public static void refresh(List<SysCfg> cfgList){
+    private static Map<String, Object> cfgMap;
+
+    public static void refresh(List<SysCfg> cfgList) {
         Check.notEmptyCheck(cfgList);
-        HashMap<String,Object> map = new HashMap<>(cfgList.size());
+        HashMap<String, Object> map = new HashMap<>();
         for (SysCfg sysCfg : cfgList) {
-            map.put(sysCfg.getCfgKey(),sysCfg.getCfgVal());
+            map.put(sysCfg.getCfgKey(), sysCfg.getCfgVal());
         }
         cfgMap = map;
     }
 
-    public static Object getObj(String key){
+    public static Object getObj(String key) {
         Check.notEmptyCheck(key);
         return cfgMap.get(key);
     }
 
-    public static String getString(String key){
+    public static String getString(String key) {
         Object obj = getObj(key);
         return obj == null ? "" : obj.toString();
     }
 
-    public static Integer findXhUsrId(){
+    public static Integer findXhUsrId() {
         String usrIdStr = getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
         return StrUtils.toInt(usrIdStr);
     }

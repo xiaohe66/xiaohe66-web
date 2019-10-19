@@ -13,7 +13,6 @@ import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.auth.entity.EmailAuthCode;
 import com.xiaohe66.web.code.security.auth.helper.AuthCodeHelper;
-import com.xiaohe66.web.code.sys.helper.EmailHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -33,11 +32,13 @@ public class LoginService {
     private static final String REGISTER_VERIFY = "http://xiaohe66.com/org/usr/verify/";
 
     private UserService userService;
-    private UsrRoleService roleService;
+    private UsrRoleService userRoleService;
+    private AuthService authService;
 
-    public LoginService(UserService userService, UsrRoleService roleService) {
+    public LoginService(UserService userService, UsrRoleService userRoleService, AuthService authService) {
         this.userService = userService;
-        this.roleService = roleService;
+        this.userRoleService = userRoleService;
+        this.authService = authService;
     }
 
     /**
@@ -74,7 +75,7 @@ public class LoginService {
         log.debug("发送link邮件，内容为: {}", link);
 
         //发送邮件
-        EmailHelper.sendLink(link, user.getEmail(), user.getUsrName(), "注册");
+        authService.sendLink(link, user.getEmail(), user.getUsrName(), "注册");
 
         CacheHelper.put30(token, user);
     }
@@ -90,7 +91,7 @@ public class LoginService {
         user.setUsrPwd(PwdUtils.hashPassword(user.getUsrPwd()));
         try {
             userService.save(user);
-            roleService.addDefaultUsrRole(user.getId());
+            userRoleService.addDefaultUsrRole(user.getId());
         } catch (Exception e) {
             throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION, "注册失败", e);
         }
@@ -114,7 +115,7 @@ public class LoginService {
         EmailAuthCode emailAuthCode = AuthCodeHelper.createEmailAuthCode(email);
 
         log.debug("发送验证码邮件，内容为：{}", emailAuthCode.getCode());
-        EmailHelper.sendAuthCode(emailAuthCode.getCode(), email, user.getUsrName(), "修改密码");
+        authService.sendAuthCode(emailAuthCode.getCode(), email, user.getUsrName(), "修改密码");
     }
 
     public void updatePwd(String password, String code) {

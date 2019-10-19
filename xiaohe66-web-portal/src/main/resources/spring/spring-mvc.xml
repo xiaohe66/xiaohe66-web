@@ -71,6 +71,7 @@
     <mvc:resources mapping="/icon/**" location="/icon/" />
     <mvc:resources mapping="/image/**" location="/image/" />
     <mvc:resources mapping="/web/**" location="/web/" />
+    <mvc:resources mapping="/admin/**" location="/admin/" />
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
