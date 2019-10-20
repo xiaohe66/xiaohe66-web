@@ -60,7 +60,7 @@ public interface Final {
         String HEADER_JSON_UTF_8 = "application/json; charset=UTF-8" ;
         String DEFAULT_ROLE_IDS_KEY = "DEFAULT_ROLE_IDS" ;
         String PAGING_SIZE_KEY = "pageSize" ;
-        String PAGING_NUM_KEY = "pageNum" ;
+        String PAGING_NO_KEY = "pageNo" ;
     
         String SESSION_IMG_AUTH_CODE_KEY = "imgAuthCode" ;
         String SESSION_EMAIL_AUTH_CODE_KEY = "emailAuthCode" ;

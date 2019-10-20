@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 通用分页切面
+ * todo : 废弃此类
  *
  * @author xiaohe
  * @time 17-11-11 011
@@ -38,7 +39,7 @@ public class XhPagingAsp {
         String pageSizeStr = request.getHeader(Final.Str.PAGING_SIZE_KEY);
         int size = StrUtils.isEmpty(pageSizeStr)?DEFAULT_PAGE_SIZE:StrUtils.toInt(pageSizeStr);
 
-        String pageNumStr = request.getHeader(Final.Str.PAGING_NUM_KEY);
+        String pageNumStr = request.getHeader(Final.Str.PAGING_NO_KEY);
         int num = StrUtils.isEmpty(pageNumStr)?DEFAULT_PAGE_NUM:StrUtils.toInt(pageNumStr);
 
         PageHelper.startPage(num,size,true);

@@ -11,20 +11,26 @@ public class XhPage<T extends BasePo> extends Page<T> {
 
     public static final int DEFAULT_PAGE_SIZE = 20;
 
+    private static final int MAX_PAGE_SIZE = 30;
+
     public XhPage() {
-        super(1, DEFAULT_PAGE_SIZE, false);
+        super(1, DEFAULT_PAGE_SIZE, true);
     }
 
     public XhPage(long pageSize) {
-        super(1, pageSize, false);
+        super(1, pageSize > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : pageSize, true);
     }
 
-    public XhPage(long size, long pageNo) {
-        super(pageNo, size, false);
+    public XhPage(long pageSize, long pageNo) {
+        super(pageNo, pageSize > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : pageSize, true);
     }
 
-    public XhPage(long current, long size, boolean isSearchCount) {
-        super(current, size, isSearchCount);
+    @Override
+    public Page<T> setSize(long size) {
+        return super.setSize(getSafetyPageSize(size));
     }
 
+    public long getSafetyPageSize(long size) {
+        return size > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : size;
+    }
 }

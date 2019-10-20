@@ -1,3 +1,7 @@
+.paging{
+    text-align: center;
+    margin-top: 20px;
+}
 .paging>div{
     border: 1px solid #c5c5c5;
     border-radius: 4px;

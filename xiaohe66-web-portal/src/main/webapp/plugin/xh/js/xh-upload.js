@@ -32,7 +32,7 @@
                     processData: false,
                     success: function (data) {
                         log(data);
-                        call("/comm/file/img/" + data.data,data.data);
+                        call(data.data);
                     }
                 });
             });

@@ -1,26 +1,26 @@
 /**
  * 分页插件
  *
- * @author xh
+ * @author xiaohe
  * @date 18-03-15 015
  */
-(function($){
+(function ($) {
 
-    $.fn.paging = function (max,current,event) {
-        if(max === 1){
+    $.fn.paging = function (max, current, event) {
+        if (max === 1) {
             return;
         }
-        var pageCount = 5;
-        var $this = $(this[0]);
+        let pageCount = 5;
+        let $this = $(this[0]);
         $this.html("");
         $this.addClass("paging");
 
-        var first = $("<div class='disable'>首页</div>");
-        var prev = $("<div class='disable'>上一页</div>");
-        var next = $("<div>下一页</div>");
-        var last = $("<div>尾页</div>");
-        var inp = $("<input>");
-        var btn = $("<div>确定</div>");
+        let first = $("<div class='disable'>首页</div>");
+        let prev = $("<div class='disable'>上一页</div>");
+        let next = $("<div>下一页</div>");
+        let last = $("<div>尾页</div>");
+        let inp = $("<input>");
+        let btn = $("<div>确定</div>");
 
         $this.append(first);
         $this.append(prev);
@@ -30,69 +30,66 @@
         $this.append(inp);
         $this.append(btn);
 
-        var showPrev = function () {
+        let showPrev = function () {
             prev.removeClass("disable");
             first.removeClass("disable");
         };
 
-        var showNext = function () {
+        let showNext = function () {
             next.removeClass("disable");
             last.removeClass("disable");
         };
 
-        var hidePrev = function () {
+        let hidePrev = function () {
             prev.addClass("disable");
             first.addClass("disable");
         };
 
-        var hideNext = function () {
+        let hideNext = function () {
             next.addClass("disable");
             last.addClass("disable");
         };
 
-        var toPage = function (page) {
+        let toPage = function (page) {
             page = parseInt(page);
-            if(!isNaN(page)){
-                if(page === current){
+            if (!isNaN(page)) {
+                if (page === current) {
                     return;
                 }
-                current = page>max?max:page<1?1:page;
+                current = page > max ? max : page < 1 ? 1 : page;
                 ev();
             }
         };
 
-        var showPage = function (this0) {
-            if($(this0).hasClass("disable")){
-                return;
-            }
+        let showPage = function () {
             $this.find(".page").remove();
 
-            var startPage;
-            if(max<=pageCount){
-                startPage=1;
-            }else{
-                startPage = current-2;
-                if(startPage<1)startPage=1;
+            let startPage;
+            if (max <= pageCount) {
+                startPage = 1;
+            } else {
+                startPage = current - 2;
+                if (startPage < 1) startPage = 1;
 
-                if(current+pageCount-2>max){
-                    startPage = max-4;
+                if (current + pageCount - 2 > max) {
+                    startPage = max - 4;
                 }
             }
 
-            for(var i=0;i<pageCount&&i<max;i++){
-                var pageNum = startPage + i;
-                var page = "<div class='page"+(current===pageNum?" active":"")+"'>"+pageNum+"</div>";
+            for (let i = 0; i < pageCount && i < max; i++) {
+                let pageNum = startPage + i;
+                let page = "<div class='page" + (current === pageNum ? " active" : "") + "'>" + pageNum + "</div>";
                 next.before(page);
             }
 
-            if(current <= 1){
+            if (current <= 1) {
                 hidePrev();
-            }else{
+            } else {
                 showPrev();
             }
-            if(current >= max){
+            if (current >= max) {
                 hideNext();
-            }else {
+            } else {
                 showNext();
             }
 
@@ -101,15 +98,18 @@
             });
         };
 
-        var ev = function () {
-            showPage();
+        let ev = function (this0) {
+            if ($(this0).hasClass("disable")) {
+                return;
+            }
+            showPage(this0);
             event(current);
         };
 
         showPage();
 
         first.click(function () {
-            current=1;
+            current = 1;
             ev(this);
         });
         prev.click(function () {
@@ -121,11 +121,11 @@
             ev(this);
         });
         last.click(function () {
-            current=max;
+            current = max;
             ev(this);
         });
         inp.keyup(function (e) {
-            if(e.keyCode === 13){
+            if (e.keyCode === 13) {
                 toPage(inp.val());
                 inp.val("");
             }
@@ -134,7 +134,5 @@
             toPage(inp.val());
             inp.val("");
         });
-
     }
-
 })(jQuery);

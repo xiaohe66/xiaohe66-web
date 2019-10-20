@@ -1,9 +1,9 @@
 package com.xiaohe66.web.base.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaohe66.web.base.base.BaseDto;
 import com.xiaohe66.web.base.base.BasePo;
+import com.xiaohe66.web.base.base.XhPageDto;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhWebException;
 import org.slf4j.Logger;
@@ -243,7 +243,7 @@ public class ClassUtils {
     }
 
     public static <T extends BaseDto, E extends BasePo> IPage<T> convert(Class<T> targetCls, IPage<E> sourcePage, BiConsumer<T, E> task) {
-        IPage<T> targetPage = new Page<>();
+        XhPageDto<T> targetPage = new XhPageDto<>();
 
         targetPage.setPages(sourcePage.getPages());
         targetPage.setTotal(sourcePage.getTotal());
@@ -260,6 +260,7 @@ public class ClassUtils {
             }
         }
         targetPage.setRecords(targetList);
+        targetPage.getPages();
         return targetPage;
     }
 

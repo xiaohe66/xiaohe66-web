@@ -1,11 +1,14 @@
 package com.xiaohe66.web.base.base;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.NotPermittedException;
 import com.xiaohe66.web.base.util.ClassUtils;
@@ -15,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -86,10 +90,23 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     }
 
     @Get
-    public Result list() {
+    public Result list(@RequestHeader(Final.Str.PAGING_SIZE_KEY) Integer pageSize,
+                       @RequestHeader(Final.Str.PAGING_NO_KEY) Integer pageNo) {
         checkSelectPermitted();
-        checkPermitted(moduleName + ":select");
-        IPage<T> poPage = baseService.page(new XhPage<>());
+        XhPage<T> xhPage = new XhPage<>();
+
+        if (pageSize != null) {
+            xhPage.setSize(pageSize);
+        }
+        if (pageNo != null) {
+            xhPage.setCurrent(pageNo);
+        }
+
+        Wrapper<T> queryWrapper = createPageQueryWrapper();
+        if (queryWrapper == null) {
+            queryWrapper = Wrappers.emptyWrapper();
+        }
+        IPage<T> poPage = baseService.page(xhPage, queryWrapper);
         IPage<D> dtoPage = ClassUtils.convert(dtoClass, poPage, this::convertTask);
         return Result.ok(dtoPage);
     }
@@ -118,5 +135,9 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     protected void convertTask(D dto, T po) {
 
+    }
+
+    protected Wrapper<T> createPageQueryWrapper() {
+        return null;
     }
 }

@@ -3,19 +3,25 @@
 <head>
     <title></title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/admin/Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/admin/Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="/admin/Css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/xh/css/xh-mask.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/Css/style.css"/>
     <script type="text/javascript" src="/admin/Js/jquery.js"></script>
-    <script type="text/javascript" src="/admin/Js/jquery.sorted.js"></script>
+    <!--<script type="text/javascript" src="/admin/Js/jquery.sorted.js"></script>-->
     <script type="text/javascript" src="/admin/Js/bootstrap.js"></script>
     <script type="text/javascript" src="/admin/Js/ckform.js"></script>
     <script type="text/javascript" src="/admin/Js/common.js"></script>
-
+    <script type="text/javascript" src="/plugin/xh/js/xh-common.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-mask.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-validator.js"></script>
+    <script type="text/javascript" src="/web/common/js/spark-md5.min.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-upload.js"></script>
     <style type="text/css">
         body {
             padding-bottom: 40px;
         }
+
         .sidebar-nav {
             padding: 9px 0;
         }
@@ -29,43 +35,179 @@
             }
         }
 
+        input {
+            width: 500px;
+            height: 30px;
+        }
+
+        label {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .table {
+            width: auto;
+        }
+
+        .table td {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #img {
+            display: none;
+        }
 
     </style>
 </head>
 <body>
-<form action="index.html" method="post" class="definewidth m20">
-<input type="hidden" name="id" value="" />
-<table class="table table-bordered table-hover ">
-    <tr>
-        <td width="10%" class="tableleft">机构号</td>
-        <td><input type="text" name="grouptitle" value=""/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">机构名称</td>
-        <td ><input type="text" name="moduletitle" value=""/></td>
-    </tr>  
-    <tr>
-        <td class="tableleft">状态</td>
-        <td >
-            <input type="radio" name="status" value="1" checked/> 启用
-           <input type="radio" name="status" value="0" /> 禁用
-        </td>
-    </tr>
-    <tr>
-        <td class="tableleft"></td>
-        <td>
-            <button type="submit" class="btn btn-primary" type="button">保存</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
-        </td>
-    </tr>
-</table>
+<form>
+    <table class="table edit-table table-bordered table-hover m10">
+        <tr>
+            <td width="10%">照片</td>
+            <td>
+                <img id="img" class="thumbnail"/>
+                <input id="file" type="file"/>
+                <input id="fileId" type="hidden"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>照片名称</td>
+            <td><input id="name"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>第一段话</td>
+            <td><input id="one"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>第二段话</td>
+            <td><input id="two"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>第三段话</td>
+            <td><input id="three"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>
+                <label><input type="radio" name="status" value="1" checked/> 启用</label>
+                <label><input type="radio" name="status" value="0"/> 禁用</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>操作</td>
+            <td>
+                <button type="button" class="btn btn-primary" id="save">保存</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-success" id="back">返回列表</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
 <script>
-    $(function () {       
-		$('#backid').click(function(){
-				window.location.href="index.html";
-		 });
+    $(function () {
+
+        $('#back').click(function () {
+            location.href = "/admin/love/photo/index.html";
+        });
+
+        $("#img").click(function () {
+            $("#file").click();
+        });
+
+        let id = getQueryParam("id");
+        let fileId;
+        if (id) {
+            $.hint("加载中");
+            get("/love/photo/" + id, function (data) {
+                console.log(data);
+                fileId = data.fileId;
+                $("#file").hide();
+                $("#img").attr("src", commFileUrl(fileId));
+                $("#img").show();
+                $("#name").val(data.name);
+                $("#one").val(data.one);
+                $("#two").val(data.two);
+                $("#three").val(data.three);
+                $("input[name=status][value=" + (data.isShow ? 1 : 0) + "]").attr("checked", true);
+                $.hintClose();
+            });
+        }
+
+        $("#file").upload(function (id) {
+            $("#file").hide();
+            $("#img").show();
+            $("#img").attr("src", commFileUrl(id));
+            fileId = id;
+        });
+
+        let validator = new Validator();
+
+        var lock = true;
+        $("#save").click(function () {
+            if (!fileId) {
+                alert("请上传图片");
+                return;
+            }
+
+            if (!validator.verify()) {
+                alert("验证不通过，请检查参数");
+                return;
+            }
+            if (!lock) return;
+            lock = false;
+            $.hint("保存中……");
+            var data = {
+                fileId: fileId,
+                name: $("#name").val(),
+                one: $("#one").val(),
+                two: $("#two").val(),
+                three: $("#three").val(),
+                isShow: $("input[name='status']:checked").val()
+            };
+            if(id)data.id = id;
+            http("/love/photo", id ? "put" : "post", data, function (data) {
+                window.location.href = "/admin/love/photo/index.html";
+            }, function (err) {
+                $.maskHint("sorry!系统出现未知错误");
+                lock = true;
+            },{});
+        });
+
+        let call = function (dom, msg) {
+            dom.parent().next().text(msg);
+        };
+
+        validator.add({
+            dom: $("#name"),
+            maxLength: 16,
+            call: call
+        });
+        validator.add({
+            dom: $("#one"),
+            maxLength: 255,
+            call: call
+        });
+        validator.add({
+            dom: $("#two"),
+            maxLength: 255,
+            empty: false,
+            call: call
+        });
+        validator.add({
+            dom: $("#three"),
+            maxLength: 255,
+            empty: false,
+            call: call
+        });
 
     });
 </script>

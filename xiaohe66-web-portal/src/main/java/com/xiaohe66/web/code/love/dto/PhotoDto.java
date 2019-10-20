@@ -18,4 +18,6 @@ public class PhotoDto extends BaseDtoDetailed {
     private String one;
     private String two;
     private String three;
+
+    private Boolean isShow;
 }
