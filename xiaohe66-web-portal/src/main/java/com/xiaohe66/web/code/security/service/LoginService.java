@@ -32,10 +32,10 @@ public class LoginService {
     private static final String REGISTER_VERIFY = "http://xiaohe66.com/org/usr/verify/";
 
     private UserService userService;
-    private UsrRoleService userRoleService;
+    private UserRoleService userRoleService;
     private AuthService authService;
 
-    public LoginService(UserService userService, UsrRoleService userRoleService, AuthService authService) {
+    public LoginService(UserService userService, UserRoleService userRoleService, AuthService authService) {
         this.userService = userService;
         this.userRoleService = userRoleService;
         this.authService = authService;

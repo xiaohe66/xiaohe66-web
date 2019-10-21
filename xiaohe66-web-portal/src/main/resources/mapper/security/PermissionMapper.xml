@@ -5,8 +5,8 @@
     <select id="findFuncByUsrId" resultType="Permission">
         select f.* from xiaohe66_web_security_permission f
         join xiaohe66_web_security_role_permission rf on f.id = rf.permission_id
-        join xiaohe66_web_security_usr_role ur on ur.role_id = rf.role_id
-        where ur.usr_id = #{usrId}
+        join xiaohe66_web_security_user_role ur on ur.role_id = rf.role_id
+        where ur.user_id = #{usrId}
     </select>
 
     <select id="listPermissionInRoleId" resultType="String">

@@ -90,8 +90,8 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     }
 
     @Get
-    public Result list(@RequestHeader(Final.Str.PAGING_SIZE_KEY) Integer pageSize,
-                       @RequestHeader(Final.Str.PAGING_NO_KEY) Integer pageNo) {
+    public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Integer pageSize,
+                       @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Integer pageNo) {
         checkSelectPermitted();
         XhPage<T> xhPage = new XhPage<>();
 
@@ -130,6 +130,13 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     protected final void checkPermitted(String permittedName) {
         if (!SecurityUtils.getSubject().isPermittedAll(permittedName)) {
             throw new NotPermittedException(permittedName);
+        }
+    }
+
+    protected final void checkRole(String roleName) {
+        if (!SecurityUtils.getSubject().hasRole(roleName)) {
+            // todo : 异常合理化
+            throw new NotPermittedException(roleName);
         }
     }
 

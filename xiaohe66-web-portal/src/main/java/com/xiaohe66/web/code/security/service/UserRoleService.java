@@ -6,8 +6,8 @@ import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.code.security.mapper.UsrRoleMapper;
-import com.xiaohe66.web.code.security.po.UsrRole;
+import com.xiaohe66.web.code.security.mapper.UserRoleMapper;
+import com.xiaohe66.web.code.security.po.UserRole;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @time 2018-08-20 16:54
  */
 @Service
-public class UsrRoleService extends AbstractService<UsrRoleMapper, UsrRole> {
+public class UserRoleService extends AbstractService<UserRoleMapper, UserRole> {
 
     public void addDefaultUsrRole(Integer usrId) {
         if (Check.isNull(usrId)) {

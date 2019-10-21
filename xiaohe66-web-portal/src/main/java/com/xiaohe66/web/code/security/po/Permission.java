@@ -1,39 +1,24 @@
 package com.xiaohe66.web.code.security.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author xiaohe
  * @time 17-10-28 028
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 @TableName("xiaohe66_web_security_permission")
 public class Permission extends BasePo {
 
+    @TableField("`name`")
     private String name;
+
+    @TableField("`desc`")
     private String desc;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    @Override
-    public String toString() {
-        return "{" + "\"name\":\"" + name + "\""
-                + ",\"desc\":\"" + desc + "\""
-                + ",\"id\":\"" + id + "\""
-                + "}";
-    }
 }
