@@ -18,26 +18,26 @@ public class SecurityController<S extends AbstractService<? extends IBaseMapper,
     // todo : 开发阶段，暂时只限制角色，不限制功能
 
     @Override
-    protected void checkSavePermitted() {
+    protected void checkSave(T po) {
         checkRole(ADMIN_ROLE_NAME);
-//        super.checkSavePermitted();
+//        super.checkSave();
     }
 
     @Override
-    protected void checkDeletePermitted() {
+    protected void checkDelete(Integer id) {
         checkRole(ADMIN_ROLE_NAME);
-//        super.checkDeletePermitted();
+//        super.checkDelete();
     }
 
     @Override
-    protected void checkUpdatePermitted() {
+    protected void checkUpdate(T po) {
         checkRole(ADMIN_ROLE_NAME);
-//        super.checkUpdatePermitted();
+//        super.checkUpdate();
     }
 
     @Override
-    protected void checkSelectPermitted() {
+    protected void checkSelect() {
         checkRole(ADMIN_ROLE_NAME);
-//        super.checkSelectPermitted();
+//        super.checkSelect();
     }
 }

@@ -97,6 +97,8 @@
                 /usr/register = http[post]
 
                 /love/photo/wall = anon
+                /love/wish/* = http[get]
+                /love/wish = http[get,post]
 
                 /** = authc
             </value>

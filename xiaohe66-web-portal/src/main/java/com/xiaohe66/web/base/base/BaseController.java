@@ -56,9 +56,9 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @Post
     public Result post(T po) {
-        checkSavePermitted();
+        checkSave(po);
         if (po instanceof BasePoDetailed) {
-            Integer currentUsrId = UserHelper.getCurrentUsrId();
+            Integer currentUsrId = UserHelper.getCurrentUsrIdNotEx();
             ((BasePoDetailed) po).setCreateId(currentUsrId);
         }
         return Result.ok(baseService.save(po));
@@ -66,13 +66,13 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @Del("/{id}")
     public Result del(@PathVariable("id") Integer id) {
-        checkDeletePermitted();
+        checkDelete(id);
         return Result.ok(baseService.removeById(id));
     }
 
     @Put
     public Result put(T po) {
-        checkUpdatePermitted();
+        checkUpdate(po);
         if (po instanceof BasePoDetailed) {
             Integer currentUsrId = UserHelper.getCurrentUsrId();
             ((BasePoDetailed) po).setUpdateId(currentUsrId);
@@ -82,7 +82,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @Get("/{id}")
     public Result get(@PathVariable("id") Integer id) {
-        checkSelectPermitted();
+        checkSelect();
         T po = baseService.getById(id);
         D dto = ClassUtils.convert(dtoClass, po);
         convertTask(dto, po);
@@ -92,7 +92,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     @Get
     public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Integer pageSize,
                        @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Integer pageNo) {
-        checkSelectPermitted();
+        checkSelect();
         XhPage<T> xhPage = new XhPage<>();
 
         if (pageSize != null) {
@@ -111,19 +111,19 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         return Result.ok(dtoPage);
     }
 
-    protected void checkSavePermitted() {
+    protected void checkSave(T po) {
         checkPermitted(moduleName + ":insert");
     }
 
-    protected void checkDeletePermitted() {
+    protected void checkDelete(Integer id) {
         checkPermitted(moduleName + ":delete");
     }
 
-    protected void checkUpdatePermitted() {
+    protected void checkUpdate(T po) {
         checkPermitted(moduleName + ":update");
     }
 
-    protected void checkSelectPermitted() {
+    protected void checkSelect() {
         checkPermitted(moduleName + ":select");
     }
 
