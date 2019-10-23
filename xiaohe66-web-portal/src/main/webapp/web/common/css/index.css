@@ -1,3 +1,24 @@
+.c{
+    min-height: 1030px;
+}
+.link a,
+.source a,
+.article a{
+    display: block;
+    line-height: 38px;
+}
+.source span,
+.article span{
+    float: right;
+}
+.source,
+.article{
+    height: 180px;
+}
+.title a{
+    float: right;
+    margin-right: 10px;
+}
 .fast_link td{
     border: 1px solid #c5c5c5;
     border-radius: 4px;

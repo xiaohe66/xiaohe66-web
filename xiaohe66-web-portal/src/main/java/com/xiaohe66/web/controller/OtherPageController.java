@@ -42,14 +42,14 @@ public class OtherPageController {
 
     @Page(value = {"/index",""})
     public String index(Model model){
-        model.addAttribute("list",articleService.indexArticle());
+//        model.addAttribute("list",articleService.indexArticle());
         model.addAttribute("title","乱七八糟导航");
         model.addAttribute("usrDto",userService.lookAtUser(null));
-        model.addAttribute("page",INDEX_PAGE_HTML);
+//        model.addAttribute("page",INDEX_PAGE_HTML);
         model.addAttribute("usrDivTitle","站长");
-        model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));
-        model.addAttribute("hotArticle",articleService.findDtoHotTop5(null));
-        return OtherPageController.RIGHT_PAGE_URL;
+//        model.addAttribute("fileList",usrFileService.findDtoHotTop5(null));
+//        model.addAttribute("hotArticle",articleService.findDtoHotTop5(null));
+        return INDEX_PAGE_HTML;
     }
 
 }

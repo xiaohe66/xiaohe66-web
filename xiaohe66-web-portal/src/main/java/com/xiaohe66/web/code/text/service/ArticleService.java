@@ -1,6 +1,8 @@
 package com.xiaohe66.web.code.text.service;
 
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xiaohe66.web.base.base.XhPage;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
@@ -61,19 +63,21 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
      * @return 匹配的结果
      */
     public List<Article> list(Article article) {
-        return this.listByParam(article);
+        return this.list(new QueryWrapper<>(article));
     }
 
     /**
      * 首页显示数据
      *
-     * @return
      */
     public List<ArticleDto> indexArticle() {
-        PageHelper.startPage(1, 5);
-        ArticleParam articleParam = new ArticleParam();
-        articleParam.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
-        return installDto(listByParam(articleParam));
+        Article article = new Article();
+        article.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
+
+        IPage<Article> page = new XhPage<>(5);
+        page = page(page, new QueryWrapper<>(article));
+
+        return installDto(page.getRecords());
     }
 
     /**

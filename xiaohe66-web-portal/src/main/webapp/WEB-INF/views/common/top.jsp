@@ -39,33 +39,33 @@
 <div class="t">
     <div class="t_t">
         <shiro:guest>
-            <a href="javascript:showLogin();">登录</a>
-            <a href="/org/usr/register">注册</a>
+            <a href="/web/org/user/login.html">登录</a>
+            <a href="/org/user/register">注册</a>
         </shiro:guest>
         <shiro:hasRole name="admin">
             <a href="/admin/index.html">后台管理</a>
         </shiro:hasRole>
         <shiro:authenticated>
-            <a href="/org/usr/me" class="loginName">${usr.usrName}</a>
-            <a href="/text/article/add">写文章</a>
+            <a <%--href="/org/usr/me" --%>class="loginName">${usr.usrName}</a>
+            <%--<a href="/text/article/add">写文章</a>--%>
             <a href="javascript:logout();">注销</a>
         </shiro:authenticated>
     </div>
     <div class="t_c">
         <div class="tab">
-            <a href="/text/article/all">文章</a>
+            <%--<a href="/text/article/all">文章</a>--%>
             <a href="/web/game/game.jsp">游戏</a>
             <a href="/org/usr/file/all">资源</a>
             <a href="/text/messageBoard/index">留言</a>
             <a href="/about">关于</a>
         </div>
         <p class="logo"><a href="/">xiaohe66</a></p>
-        <div class="search">
+        <%--<div class="search">
             <select class="search_type">
                 <option value="https://www.baidu.com/s?wd=">百度</option>
                 <option value="https://www.google.com/search?q=">谷歌</option>
             </select>
             <input class="inp" placeholder="搜索">
-        </div>
+        </div>--%>
     </div>
 </div>
