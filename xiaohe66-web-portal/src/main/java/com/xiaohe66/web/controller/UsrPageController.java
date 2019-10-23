@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @author xiaohe
  * @time 17-10-28 028
  */
-@XhController("/org/usr")
+@XhController("/org/user")
 public class UsrPageController {
 
     private static final String INDEX_PAGE_URL = "org/login";

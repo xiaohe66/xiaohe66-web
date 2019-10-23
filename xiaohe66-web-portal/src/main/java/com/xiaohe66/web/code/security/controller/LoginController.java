@@ -34,8 +34,8 @@ public class LoginController {
     }
 
     @Post
-    public UserDto login(String loginName, String usrPwd) {
-        return loginService.login(loginName, usrPwd);
+    public UserDto login(String loginName, String userPwd) {
+        return loginService.login(loginName, userPwd);
     }
 
     @Del

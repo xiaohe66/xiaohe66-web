@@ -9,7 +9,7 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/web/common/js/top.js"></script>
-<div id="login_body">
+<%--<div id="login_body">
     <ul>
         <li>
             <span>账号</span>
@@ -35,7 +35,7 @@
         </li>
     </ul>
     <p></p>
-</div>
+</div>--%>
 <div class="t">
     <div class="t_t">
         <shiro:guest>

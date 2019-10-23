@@ -131,10 +131,10 @@ public class LoginService {
         userService.updateById(user);
     }
 
-    public UserDto login(String loginName, String usrPwd) {
+    public UserDto login(String loginName, String userPwd) {
         log.debug("loginName={}", loginName);
 
-        if (Check.isOneNull(loginName, usrPwd)) {
+        if (Check.isOneNull(loginName, userPwd)) {
             throw new XhWebException(CodeEnum.NULL_EXCEPTION, "loginName or usrPwd or code is null");
         }
 
@@ -155,7 +155,7 @@ public class LoginService {
         }
 
         //验证密码
-        if (!PwdUtils.passwordsMatch(usrPwd, dbUsr.getUsrPwd())) {
+        if (!PwdUtils.passwordsMatch(userPwd, dbUsr.getUsrPwd())) {
             throw new XhWebException(CodeEnum.PASSWORD_ERROR, "password is wrong");
         }
         return this.loginToShiro(dbUsr);
