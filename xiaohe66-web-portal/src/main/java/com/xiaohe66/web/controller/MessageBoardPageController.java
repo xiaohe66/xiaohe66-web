@@ -1,7 +1,6 @@
 package com.xiaohe66.web.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.service.UsrFileService;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author xh
@@ -46,16 +44,15 @@ public class MessageBoardPageController {
         usrId = null;
         LookAtUserDto usrDto = userService.lookAtUser(usrId);
         model.addAttribute("usrDto", usrDto);
-        PageHelper.startPage(1, 10);
-        List<MessageBoardDto> list = messageBoardService.findByUsrId(usrId);
-        model.addAttribute("pageInfo", new PageInfo<>(list));
-        model.addAttribute("size", list.size());
+        IPage<MessageBoardDto> page = messageBoardService.pageData();
+        model.addAttribute("page", page);
+//        model.addAttribute("size", list.size());
         model.addAttribute("title", usrDto.getUsrName() + "的留言板");
         model.addAttribute("usrDivTitle", "站长");
-        model.addAttribute("page", "text/message_board");
-        model.addAttribute("fileList", usrFileService.findDtoHotTop5(usrId));
-        model.addAttribute("hotArticle", articleService.findDtoHotTop5(usrId));
-        return OtherPageController.RIGHT_PAGE_URL;
+//        model.addAttribute("page", "text/message_board");
+//        model.addAttribute("fileList", usrFileService.findDtoHotTop5(usrId));
+//        model.addAttribute("hotArticle", articleService.findDtoHotTop5(usrId));
+        return "text/message_board";
     }
 
 }
