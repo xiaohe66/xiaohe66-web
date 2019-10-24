@@ -2,6 +2,7 @@ package com.xiaohe66.web.code.text.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xiaohe66.web.base.base.DtoConverter;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
@@ -21,7 +22,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class MessageBoardService extends AbstractService<MessageBoardMapper, MessageBoard> {
+public class MessageBoardService extends AbstractService<MessageBoardMapper, MessageBoard>
+        implements DtoConverter<MessageBoard, MessageBoardDto> {
 
     private UserService userService;
 
@@ -50,23 +52,30 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
 
 
     public IPage<MessageBoardDto> pageData() {
-
         MessageBoard messageBoard = new MessageBoard();
         messageBoard.setUsrId(SysCfgHelper.findXhUsrId());
         IPage<MessageBoard> page = page(10, new QueryWrapper<>(messageBoard));
 
-        return ClassUtils.convert(MessageBoardDto.class, page, (dto, po) -> {
-            String anonymity = po.getAnonymity();
-            if (anonymity == null || anonymity.length() == 0) {
-                User user = userService.getById(po.getCreateId());
-                dto.setUsrName(user.getUsrName());
-                dto.setImgFileId(user.getImgFileId());
-            } else {
-                dto.setUsrName(po.getAnonymity());
-                dto.setImgFileId(1);
-            }
-        });
-
+        return ClassUtils.convert(MessageBoardDto.class, page, this::convertDto);
     }
 
+    @Override
+    public QueryWrapper<MessageBoard> createDefaultQueryWrapper() {
+        MessageBoard messageBoard = new MessageBoard();
+        messageBoard.setUsrId(SysCfgHelper.findXhUsrId());
+        return new QueryWrapper<>();
+    }
+
+    @Override
+    public void convertDto(MessageBoardDto dto, MessageBoard po) {
+        String anonymity = po.getAnonymity();
+        if (anonymity == null || anonymity.length() == 0) {
+            User user = userService.getById(po.getCreateId());
+            dto.setUsrName(user.getUsrName());
+            dto.setImgFileId(user.getImgFileId());
+        } else {
+            dto.setUsrName(po.getAnonymity());
+            dto.setImgFileId(1);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.xiaohe66.web.base.base.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaohe66.web.base.base.BaseParam;
@@ -10,6 +11,7 @@ import com.xiaohe66.web.base.base.BaseService;
 import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.base.base.XhPage;
 import com.xiaohe66.web.base.util.Check;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +21,7 @@ import java.util.List;
  * @author xiaohe
  * @time 17-10-28 028
  */
+@Slf4j
 public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo>
         extends ServiceImpl<M, T>
         implements BaseService<T> {
@@ -84,12 +87,17 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
         return super.page(new XhPage<>(pageSize));
     }
 
-    public IPage<T> page(long pageSize, Wrapper<T> queryWrapper) {
-        return super.page(new XhPage<>(pageSize), queryWrapper);
-    }
-
     public IPage<T> page(long pageSize, long pageNo) {
         return super.page(new XhPage<>(pageSize, pageNo));
+    }
+
+    public IPage<T> page(long pageSize, T po) {
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>(po);
+        return page(pageSize, queryWrapper);
+    }
+
+    public IPage<T> page(long pageSize, Wrapper<T> queryWrapper) {
+        return super.page(new XhPage<>(pageSize), queryWrapper);
     }
 
     /**
@@ -102,4 +110,8 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
         return baseMapper.selectByParam(param);
     }
 
+    @Override
+    public QueryWrapper<T> createDefaultQueryWrapper() {
+        return null;
+    }
 }

@@ -2,7 +2,6 @@ package com.xiaohe66.web.base.base;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
@@ -13,6 +12,7 @@ import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.NotPermittedException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +27,7 @@ import java.lang.reflect.Type;
  * @author xiaohe
  * @time 2019.10.12 11:34
  */
+@Slf4j
 public abstract class BaseController<S extends AbstractService<? extends IBaseMapper, T>, T extends BasePo, D extends BaseDto> {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
@@ -51,7 +52,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         logger.info("moduleName : {}", moduleName);
 
         dtoClass = ((Class<D>) type[2]);
-        logger.info("dtoClass : {}", dtoClass.getName());
+        log.info("dtoClass : {}", dtoClass.getName());
     }
 
     @Post
@@ -80,15 +81,20 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         return Result.ok(baseService.updateById(po));
     }
 
+    @SuppressWarnings("unchecked")
     @Get("/{id}")
     public Result get(@PathVariable("id") Integer id) {
         checkSelect();
         T po = baseService.getById(id);
         D dto = ClassUtils.convert(dtoClass, po);
-        convertTask(dto, po);
+
+        if (baseService instanceof DtoConverter) {
+            ((DtoConverter) baseService).convertDto(dto, po);
+        }
         return Result.ok(dto);
     }
 
+    @SuppressWarnings("unchecked")
     @Get
     public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Integer pageSize,
                        @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Integer pageNo) {
@@ -102,12 +108,18 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
             xhPage.setCurrent(pageNo);
         }
 
-        Wrapper<T> queryWrapper = createPageQueryWrapper();
-        if (queryWrapper == null) {
-            queryWrapper = Wrappers.emptyWrapper();
+        Wrapper<T> queryWrapper = baseService.createDefaultQueryWrapper();
+        IPage<T> poPage = queryWrapper == null ?
+                baseService.page(xhPage) :
+                baseService.page(xhPage, queryWrapper);
+
+        IPage<D> dtoPage;
+        if (baseService instanceof DtoConverter) {
+            DtoConverter<T, D> dtoConverter = (DtoConverter) this.baseService;
+            dtoPage = ClassUtils.convert(dtoClass, poPage, dtoConverter::convertDto);
+        } else {
+            dtoPage = ClassUtils.convert(dtoClass, poPage);
         }
-        IPage<T> poPage = baseService.page(xhPage, queryWrapper);
-        IPage<D> dtoPage = ClassUtils.convert(dtoClass, poPage, this::convertTask);
         return Result.ok(dtoPage);
     }
 
@@ -138,15 +150,5 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
             // todo : 异常合理化
             throw new NotPermittedException(roleName);
         }
-    }
-
-    // todo : 放到 service 层中
-    protected void convertTask(D dto, T po) {
-
-    }
-
-    // todo :  放到 service 层中
-    protected Wrapper<T> createPageQueryWrapper() {
-        return null;
     }
 }
