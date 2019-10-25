@@ -16,4 +16,6 @@ public interface CommonFileMapper extends IBaseMapper<CommonFile> {
      * @return  对应md5的记录
      */
     CommonFile findByMd5(@Param("md5") String md5);
+
+    void updateByMd5(CommonFile commonFile);
 }

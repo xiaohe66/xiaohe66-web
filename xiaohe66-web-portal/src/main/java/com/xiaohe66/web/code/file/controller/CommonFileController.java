@@ -7,16 +7,19 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.XhWebException;
-import com.xiaohe66.web.code.file.po.CommonFile;
+import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
 import com.xiaohe66.web.code.file.service.CommonFileService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;
 
 /**
+ * 所有文件都需要经过该类的上传，然后再关联，其它类不可以上传文件
+ * <p>
+ * todo : 下载文件和显示文件，放到关联类里面
+ *
  * @author xiaohe
  * @time 18-03-25 025
  */
@@ -29,30 +32,25 @@ public class CommonFileController {
         this.commonFileService = commonFileService;
     }
 
+    // todo : 放到关联类里面
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable("id") Integer id) throws IOException {
-        if(id == null){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"id is null");
+        if (id == null) {
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "id is null");
         }
         response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
-        commonFileService.outputFile(id,response.getOutputStream());
+        commonFileService.outputFile(id, response.getOutputStream());
     }
 
     @Post("/prepare")
-    public Set<Integer> uploadFilePrepare(String md5, Float mb){
-        return commonFileService.uploadFilePrepare(md5,mb);
+    public Result uploadFilePrepare(String md5, Float mb) {
+        UploadFilePrepareDto uploadFilePrepareDto = commonFileService.uploadFilePrepare(md5, mb);
+        return Result.ok(uploadFilePrepareDto);
     }
 
     @Post
-    public Boolean uploadFile(MultipartFile file,String md5,Integer chunk) throws IOException {
-        return commonFileService.uploadFile(file,md5,chunk);
+    public Boolean uploadFile(MultipartFile file, String md5, Integer chunk) throws IOException {
+        return commonFileService.uploadFile(file, md5, chunk);
     }
-
-    @Post("/img")
-    public Result uploadImg(MultipartFile file, String md5) {
-        CommonFile commonFile = commonFileService.uploadFileDefault(file, md5);
-        return Result.ok(commonFile.getId());
-    }
-
 
 }
