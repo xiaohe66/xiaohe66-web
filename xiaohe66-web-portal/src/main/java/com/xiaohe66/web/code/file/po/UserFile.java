@@ -8,7 +8,7 @@ import com.xiaohe66.web.base.base.BasePoDetailed;
  * @time 17-11-11 011
  */
 @TableName("xiaohe66_web_org_usr_file")
-public class UsrFile extends BasePoDetailed {
+public class UserFile extends BasePoDetailed {
 
     private String fileName;
     private String fileDesc;
@@ -16,9 +16,9 @@ public class UsrFile extends BasePoDetailed {
     private Integer fileId;
     private String extension;
 
-    public UsrFile(){}
+    public UserFile(){}
 
-    public UsrFile(Integer id,String fileName) {
+    public UserFile(Integer id, String fileName) {
         super.id = id;
         this.fileName = fileName;
     }

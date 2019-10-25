@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.service.ArticleService;
@@ -21,14 +21,14 @@ import java.util.List;
  * @date 18-03-12 012
  */
 @XhController("/org/usr/file")
-public class UsrFilePageController {
+public class UserFilePageController {
 
     private static final String USR_FILE_INDEX_PAGE_URL = "org/file_index";
     private static final String USR_FILE_ADMIN_PAGE_URL = "org/file_admin";
     private static final String USR_FILE_ALL_PAGE_URL = "org/file_all";
 
     @Resource
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     @Resource
     private UserService userService;

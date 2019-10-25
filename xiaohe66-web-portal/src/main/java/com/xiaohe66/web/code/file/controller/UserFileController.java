@@ -6,8 +6,8 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.base.BaseController;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
-import com.xiaohe66.web.code.file.po.UsrFile;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.po.UserFile;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ import java.io.IOException;
  * @time 18-03-12 012
  */
 @XhController("/org/user/file")
-public class UsrFileController extends BaseController<UsrFileService, UsrFile, UsrFileDto> {
+public class UserFileController extends BaseController<UserFileService, UserFile, UsrFileDto> {
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable Integer id) throws IOException {

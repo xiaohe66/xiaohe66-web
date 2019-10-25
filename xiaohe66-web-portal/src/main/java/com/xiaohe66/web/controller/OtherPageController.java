@@ -1,7 +1,7 @@
 package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class OtherPageController {
     private UserService userService;
 
     @Resource
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     @Page("/about")
     public String about(Model model){

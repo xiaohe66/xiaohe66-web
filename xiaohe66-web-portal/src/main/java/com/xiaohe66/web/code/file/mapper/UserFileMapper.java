@@ -1,7 +1,7 @@
 package com.xiaohe66.web.code.file.mapper;
 
 import com.xiaohe66.web.base.base.IBaseMapper;
-import com.xiaohe66.web.code.file.po.UsrFile;
+import com.xiaohe66.web.code.file.po.UserFile;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -9,13 +9,13 @@ import org.apache.ibatis.annotations.Select;
  * @author xh
  * @date 18-03-12 012
  */
-public interface UsrFileMapper extends IBaseMapper<UsrFile> {
+public interface UserFileMapper extends IBaseMapper<UserFile> {
     /**
      * 根据commonFileId 查询
      * @param commonFileId    commonFileId
      * @return  UsrFile
      */
-    UsrFile findByCommonFileId(@Param("commonFileId") Integer commonFileId);
+    UserFile findByCommonFileId(@Param("commonFileId") Integer commonFileId);
 
     /**
      * 取得commonFileId

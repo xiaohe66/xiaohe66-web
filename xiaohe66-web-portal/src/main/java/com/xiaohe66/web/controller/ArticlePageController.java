@@ -10,7 +10,7 @@ import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.common.dto.CategoryDto;
 import com.xiaohe66.web.code.common.service.CategoryService;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.dto.LookAtUserDto;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
@@ -56,7 +56,7 @@ public class ArticlePageController {
     private UserService userService;
 
     @Resource
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     @Page("/add")
     public String index(Model model){

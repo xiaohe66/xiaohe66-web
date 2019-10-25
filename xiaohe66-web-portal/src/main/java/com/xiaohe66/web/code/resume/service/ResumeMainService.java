@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.resume.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.resume.mapper.ResumeMainMapper;
 import com.xiaohe66.web.code.resume.dto.ResumeMainDto;
 import com.xiaohe66.web.code.resume.po.ResumeMain;
@@ -27,7 +27,7 @@ public class ResumeMainService extends AbstractService<ResumeMainMapper,ResumeMa
     private ResumeProjectService resumeProjectService;
 
     @Autowired
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     public ResumeMainDto findDtoByUsrId(Integer usrId){
         ResumeMain resumeMain = baseMapper.findByUsrId(usrId);

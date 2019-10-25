@@ -3,7 +3,7 @@ package com.xiaohe66.web.code.resume.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.resume.mapper.ResumeJobMapper;
 import com.xiaohe66.web.code.resume.dto.ResumeJobDto;
 import com.xiaohe66.web.code.resume.po.ResumeJob;
@@ -24,7 +24,7 @@ public class ResumeJobService extends AbstractService<ResumeJobMapper,ResumeJob>
     private static final Logger LOG = LoggerFactory.getLogger(ResumeJobService.class);
 
     @Autowired
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     public List<ResumeJobDto> findDtoByResumeId(Integer resumeId){
         Check.notNullCheck(resumeId);

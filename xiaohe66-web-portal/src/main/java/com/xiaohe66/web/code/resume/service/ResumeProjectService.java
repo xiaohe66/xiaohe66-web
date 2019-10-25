@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.resume.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.resume.mapper.ResumeProjectMapper;
 import com.xiaohe66.web.code.resume.dto.ResumeProjectDto;
 import com.xiaohe66.web.code.resume.po.ResumeProject;
@@ -23,7 +23,7 @@ public class ResumeProjectService extends AbstractService<ResumeProjectMapper,Re
     private static final Logger LOG = LoggerFactory.getLogger(ResumeProjectService.class);
 
     @Autowired
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     @Autowired
     private ResumeFuncService resumeFuncService;

@@ -9,10 +9,10 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.EncoderUtils;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
-import com.xiaohe66.web.code.file.mapper.UsrFileMapper;
+import com.xiaohe66.web.code.file.mapper.UserFileMapper;
 import com.xiaohe66.web.code.file.param.UsrFileParam;
 import com.xiaohe66.web.code.file.po.CommonFile;
-import com.xiaohe66.web.code.file.po.UsrFile;
+import com.xiaohe66.web.code.file.po.UserFile;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
 import com.xiaohe66.web.code.org.service.UserService;
@@ -30,15 +30,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * todo : rename class name to userFileService
  *
  * @author xh
  * @time 18-03-12 012
  */
 @Service
-public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
+public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UsrFileService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserFileService.class);
 
     private static final Set<String> IMG_TYPE_SET = new HashSet<>(Arrays.asList(".png", ".jpg", ".jpeg", ".bmp", ".ico"));
 
@@ -68,7 +67,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
     @Autowired
     private UserService userService;
 
-    public UsrFile findByCommonFileId(Integer commonFileId) {
+    public UserFile findByCommonFileId(Integer commonFileId) {
         if (Check.isOneNull(commonFileId)) {
             throw new XhWebException(CodeEnum.NULL_EXCEPTION, "commonFileId is null");
         }
@@ -87,7 +86,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
         UsrFileParam param = new UsrFileParam();
         param.setCreateId(usrId);
 
-        List<UsrFile> usrFileList = this.listByParam(param);
+        List<UserFile> usrFileList = this.listByParam(param);
 
         return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
             CommonFile commonFile = commonFileService.getById(usrFile.getFileId());
@@ -110,7 +109,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
             param.setFileName("%" + search + "%");
         }
 
-        List<UsrFile> usrFileList = this.listByParam(param);
+        List<UserFile> usrFileList = this.listByParam(param);
 
         return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
             Integer size = commonFileService.getById(usrFile.getFileId()).getFileByte();
@@ -127,7 +126,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
         final int maxSize = 5;
         List<UsrFileDto> usrFileDtoList = new ArrayList<>(maxSize);
         for (UsrFileDownloadCount downloadCount : mapList) {
-            UsrFile usrFile = this.getById(downloadCount.getId());
+            UserFile usrFile = this.getById(downloadCount.getId());
             if (usrFile == null) {
                 continue;
             }
@@ -146,7 +145,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
             throw new XhWebException(CodeEnum.NULL_EXCEPTION, "usrFileId is null");
         }
 
-        UsrFile usrFile = getById(usrFileId);
+        UserFile usrFile = getById(usrFileId);
         if (usrFile == null) {
             throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
         }
@@ -180,7 +179,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
             throw new XhWebException(CodeEnum.NULL_EXCEPTION, "currentUsrId is null");
         }
 
-        UsrFile usrFile = getById(usrFileId);
+        UserFile usrFile = getById(usrFileId);
         if (usrFile == null) {
             throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
         }
@@ -202,7 +201,7 @@ public class UsrFileService extends AbstractService<UsrFileMapper, UsrFile> {
     public void updateNameById(Integer fileId, String fileName, Integer currentUsrId) {
         fileName = fileNameFormat(fileName);
         Check.notEmptyCheck(fileId, fileName, currentUsrId);
-        UsrFile usrFile = new UsrFile(fileId, fileName);
+        UserFile usrFile = new UserFile(fileId, fileName);
         usrFile.setUpdateId(currentUsrId);
         updateById(usrFile);
     }

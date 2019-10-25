@@ -3,7 +3,7 @@ package com.xiaohe66.web.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
-import com.xiaohe66.web.code.file.service.UsrFileService;
+import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.dto.LookAtUserDto;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.dto.MessageBoardDto;
@@ -28,7 +28,7 @@ public class MessageBoardPageController {
     private UserService userService;
 
     @Resource
-    private UsrFileService usrFileService;
+    private UserFileService usrFileService;
 
     @Resource
     private ArticleService articleService;
