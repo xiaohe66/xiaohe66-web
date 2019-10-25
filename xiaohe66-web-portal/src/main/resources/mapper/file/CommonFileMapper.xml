@@ -15,37 +15,17 @@
     <update id="updateByMd5" parameterType="CommonFile">
         update xiaohe66_web_comm_file
         <set>
-            <if test="param.endTime != null">
-                end_time = #{param.endTime},
+            <if test="endTime != null">
+                end_time = #{endTime},
             </if>
-            <if test="param.fileUrl != null">
-                file_url = #{param.fileUrl},
+            <if test="fileUrl != null">
+                file_url = #{fileUrl},
             </if>
-            <if test="param.fileByte != null">
-                file_byte = #{param.fileByte},
-            </if>
-        </set>
-        <where>
-            <if test="param.md5 != null">
-                and md5 = #{param.md5}
-            </if>
-        </where>
-    </update>
-
-    <update id="updateByMd5" parameterType="CommonFile">
-        update xiaohe66_web_comm_file
-        <set>
-            <if test="param.endTime != null">
-                end_time = #{param.endTime},
-            </if>
-            <if test="param.fileUrl != null">
-                file_url = #{param.fileUrl},
-            </if>
-            <if test="param.fileByte != null">
-                file_byte = #{param.fileByte},
+            <if test="fileByte != null">
+                file_byte = #{fileByte},
             </if>
         </set>
-        where md5 = #{param.md5}
+        where md5 = #{md5}
     </update>
 
 </mapper>

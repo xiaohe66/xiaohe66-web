@@ -3,8 +3,11 @@ package com.xiaohe66.web.code.love.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.code.file.service.CommonFileService;
 import com.xiaohe66.web.code.love.dto.LovePhotoDto;
 import com.xiaohe66.web.code.love.mapper.PhotoMapper;
 import com.xiaohe66.web.code.love.po.Photo;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -21,6 +25,12 @@ import java.util.List;
 @Service
 @Slf4j
 public class PhotoService extends AbstractService<PhotoMapper, Photo> {
+
+    private CommonFileService commonFileService;
+
+    public PhotoService(CommonFileService commonFileService) {
+        this.commonFileService = commonFileService;
+    }
 
     public List<LovePhotoDto> listPhoto12() {
         Photo photo = new Photo();
@@ -48,5 +58,14 @@ public class PhotoService extends AbstractService<PhotoMapper, Photo> {
             }
         }
         return null;
+    }
+
+    public void showImg(OutputStream outputStream, Integer id) {
+        Photo photo = getById(id);
+        if (photo == null) {
+            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND, "照片不存在");
+        }
+        Integer fileId = photo.getFileId();
+        commonFileService.outputFile(outputStream, fileId);
     }
 }

@@ -7,6 +7,7 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
 import com.xiaohe66.web.code.file.service.CommonFileService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * 所有文件都需要经过该类的上传，然后再关联，其它类不可以上传文件
@@ -32,14 +34,16 @@ public class CommonFileController {
         this.commonFileService = commonFileService;
     }
 
-    // todo : 放到关联类里面
     @Page("/img/{id}")
-    public void showImg(HttpServletResponse response, @PathVariable("id") Integer id) throws IOException {
+    public void showImg(HttpServletResponse response, @PathVariable Integer id) throws IOException {
         if (id == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "id is null");
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "md5 is null");
         }
-        response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
-        commonFileService.outputFile(id, response.getOutputStream());
+        Set<Integer> cache = WebUtils.getSessionAttr(CommonFileService.CACHE_FILE_MD5_SESSION_KEY);
+        if (cache != null && cache.contains(id)) {
+            response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
+            commonFileService.outputFile(response.getOutputStream(), id);
+        }
     }
 
     @Post("/prepare")

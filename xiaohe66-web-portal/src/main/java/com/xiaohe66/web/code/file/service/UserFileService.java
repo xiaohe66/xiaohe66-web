@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -30,7 +31,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * @author xh
  * @time 18-03-12 012
  */
@@ -140,28 +140,22 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         return usrFileDtoList;
     }
 
-    public void showImg(HttpServletResponse response, Integer usrFileId) {
-        if (usrFileId == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "usrFileId is null");
+    public void showImg(OutputStream outputStream, Integer userFileId) {
+        if (userFileId == null) {
+            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "userFileId is null");
         }
 
-        UserFile usrFile = getById(usrFileId);
-        if (usrFile == null) {
+        UserFile userFile = getById(userFileId);
+        if (userFile == null) {
             throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
         }
-        String extension = usrFile.getExtension();
 
         //不是图片类型，不返回
-        if (!IMG_TYPE_SET.contains(extension)) {
+        if (!IMG_TYPE_SET.contains(userFile.getExtension())) {
             throw new XhWebException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
         }
 
-        response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
-        try {
-            commonFileService.outputFile(usrFile.getFileId(), response.getOutputStream());
-        } catch (IOException e) {
-            throw new XhWebException(CodeEnum.IO_EXCEPTION);
-        }
+        commonFileService.outputFile(outputStream, userFile.getFileId());
     }
 
     /**
@@ -171,25 +165,22 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
      * @param response  HttpServletResponse
      * @param usrFileId 用户文件id
      */
-    public void downloadFile(HttpServletResponse response, Integer usrFileId, Integer currentUsrId) {
+    public void downloadFile(HttpServletResponse response, Integer usrFileId) {
         if (usrFileId == null) {
             throw new XhWebException(CodeEnum.NULL_EXCEPTION, "usrFileId is null");
         }
-        if (currentUsrId == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "currentUsrId is null");
-        }
 
-        UserFile usrFile = getById(usrFileId);
-        if (usrFile == null) {
+        UserFile userFile = getById(usrFileId);
+        if (userFile == null) {
             throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
         }
 
-        String name = EncoderUtils.urlEncoder(usrFile.getFileName()) + usrFile.getExtension();
+        String name = EncoderUtils.urlEncoder(userFile.getFileName()) + userFile.getExtension();
 
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=" + name);
         try {
-            commonFileService.outputFile(usrFile.getFileId(), response.getOutputStream());
+            commonFileService.outputFile(response.getOutputStream(),userFile.getFileId());
         } catch (IOException e) {
             throw new XhWebException(CodeEnum.IO_EXCEPTION);
         }

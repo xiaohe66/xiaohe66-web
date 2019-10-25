@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.helper.UserHelper;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -72,13 +74,14 @@ public class UserFilePageController {
 
 
     @Page("/img/{id}")
-    public void showImg(HttpServletResponse response, @PathVariable("id")Integer id){
-        usrFileService.showImg(response,id);
+    public void showImg(HttpServletResponse response, @PathVariable("id")Integer id) throws IOException {
+        response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
+        usrFileService.showImg(response.getOutputStream(),id);
     }
 
     @Page("/download/{id}")
     public void download(HttpServletResponse response,@PathVariable("id")Integer id){
-        usrFileService.downloadFile(response,id, UserHelper.getCurrentUsrId());
+        usrFileService.downloadFile(response,id);
     }
 
 }

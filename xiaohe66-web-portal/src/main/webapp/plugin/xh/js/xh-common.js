@@ -93,6 +93,9 @@ function getQueryParam(key) {
     return (false);
 }
 
-function commFileUrl(id) {
+function commonFileImgUrl(id) {
     return "/comm/file/img/"+id;
+}
+function loveImgUrl(id) {
+    return "/love/photo/img/"+id;
 }

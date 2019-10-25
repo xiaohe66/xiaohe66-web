@@ -4,6 +4,7 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.base.BaseController;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.po.UserFile;
@@ -22,7 +23,13 @@ public class UserFileController extends BaseController<UserFileService, UserFile
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable Integer id) throws IOException {
-        // todo : impl
+        response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
+        baseService.showImg(response.getOutputStream(), id);
+    }
+
+    @Page("/down/{id}")
+    public void download(HttpServletResponse response, @PathVariable Integer id) throws IOException {
+        baseService.downloadFile(response, id);
     }
 
     @Post("/head")

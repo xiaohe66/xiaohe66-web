@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.file.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePo;
 import lombok.Data;
@@ -27,9 +28,8 @@ public class CommonFile extends BasePo {
 
     protected Date endTime;
 
+    @TableField("`name`")
     protected String name;
-
-    protected String extension;
 
     public CommonFile() {
     }

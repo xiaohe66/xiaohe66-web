@@ -12,6 +12,7 @@ import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
 import com.xiaohe66.web.code.file.mapper.CommonFileMapper;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ import java.util.Set;
  * @time 18-03-22 022
  */
 @Service
+@Slf4j
 public class CommonFileService extends AbstractService<CommonFileMapper, CommonFile> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFileService.class);
@@ -46,6 +48,8 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
     public static final String UPLOAD_FILE_MD5_SESSION_KEY = "uploadFileMd5";
 
     public static final String CURRENT_FILE_MAX_CHUNK_SESSION_KEY = "currentFileMaxChunk";
+
+    public static final String CACHE_FILE_MD5_SESSION_KEY = "cacheFileMd5";
 
     @Value("${file.home}")
     private String fileHomeUrl;
@@ -60,6 +64,26 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
     public CommonFileService(CommonFileTmpService commonFileTmpService) {
         this.commonFileTmpService = commonFileTmpService;
+    }
+
+    @Override
+    public boolean save(CommonFile po) {
+        // name 的最大长度
+        String name = po.getName();
+        if (name != null && name.length() > 200) {
+            po.setName(name.substring(0, 200));
+        }
+
+        return super.save(po);
+    }
+
+    private void saveSessionPrepareId(Integer id) {
+        Set<Integer> cache = WebUtils.getSessionAttr(CACHE_FILE_MD5_SESSION_KEY);
+        if (cache == null) {
+            cache = new HashSet<>();
+            WebUtils.setSessionAttr(CACHE_FILE_MD5_SESSION_KEY, cache);
+        }
+        cache.add(id);
     }
 
     /**
@@ -105,8 +129,12 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             }
             uploadFilePrepareDto.setMissingChunk(missingChunkSet);
 
+            saveSessionPrepareId(commonFile.getId());
             return uploadFilePrepareDto;
         }
+
+        uploadFilePrepareDto.setFileId(commonFile.getId());
+        saveSessionPrepareId(commonFile.getId());
 
         if (commonFile.getEndTime() != null) {
             //已经上传完成，返回空集合
@@ -114,13 +142,21 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             return uploadFilePrepareDto;
 
         } else {
-            Set<Integer> missingChunkSet = new HashSet<>(currentMaxChunk);
-            for (int i = 1; i <= currentMaxChunk; i++) {
-                missingChunkSet.add(i);
-            }
             //有主文件记录，但未上传完成，返回未上传完的块
-            missingChunkSet.removeAll(commonFileTmpService.findFinishChunk(md5));
-            uploadFilePrepareDto.setMissingChunk(missingChunkSet);
+            Set<Integer> finishChunk = commonFileTmpService.findFinishChunk(md5);
+            if (finishChunk.size() == currentMaxChunk) {
+                // todo : 处理这个问题
+                log.warn("所有块都已上传完成，但是EndTime没有更新，自动更新EndTime");
+                uploadFilePrepareDto.setMissingChunk(Collections.emptySet());
+            } else {
+
+                Set<Integer> missingChunkSet = new HashSet<>(currentMaxChunk);
+                for (int i = 1; i <= currentMaxChunk; i++) {
+                    missingChunkSet.add(i);
+                }
+                missingChunkSet.removeAll(finishChunk);
+                uploadFilePrepareDto.setMissingChunk(missingChunkSet);
+            }
             return uploadFilePrepareDto;
         }
     }
@@ -176,6 +212,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
          * 类 String 维护一个字符串池,当调用 intern 方法时，如果池已经包含一个等于此 String 对象的字符串（该对象由 equals(Object) 方法确定），
          * 则返回池中的字符串，因此，当String相同时，String.intern()总是返回同一个对象
          * */
+        // todo : 将该代码块独立到一个方法里面，还有考虑使用线程合并文件
         synchronized (md5.intern()) {
             int countFinish = commonFileTmpService.countFinish(md5);
             if (countFinish == currentMaxChunk) {
@@ -229,9 +266,20 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         return getOne(new QueryWrapper<>(commonFile));
     }
 
-    public void outputFile(Integer id, OutputStream outputStream) {
+    public void outputFile(OutputStream outputStream, Integer id) {
         Check.notEmptyCheck(id);
         CommonFile commonFile = getById(id);
+        outputFile(outputStream, commonFile);
+    }
+
+    public void outputFile(OutputStream outputStream, String md5) {
+        Check.notEmptyCheck(md5);
+        CommonFile commonFile = getByMd5(md5);
+        outputFile(outputStream, commonFile);
+    }
+
+    public void outputFile(OutputStream outputStream, CommonFile commonFile) {
+
         String url = fileHomeUrl + commonFile.getFileUrl();
 
         IoUtils.writeToOutput(new File(url), outputStream);

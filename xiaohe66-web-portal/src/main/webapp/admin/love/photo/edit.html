@@ -131,7 +131,7 @@
                 console.log(data);
                 fileId = data.fileId;
                 $("#file").hide();
-                $("#img").attr("src", commFileUrl(fileId));
+                $("#img").attr("src", loveImgUrl(data.id));
                 $("#img").show();
                 $("#name").val(data.name);
                 $("#one").val(data.one);
@@ -142,11 +142,11 @@
             });
         }
 
-        $("#file").upload(function (id) {
+        $("#file").upload(false,function (data) {
             $("#file").hide();
             $("#img").show();
-            $("#img").attr("src", commFileUrl(id));
-            fileId = id;
+            fileId = data.fileId;
+            $("#img").attr("src", commonFileImgUrl(fileId));
         });
 
         let validator = new Validator();
