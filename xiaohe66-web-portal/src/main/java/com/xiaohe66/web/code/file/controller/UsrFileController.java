@@ -1,79 +1,40 @@
 package com.xiaohe66.web.code.file.controller;
 
-import com.xiaohe66.web.base.annotation.Del;
-import com.xiaohe66.web.base.annotation.Get;
-import com.xiaohe66.web.base.annotation.Paging;
+import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.Post;
-import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
+import com.xiaohe66.web.base.base.BaseController;
+import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
+import com.xiaohe66.web.code.file.po.UsrFile;
 import com.xiaohe66.web.code.file.service.UsrFileService;
-import com.xiaohe66.web.code.org.helper.UserHelper;
-import com.xiaohe66.web.code.org.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Set;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author xh
- * @date 18-03-12 012
+ * @time 18-03-12 012
  */
-@XhController("/org/usr/file")
-public class UsrFileController {
+@XhController("/org/user/file")
+public class UsrFileController extends BaseController<UsrFileService, UsrFile, UsrFileDto> {
 
-    @Autowired
-    private UsrFileService usrFileService;
-
-    @Autowired
-    private UserService userService;
-
-    @Paging
-    @Get("/all/{onlyWebmaster}")
-    public List<UsrFileDto> allData(@PathVariable("onlyWebmaster") boolean onlyWebmaster){
-        return usrFileService.findDtoAll(null,onlyWebmaster);
-    }
-
-    @Paging
-    @Get("/all/{onlyWebmaster}/{search}")
-    public List<UsrFileDto> allData2(@PathVariable("onlyWebmaster") boolean onlyWebmaster,@PathVariable("search") String search){
-        return usrFileService.findDtoAll(search,onlyWebmaster);
-    }
-
-    @Paging
-    @Get
-    public List<UsrFileDto> page(){
-        return usrFileService.findDtoByUsrId(UserHelper.getCurrentUsrId());
-    }
-
-    @Post
-    public Set<Integer> uploadFilePrepare( String md5, Float mb, String fileName, String extension){
-        return usrFileService.uploadDefaultFilePrepare(UserHelper.getCurrentUsrId(),md5,mb,fileName,extension);
-    }
-
-    @Put("/{id}")
-    public void update(@PathVariable("id")Integer id,String fileName){
-        usrFileService.updateNameById(id,fileName, UserHelper.getCurrentUsrId());
-    }
-
-    @Del("/{id}")
-    public void del(@PathVariable("id")Integer id){
-        usrFileService.removeById(id);
+    @Page("/img/{id}")
+    public void showImg(HttpServletResponse response, @PathVariable Integer id) throws IOException {
+        // todo : impl
     }
 
     @Post("/head")
-    public Integer uploadHeadImg(@RequestParam("file") MultipartFile file, String md5){
-        Integer imgFileId =  usrFileService.uploadImg(file,md5, UserHelper.getCurrentUsrId(),UsrFileService.USR_HEAD_IMG_FILE_TYPE);
-        userService.updateImgFile(imgFileId);
-        return imgFileId;
+    public Result updateHeadImg(Integer fileId, String md5) {
+//        userService.updateImgFile(fileId);
+        return Result.ok();
     }
 
     @Post("/article")
-    public Integer uploadArticleImg(@RequestParam("file") MultipartFile file, String md5){
-        return usrFileService.uploadImg(file,md5, UserHelper.getCurrentUsrId(),UsrFileService.USR_ARTICLE_IMG_FILE_TYPE);
+    public Result uploadArticleImg(Integer fileId, String md5) {
+//        return baseService.uploadImg(file, md5, UserHelper.getCurrentUsrId(), baseService.USR_ARTICLE_IMG_FILE_TYPE);
+        return Result.ok();
     }
 
 }

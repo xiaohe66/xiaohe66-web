@@ -46,6 +46,7 @@ public enum CodeEnum {
 
     //非法
     ,ILLEGAL_CHAR_EXCEPTION(801,"非法字符")
+    ,ILLEGAL_ARGUMENT_EXCEPTION(800,"非法操作")
 
 
 
