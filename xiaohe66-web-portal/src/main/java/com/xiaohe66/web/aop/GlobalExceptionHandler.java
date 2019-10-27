@@ -3,8 +3,11 @@ package com.xiaohe66.web.aop;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
+import com.xiaohe66.web.base.exception.IllegalParamException;
+import com.xiaohe66.web.base.exception.MissingParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.JsonUtils;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.springframework.stereotype.Component;
@@ -30,28 +33,38 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
         Result result;
 
+        Integer currentUserId = UserHelper.getCurrentUsrIdNotEx();
+
         // 消息类
         if (exception instanceof XhWebException) {
             XhWebException e = ((XhWebException) exception);
             CodeEnum code = e.getCode();
             if (e.getCause() == null) {
-                log.info("正常消息, message : {}, code : {}", e.getMessage(), code);
+                log.info("正常消息, 当前用户 : {}, message : {}, code : {}", currentUserId, e.getMessage(), code);
                 log.debug(code.toString(), e);
             } else {
-                log.error("错误消息, code : {}", code);
+                log.error("错误消息, 当前用户 : {}, code : {}", currentUserId, code, e);
             }
             result = Result.err(code);
         }
 
+        // 系统级别异常
+        else if (exception instanceof IllegalParamException ||
+                exception instanceof MissingParamException) {
+            log.error("系统运行发生错误", exception);
+            result = Result.err(CodeEnum.EXCEPTION);
+        }
+
         // shrio
         else if (exception instanceof ShiroException) {
-            log.info("没有操作权限", exception);
-            result = Result.err(CodeEnum.NOT_PERMISSION);
+            log.info("没有操作权限, 当前用户 : {}", currentUserId, exception);
+            log.debug("没有操作权限", exception);
+            result = Result.err(CodeEnum.B2_ILLEGAL_OPERATE);
         }
 
         // other
         else {
-            log.error("发生未知异常", exception);
+            log.error("发生未知异常, 当前用户 : {}", currentUserId, exception);
             result = Result.err(CodeEnum.EXCEPTION);
         }
 

@@ -3,6 +3,7 @@ package com.xiaohe66.web.code.file.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.DateUtils;
@@ -99,10 +100,10 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
     public UploadFilePrepareDto uploadFilePrepare(String md5, Float mb) {
         final int md5Length = 32;
         if (md5 == null || md5.length() != md5Length) {
-            throw new XhWebException(CodeEnum.PARAM_ERR, "md5为null，或长度不为" + md5Length + "位");
+            throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM, "md5为null，或长度不为" + md5Length + "位");
         }
-        if (mb == null || mb < 0 || mb > maxMbFilePer) {
-            throw new XhWebException(CodeEnum.PARAM_ERR, "param mb is error, mb=" + mb);
+        if (mb == null || mb <= 0 || mb > maxMbFilePer) {
+            throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM, "mb小于0或大于最大值, mb=" + mb);
         }
 
         int currentMaxChunk = mb.intValue() / maxMbChunkPer + 1;
@@ -174,17 +175,18 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
     public boolean uploadFile(MultipartFile multipartFile, String md5, Integer chunk) throws IOException {
         String sessionMd5 = WebUtils.getSessionAttr(UPLOAD_FILE_MD5_SESSION_KEY);
         if (StringUtils.isEmpty(sessionMd5)) {
-            throw new XhWebException(CodeEnum.ILLEGAL_ARGUMENT_EXCEPTION, "没有调用prepare接口");
+            throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件前没有调用prepare接口");
         }
 
         if (!sessionMd5.equals(md5)) {
-            throw new XhWebException(CodeEnum.ILLEGAL_ARGUMENT_EXCEPTION, "参数md5和准备接口不一致");
+            log.debug("上传文件md5和准备接口不一致, sessionMd5 : {}, md5 : {}", sessionMd5, md5);
+            throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件md5和准备接口不一致");
         }
 
         Check.notEmptyCheck(chunk);
         int currentMaxChunk = WebUtils.getSessionAttr(CURRENT_FILE_MAX_CHUNK_SESSION_KEY);
         if (chunk < 1 || chunk > currentMaxChunk) {
-            throw new XhWebException(CodeEnum.ILLEGAL_ARGUMENT_EXCEPTION, "上传的块数不在区间内");
+            throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件的区块不在区间内, 区块 : " + chunk);
         }
 
 
@@ -194,7 +196,13 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (currentMaxChunk == 1) {
             //只有一个临时文件，直接上传至主文件
             String path = createLogicPath(md5);
-            IoUtils.writeToFile(fileInput, new File(fileHomeUrl + path), false);
+            File file = new File(fileHomeUrl + path);
+            try {
+                IoUtils.writeToFile(fileInput, file, false);
+            } catch (XhIoException e) {
+                log.error("无法写入文件,path : {}", file);
+                throw new XhWebException(CodeEnum.EXCEPTION, e);
+            }
 
             //更新主文件状态
             this.updateByMd5(md5, new Date(), path, fileByte);
@@ -224,14 +232,20 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
                 boolean isSuccess = Files.deleteIfExists(fullFile.toPath());
                 if (!isSuccess) {
                     // todo : 删除已存在文件失败时的处理
-                    log.warn("删除失败");
+                    log.error("删除已存在文件失败, path : {}", fullFile.getPath());
                     throw new XhWebException(CodeEnum.EXCEPTION, "删除已存在文件失败");
                 }
 
                 int byteSum = 0;
                 List<CommonFileTmp> commonFileTmpList = commonFileTmpService.findFileTmp(md5);
                 for (CommonFileTmp commonFileTmp : commonFileTmpList) {
-                    IoUtils.writeToFile(new File(fileHomeUrl + commonFileTmp.getFileUrl()), fullFile, true);
+                    File tmpFile = new File(fileHomeUrl + commonFileTmp.getFileUrl());
+                    try {
+                        IoUtils.writeToFile(tmpFile, fullFile, true);
+                    } catch (XhIoException e) {
+                        log.error("无法写入文件, path : {}, tmpPath : {}", fullFile.getPath(), tmpFile.getPath());
+                        throw new XhWebException(CodeEnum.EXCEPTION, e);
+                    }
                     byteSum += commonFileTmp.getFileByte();
                 }
 
@@ -282,7 +296,14 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
         String url = fileHomeUrl + commonFile.getFileUrl();
 
-        IoUtils.writeToOutput(new File(url), outputStream);
+        File file = new File(url);
+
+        try {
+            IoUtils.writeToOutput(file, outputStream);
+        } catch (XhIoException e) {
+            log.error("无法输出文件", e);
+            throw new XhWebException(CodeEnum.EXCEPTION, e);
+        }
     }
 
     /**

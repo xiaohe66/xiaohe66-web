@@ -15,12 +15,12 @@ public class SysController {
 
     @Get("/notLoggedIn")
     public void notLoggedIn(){
-        throw new XhWebException(CodeEnum.NOT_LOGGED_IN);
+        throw new XhWebException(CodeEnum.B2_NOT_LOGGED_IN);
     }
 
     @Get("/notPermission")
     public void notPermission(){
-        throw new XhWebException(CodeEnum.NOT_PERMISSION);
+        throw new XhWebException(CodeEnum.B2_ILLEGAL_OPERATE);
     }
 
 }

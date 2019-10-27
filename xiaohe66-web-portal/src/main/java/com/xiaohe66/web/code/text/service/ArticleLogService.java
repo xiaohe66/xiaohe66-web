@@ -32,11 +32,12 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
      * 方法弃用，请使用 add()
      *
      * @param po 插入的实体
+     * @deprecated 使用 {@link this#save()}
      */
     @Override
     @Deprecated
     public boolean save(ArticleLog po) {
-        throw new XhWebException(CodeEnum.NOT_IMPLEMENTED);
+        throw new UnsupportedOperationException();
     }
 
     public void addPrepare(Integer articleId) {

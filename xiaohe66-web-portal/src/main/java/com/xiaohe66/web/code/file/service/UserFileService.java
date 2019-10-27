@@ -3,6 +3,7 @@ package com.xiaohe66.web.code.file.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
@@ -68,9 +69,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
     private UserService userService;
 
     public UserFile findByCommonFileId(Integer commonFileId) {
-        if (Check.isOneNull(commonFileId)) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "commonFileId is null");
-        }
+        Check.notEmpty(commonFileId, "commonFileId");
         return baseMapper.findByCommonFileId(commonFileId);
     }
 
@@ -79,12 +78,10 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         return baseMapper.findCommonFileId(usrFileId);
     }
 
-    public List<UsrFileDto> findDtoByUsrId(Integer usrId) {
-        if (Check.isOneNull(usrId)) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
-        }
+    public List<UsrFileDto> findDtoByUsrId(Integer userId) {
+        Check.notEmpty(userId, "userId");
         UsrFileParam param = new UsrFileParam();
-        param.setCreateId(usrId);
+        param.setCreateId(userId);
 
         List<UserFile> usrFileList = this.listByParam(param);
 
@@ -141,18 +138,16 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
     }
 
     public void showImg(OutputStream outputStream, Integer userFileId) {
-        if (userFileId == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "userFileId is null");
-        }
+        Check.notEmpty(userFileId,"userFileId");
 
         UserFile userFile = getById(userFileId);
         if (userFile == null) {
-            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "userFile is not found, userFileId:" + userFileId);
         }
 
         //不是图片类型，不返回
         if (!IMG_TYPE_SET.contains(userFile.getExtension())) {
-            throw new XhWebException(CodeEnum.IMAGE_FORMAT_EXCEPTION);
+            throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "请求显示一个非图片类型, userFileId : " + userFileId);
         }
 
         commonFileService.outputFile(outputStream, userFile.getFileId());
@@ -162,17 +157,15 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
      * 下载文件
      * todo:需要控制不公开文件的下载权限
      *
-     * @param response  HttpServletResponse
-     * @param usrFileId 用户文件id
+     * @param response   HttpServletResponse
+     * @param userFileId 用户文件id
      */
-    public void downloadFile(HttpServletResponse response, Integer usrFileId) {
-        if (usrFileId == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "usrFileId is null");
-        }
+    public void downloadFile(HttpServletResponse response, Integer userFileId) throws XhIoException {
+        Check.notEmpty(userFileId, "userFileId");
 
-        UserFile userFile = getById(usrFileId);
+        UserFile userFile = getById(userFileId);
         if (userFile == null) {
-            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND);
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "文件不存在, userFileId : " + userFileId);
         }
 
         String name = EncoderUtils.urlEncoder(userFile.getFileName()) + userFile.getExtension();
@@ -180,13 +173,13 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=" + name);
         try {
-            commonFileService.outputFile(response.getOutputStream(),userFile.getFileId());
+            commonFileService.outputFile(response.getOutputStream(), userFile.getFileId());
         } catch (IOException e) {
-            throw new XhWebException(CodeEnum.IO_EXCEPTION);
+            throw new XhIoException(e);
         }
 
         //记录下载日志
-        usrFileLogService.save(new UsrFileLog(usrFileId));
+        usrFileLogService.save(new UsrFileLog(userFileId));
     }
 
     public void updateNameById(Integer fileId, String fileName, Integer currentUsrId) {
@@ -210,7 +203,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         Check.notEmptyCheck(fileName);
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (fileName.contains(String.valueOf(fileIllegalChar))) {
-                throw new XhWebException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
+                throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
             }
         }
         //文件名字符长度不能超过20
@@ -230,7 +223,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         Check.notNullCheck(extension);
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (extension.contains(String.valueOf(fileIllegalChar))) {
-                throw new XhWebException(CodeEnum.ILLEGAL_CHAR_EXCEPTION);
+                throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
             }
         }
         //文件名字符长度不能超过20

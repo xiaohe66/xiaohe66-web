@@ -21,9 +21,7 @@ import java.util.List;
 public class CategoryService extends AbstractService<CategoryDao,Category> {
 
     public List<Category> findByPid(Integer pid){
-        if(Check.isOneNull(pid)){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"pid is null");
-        }
+        Check.notEmpty(pid,"category Pid");
         return baseMapper.findByPid(pid);
     }
 

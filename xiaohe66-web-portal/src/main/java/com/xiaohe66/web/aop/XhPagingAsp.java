@@ -9,19 +9,18 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * 通用分页切面
- * todo : 废弃此类
  *
  * @author xiaohe
  * @time 17-11-11 011
+ * @deprecated 使用了mybatis-plus 中的分页了，这个分页插件不再使用
  */
 @Aspect
-@Component
+@Deprecated
 public class XhPagingAsp {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XhPagingAsp.class);
@@ -30,18 +29,19 @@ public class XhPagingAsp {
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     @Pointcut("@annotation(com.xiaohe66.web.base.annotation.Paging)")
-    private void pagingPointCut(){}
+    private void pagingPointCut() {
+    }
 
     @Before("pagingPointCut()")
-    public void beforeAdvice(){
+    public void beforeAdvice() {
         HttpServletRequest request = WebUtils.getRequest();
 
         String pageSizeStr = request.getHeader(Final.Str.PAGING_SIZE_KEY);
-        int size = StrUtils.isEmpty(pageSizeStr)?DEFAULT_PAGE_SIZE:StrUtils.toInt(pageSizeStr);
+        int size = StrUtils.isEmpty(pageSizeStr) ? DEFAULT_PAGE_SIZE : StrUtils.toInt(pageSizeStr);
 
         String pageNumStr = request.getHeader(Final.Str.PAGING_NO_KEY);
-        int num = StrUtils.isEmpty(pageNumStr)?DEFAULT_PAGE_NUM:StrUtils.toInt(pageNumStr);
+        int num = StrUtils.isEmpty(pageNumStr) ? DEFAULT_PAGE_NUM : StrUtils.toInt(pageNumStr);
 
-        PageHelper.startPage(num,size,true);
+        PageHelper.startPage(num, size, true);
     }
 }

@@ -6,6 +6,7 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.MissingParamMsgException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.common.dto.CategoryDto;
@@ -71,18 +72,18 @@ public class ArticlePageController {
 
     @Page("/editor/{id}")
     public String editor(Model model,@PathVariable("id") Integer id){
-
-        Integer currentUsrId = UserHelper.getCurrentUsrId();
+        Integer currentUserId = UserHelper.getCurrentUsrId();
         ArticleDto articleDto = articleService.findDtoById(id);
         if(articleDto == null){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"this article is not exist");
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST,"this article is not exist, id : "+id);
         }
-        if(!currentUsrId.equals(articleDto.getCreateId())){
-            throw new XhWebException(CodeEnum.NOT_PERMISSION,"this article not is current user article");
+        if(!currentUserId.equals(articleDto.getCreateId())){
+            throw new XhWebException(CodeEnum.B2_ILLEGAL_OPERATE,
+                    "this article not is current user article, articleId : "+ id +",currentUserId : "+currentUserId);
         }
         model.addAttribute("article",articleDto);
 
-        List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUsrId);
+        List<TextCategory> textCategoryList = textCategoryService.findByUsrId(currentUserId);
         model.addAttribute("title","文章编辑");
         model.addAttribute("perCategoryList",ClassUtils.convert(TextCategoryDto.class,textCategoryList));
         model.addAttribute("perCategorySize",textCategoryList.size());

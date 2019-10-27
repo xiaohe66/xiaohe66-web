@@ -7,6 +7,7 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
 import com.xiaohe66.web.code.file.service.CommonFileService;
@@ -36,9 +37,7 @@ public class CommonFileController {
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable Integer id) throws IOException {
-        if (id == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "md5 is null");
-        }
+        Check.notEmpty(id,"id");
         Set<Integer> cache = WebUtils.getSessionAttr(CommonFileService.CACHE_FILE_MD5_SESSION_KEY);
         if (cache != null && cache.contains(id)) {
             response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);

@@ -1,6 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.MissingParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class DateUtils {
 
     public static String formatDateTime(Date date){
         if(date == null){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
+            throw new MissingParamException("date");
         }
         return getDateTimeFormat().format(date);
     }

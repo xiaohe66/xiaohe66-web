@@ -1,6 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.MissingParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 
 import java.util.regex.Pattern;
@@ -32,9 +33,9 @@ public class RegexUtils {
         return Pattern.matches(EMAIL_REGEX,value);
     }
 
-    public static boolean test(String regex,String value){
+    public static boolean test(String regex, String value){
         if(value == null || regex == null || regex.length() == 0){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
+            throw new MissingParamException();
         }
         return Pattern.matches(regex,value);
     }

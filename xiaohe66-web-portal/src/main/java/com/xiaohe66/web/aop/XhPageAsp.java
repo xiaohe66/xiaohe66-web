@@ -43,13 +43,13 @@ public class XhPageAsp {
             return proceedingJoinPoint.proceed();
 
         } catch (XhWebException e) {
-            log.info("错误消息 : {}", e.getCode().desc());
-            log.debug("错误消息 : {}", e.getCode().desc(), e);
+            log.info("错误消息 : {}", e.getCode().msg());
+            log.debug("错误消息 : {}", e.getCode().msg(), e);
 
         } catch (Throwable e) {
             log.error("系统异常", e);
-            request.setAttribute("msg", "系统异常");
         }
+        request.setAttribute("msg", "系统繁忙");
         return ERROR_PAGE_PATH;
     }
 }

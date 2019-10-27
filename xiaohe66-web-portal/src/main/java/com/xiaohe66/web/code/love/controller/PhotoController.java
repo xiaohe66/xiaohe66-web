@@ -8,6 +8,7 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.code.love.dto.LovePhotoDto;
 import com.xiaohe66.web.code.love.dto.PhotoDto;
 import com.xiaohe66.web.code.love.po.Photo;
@@ -33,9 +34,9 @@ public class PhotoController extends BaseController<PhotoService, Photo, PhotoDt
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable("id") Integer id) throws IOException {
-        if (id == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "id is null");
-        }
+
+        Check.notEmpty(id,"id");
+
         response.setContentType(Final.Str.CONTENT_TYPE_IMAGE_PNG);
         baseService.showImg(response.getOutputStream(), id);
     }

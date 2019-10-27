@@ -63,7 +63,7 @@ public class PhotoService extends AbstractService<PhotoMapper, Photo> {
     public void showImg(OutputStream outputStream, Integer id) {
         Photo photo = getById(id);
         if (photo == null) {
-            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND, "照片不存在");
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "照片不存在, id : " + id);
         }
         Integer fileId = photo.getFileId();
         commonFileService.outputFile(outputStream, fileId);

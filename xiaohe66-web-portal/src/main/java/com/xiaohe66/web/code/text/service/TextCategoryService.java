@@ -16,36 +16,28 @@ import java.util.List;
  * @time 17-11-12 012
  */
 @Service
-public class TextCategoryService extends AbstractService<TextCategoryMapper,TextCategory> {
+public class TextCategoryService extends AbstractService<TextCategoryMapper, TextCategory> {
 
-    public List<TextCategory> findByPid(Integer pid){
-        if(Check.isOneNull(pid)){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"pid is null");
-        }
+    public List<TextCategory> findByPid(Integer pid) {
+        Check.notEmpty(pid,"pid");
         return baseMapper.findByPid(pid);
     }
 
-    public List<TextCategory> findByUsrId(Integer usrId){
-        if(Check.isOneNull(usrId)){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"usrId is null");
-        }
+    public List<TextCategory> findByUsrId(Integer userId) {
+        Check.notEmpty(userId,"userId");
         TextCategoryParam param = new TextCategoryParam();
-        param.setCreateId(usrId);
+        param.setCreateId(userId);
 
         return listByParam(param);
     }
 
-    public String findNamesByArticleId(Integer articleId){
-        if(Check.isOneNull(articleId)){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"articleId is null");
-        }
+    public String findNamesByArticleId(Integer articleId) {
+        Check.notEmpty(articleId,"articleId");
         return baseMapper.findNamesByArticleId(articleId);
     }
 
-    public List<TextCategory> findByArticleId(Integer articleId){
-        if(Check.isOneNull(articleId)){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION,"articleId is null");
-        }
+    public List<TextCategory> findByArticleId(Integer articleId) {
+        Check.notEmpty(articleId,"articleId");
         return baseMapper.findByArticleId(articleId);
     }
 }

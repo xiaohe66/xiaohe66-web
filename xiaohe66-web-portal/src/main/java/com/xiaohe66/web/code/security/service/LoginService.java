@@ -49,23 +49,23 @@ public class LoginService {
      */
     public void registerPrepare(User user, String code) {
         if (!AuthCodeHelper.verifyImgCode(code)) {
-            throw new XhWebException(CodeEnum.AUTH_CODE_ERR);
+            throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
 
-        String usrName = user.getUsrName();
+        String userName = user.getUsrName();
         String email = user.getEmail();
-        Check.notEmptyCheck(usrName, email);
+        Check.notEmptyCheck(userName, email);
 
-        if (!RegexUtils.testUsrName(usrName) || !RegexUtils.testEmail(email)) {
-            throw new XhWebException(CodeEnum.FORMAT_ERROR);
+        if (!RegexUtils.testUsrName(userName) || !RegexUtils.testEmail(email)) {
+            throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
         }
 
-        if (userService.isExistUserName(usrName)) {
-            throw new XhWebException(CodeEnum.OBJ_ALREADY_EXIST, "usrName is exist");
+        if (userService.isExistUserName(userName)) {
+            throw new XhWebException(CodeEnum.B1_OBJ_ALREADY_EXIST, "用户名已存在 : " + userName);
         }
 
         if (userService.isExistEmail(email)) {
-            throw new XhWebException(CodeEnum.OBJ_ALREADY_EXIST, "email is exist");
+            throw new XhWebException(CodeEnum.B1_OBJ_ALREADY_EXIST, "邮箱已存在 : " + email);
         }
 
         String token = PwdUtils.createToken();
@@ -85,7 +85,7 @@ public class LoginService {
         User user = CacheHelper.get30(token);
 
         if (user == null) {
-            throw new XhWebException(CodeEnum.TOKEN_TIME_OUT);
+            throw new XhWebException(CodeEnum.B2_TOKEN_TIME_OUT);
         }
 
         user.setUsrPwd(PwdUtils.hashPassword(user.getUsrPwd()));
@@ -102,12 +102,12 @@ public class LoginService {
     public void updatePwdPrepare(String email, String code) {
         Check.notEmptyCheck(email, code);
         if (!AuthCodeHelper.verifyImgCode(code)) {
-            throw new XhWebException(CodeEnum.AUTH_CODE_ERR);
+            throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
 
         User user = userService.getByEmail(email);
         if (user == null) {
-            throw new XhWebException(CodeEnum.USR_NOT_EXIST);
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST);
         }
 
         WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY, user);
@@ -121,7 +121,7 @@ public class LoginService {
     public void updatePwd(String password, String code) {
         Check.notEmptyCheck(password, code);
         if (!AuthCodeHelper.verifyEmailCode(code)) {
-            throw new XhWebException(CodeEnum.AUTH_CODE_ERR);
+            throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
 
         User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
@@ -132,11 +132,11 @@ public class LoginService {
     }
 
     public UserDto login(String loginName, String userPwd) {
+
         log.debug("loginName={}", loginName);
 
-        if (Check.isOneNull(loginName, userPwd)) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "loginName or usrPwd or code is null");
-        }
+        Check.notEmpty(loginName, "loginName");
+        Check.notEmpty(loginName, "userPwd");
 
         Subject subject = SecurityUtils.getSubject();
         UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
@@ -151,12 +151,12 @@ public class LoginService {
         User dbUsr = loginName.contains("@") ? userService.getByEmail(loginName) : userService.getByUserName(loginName);
 
         if (Check.isNull(dbUsr)) {
-            throw new XhWebException(CodeEnum.USR_NOT_EXIST, "user not exist:loginName=" + loginName);
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "用户不存在 : " + loginName);
         }
 
         //验证密码
         if (!PwdUtils.passwordsMatch(userPwd, dbUsr.getUsrPwd())) {
-            throw new XhWebException(CodeEnum.PASSWORD_ERROR, "password is wrong");
+            throw new XhWebException(CodeEnum.B2_TOKEN_ERROR, "password is wrong");
         }
         return this.loginToShiro(dbUsr);
     }

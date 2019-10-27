@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.helper.UserHelper;
@@ -80,7 +81,7 @@ public class UserFilePageController {
     }
 
     @Page("/download/{id}")
-    public void download(HttpServletResponse response,@PathVariable("id")Integer id){
+    public void download(HttpServletResponse response,@PathVariable("id")Integer id) throws XhIoException {
         usrFileService.downloadFile(response,id);
     }
 

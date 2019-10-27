@@ -1,6 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.IllegalParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,7 +112,7 @@ public class StrUtils {
         try {
             return Integer.parseInt(val);
         }catch (NumberFormatException e){
-            throw new XhWebException(CodeEnum.NUMBER_FORMAT_EXCEPTION,"cast failing,val="+val);
+            throw new IllegalParamException(e);
         }
     }
 
@@ -144,7 +145,7 @@ public class StrUtils {
         try {
             return Long.parseLong(val);
         }catch (NumberFormatException e){
-            throw new XhWebException(CodeEnum.NUMBER_FORMAT_EXCEPTION,"cast failing,val="+val);
+            throw new IllegalParamException(e);
         }
     }
 

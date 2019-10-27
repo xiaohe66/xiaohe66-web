@@ -2,6 +2,8 @@ package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.common.ex.XhException;
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.IllegalParamException;
+import com.xiaohe66.web.base.exception.MissingParamMsgException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.exception.param.EmptyException;
 
@@ -67,7 +69,7 @@ public class Check {
      */
     public static void notEmptyCheck(Object... objects){
         if(objects == null){
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION);
+            throw new IllegalParamException();
         }
         for (Object object : objects) {
             //当对象类型是string时，长度为0时，也表示该对象为空
@@ -76,6 +78,12 @@ public class Check {
             if (isEmpty){
                 throw new EmptyException();
             }
+        }
+    }
+
+    public static void notEmpty(Object obj, String paramName){
+        if(obj == null){
+            throw new MissingParamMsgException(paramName);
         }
     }
 

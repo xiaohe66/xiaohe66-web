@@ -19,7 +19,7 @@ public class UserHelper {
     public static UserDto getCurrentUsr() {
         UserDto usrDto = getCurrentUsrNotEx();
         if (usrDto == null) {
-            throw new XhWebException(CodeEnum.NOT_LOGGED_IN);
+            throw new XhWebException(CodeEnum.B2_NOT_LOGGED_IN);
         }
         return usrDto;
     }

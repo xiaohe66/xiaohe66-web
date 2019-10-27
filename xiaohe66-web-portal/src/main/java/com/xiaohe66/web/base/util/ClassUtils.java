@@ -5,6 +5,7 @@ import com.xiaohe66.web.base.base.BaseDto;
 import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.base.XhPageDto;
 import com.xiaohe66.web.base.data.CodeEnum;
+import com.xiaohe66.web.base.exception.MissingParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class ClassUtils {
          * 判断参数是否为null
          * */
         if (targetCls == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "targetCls is null");
+            throw new MissingParamException("targetCls");
         }
 
         /*
@@ -78,7 +79,7 @@ public class ClassUtils {
          * 判断参数是否为null
          * */
         if (targetObj == null || sourceObj == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "targetObj or sourceObj is null");
+            throw new MissingParamException("targetObj or sourceObj");
         }
 
         /*
@@ -212,7 +213,7 @@ public class ClassUtils {
      */
     public static <T extends BaseDto, E extends BasePo> List<T> convert(Class<T> targetCls, List<E> sourceObjList, BiConsumer<T, E> task) {
         if (sourceObjList == null) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "list is null");
+            throw new MissingParamException("list");
         }
         List<T> targetObjList;
 

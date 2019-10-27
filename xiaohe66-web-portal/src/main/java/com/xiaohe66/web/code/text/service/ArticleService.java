@@ -68,7 +68,6 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
 
     /**
      * 首页显示数据
-     *
      */
     public List<ArticleDto> indexArticle() {
         Article article = new Article();
@@ -84,11 +83,12 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
      * 禁用该方法，调用该方法会抛出异常，请调用add(p1,p2,p3)
      *
      * @param article 禁用
+     * @deprecated {@link this#updateById(Article, Integer[])}
      */
     @Deprecated
     @Override
     public boolean updateById(Article article) {
-        throw new XhWebException(CodeEnum.DISABLE_FUNCTION, "pls invoke updateById(p1,p2,p3)");
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -99,18 +99,20 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void updateById(Article article, Integer[] perCategoryIds) {
-        if (Check.isNull(article) || Check.isNull(article.getId())) {
-            throw new XhWebException(CodeEnum.NULL_EXCEPTION, "article or id is null");
-        }
+
+        Check.notEmpty(article, "article");
+        Check.notEmpty(article.getId(), "articleId");
+
         Article dbArticle = getById(article.getId());
         if (Check.isNull(dbArticle)) {
-            throw new XhWebException(CodeEnum.RESOURCE_NOT_FOUND, "object not found");
+            throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "文章不存在, id : " + article.getId());
         }
-        Integer currentUsrId = UserHelper.getCurrentUsrId();
-        if (!currentUsrId.equals(dbArticle.getCreateId())) {
-            throw new XhWebException(CodeEnum.NOT_PERMISSION, "this article not is current user article");
+        Integer currentUserId = UserHelper.getCurrentUsrId();
+        if (!currentUserId.equals(dbArticle.getCreateId())) {
+            throw new XhWebException(CodeEnum.B2_ILLEGAL_OPERATE,
+                    "this article not is current user article, articleId : " + article.getId() + ",currentUserId : " + currentUserId);
         }
-        article.setUpdateId(currentUsrId);
+        article.setUpdateId(currentUserId);
         super.updateById(article);
 
         //删除个人分类关联
@@ -165,7 +167,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     @Deprecated
     @Override
     public boolean save(Article article) {
-        throw new XhWebException(CodeEnum.DISABLE_FUNCTION, "pls invoke add(p1,p2,p3)");
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -202,7 +204,8 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             if (Final.Article.SECRET_LEVEL_PUBLIC != article.getSecretLevel()) {
                 Integer currentUsrId = UserHelper.getCurrentUsrId();
                 if (!currentUsrId.equals(article.getCreateId())) {
-                    throw new XhWebException(CodeEnum.NOT_PERMISSION);
+                    throw new XhWebException(CodeEnum.B2_ILLEGAL_OPERATE,
+                            "文章创建者不是当前用户, articleId : " + article.getId() + "currentUserId : " + currentUsrId);
                 }
             }
         }
