@@ -1,5 +1,6 @@
 package com.xiaohe66.web.test.base;
 
+import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.util.IoUtils;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class IoUtilsTest {
 
     private static final String PATH = "D:\\IoUtilsTest";
 
-    public void testReadWithClassPath(){
+    public void testReadWithClassPath() throws XhIoException {
         String filePath = "com/xiaohe66/web/base/util/IoUtils.class";
         String content = IoUtils.readStringInClassPath(filePath);
         System.out.println(content);
@@ -25,11 +26,11 @@ public class IoUtilsTest {
 
     @Test
     public void test1() throws IOException {
-        File file = new File(PATH+"\\tmp\\test1");
+        File file = new File(PATH + "\\tmp\\test1");
         file.mkdirs();
         file = new File(PATH);
         IoUtils.delete(file);
-        assertEquals(false,file.exists());
+        assertEquals(false, file.exists());
     }
 
 
@@ -37,13 +38,13 @@ public class IoUtilsTest {
     public void test2() throws IOException {
         File file = new File(PATH);
         file.createNewFile();
-        assertEquals(true,file.exists());
+        assertEquals(true, file.exists());
         IoUtils.delete(file);
-        assertEquals(false,file.exists());
+        assertEquals(false, file.exists());
     }
 
     @Test(expected = NullPointerException.class)
-    public void test3(){
+    public void test3() throws IOException {
         File file = null;
         IoUtils.delete(file);
     }

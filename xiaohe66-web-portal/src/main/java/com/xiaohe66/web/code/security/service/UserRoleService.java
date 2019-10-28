@@ -2,7 +2,8 @@ package com.xiaohe66.web.code.security.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.IllegalParamException;
+import com.xiaohe66.web.base.exception.param.IllegalParamException;
+import com.xiaohe66.web.base.exception.param.MissingParamException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.StrUtils;
 import com.xiaohe66.web.code.security.mapper.UserRoleMapper;
@@ -21,8 +22,8 @@ import org.springframework.stereotype.Service;
 public class UserRoleService extends AbstractService<UserRoleMapper, UserRole> {
 
     public void addDefaultUsrRole(Integer userId) {
-        if (Check.isNull(userId)) {
-            throw new IllegalParamException("userId is null");
+        if (userId == null) {
+            throw new MissingParamException("userId");
         }
         // todo:需要优化掉string转Integer代码
         String cfgKeysStr = SysCfgHelper.getString(Final.Str.DEFAULT_ROLE_IDS_KEY);
@@ -35,10 +36,10 @@ public class UserRoleService extends AbstractService<UserRoleMapper, UserRole> {
     }
 
     public void addUsrRoles(Integer usrId, Integer[] roleIds) {
-        if (Check.isNull(usrId)) {
+        if (usrId == null) {
             throw new IllegalParamException("userId is null");
         }
-        if (Check.isNull(roleIds) || roleIds.length == 0) {
+        if (!Check.isNotEmpty(roleIds)) {
             throw new IllegalParamException("roleIds is null or size is 0");
         }
         baseMapper.addUsrRoles(usrId, roleIds);

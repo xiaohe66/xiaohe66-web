@@ -3,8 +3,7 @@ package com.xiaohe66.web.aop;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
-import com.xiaohe66.web.base.exception.IllegalParamException;
-import com.xiaohe66.web.base.exception.MissingParamException;
+import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.JsonUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
@@ -35,30 +34,27 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
         Integer currentUserId = UserHelper.getCurrentUsrIdNotEx();
 
-        // 消息类
+        // 我的异常
         if (exception instanceof XhWebException) {
+
             XhWebException e = ((XhWebException) exception);
             CodeEnum code = e.getCode();
-            if (e.getCause() == null) {
-                log.info("正常消息, 当前用户 : {}, message : {}, code : {}", currentUserId, e.getMessage(), code);
+
+            // 消息类
+            if (e instanceof MsgException) {
+                log.info("错误消息, 当前用户 : {}, code : {}, message : {}", currentUserId, code, e.getMessage());
                 log.debug(code.toString(), e);
-            } else {
-                log.error("错误消息, 当前用户 : {}, code : {}", currentUserId, code, e);
+            }
+            // 其它
+            else {
+                log.error("系统发生错误, 当前用户 : {}, code : {}", currentUserId, e);
             }
             result = Result.err(code);
         }
 
-        // 系统级别异常
-        else if (exception instanceof IllegalParamException ||
-                exception instanceof MissingParamException) {
-            log.error("系统运行发生错误", exception);
-            result = Result.err(CodeEnum.EXCEPTION);
-        }
-
         // shrio
         else if (exception instanceof ShiroException) {
-            log.info("没有操作权限, 当前用户 : {}", currentUserId, exception);
-            log.debug("没有操作权限", exception);
+            log.error("没有操作权限, 当前用户 : {}", currentUserId, exception);
             result = Result.err(CodeEnum.B2_ILLEGAL_OPERATE);
         }
 
@@ -72,7 +68,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
             response.setContentType(Final.Str.HEADER_JSON_UTF_8);
             response.getWriter().print(JsonUtils.toString(result));
         } catch (IOException e1) {
-            log.error("getWriter() exception");
+            log.error("getWriter() exception", e1);
         }
         return new ModelAndView();
     }

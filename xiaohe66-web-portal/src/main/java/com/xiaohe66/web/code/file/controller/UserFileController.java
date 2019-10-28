@@ -6,6 +6,7 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.base.BaseController;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
+import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.po.UserFile;
 import com.xiaohe66.web.code.file.service.UserFileService;
@@ -28,7 +29,7 @@ public class UserFileController extends BaseController<UserFileService, UserFile
     }
 
     @Page("/down/{id}")
-    public void download(HttpServletResponse response, @PathVariable Integer id) throws IOException {
+    public void download(HttpServletResponse response, @PathVariable Integer id) throws XhIoException {
         baseService.downloadFile(response, id);
     }
 

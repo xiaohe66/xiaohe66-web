@@ -67,7 +67,8 @@ public class AuthCodeHelper {
     }
 
     private static boolean verifyNotClearSession(String code, AuthCode authCodeObj) {
-        Check.notEmptyCheck(code, authCodeObj);
+        Check.notEmpty(code);
+        Check.notEmpty(authCodeObj);
 
         //超时时间
         long currentTimeMillis = System.currentTimeMillis();

@@ -27,7 +27,7 @@ public class ResumeJobService extends AbstractService<ResumeJobMapper,ResumeJob>
     private UserFileService usrFileService;
 
     public List<ResumeJobDto> findDtoByResumeId(Integer resumeId){
-        Check.notNullCheck(resumeId);
+        Check.notEmpty(resumeId);
         List<ResumeJob> resumeJobList = baseMapper.findByResumeId(resumeId);
 
         return ClassUtils.convert(ResumeJobDto.class,resumeJobList,(dto, po)->{

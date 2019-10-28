@@ -16,6 +16,7 @@ import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.UserFile;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +75,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
     }
 
     public Integer findCommonFileId(Integer usrFileId) {
-        Check.notNullCheck(usrFileId);
+        Check.notEmpty(usrFileId,"usrFileId");
         return baseMapper.findCommonFileId(usrFileId);
     }
 
@@ -182,11 +183,13 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         usrFileLogService.save(new UsrFileLog(userFileId));
     }
 
-    public void updateNameById(Integer fileId, String fileName, Integer currentUsrId) {
+    public void updateNameById(Integer fileId, String fileName) {
         fileName = fileNameFormat(fileName);
-        Check.notEmptyCheck(fileId, fileName, currentUsrId);
+        Check.notEmpty(fileId,"fileId");
+        Check.notEmpty(fileName,"fileName");
+
         UserFile usrFile = new UserFile(fileId, fileName);
-        usrFile.setUpdateId(currentUsrId);
+        usrFile.setUpdateId(UserHelper.getCurrentUsrId());
         updateById(usrFile);
     }
 
@@ -200,7 +203,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
      */
     protected String fileNameFormat(String fileName) {
         fileName = StrUtils.trim(fileName);
-        Check.notEmptyCheck(fileName);
+        Check.notEmpty(fileName,"fileName");
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (fileName.contains(String.valueOf(fileIllegalChar))) {
                 throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
@@ -220,7 +223,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
      */
     protected String fileExtensionFormat(String extension) {
         extension = StrUtils.trim(extension);
-        Check.notNullCheck(extension);
+        Check.notEmpty(extension,"extension");
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (extension.contains(String.valueOf(fileIllegalChar))) {
                 throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);

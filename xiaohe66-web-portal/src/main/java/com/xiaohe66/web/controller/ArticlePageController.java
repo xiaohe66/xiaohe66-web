@@ -6,7 +6,6 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.MissingParamMsgException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.common.dto.CategoryDto;

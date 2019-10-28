@@ -104,7 +104,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
         Check.notEmpty(article.getId(), "articleId");
 
         Article dbArticle = getById(article.getId());
-        if (Check.isNull(dbArticle)) {
+        if (dbArticle == null) {
             throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "文章不存在, id : " + article.getId());
         }
         Integer currentUserId = UserHelper.getCurrentUsrId();
@@ -136,7 +136,8 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     @Transactional(rollbackFor = Exception.class)
     public void add(Article article, Integer[] perCategoryIds) {
 
-        Check.notEmptyCheck(article.getText(), article.getSysCategoryId());
+        Check.notEmpty(article.getText());
+        Check.notEmpty(article.getSysCategoryId());
 
         Integer currentUsrId = UserHelper.getCurrentUsrId();
 
@@ -173,17 +174,17 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     /**
      * 查询一个用户的文章
      *
-     * @param usrId 待查询的用户id，传入null时默认为站长的id
+     * @param userId 待查询的用户id，传入null时默认为站长的id
      * @return 对应用户的文章列表
      */
-    public List<Article> findByUsrId(Integer usrId, Integer secretLevel) {
-        if (Check.isOneNull(usrId)) {
+    public List<Article> findByUsrId(Integer userId, Integer secretLevel) {
+        if (userId == null) {
             //默认显示站长的列表
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-            usrId = StrUtils.toInt(usrIdStr);
+            userId = StrUtils.toInt(usrIdStr);
         }
         ArticleParam param = new ArticleParam();
-        param.setCreateId(usrId);
+        param.setCreateId(userId);
         param.setSecretLevel(secretLevel);
 
         return baseMapper.selectByParam(param);
@@ -194,7 +195,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     }
 
     public ArticleDto findDtoById(Integer id) {
-        Check.notEmptyCheck(id);
+        Check.notEmpty(id);
         Article article = this.getById(id);
 
         //如果该文章是简历文章，则任何人都可以查看

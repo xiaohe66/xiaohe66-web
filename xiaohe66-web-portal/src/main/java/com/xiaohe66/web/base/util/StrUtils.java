@@ -1,7 +1,6 @@
 package com.xiaohe66.web.base.util;
 
-import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.IllegalParamException;
+import com.xiaohe66.web.base.exception.param.IllegalParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

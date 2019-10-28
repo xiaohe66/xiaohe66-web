@@ -16,44 +16,47 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class WebUtils {
 
+    private WebUtils() {
+    }
+
     /**
      * 获取当前用户的session
      *
-     * @return
-     *      当前用户的session
+     * @return 当前用户的session
      */
-    public static Session getSession(){
+    public static Session getSession() {
         return SecurityUtils.getSubject().getSession();
     }
 
     /**
      * 给当前session添加参数
-     * @param key       key，不能为空
-     * @param value     值
+     *
+     * @param key   key，不能为空
+     * @param value 值
      */
-    public static void setSessionAttr(Object key,Object value){
-        Check.notEmptyCheck(key);
-        getSession().setAttribute(key,value);
+    public static void setSessionAttr(Object key, Object value) {
+        Check.notEmpty(key);
+        getSession().setAttribute(key, value);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getSessionAttr(Object key){
-        Check.notEmptyCheck(key);
+    public static <T> T getSessionAttr(Object key) {
+        Check.notEmpty(key);
         return (T) getSession().getAttribute(key);
     }
 
-    public static void removeSessionAttr(Object key){
-        Check.notEmptyCheck(key);
+    public static void removeSessionAttr(Object key) {
+        Check.notEmpty(key);
         getSession().removeAttribute(key);
     }
 
 
-    public static HttpServletRequest getRequest(){
+    public static HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
 
-    public static HttpServletResponse getResponse(){
-        return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getResponse();
+    public static HttpServletResponse getResponse() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     }
 
     public static String getRequestIP() {

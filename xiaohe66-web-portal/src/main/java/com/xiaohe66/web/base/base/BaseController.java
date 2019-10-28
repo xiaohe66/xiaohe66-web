@@ -9,7 +9,8 @@ import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
-import com.xiaohe66.web.base.exception.NotPermittedException;
+import com.xiaohe66.web.base.exception.sec.MissingFunctionException;
+import com.xiaohe66.web.base.exception.sec.MissingRoleException;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -141,14 +142,13 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     protected final void checkPermitted(String permittedName) {
         if (!SecurityUtils.getSubject().isPermittedAll(permittedName)) {
-            throw new NotPermittedException(permittedName);
+            throw new MissingFunctionException(permittedName);
         }
     }
 
     protected final void checkRole(String roleName) {
         if (!SecurityUtils.getSubject().hasRole(roleName)) {
-            // todo : 异常合理化
-            throw new NotPermittedException(roleName);
+            throw new MissingRoleException(roleName);
         }
     }
 }

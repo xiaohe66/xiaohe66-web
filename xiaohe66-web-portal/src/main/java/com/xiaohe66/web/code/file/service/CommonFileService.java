@@ -183,7 +183,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件md5和准备接口不一致");
         }
 
-        Check.notEmptyCheck(chunk);
+        Check.notEmpty(chunk);
         int currentMaxChunk = WebUtils.getSessionAttr(CURRENT_FILE_MAX_CHUNK_SESSION_KEY);
         if (chunk < 1 || chunk > currentMaxChunk) {
             throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件的区块不在区间内, 区块 : " + chunk);
@@ -275,19 +275,19 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
     }
 
     public CommonFile getByMd5(String md5) {
-        Check.notEmptyCheck(md5);
+        Check.notEmpty(md5);
         CommonFile commonFile = new CommonFile(md5);
         return getOne(new QueryWrapper<>(commonFile));
     }
 
     public void outputFile(OutputStream outputStream, Integer id) {
-        Check.notEmptyCheck(id);
+        Check.notEmpty(id);
         CommonFile commonFile = getById(id);
         outputFile(outputStream, commonFile);
     }
 
     public void outputFile(OutputStream outputStream, String md5) {
-        Check.notEmptyCheck(md5);
+        Check.notEmpty(md5);
         CommonFile commonFile = getByMd5(md5);
         outputFile(outputStream, commonFile);
     }

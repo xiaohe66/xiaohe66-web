@@ -3,7 +3,7 @@ package com.xiaohe66.web.code.security.service;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.exception.param.EmptyException;
+import com.xiaohe66.web.base.exception.param.MissingParamException;
 import com.xiaohe66.web.code.security.mapper.PermissionMapper;
 import com.xiaohe66.web.code.security.po.Permission;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,7 +30,7 @@ public class PermissionService extends AbstractService<PermissionMapper, Permiss
 
     public Set<String> listPermissionInRoleId(List<Integer> roleIdList) {
         if (CollectionUtils.isEmpty(roleIdList)) {
-            throw new EmptyException();
+            throw new MissingParamException("roleIdList");
         }
 
         Set<String> permissionSet = cache.getIfPresent(roleIdList);

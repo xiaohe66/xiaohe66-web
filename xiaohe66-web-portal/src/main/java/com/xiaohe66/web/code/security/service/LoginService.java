@@ -54,7 +54,8 @@ public class LoginService {
 
         String userName = user.getUsrName();
         String email = user.getEmail();
-        Check.notEmptyCheck(userName, email);
+        Check.notEmpty(userName);
+        Check.notEmpty(email);
 
         if (!RegexUtils.testUsrName(userName) || !RegexUtils.testEmail(email)) {
             throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
@@ -100,7 +101,8 @@ public class LoginService {
     }
 
     public void updatePwdPrepare(String email, String code) {
-        Check.notEmptyCheck(email, code);
+        Check.notEmpty(email);
+        Check.notEmpty(code);
         if (!AuthCodeHelper.verifyImgCode(code)) {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
@@ -119,7 +121,8 @@ public class LoginService {
     }
 
     public void updatePwd(String password, String code) {
-        Check.notEmptyCheck(password, code);
+        Check.notEmpty(password);
+        Check.notEmpty(code);
         if (!AuthCodeHelper.verifyEmailCode(code)) {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
@@ -141,7 +144,7 @@ public class LoginService {
         Subject subject = SecurityUtils.getSubject();
         UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
 
-        if (Check.isAllNotNull(currentUsr) && loginName.equals(currentUsr.getUsrName())) {
+        if (currentUsr != null && loginName.equals(currentUsr.getUsrName())) {
             //该用户已经登录
             log.debug("This user({}) is logged in", loginName);
             return currentUsr;
@@ -150,7 +153,7 @@ public class LoginService {
         //登录名中存在@，则为邮箱账号
         User dbUsr = loginName.contains("@") ? userService.getByEmail(loginName) : userService.getByUserName(loginName);
 
-        if (Check.isNull(dbUsr)) {
+        if (dbUsr == null) {
             throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST, "用户不存在 : " + loginName);
         }
 

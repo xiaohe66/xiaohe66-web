@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ArticleCategoryLinkService extends AbstractService<ArticleCategoryLinkMapper,ArticleCategoryLink>{
 
     public void delByArticleId(Integer articleId){
-        Check.notEmptyCheck(articleId);
+        Check.notEmpty(articleId);
         removeByParamPhysics(new ArticleCategoryLink(articleId));
     }
 }

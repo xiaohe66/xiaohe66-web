@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.base.BaseDto;
 import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.base.XhPageDto;
-import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.MissingParamException;
-import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.exception.param.MissingParamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

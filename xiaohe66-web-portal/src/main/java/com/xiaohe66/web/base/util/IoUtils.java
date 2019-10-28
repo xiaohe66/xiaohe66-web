@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Objects;
 
 /**
  * @author xiaohe
@@ -75,15 +76,14 @@ public class IoUtils {
         return readStringWithInput(IoUtils.class.getClassLoader().getResourceAsStream(filePath));
     }
 
-    public static void createFile(File file) throws XhIoException {
+    public static void createFileIfNotExsit(File file) throws XhIoException {
         if (!file.exists()) {
             log.debug("文件不存在，创建文件:" + file.getPath());
-            createDirectory(file.getParentFile());
+            createDirectoryIfNotExist(file.getParentFile());
             try {
                 boolean isSuccess = file.createNewFile();
                 if (!isSuccess) {
-                    // todo : do sth.
-                    log.debug("创建文件不成功");
+                    throw new XhIoException("文件已存在, 文件名 : " + file.getName());
                 }
             } catch (IOException e) {
                 throw new XhIoException(e);
@@ -91,12 +91,11 @@ public class IoUtils {
         }
     }
 
-    public static void createDirectory(File directory) {
+    public static void createDirectoryIfNotExist(File directory) throws XhIoException {
         if (!directory.exists()) {
             boolean isSuccess = directory.mkdirs();
             if (!isSuccess) {
-                // todo : do sth.
-                log.debug("创建文件夹不成功");
+                throw new XhIoException("创建文件夹失败, 路径 : " + directory.getPath());
             }
         }
     }
@@ -109,10 +108,11 @@ public class IoUtils {
      * @param append      是否在文件末尾定稿，传入true时，在文件的末尾写入。传入false时会覆盖旧文件。
      */
     public static void writeToFile(InputStream inputStream, File file, boolean append) throws XhIoException {
-        Check.notEmptyCheck(inputStream, file);
+        Objects.requireNonNull(inputStream);
+        Objects.requireNonNull(file);
 
         log.debug("向路径<{}>写入数据", file.getPath());
-        createFile(file);
+        createFileIfNotExsit(file);
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(file, append);
              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);) {
@@ -126,16 +126,17 @@ public class IoUtils {
         }
     }
 
-    public static void writeToFile(File file1, File file2, boolean append) throws XhIoException {
-        try (FileInputStream fileInputStream = new FileInputStream(file1)) {
-            writeToFile(fileInputStream, file2, append);
+    public static void writeToFile(File readFile, File writeFile, boolean append) throws XhIoException {
+        try (FileInputStream fileInputStream = new FileInputStream(readFile)) {
+            writeToFile(fileInputStream, writeFile, append);
         } catch (IOException e) {
             throw new XhIoException(e);
         }
     }
 
     public static void writeToOutput(File file, OutputStream outputStream) throws XhIoException {
-        Check.notEmptyCheck(file, outputStream);
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(outputStream);
 
         try (FileInputStream fileInputStream = new FileInputStream(file);
              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);) {
@@ -181,7 +182,7 @@ public class IoUtils {
             }
         }
         boolean isSuccess = Files.deleteIfExists(file.toPath());
-        if(!isSuccess){
+        if (!isSuccess) {
             // todo : to sth.
             log.debug("删除失败");
         }

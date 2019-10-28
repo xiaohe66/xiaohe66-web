@@ -1,6 +1,8 @@
 package com.xiaohe66.web.code.file.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.exception.XhIoException;
+import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.code.file.mapper.CommonFileTmpMapper;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
@@ -39,10 +42,19 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
      */
     @Transactional(rollbackFor = Exception.class)
     public void uploadTmpFile(InputStream inputStream, Integer fileByte, String md5, Integer chunk) {
-        Check.notEmptyCheck(inputStream, fileByte, md5, chunk);
+        Check.notEmpty(inputStream);
+        Check.notEmpty(fileByte);
+        Check.notEmpty(md5);
+        Check.notEmpty(chunk);
+
         if (!isExist(md5, chunk)) {
             String path = createLogicPath(md5) + chunk;
-            IoUtils.writeToFile(inputStream, new File(fileHomeUrl + path), false);
+            File writeFile = new File(fileHomeUrl + path);
+            try {
+                IoUtils.writeToFile(inputStream, writeFile, false);
+            } catch (XhIoException e) {
+                throw new IllegalOperationException("写文件时发生异常, path : " + writeFile.getPath(), e);
+            }
 
             CommonFileTmp commonFileTmp = new CommonFileTmp();
             commonFileTmp.setMd5(md5);
@@ -62,7 +74,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
      * @return 已上传完的区块Set集合
      */
     public Set<Integer> findFinishChunk(String md5) {
-        Check.notEmptyCheck(md5);
+        Check.notEmpty(md5);
         return baseMapper.findFinishChunk(md5);
     }
 
@@ -73,7 +85,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
      * @return {@link List<CommonFileTmp>},md5对应的所有临时文件实例
      */
     public List<CommonFileTmp> findFileTmp(String md5) {
-        Check.notEmptyCheck(md5);
+        Check.notEmpty(md5);
         return baseMapper.findFileTmp(md5);
     }
 
@@ -84,7 +96,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
      * @return md5值对应文件上传完成的数量
      */
     public int countFinish(String md5) {
-        Check.notEmptyCheck(md5);
+        Check.notEmpty(md5);
         return baseMapper.countFinish(md5);
     }
 
@@ -100,7 +112,12 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
         for (CommonFileTmp commonFileTmp : commonFileTmpList) {
             //整合临时文件到主文件
             fileTmp = new File(commonFileTmp.getFileUrl());
-            IoUtils.writeToFile(fileTmp, fileFull, true);
+            try {
+                IoUtils.writeToFile(fileTmp, fileFull, true);
+            } catch (XhIoException e) {
+                String msg = "合并文件发生异常, tmpFile : " + fileTmp.getPath() + ", fullFile : " + fileFull.getPath();
+                throw new IllegalOperationException(msg, e);
+            }
         }
     }
 
@@ -116,7 +133,12 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
         commonFileTmp.setMd5(md5);
         removeByParamPhysics(commonFileTmp);
 
-        IoUtils.delete(fileHomeUrl + createLogicPath(md5));
+        String path = fileHomeUrl + createLogicPath(md5);
+        try {
+            IoUtils.delete(path);
+        } catch (IOException e) {
+            throw new IllegalOperationException("删除文件时发生异常, path : " + path, e);
+        }
     }
 
     /**
@@ -127,7 +149,7 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
      * @return 该md5对应的区块上传完时返回true，反之返回false
      */
     public boolean isExist(String md5, int chunk) {
-        Check.notEmptyCheck(md5, chunk);
+        Check.notEmpty(md5);
         return baseMapper.isExist(md5, chunk);
     }
 

@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.MissingParamException;
+import com.xiaohe66.web.base.exception.param.MissingParamException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import org.apache.shiro.codec.Base64;
 

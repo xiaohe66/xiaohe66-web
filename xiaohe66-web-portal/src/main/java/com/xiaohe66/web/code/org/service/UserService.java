@@ -54,12 +54,12 @@ public class UserService extends AbstractService<UserMapper, User> {
     }
 
     public User getByUserName(String usrName) {
-        Check.notEmptyCheck(usrName);
+        Check.notEmpty(usrName);
         return baseMapper.getByUserName(usrName);
     }
 
     public User getByEmail(String email) {
-        Check.notEmptyCheck(email);
+        Check.notEmpty(email);
         return baseMapper.getByEmail(email);
     }
 

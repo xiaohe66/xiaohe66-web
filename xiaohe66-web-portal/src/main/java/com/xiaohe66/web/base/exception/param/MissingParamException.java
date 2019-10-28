@@ -1,6 +1,6 @@
-package com.xiaohe66.web.base.exception;
+package com.xiaohe66.web.base.exception.param;
 
-import com.xiaohe66.common.ex.XhRuntimeException;
+import com.xiaohe66.web.base.data.CodeEnum;
 
 /**
  * 缺少参数异常
@@ -10,12 +10,13 @@ import com.xiaohe66.common.ex.XhRuntimeException;
  * @author xiaohe
  * @time 2019.10.27 19:51
  */
-public class MissingParamException extends XhRuntimeException {
+public class MissingParamException extends IllegalParamException {
 
     public MissingParamException() {
+        super(CodeEnum.B1_MISSING_PARAM, "缺少参数");
     }
 
     public MissingParamException(String paramName) {
-        super("缺少参数：" + paramName);
+        super(CodeEnum.B1_MISSING_PARAM, "缺少参数 : " + paramName);
     }
 }

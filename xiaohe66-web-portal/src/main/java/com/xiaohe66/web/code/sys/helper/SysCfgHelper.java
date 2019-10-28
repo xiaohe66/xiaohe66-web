@@ -27,7 +27,7 @@ public class SysCfgHelper {
     private static Map<String, Object> cfgMap;
 
     public static void refresh(List<SysCfg> cfgList) {
-        Check.notEmptyCheck(cfgList);
+        Check.notEmpty(cfgList);
         HashMap<String, Object> map = new HashMap<>();
         for (SysCfg sysCfg : cfgList) {
             map.put(sysCfg.getCfgKey(), sysCfg.getCfgVal());
@@ -36,7 +36,7 @@ public class SysCfgHelper {
     }
 
     public static Object getObj(String key) {
-        Check.notEmptyCheck(key);
+        Check.notEmpty(key);
         return cfgMap.get(key);
     }
 

@@ -1,9 +1,7 @@
 package com.xiaohe66.web.code.text.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -41,7 +40,7 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
     }
 
     public void addPrepare(Integer articleId) {
-        Check.notEmptyCheck(articleId);
+        Check.notEmpty(articleId, "articleId");
         WebUtils.setSessionAttr(Final.Str.ARTICLE_LOG_ADD_PREPARE, articleId);
     }
 
@@ -55,7 +54,7 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
         Integer currentUsrId = UserHelper.getCurrentUsrIdNotEx();
 
         //查看自己的文章不加查看量
-        if (Check.eq(articleId, currentUsrId)) {
+        if (Objects.equals(articleId, currentUsrId)) {
             LOG.debug("look oneself article");
             return;
         }
@@ -94,7 +93,8 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
     }
 
     public Integer countByArticleId(Integer articleId) {
-        Check.notEmptyCheck(articleId);
+        Check.notEmpty(articleId, "articleId");
+
         return baseMapper.countByArticleId(articleId);
     }
 }

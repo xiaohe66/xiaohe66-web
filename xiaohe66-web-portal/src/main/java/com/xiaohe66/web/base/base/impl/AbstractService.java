@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author xiaohe
@@ -28,11 +29,11 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
 
     @Override
     public boolean save(T po) {
-        Check.notNullCheck(po);
+        Objects.requireNonNull(po);
         if (po instanceof BasePoDetailed) {
             BasePoDetailed poDetailed = ((BasePoDetailed) po);
             Integer createId = poDetailed.getCreateId();
-            Check.notNullCheck(createId);
+            Objects.requireNonNull(createId);
             poDetailed.setUpdateId(createId);
         }
         return super.save(po);
@@ -51,7 +52,7 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
      * @return Integer 删除的数量
      */
     protected Integer removeByParamPhysics(BaseParam param) {
-        Check.notNullCheck(param);
+        Objects.requireNonNull(param);
         return baseMapper.deleteByParamPhysics(param);
     }
 
@@ -63,7 +64,7 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
      */
 //    @Override
     protected Integer removeByParam(BaseParam param, Integer currentUsrId) {
-        Check.notNullCheck(param);
+        Objects.requireNonNull(param);
         // todo : updateId没有写入
         return baseMapper.deleteByParam(param, currentUsrId, new Date());
     }
@@ -75,10 +76,11 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
      * @param param 传入mybatis的参数
      */
     protected void updateByParam(T po, BaseParam param) {
-        Check.notNullCheck(po, param);
+        Objects.requireNonNull(po);
+        Objects.requireNonNull(param);
         if (po instanceof BasePoDetailed) {
             BasePoDetailed poDetailed = (BasePoDetailed) po;
-            Check.notNullCheck(poDetailed.getUpdateId());
+            Objects.requireNonNull(poDetailed.getUpdateId());
         }
         baseMapper.updateByParam(po, param);
     }
@@ -106,7 +108,7 @@ public abstract class AbstractService<M extends IBaseMapper<T>, T extends BasePo
      * @param param 传入mybatis的参数
      */
     protected List<T> listByParam(BaseParam param) {
-        Check.notNullCheck(param);
+        Objects.requireNonNull(param);
         return baseMapper.selectByParam(param);
     }
 
