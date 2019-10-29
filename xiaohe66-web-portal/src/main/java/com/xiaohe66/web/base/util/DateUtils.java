@@ -1,57 +1,63 @@
 package com.xiaohe66.web.base.util;
 
-import com.xiaohe66.web.base.exception.param.MissingParamException;
+import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
  * 日期相关工具类
+ * <p>正常是带格式的，日期用 “-”分开，日间用“：”分开
+ * <p>所有格式后面带个2的，这些是不带格式的
+ * <p>
+ * todo : rename to XhDateFormatUtils
  *
- * 日期格式化SimpleDateFormat类有线程安全问题，需要同步
- *
- * @author xh
- * @date 18-03-19 019
+ * @author xiaohe
+ * @time 2019-10-29 18:37
  */
 public class DateUtils {
 
-    public static synchronized String currentDateTime(){
-        return getDateTimeFormat().format(new Date());
+    private DateUtils() {
     }
 
-    public static synchronized String currentDate(){
-        return getDateFormat().format(new Date());
+    public static final DateFormat yyyyMMddHHmmss;
+    public static final DateFormat yyyyMMddHHmmss2;
+    public static final DateFormat yyyyMMdd;
+    public static final DateFormat yyyyMMdd2;
+    public static final DateFormat yyyyMM;
+    public static final DateFormat yyyyMM2;
+    public static final DateFormat MMdd;
+    public static final DateFormat MMdd2;
+    public static final DateFormat HHmmss;
+    public static final DateFormat HHmmss2;
+
+    static {
+        yyyyMMddHHmmss = new DateFormat(FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss"));
+        yyyyMMddHHmmss2 = new DateFormat(FastDateFormat.getInstance("yyyyMMddHHmmss"));
+        yyyyMMdd = new DateFormat(FastDateFormat.getInstance("yyyy-MM-dd"));
+        yyyyMMdd2 = new DateFormat(FastDateFormat.getInstance("yyyyMMdd"));
+        yyyyMM = new DateFormat(FastDateFormat.getInstance("yyyy-MM"));
+        yyyyMM2 = new DateFormat(FastDateFormat.getInstance("yyyyMM"));
+        MMdd = new DateFormat(FastDateFormat.getInstance("MM-dd"));
+        MMdd2 = new DateFormat(FastDateFormat.getInstance("MMdd"));
+        HHmmss = new DateFormat(FastDateFormat.getInstance("HH:mm:ss"));
+        HHmmss2 = new DateFormat(FastDateFormat.getInstance("HHmmss"));
     }
 
-    public static synchronized String currentTime(){
-        return getTimeFormat().format(new Date());
-    }
+    public static class DateFormat {
 
-    public static String formatDateTime(Date date){
-        if(date == null){
-            throw new MissingParamException("date");
+        private final FastDateFormat fastDateFormat;
+
+        private DateFormat(FastDateFormat dateFormat) {
+            this.fastDateFormat = dateFormat;
         }
-        return getDateTimeFormat().format(date);
-    }
 
-    /***
-     *
-     * @param format    日期格式表达式
-     * @return  当前时间的对应表达式的字符串
-     */
-    public static String format(String format){
-        return new SimpleDateFormat(format).format(new Date());
-    }
+        public String format(Date date) {
+            return fastDateFormat.format(date);
+        }
 
-    private static SimpleDateFormat getDateTimeFormat(){
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    }
-
-    private static SimpleDateFormat getDateFormat(){
-        return new SimpleDateFormat("yyyy-MM-dd");
-    }
-
-    private static SimpleDateFormat getTimeFormat(){
-        return new SimpleDateFormat("HH:mm:ss");
+        public Date parse(String date) throws ParseException {
+            return fastDateFormat.parse(date);
+        }
     }
 }

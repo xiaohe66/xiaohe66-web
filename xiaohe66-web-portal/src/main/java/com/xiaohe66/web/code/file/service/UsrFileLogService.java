@@ -2,7 +2,6 @@ package com.xiaohe66.web.code.file.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.mapper.UsrFileLogMapper;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +37,7 @@ public class UsrFileLogService extends AbstractService<UsrFileLogMapper, UsrFile
 
         Set<Integer> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
 
-        if (CollectionUtils.isNull(usrFileIdSet)) {
+        if (usrFileIdSet == null) {
             usrFileIdSet = new HashSet<>();
             WebUtils.setSessionAttr(Final.Str.USR_FILE_LOG_CACHE, usrFileIdSet);
         }

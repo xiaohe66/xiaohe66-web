@@ -3,19 +3,15 @@ package com.xiaohe66.web.base.util;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.xiaohe66.common.ex.XhRuntimeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.gson.JsonParser;
 
 /**
  * 数据格式处理类
  *
  * @author xiaohe
- * @time 17-3-3 003.
+ * @time 2019-10-29 18:13
  */
 public class JsonUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
     private static final Gson gson = new Gson();
 
@@ -34,25 +30,21 @@ public class JsonUtils {
 
     /**
      * json字符串转json对象
-     * <p>
-     * todo:逻辑暂未实现
      *
      * @param jsonStr 标准json字符串
      * @return JSONObject
      */
     public static JsonObject toObject(String jsonStr) {
-        throw new XhRuntimeException("not implemented");
+        return JsonParser.parseString(jsonStr).getAsJsonObject();
     }
 
     /**
      * json字符串转json数组对象
-     * <p>
-     * todo:逻辑暂未实现
      *
      * @param jsonStr 标准json字符串
      * @return JSONArray
      */
     public static JsonArray toArray(String jsonStr) {
-        throw new XhRuntimeException("not implemented");
+        return JsonParser.parseString(jsonStr).getAsJsonArray();
     }
 }

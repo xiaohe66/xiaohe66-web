@@ -14,7 +14,7 @@ public class Result {
     private Result(int code, Object data, String msg) {
         this.code = code;
         this.data = data;
-        this.msg = StrUtils.nullToStr(msg);
+        this.msg = StrUtils.trim(msg);
     }
 
     public static Result ok() {

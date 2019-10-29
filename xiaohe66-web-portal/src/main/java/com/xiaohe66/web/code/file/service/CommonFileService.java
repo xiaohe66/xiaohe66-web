@@ -313,8 +313,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
      * @return 格式：2018-07/a/a5f3a36d02749cc5cf049fga80727f90
      */
     public String createLogicPath(String md5) {
-        // todo : 改用 FastDateFormat
-        return DateUtils.format("yyyy-MM") + File.separator + md5.substring(0, 1) + File.separator + md5;
+        return DateUtils.yyyyMM.format(new Date()) + File.separator + md5.substring(0, 1) + File.separator + md5;
     }
 
 }

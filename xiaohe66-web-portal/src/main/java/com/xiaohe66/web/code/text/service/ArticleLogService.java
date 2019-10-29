@@ -3,7 +3,6 @@ package com.xiaohe66.web.code.text.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.base.util.CollectionUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.text.dao.ArticleLogMapper;
@@ -60,7 +59,7 @@ public class ArticleLogService extends AbstractService<ArticleLogMapper, Article
         }
 
         Set<Integer> articleIdSet = WebUtils.getSessionAttr(Final.Str.ARTICLE_LOG_CACHE);
-        if (CollectionUtils.isNull(articleIdSet)) {
+        if (articleIdSet == null) {
             articleIdSet = new HashSet<>();
             WebUtils.setSessionAttr(Final.Str.ARTICLE_LOG_CACHE, articleIdSet);
         }

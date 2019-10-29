@@ -173,7 +173,7 @@ public class ClassUtils {
                         //设置该属性的值，包括私有属性
                         if (val != null) {
                             targetOperandField.setAccessible(true);
-                            targetOperandField.set(targetObj, DateUtils.formatDateTime((Date) val));
+                            targetOperandField.set(targetObj, DateUtils.yyyyMMddHHmmss.format((Date) val));
                         }
 
                     } catch (IllegalAccessException e) {

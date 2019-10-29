@@ -226,7 +226,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
             param.setCreateId(StrUtils.toInt(usrIdStr));
         }
-        if (StrUtils.isNotEmpty(search)) {
+        if (Check.isNotEmpty(search)) {
             param.setTitle("%" + search + "%");
         }
         param.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);

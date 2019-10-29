@@ -75,7 +75,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
     }
 
     public Integer findCommonFileId(Integer usrFileId) {
-        Check.notEmpty(usrFileId,"usrFileId");
+        Check.notEmpty(usrFileId, "usrFileId");
         return baseMapper.findCommonFileId(usrFileId);
     }
 
@@ -103,7 +103,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         if (onlyWebmaster) {
             param.setCreateId(Final.Sys.XIAO_HE_USR_ID);
         }
-        if (StrUtils.isNotEmpty(search)) {
+        if (Check.isNotEmpty(search)) {
             param.setFileName("%" + search + "%");
         }
 
@@ -139,7 +139,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
     }
 
     public void showImg(OutputStream outputStream, Integer userFileId) {
-        Check.notEmpty(userFileId,"userFileId");
+        Check.notEmpty(userFileId, "userFileId");
 
         UserFile userFile = getById(userFileId);
         if (userFile == null) {
@@ -185,8 +185,8 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
 
     public void updateNameById(Integer fileId, String fileName) {
         fileName = fileNameFormat(fileName);
-        Check.notEmpty(fileId,"fileId");
-        Check.notEmpty(fileName,"fileName");
+        Check.notEmpty(fileId, "fileId");
+        Check.notEmpty(fileName, "fileName");
 
         UserFile usrFile = new UserFile(fileId, fileName);
         usrFile.setUpdateId(UserHelper.getCurrentUsrId());
@@ -203,7 +203,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
      */
     protected String fileNameFormat(String fileName) {
         fileName = StrUtils.trim(fileName);
-        Check.notEmpty(fileName,"fileName");
+        Check.notEmpty(fileName, "fileName");
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (fileName.contains(String.valueOf(fileIllegalChar))) {
                 throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
@@ -223,7 +223,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
      */
     protected String fileExtensionFormat(String extension) {
         extension = StrUtils.trim(extension);
-        Check.notEmpty(extension,"extension");
+        Check.notEmpty(extension, "extension");
         for (char fileIllegalChar : FILE_ILLEGAL_CHARS) {
             if (extension.contains(String.valueOf(fileIllegalChar))) {
                 throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
