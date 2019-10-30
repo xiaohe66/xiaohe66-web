@@ -12,11 +12,12 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("xiaohe66_web_love_wish")
-public class Wish extends BasePoDetailed {
+@TableName("xiaohe66_web_love_bless")
+public class Bless extends BasePoDetailed {
 
     @TableField("`name`")
     private String name;
-    private String desc;
+    private String email;
+    private String message;
 
 }

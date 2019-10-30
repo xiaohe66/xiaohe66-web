@@ -4,18 +4,15 @@ import com.xiaohe66.web.base.base.BaseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
  * @author xiaohe
- * @time 2019.10.22 11:16
+ * @time 2019.10.30 17:10
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class WishDto extends BaseDto {
+public class BlessDto extends BaseDto {
 
     private String name;
-    private String desc;
-    private List<WishLogDto> wishLogList;
+    private String message;
 
 }
