@@ -6,6 +6,8 @@ import com.xiaohe66.web.code.text.dao.ArticleCategoryLinkMapper;
 import com.xiaohe66.web.code.text.po.ArticleCategoryLink;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 /**
  * @author xh
  * @date 18-03-17 017
@@ -15,6 +17,6 @@ public class ArticleCategoryLinkService extends AbstractService<ArticleCategoryL
 
     public void delByArticleId(Integer articleId){
         Check.notEmpty(articleId);
-        removeByParamPhysics(new ArticleCategoryLink(articleId));
+        removeByMap(Collections.singletonMap("article_id",articleId));
     }
 }

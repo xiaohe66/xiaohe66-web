@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,7 +85,8 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         UsrFileParam param = new UsrFileParam();
         param.setCreateId(userId);
 
-        List<UserFile> usrFileList = this.listByParam(param);
+        // todo :
+        List<UserFile> usrFileList = Collections.emptyList();
 
         return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
             CommonFile commonFile = commonFileService.getById(usrFile.getFileId());
@@ -107,7 +109,8 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
             param.setFileName("%" + search + "%");
         }
 
-        List<UserFile> usrFileList = this.listByParam(param);
+        // todo :
+        List<UserFile> usrFileList = Collections.emptyList();
 
         return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
             Integer size = commonFileService.getById(usrFile.getFileId()).getFileByte();

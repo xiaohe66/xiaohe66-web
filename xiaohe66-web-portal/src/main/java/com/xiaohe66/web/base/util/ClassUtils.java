@@ -16,7 +16,7 @@ import java.util.function.BiConsumer;
 
 /**
  * @author xh
- * @date 2018-1-19
+ * @time 2018-1-19
  */
 public class ClassUtils {
 
@@ -31,10 +31,10 @@ public class ClassUtils {
      * @param targetCls 目标类的Class对象<br>
      *                  该类必须要有public的无参构造方法，否则无法通过反射创建实例
      * @param sourceObj 源类的实例
-     * @param <T>       目标类
+     * @param <D>       目标类
      * @return 目标类的实例
      */
-    public static <T extends BaseDto> T convert(Class<T> targetCls, BasePo sourceObj) {
+    public static <D extends BaseDto> D convert(Class<D> targetCls, BasePo sourceObj) {
 
         //源为null，则返回null
         if (sourceObj == null) {
@@ -51,7 +51,7 @@ public class ClassUtils {
         /*
          * 创建目标类的实例
          * */
-        T targetObj;
+        D targetObj;
         try {
             targetObj = targetCls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
@@ -192,10 +192,10 @@ public class ClassUtils {
      * @param targetCls     目标类的Class对象<br>
      *                      该类必须要有public的无参构造方法，否则无法通过反射创建实例
      * @param sourceObjList 源类的实例集合
-     * @param <T>           目标类
+     * @param <D>           目标类
      * @return 目标类的实例集合
      */
-    public static <T extends BaseDto, E extends BasePo> List<T> convert(Class<T> targetCls, List<E> sourceObjList) {
+    public static <D extends BaseDto, P extends BasePo> List<D> convert(Class<D> targetCls, List<P> sourceObjList) {
         return convert(targetCls, sourceObjList, null);
     }
 
@@ -205,30 +205,18 @@ public class ClassUtils {
      * @param targetCls     目标类的Class对象<br>
      *                      该类必须要有public的无参构造方法，否则无法通过反射创建实例
      * @param sourceObjList 源类的实例集合
-     * @param <T>           目标类
+     * @param <D>           目标类
      * @param task          转换中自定义任务
      * @return 目标类的实例集合
      */
-    public static <T extends BaseDto, E extends BasePo> List<T> convert(Class<T> targetCls, List<E> sourceObjList, BiConsumer<T, E> task) {
+    public static <D extends BaseDto, P extends BasePo> List<D> convert(Class<D> targetCls, List<P> sourceObjList, BiConsumer<D, P> task) {
         if (sourceObjList == null) {
             throw new MissingParamException("list");
         }
-        List<T> targetObjList;
+        List<D> targetObjList = new ArrayList<>(sourceObjList.size());
 
-//        if(sourceObjList instanceof Page){
-//            Page<E> sourcePage = ((Page<E>) sourceObjList);
-//            Page<T> targetPage  = new Page<>();
-//            targetPage.setPages(sourcePage.getPages());
-//            targetPage.setPageNum(sourcePage.getPageNum());
-//            targetPage.setPageSize(sourcePage.getPageSize());
-//            targetPage.setTotal(sourcePage.getTotal());
-//            targetObjList = targetPage;
-//        }else{
-        targetObjList = new ArrayList<>(sourceObjList.size());
-//        }
-
-        for (E basePo : sourceObjList) {
-            T targetObj = convert(targetCls, basePo);
+        for (P basePo : sourceObjList) {
+            D targetObj = convert(targetCls, basePo);
             targetObjList.add(targetObj);
             if (task != null) {
                 task.accept(targetObj, basePo);
@@ -237,22 +225,22 @@ public class ClassUtils {
         return targetObjList;
     }
 
-    public static <T extends BaseDto, E extends BasePo> IPage<T> convert(Class<T> targetCls, IPage<E> sourcePage) {
+    public static <D extends BaseDto, P extends BasePo> IPage<D> convert(Class<D> targetCls, IPage<P> sourcePage) {
         return convert(targetCls, sourcePage, null);
     }
 
-    public static <T extends BaseDto, E extends BasePo> IPage<T> convert(Class<T> targetCls, IPage<E> sourcePage, BiConsumer<T, E> task) {
-        XhPageDto<T> targetPage = new XhPageDto<>();
+    public static <D extends BaseDto, P extends BasePo> IPage<D> convert(Class<D> targetCls, IPage<P> sourcePage, BiConsumer<D, P> task) {
+        XhPageDto<D> targetPage = new XhPageDto<>();
 
         targetPage.setPages(sourcePage.getPages());
         targetPage.setTotal(sourcePage.getTotal());
         targetPage.setCurrent(sourcePage.getCurrent());
         targetPage.setSize(sourcePage.getSize());
 
-        List<E> sourceList = sourcePage.getRecords();
-        List<T> targetList = new ArrayList<>(sourceList.size());
-        for (E basePo : sourcePage.getRecords()) {
-            T targetObj = convert(targetCls, basePo);
+        List<P> sourceList = sourcePage.getRecords();
+        List<D> targetList = new ArrayList<>(sourceList.size());
+        for (P basePo : sourcePage.getRecords()) {
+            D targetObj = convert(targetCls, basePo);
             targetList.add(targetObj);
             if (task != null) {
                 task.accept(targetObj, basePo);

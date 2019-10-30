@@ -1,5 +1,6 @@
 package com.xiaohe66.web.code.text.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhWebException;
@@ -25,10 +26,10 @@ public class TextCategoryService extends AbstractService<TextCategoryMapper, Tex
 
     public List<TextCategory> findByUsrId(Integer userId) {
         Check.notEmpty(userId,"userId");
-        TextCategoryParam param = new TextCategoryParam();
+        TextCategory param = new TextCategory();
         param.setCreateId(userId);
 
-        return listByParam(param);
+        return list(new QueryWrapper<>(param));
     }
 
     public String findNamesByArticleId(Integer articleId) {

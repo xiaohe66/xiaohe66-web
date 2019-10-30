@@ -1,6 +1,5 @@
 package com.xiaohe66.web.base.base;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
@@ -29,7 +28,7 @@ import java.lang.reflect.Type;
  * @time 2019.10.12 11:34
  */
 @Slf4j
-public abstract class BaseController<S extends AbstractService<? extends IBaseMapper, T>, T extends BasePo, D extends BaseDto> {
+public abstract class BaseController<S extends AbstractService<? extends IBaseMapper, P>, P extends BasePo, D extends BaseDto> {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
@@ -44,7 +43,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     public BaseController() {
         Type[] type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
 
-        Class<T> poClass = ((Class<T>) type[1]);
+        Class<P> poClass = ((Class<P>) type[1]);
         String poClassName = poClass.getSimpleName();
         char[] chars = poClassName.toCharArray();
         chars[0] = Character.toLowerCase(chars[0]);
@@ -57,7 +56,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     }
 
     @Post
-    public Result post(T po) {
+    public Result post(P po) {
         checkSave(po);
         if (po instanceof BasePoDetailed) {
             Integer currentUsrId = UserHelper.getCurrentUsrIdNotEx();
@@ -73,7 +72,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     }
 
     @Put
-    public Result put(T po) {
+    public Result put(P po) {
         checkUpdate(po);
         if (po instanceof BasePoDetailed) {
             Integer currentUsrId = UserHelper.getCurrentUsrId();
@@ -86,7 +85,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     @Get("/{id}")
     public Result get(@PathVariable("id") Integer id) {
         checkSelect();
-        T po = baseService.getById(id);
+        P po = baseService.getById(id);
         D dto = ClassUtils.convert(dtoClass, po);
 
         if (baseService instanceof DtoConverter) {
@@ -97,26 +96,15 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @SuppressWarnings("unchecked")
     @Get
-    public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Integer pageSize,
-                       @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Integer pageNo) {
+    public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Long pageSize,
+                       @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Long pageNo) {
         checkSelect();
-        XhPage<T> xhPage = new XhPage<>();
 
-        if (pageSize != null) {
-            xhPage.setSize(pageSize);
-        }
-        if (pageNo != null) {
-            xhPage.setCurrent(pageNo);
-        }
-
-        Wrapper<T> queryWrapper = baseService.createDefaultQueryWrapper();
-        IPage<T> poPage = queryWrapper == null ?
-                baseService.page(xhPage) :
-                baseService.page(xhPage, queryWrapper);
+        IPage<P> poPage = baseService.pageDefault(pageSize, pageNo);
 
         IPage<D> dtoPage;
         if (baseService instanceof DtoConverter) {
-            DtoConverter<T, D> dtoConverter = (DtoConverter) this.baseService;
+            DtoConverter<P, D> dtoConverter = (DtoConverter) this.baseService;
             dtoPage = ClassUtils.convert(dtoClass, poPage, dtoConverter::convertDto);
         } else {
             dtoPage = ClassUtils.convert(dtoClass, poPage);
@@ -124,7 +112,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         return Result.ok(dtoPage);
     }
 
-    protected void checkSave(T po) {
+    protected void checkSave(P po) {
         checkPermitted(moduleName + ":insert");
     }
 
@@ -132,7 +120,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         checkPermitted(moduleName + ":delete");
     }
 
-    protected void checkUpdate(T po) {
+    protected void checkUpdate(P po) {
         checkPermitted(moduleName + ":update");
     }
 

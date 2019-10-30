@@ -183,11 +183,11 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
             userId = StrUtils.toInt(usrIdStr);
         }
-        ArticleParam param = new ArticleParam();
+        Article param = new Article();
         param.setCreateId(userId);
         param.setSecretLevel(secretLevel);
 
-        return baseMapper.selectByParam(param);
+        return list(param);
     }
 
     public List<ArticleDto> findDtoByUsrId(Integer usrId, Integer secretLevel) {
@@ -230,7 +230,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             param.setTitle("%" + search + "%");
         }
         param.setSecretLevel(Final.Article.SECRET_LEVEL_PUBLIC);
-        return installDto(listByParam(param));
+        return installDto(list(param));
     }
 
     public void installDto(ArticleDto articleDto, Article article) {
@@ -294,7 +294,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             param.setSecretLevel(Final.Article.PUBLISH_STATE_NOT_PUBLISH);
             param.setId(downloadCount.getId());
 
-            List<Article> articleList = listByParam(param);
+            List<Article> articleList = list(param);
             if (articleList == null || articleList.size() == 0) {
                 continue;
             }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -129,9 +130,10 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
      */
     @Transactional(rollbackFor = Exception.class)
     public void delByMd5(String md5) {
-        CommonFileTmp commonFileTmp = new CommonFileTmp();
-        commonFileTmp.setMd5(md5);
-        removeByParamPhysics(commonFileTmp);
+
+        Check.notEmpty(md5);
+
+        removeByMap(Collections.singletonMap("md5",md5));
 
         String path = fileHomeUrl + createLogicPath(md5);
         try {

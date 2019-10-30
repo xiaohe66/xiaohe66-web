@@ -27,7 +27,7 @@
         order by create_time desc
     </select>
 
-    <update id="updateByParam" parameterType="Article">
+    <!--<update id="updateByParam" parameterType="Article">
         update xiaohe66_web_text_article
         <set>
             <if test="title!=null">
@@ -44,6 +44,6 @@
             </if>
         </set>
         where id = #{id}
-    </update>
+    </update>-->
 
 </mapper>
