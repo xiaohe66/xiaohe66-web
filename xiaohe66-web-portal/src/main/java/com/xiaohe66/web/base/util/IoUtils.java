@@ -4,6 +4,7 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.DigestUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -185,6 +186,14 @@ public class IoUtils {
         if (!isSuccess) {
             // todo : to sth.
             log.debug("删除失败");
+        }
+    }
+
+    public static String md5Sex(File file) throws XhIoException {
+        try(FileInputStream inputStream = new FileInputStream(file)){
+            return DigestUtils.md5DigestAsHex(inputStream);
+        } catch (IOException e) {
+            throw new XhIoException(e);
         }
     }
 

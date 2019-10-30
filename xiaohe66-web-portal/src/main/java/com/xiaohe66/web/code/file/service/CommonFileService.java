@@ -5,6 +5,7 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.DateUtils;
 import com.xiaohe66.web.base.util.IoUtils;
@@ -15,8 +16,6 @@ import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +42,6 @@ import java.util.Set;
 @Service
 @Slf4j
 public class CommonFileService extends AbstractService<CommonFileMapper, CommonFile> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(CommonFileService.class);
 
     public static final String UPLOAD_FILE_MD5_SESSION_KEY = "uploadFileMd5";
 
@@ -87,6 +84,46 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         cache.add(id);
     }
 
+    private void mergeTmpFile(String md5) throws IOException, XhIoException {
+
+        String path = createLogicPath(md5);
+
+        File fullFile = new File(fileHomeUrl + path);
+
+        //整合临时文件到主文件
+        Files.deleteIfExists(fullFile.toPath());
+
+        List<CommonFileTmp> commonFileTmpList = commonFileTmpService.findFileTmp(md5);
+        for (CommonFileTmp commonFileTmp : commonFileTmpList) {
+            File tmpFile = new File(fileHomeUrl + commonFileTmp.getFileUrl());
+            IoUtils.writeToFile(tmpFile, fullFile, true);
+        }
+
+        String serviceMd5 = IoUtils.md5Sex(fullFile);
+
+        if (!md5.equalsIgnoreCase(serviceMd5)) {
+            log.error("合并后的文件md5和提供的md5不一致, 合并后的 : {}, 提供的 : {}", serviceMd5, md5);
+
+            // 删除临时文件
+            commonFileTmpService.delByMd5(md5);
+
+            throw new IllegalOperationException("合并后的md5与提供的不一致");
+        }
+
+        //更新主文件状态
+        this.updateByMd5(md5, new Date(), path, fullFile.length());
+
+        //删除临时文件
+        try {
+            commonFileTmpService.delByMd5(md5);
+        } catch (Exception e) {
+            log.error("删除临时文件失败, md5 : {}", md5, e);
+        }
+
+        WebUtils.removeSessionAttr(UPLOAD_FILE_MD5_SESSION_KEY);
+        WebUtils.removeSessionAttr(CURRENT_FILE_MAX_CHUNK_SESSION_KEY);
+    }
+
     /**
      * 分块上传准备，返回未上传的文件区块
      * <p>
@@ -106,6 +143,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM, "mb小于0或大于最大值, mb=" + mb);
         }
 
+        // todo :  如果刚好除尽没有余数时，会出现异常吗？
         int currentMaxChunk = mb.intValue() / maxMbChunkPer + 1;
 
         WebUtils.setSessionAttr(UPLOAD_FILE_MD5_SESSION_KEY, md5);
@@ -116,7 +154,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
         CommonFile commonFile = getByMd5(md5);
         if (commonFile == null) {
-            LOG.info("文件未上传过，生成主文件记录");
+            log.info("文件未上传过，生成主文件记录");
 
             //生成主文件记录
             commonFile = new CommonFile(md5);
@@ -145,9 +183,14 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         } else {
             //有主文件记录，但未上传完成，返回未上传完的块
             Set<Integer> finishChunk = commonFileTmpService.findFinishChunk(md5);
-            if (finishChunk.size() == currentMaxChunk) {
-                // todo : 处理这个问题
-                log.warn("所有块都已上传完成，但是EndTime没有更新，自动更新EndTime");
+            if (finishChunk.size() >= currentMaxChunk) {
+                log.warn("所有块都已上传完成，但是EndTime没有更新，自动更新EndTime, md5 : {}", md5);
+                try {
+                    mergeTmpFile(md5);
+                    log.warn("自动合并文件成功, md5 : {}", md5);
+                } catch (IOException | XhIoException e) {
+                    log.error("尝试合并文件失败, md5 : {}", md5, e);
+                }
                 uploadFilePrepareDto.setMissingChunk(Collections.emptySet());
             } else {
 
@@ -169,10 +212,9 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
      * @param md5           主文件的md5值
      * @param chunk         当前块
      * @return 是否成功
-     * @throws IOException IOException
      */
     @Transactional(rollbackFor = Exception.class)
-    public boolean uploadFile(MultipartFile multipartFile, String md5, Integer chunk) throws IOException {
+    public boolean uploadFile(MultipartFile multipartFile, String md5, Integer chunk) {
         String sessionMd5 = WebUtils.getSessionAttr(UPLOAD_FILE_MD5_SESSION_KEY);
         if (StringUtils.isEmpty(sessionMd5)) {
             throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件前没有调用prepare接口");
@@ -189,9 +231,14 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件的区块不在区间内, 区块 : " + chunk);
         }
 
-
-        InputStream fileInput = multipartFile.getInputStream();
-        int fileByte = multipartFile.getBytes().length;
+        InputStream fileInput;
+        int fileByte;
+        try {
+            fileInput = multipartFile.getInputStream();
+            fileByte = multipartFile.getBytes().length;
+        } catch (IOException e) {
+            throw new XhWebException(CodeEnum.EXCEPTION, "无法读取上传文件", e);
+        }
 
         if (currentMaxChunk == 1) {
             //只有一个临时文件，直接上传至主文件
@@ -201,7 +248,20 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
                 IoUtils.writeToFile(fileInput, file, false);
             } catch (XhIoException e) {
                 log.error("无法写入文件,path : {}", file);
+                throw new XhWebException(CodeEnum.EXCEPTION, "无法写文件", e);
+            }
+
+            String serviceMd5;
+            try {
+                serviceMd5 = IoUtils.md5Sex(file);
+            } catch (XhIoException e) {
                 throw new XhWebException(CodeEnum.EXCEPTION, e);
+            }
+
+            if (!md5.equalsIgnoreCase(serviceMd5)) {
+                log.error("生成的文件md5和提供的md5不一致, 生成的: {}, 提供的 : {}", serviceMd5, md5);
+
+                throw new IllegalOperationException("服务器生成的md5与接口提供的不一致");
             }
 
             //更新主文件状态
@@ -220,52 +280,23 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
          * 类 String 维护一个字符串池,当调用 intern 方法时，如果池已经包含一个等于此 String 对象的字符串（该对象由 equals(Object) 方法确定），
          * 则返回池中的字符串，因此，当String相同时，String.intern()总是返回同一个对象
          * */
-        // todo : 将该代码块独立到一个方法里面，还有考虑使用线程合并文件
+        // todo : 优化该同步块
         synchronized (md5.intern()) {
             int countFinish = commonFileTmpService.countFinish(md5);
             if (countFinish == currentMaxChunk) {
-                String path = createLogicPath(md5);
-
-                File fullFile = new File(fileHomeUrl + path);
-
-                //整合临时文件到主文件
-                boolean isSuccess = Files.deleteIfExists(fullFile.toPath());
-                if (!isSuccess) {
-                    // todo : 删除已存在文件失败时的处理
-                    log.error("删除已存在文件失败, path : {}", fullFile.getPath());
-                    throw new XhWebException(CodeEnum.EXCEPTION, "删除已存在文件失败");
+                try {
+                    mergeTmpFile(md5);
+                } catch (IOException | XhIoException e) {
+                    log.error("合并文件失败, md5 : {}", md5);
+                    throw new XhWebException(CodeEnum.EXCEPTION, "合并文件失败", e);
                 }
-
-                int byteSum = 0;
-                List<CommonFileTmp> commonFileTmpList = commonFileTmpService.findFileTmp(md5);
-                for (CommonFileTmp commonFileTmp : commonFileTmpList) {
-                    File tmpFile = new File(fileHomeUrl + commonFileTmp.getFileUrl());
-                    try {
-                        IoUtils.writeToFile(tmpFile, fullFile, true);
-                    } catch (XhIoException e) {
-                        log.error("无法写入文件, path : {}, tmpPath : {}", fullFile.getPath(), tmpFile.getPath());
-                        throw new XhWebException(CodeEnum.EXCEPTION, e);
-                    }
-                    byteSum += commonFileTmp.getFileByte();
-                }
-
-                // todo : 增加前端提供的 md5 和后端文件md5的一致性判断
-
-                //更新主文件状态
-                this.updateByMd5(md5, new Date(), path, byteSum);
-
-                //删除临时文件
-                commonFileTmpService.delByMd5(md5);
-
-                WebUtils.removeSessionAttr(UPLOAD_FILE_MD5_SESSION_KEY);
-                WebUtils.removeSessionAttr(CURRENT_FILE_MAX_CHUNK_SESSION_KEY);
             }
         }
 
         return true;
     }
 
-    public void updateByMd5(String md5, Date date, String path, int fileBytes) {
+    public void updateByMd5(String md5, Date date, String path, long fileBytes) {
         CommonFile commonFile = new CommonFile();
         commonFile.setMd5(md5);
         commonFile.setEndTime(date);

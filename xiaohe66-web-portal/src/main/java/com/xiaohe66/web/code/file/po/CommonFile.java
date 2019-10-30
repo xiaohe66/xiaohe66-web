@@ -22,7 +22,7 @@ public class CommonFile extends BasePo {
     // todo : rename to filePath
     protected String fileUrl;
 
-    protected Integer fileByte;
+    protected Long fileByte;
 
     protected Date startTime;
 

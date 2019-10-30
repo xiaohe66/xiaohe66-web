@@ -93,7 +93,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
 
             usrFileDto.setIsFinish(commonFile.getEndTime() != null);
 
-            Integer size = commonFile.getFileByte();
+            Long size = commonFile.getFileByte();
             //todo:需转成可视化单位
             usrFileDto.setFileSize(size + "字节");
         });
@@ -113,7 +113,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         List<UserFile> usrFileList = Collections.emptyList();
 
         return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
-            Integer size = commonFileService.getById(usrFile.getFileId()).getFileByte();
+            Long size = commonFileService.getById(usrFile.getFileId()).getFileByte();
 
             //todo:需转成可视化单位
             usrFileDto.setFileSize(size + "字节");

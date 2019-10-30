@@ -6,6 +6,7 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
+import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.WebUtils;
@@ -52,7 +53,7 @@ public class CommonFileController {
     }
 
     @Post
-    public Boolean uploadFile(MultipartFile file, String md5, Integer chunk) throws IOException {
+    public Boolean uploadFile(MultipartFile file, String md5, Integer chunk) throws XhIoException {
         return commonFileService.uploadFile(file, md5, chunk);
     }
 
