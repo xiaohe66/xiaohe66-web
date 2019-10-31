@@ -10,22 +10,19 @@
     margin: 0 4px;
     background: #fff;
 }
-.paging>div:hover{
-    background: #e1f1ff;
+.paging>div:hover:not(.disable){
+    background: #99ffff;
     cursor: pointer;
 }
 .paging input{
     width: 36px;
     margin: 0 4px;
     padding-left: 4px;
+    line-height: 24px;
 }
 .paging>div.disable{
     color: #bbb;
 }
-.paging>div.disable:hover{
-    background: #fff;
-    cursor: default;
-}
 .paging>div.active{
-    background: #e1f1ff;
+    background: #99ffff;
 }

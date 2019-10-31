@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="../../../../main/webapp/plugin/xh/css/xh-paging.css">
+    <script type="text/javascript" src="../../../../main/webapp/plugin/jquery/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../../../../main/webapp/plugin/xh/js/xh-paging.js"></script>
+</head>
+<body>
+<div>
+    <input id="page">
+    <button id="create">创建</button>
+    当前页：<span id="out"></span>
+</div>
+<div id="pg"></div>
+<script>
+    let call = function (page) {
+        console.log("log", page);
+        $("#out").text(page);
+    };
+    $('#pg').paging(5, 1, call);
+    $("#create").click(function () {
+        let val = parseInt($("#page").val());
+        if (val) {
+            $('#pg').paging(val, 1, call);
+        } else {
+            $('#pg').html();
+        }
+    });
+</script>
+</body>
+</html>

@@ -29,6 +29,7 @@
         $this.append("跳至");
         $this.append(inp);
         $this.append(btn);
+        $this.append("共"+max+"页");
 
         let showPrev = function () {
             prev.removeClass("disable");
@@ -53,9 +54,10 @@
         let toPage = function (page) {
             page = parseInt(page);
             if (!isNaN(page)) {
-                if (page === current) {
+                // 若是当前页面，是否继续操作
+                /*if (page === current) {
                     return;
-                }
+                }*/
                 current = page > max ? max : page < 1 ? 1 : page;
                 ev();
             }

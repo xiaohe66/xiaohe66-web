@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layer-test</title>
+    <link rel="stylesheet" href="../../../../main/webapp/plugin/layui/css/layui.css">
+    <script type="text/javascript" src="../../../../main/webapp/plugin/jquery/js/jquery-3.1.1.min.js"></script>
+    <script src="../../../../main/webapp/plugin/layui/layui.js"></script>
+</head>
+<body>
+<button id="test1">消息</button>
+<button id="test11">消息</button>
+<button id="test2">页面层</button>
+<button id="parentIframe">iframe层</button>
+<button id="test4">loading层</button>
+<button id="test5">tips层</button>
+<script>
+
+    layui.use('layer', function () {
+
+        //  弹出一个消息
+        $('#test1').on('click', function () {
+            layer.msg('hello');
+        });
+        $('#test11').on('click', function () {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(function () {
+                    layer.close(layer.index);
+                    layer.alert(i + '%', {anim: -1});
+                }, i * 200);
+            }
+        });
+
+        //弹出一个页面层
+        $('#test2').on('click', function () {
+            layer.open({
+                type: 1,
+                area: ['600px', '360px'],
+                shadeClose: true, //点击遮罩关闭
+                content: '\<\div style="padding:20px;">自定义内容\<\/div>'
+            });
+        });
+
+        //弹出一个iframe层
+        $('#parentIframe').on('click', function () {
+            layer.open({
+                type: 2,
+                title: 'iframe父子操作',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['800px', '520px'],
+                content: '../hello.html'
+            });
+        });
+
+
+        //弹出一个loading层
+        $('#test4').on('click', function () {
+            var ii = layer.load();
+            //此处用setTimeout演示ajax的回调
+            setTimeout(function () {
+                layer.close(ii);
+            }, 1000);
+        });
+
+        //弹出一个tips层
+        $('#test5').on('click', function () {
+            layer.tips('Hello tips!', '#test5');
+        });
+    });
+</script>
+</body>
+</html>
