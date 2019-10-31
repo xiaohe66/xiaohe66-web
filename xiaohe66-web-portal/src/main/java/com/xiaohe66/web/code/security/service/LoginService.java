@@ -174,7 +174,7 @@ public class LoginService {
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            log.debug("login failing:userName:{}, userPwd:{}", userName, userPwd);
+            log.debug("login failing:createUserName:{}, userPwd:{}", userName, userPwd);
             return null;
         }
         //构建dto

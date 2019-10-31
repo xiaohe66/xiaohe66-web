@@ -7,6 +7,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.code.file.mapper.CommonFileTmpMapper;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -120,6 +121,11 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
                 throw new IllegalOperationException(msg, e);
             }
         }
+    }
+
+    public void createTmpDirectory(String md5) throws XhIoException {
+        String tmp = fileHomeUrl + createLogicPath(md5);
+        IoUtils.createDirectoryIfNotExist(new File(tmp).getParentFile());
     }
 
     /**

@@ -5,6 +5,7 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.exception.param.IllegalParamException;
 import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.DateUtils;
@@ -104,6 +105,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (!md5.equalsIgnoreCase(serviceMd5)) {
             log.error("合并后的文件md5和提供的md5不一致, 合并后的 : {}, 提供的 : {}", serviceMd5, md5);
 
+            // todo : 删除数据库记录失败
             // 删除临时文件
             commonFileTmpService.delByMd5(md5);
 
@@ -140,7 +142,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM, "md5为null，或长度不为" + md5Length + "位");
         }
         if (mb == null || mb <= 0 || mb > maxMbFilePer) {
-            throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM, "mb小于0或大于最大值, mb=" + mb);
+            throw new IllegalParamException("mb小于0或大于最大值, mb=" + mb);
         }
 
         // todo :  如果刚好除尽没有余数时，会出现异常吗？
@@ -151,10 +153,17 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
         UploadFilePrepareDto uploadFilePrepareDto = new UploadFilePrepareDto();
         uploadFilePrepareDto.setMaxMbChunkPer(maxMbChunkPer);
+        uploadFilePrepareDto.setCountChunk(currentMaxChunk);
 
         CommonFile commonFile = getByMd5(md5);
         if (commonFile == null) {
             log.info("文件未上传过，生成主文件记录");
+
+            try {
+                commonFileTmpService.createTmpDirectory(md5);
+            } catch (XhIoException e) {
+                throw new XhWebException(CodeEnum.EXCEPTION, "无法生成临时文件夹", e);
+            }
 
             //生成主文件记录
             commonFile = new CommonFile(md5);
@@ -283,7 +292,9 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         // todo : 优化该同步块
         synchronized (md5.intern()) {
             int countFinish = commonFileTmpService.countFinish(md5);
-            if (countFinish == currentMaxChunk) {
+            log.debug("总块 : {}, 当前块 : {}, 完成数量 : {}", currentMaxChunk, chunk, countFinish);
+            if (countFinish >= currentMaxChunk) {
+                log.info("所有块都上传完成，开始合并文件,md5 : {}", md5);
                 try {
                     mergeTmpFile(md5);
                 } catch (IOException | XhIoException e) {

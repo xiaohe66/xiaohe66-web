@@ -7,9 +7,12 @@ import com.xiaohe66.web.base.base.BaseController;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.XhIoException;
-import com.xiaohe66.web.code.file.dto.UsrFileDto;
+import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.code.file.dto.UserFileDto;
 import com.xiaohe66.web.code.file.po.UserFile;
 import com.xiaohe66.web.code.file.service.UserFileService;
+import com.xiaohe66.web.code.org.service.UserService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +23,13 @@ import java.io.IOException;
  * @time 18-03-12 012
  */
 @XhController("/org/user/file")
-public class UserFileController extends BaseController<UserFileService, UserFile, UsrFileDto> {
+public class UserFileController extends BaseController<UserFileService, UserFile, UserFileDto> {
+
+    private UserService userService;
+
+    public UserFileController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable Integer id) throws IOException {
@@ -45,4 +54,19 @@ public class UserFileController extends BaseController<UserFileService, UserFile
         return Result.ok();
     }
 
+    @Page("/index")
+    public String index(Model model){
+        model.addAttribute("iPage",baseService.indexDataDto());
+        model.addAttribute("usrDto",userService.lookAtUser(null));
+        model.addAttribute("title","资源列表");
+        model.addAttribute("usrDivTitle","站长");
+        model.addAttribute("hasEdit", WebUtils.isPermitted(moduleName+":update"));
+        model.addAttribute("hasDelete", WebUtils.isPermitted(moduleName+":delete"));
+        return "/org/userFile";
+    }
+
+    @Override
+    protected void checkSelect() {
+        // 不检查下载权限
+    }
 }

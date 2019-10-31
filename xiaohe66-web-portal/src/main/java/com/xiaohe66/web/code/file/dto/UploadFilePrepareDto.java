@@ -18,6 +18,8 @@ public class UploadFilePrepareDto extends BaseDto {
 
     private Integer maxMbChunkPer;
 
+    private Integer countChunk;
+
     private Set<Integer> missingChunk;
 
 }

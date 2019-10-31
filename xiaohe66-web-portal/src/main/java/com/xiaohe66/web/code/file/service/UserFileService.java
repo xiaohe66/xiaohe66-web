@@ -1,15 +1,20 @@
 package com.xiaohe66.web.code.file.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xiaohe66.web.base.base.DtoConverter;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.exception.param.MissingParamException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.EncoderUtils;
+import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.base.util.StrUtils;
-import com.xiaohe66.web.code.file.dto.UsrFileDto;
+import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.code.file.dto.UserFileDto;
 import com.xiaohe66.web.code.file.mapper.UserFileMapper;
 import com.xiaohe66.web.code.file.param.UsrFileParam;
 import com.xiaohe66.web.code.file.po.CommonFile;
@@ -17,12 +22,12 @@ import com.xiaohe66.web.code.file.po.UserFile;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
 import com.xiaohe66.web.code.org.helper.UserHelper;
+import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,21 +43,13 @@ import java.util.Set;
  * @time 18-03-12 012
  */
 @Service
-public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(UserFileService.class);
+public class UserFileService extends AbstractService<UserFileMapper, UserFile> implements DtoConverter<UserFile, UserFileDto> {
 
     private static final Set<String> IMG_TYPE_SET = new HashSet<>(Arrays.asList(".png", ".jpg", ".jpeg", ".bmp", ".ico"));
 
     private static final char[] FILE_ILLEGAL_CHARS = new char[]{'?', '\\', '/', '*', '\"', ':', '<', '>', '|'};
 
-    private static final int DEFAULT_FILE_TYPE = 0;
-
-    public static final int USR_HEAD_IMG_FILE_TYPE = 1;
-
-    public static final int USR_ARTICLE_IMG_FILE_TYPE = 2;
-
-    private static final int FILE_NAME_MAX_LENGTH = 20;
+    private static final int FILE_NAME_MAX_LENGTH = 64;
 
     private static final int FILE_EXTENSION_MAX_LENGTH = 8;
 
@@ -70,6 +67,31 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
     @Autowired
     private UserService userService;
 
+
+    @Override
+    public boolean save(UserFile po) {
+        String fileName = po.getFileName();
+        if (fileName == null) {
+            throw new MissingParamException("fileName");
+        }
+        if (fileName.length() > FILE_NAME_MAX_LENGTH) {
+            String subFileName = fileName.substring(0, FILE_NAME_MAX_LENGTH);
+            po.setFileName(subFileName);
+        }
+
+        String extension = po.getExtension();
+        if (extension != null && extension.length() > FILE_EXTENSION_MAX_LENGTH) {
+            String subExtension = extension.substring(0, FILE_EXTENSION_MAX_LENGTH);
+            po.setExtension(subExtension);
+        }
+
+        if (po.getFileType() == null) {
+            po.setFileType(UserFile.FileType.DEFAULT_FILE);
+        }
+
+        return super.save(po);
+    }
+
     public UserFile findByCommonFileId(Integer commonFileId) {
         Check.notEmpty(commonFileId, "commonFileId");
         return baseMapper.findByCommonFileId(commonFileId);
@@ -80,7 +102,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         return baseMapper.findCommonFileId(usrFileId);
     }
 
-    public List<UsrFileDto> findDtoByUsrId(Integer userId) {
+    public List<UserFileDto> findDtoByUsrId(Integer userId) {
         Check.notEmpty(userId, "userId");
         UsrFileParam param = new UsrFileParam();
         param.setCreateId(userId);
@@ -88,10 +110,10 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         // todo :
         List<UserFile> usrFileList = Collections.emptyList();
 
-        return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
+        return ClassUtils.convert(UserFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
             CommonFile commonFile = commonFileService.getById(usrFile.getFileId());
 
-            usrFileDto.setIsFinish(commonFile.getEndTime() != null);
+//            usrFileDto.setIsFinish(commonFile.getEndTime() != null);
 
             Long size = commonFile.getFileByte();
             //todo:需转成可视化单位
@@ -99,41 +121,27 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         });
     }
 
-    public List<UsrFileDto> findDtoAll(String search, boolean onlyWebmaster) {
+    public IPage<UserFileDto> indexDataDto() {
 
-        UsrFileParam param = new UsrFileParam();
-        if (onlyWebmaster) {
-            param.setCreateId(Final.Sys.XIAO_HE_USR_ID);
-        }
-        if (Check.isNotEmpty(search)) {
-            param.setFileName("%" + search + "%");
-        }
+        QueryWrapper<UserFile> queryWrapper = createDefaultQueryWrapper();
 
-        // todo :
-        List<UserFile> usrFileList = Collections.emptyList();
+        IPage<UserFile> iPage = this.page(15, queryWrapper);
 
-        return ClassUtils.convert(UsrFileDto.class, usrFileList, (usrFileDto, usrFile) -> {
-            Long size = commonFileService.getById(usrFile.getFileId()).getFileByte();
-
-            //todo:需转成可视化单位
-            usrFileDto.setFileSize(size + "字节");
-            usrFileDto.setUsrName(userService.getById(usrFile.getCreateId()).getUsrName());
-        });
+        return ClassUtils.convert(UserFileDto.class, iPage, this::convertDto);
     }
 
-    public List<UsrFileDto> findDtoHotTop5(Integer usrId) {
+    public List<UserFileDto> findDtoHotTop5(Integer usrId) {
         List<UsrFileDownloadCount> mapList = usrFileLogService.countDownloadOfMonth(usrId);
         int i = 0;
         final int maxSize = 5;
-        List<UsrFileDto> usrFileDtoList = new ArrayList<>(maxSize);
+        List<UserFileDto> usrFileDtoList = new ArrayList<>(maxSize);
         for (UsrFileDownloadCount downloadCount : mapList) {
             UserFile usrFile = this.getById(downloadCount.getId());
             if (usrFile == null) {
                 continue;
             }
-            UsrFileDto usrFileDto = ClassUtils.convert(UsrFileDto.class, usrFile);
-            usrFileDtoList.add(usrFileDto);
-            usrFileDto.setDownloadCount(downloadCount.getCount());
+            UserFileDto userFileDto = ClassUtils.convert(UserFileDto.class, usrFile);
+            usrFileDtoList.add(userFileDto);
             if (++i >= maxSize) {
                 break;
             }
@@ -236,4 +244,33 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> {
         return extension.length() > FILE_EXTENSION_MAX_LENGTH ? extension.substring(0, FILE_EXTENSION_MAX_LENGTH) : extension;
     }
 
+    @Override
+    public QueryWrapper<UserFile> createDefaultQueryWrapper() {
+
+        UserFile userFile = new UserFile();
+        userFile.setFileType(UserFile.FileType.DEFAULT_FILE);
+
+        QueryWrapper<UserFile> queryWrapper = new QueryWrapper<>(userFile);
+        queryWrapper.orderByDesc("create_time");
+
+        HttpServletRequest request = WebUtils.getRequest();
+        String search = request.getParameter("search");
+
+        if (Check.isNotEmpty(search)) {
+            queryWrapper.like("file_name", "%" + search + "%");
+        }
+        return queryWrapper;
+    }
+
+    @Override
+    public void convertDto(UserFileDto dto, UserFile po) {
+
+        Long size = commonFileService.getById(po.getFileId()).getFileByte();
+
+        String friendlySize = IoUtils.convertFriendlySize(size);
+        dto.setFileSize(friendlySize);
+
+        User createUser = userService.getById(po.getCreateId());
+        dto.setCreateUserName(createUser.getUsrName());
+    }
 }

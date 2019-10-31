@@ -9,7 +9,7 @@ import java.util.Date;
  * @author xh
  * @date 18-04-15 015
  */
-@TableName("xiaohe66_web_org_usr_file_log")
+@TableName("xiaohe66_web_org_user_file_log")
 public class UsrFileLog extends BasePo{
 
     private Integer createId;

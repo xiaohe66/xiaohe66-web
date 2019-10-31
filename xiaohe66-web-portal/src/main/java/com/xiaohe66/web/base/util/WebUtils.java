@@ -28,6 +28,13 @@ public class WebUtils {
         return SecurityUtils.getSubject().getSession();
     }
 
+    public static boolean isPermitted(String permitted){
+        return SecurityUtils.getSubject().isPermitted(permitted);
+    }
+    public static boolean isRole(String role){
+        return SecurityUtils.getSubject().hasRole(role);
+    }
+
     /**
      * 给当前session添加参数
      *

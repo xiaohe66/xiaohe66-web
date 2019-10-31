@@ -18,7 +18,7 @@
             let fileId;
 
             let uploadSuccess = function () {
-                if (isShowHint) $.hint("上传成功，3秒后刷新页面");
+                // if (isShowHint) $.hint("上传成功");
                 call({
                     fileId : fileId,
                     md5 : md5,
@@ -45,21 +45,19 @@
 
                 if(surplus === 0){
                     uploadSuccess();
+                    return;
                 }
 
                 let uploadMsg = function () {
-                    if (surplus === 1) {
-                        if (isShowHint) $.hint("上传中：100%");
-                    } else {
-                        let percentage = (missingChunk.length - surplus + 1) / missingChunk.length * 100 + "";
-                        percentage = percentage.substring(0, percentage.length < 2 ? percentage.length : 2);
-                        if (isShowHint) $.hint("上传中:" + percentage + "%");
-                    }
+                    // todo : 上传过的文件也应该计算进百分比中
+                    let percentage = (missingChunk.length - surplus) / data.countChunk * 100 + "";
+                    percentage = percentage.substring(0, percentage.length < 2 ? percentage.length : 2);
+                    if (isShowHint) $.hint("上传中:" + percentage + "%");
                 };
 
                 uploadMsg();
 
-                let maxBChunkPer = data.maxMbChunkPer * 1024 * 1024
+                let maxBChunkPer = data.maxMbChunkPer * 1024 * 1024;
 
                 let submit = function (i) {
                     if (i >= missingChunk.length) return;
@@ -108,6 +106,25 @@
                 return;
             }
             upload(file, call, isShowHint);
+        });
+    };
+    $.fn.initUploadBtn = function (isShowHint, call) {
+        let inp = $("<input type='file'>");
+        $("body").append(inp);
+        $(this).click(function () {
+            inp.click();
+        });
+        inp.change(function () {
+            let filePath = $(this).val();
+            if (filePath === "") return;
+            let file = this.files[0];
+            let fileSizi = (file.size / 1024).toFixed(2);
+            if (fileSizi > 1048576) {
+                alert("目前仅支持1G以内的文件上传");
+                return;
+            }
+            upload(file, call, isShowHint);
+            inp.val("");
         });
     };
 })(jQuery);

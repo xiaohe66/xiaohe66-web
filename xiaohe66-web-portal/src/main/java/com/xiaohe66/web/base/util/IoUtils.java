@@ -4,6 +4,7 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.DigestUtils;
 
 import java.io.BufferedOutputStream;
@@ -77,15 +78,13 @@ public class IoUtils {
         return readStringWithInput(IoUtils.class.getClassLoader().getResourceAsStream(filePath));
     }
 
+    // todo : 线程安全
     public static void createFileIfNotExsit(File file) throws XhIoException {
         if (!file.exists()) {
             log.debug("文件不存在，创建文件:" + file.getPath());
             createDirectoryIfNotExist(file.getParentFile());
             try {
-                boolean isSuccess = file.createNewFile();
-                if (!isSuccess) {
-                    throw new XhIoException("文件已存在, 文件名 : " + file.getName());
-                }
+                Files.createFile(file.toPath());
             } catch (IOException e) {
                 throw new XhIoException(e);
             }
@@ -94,9 +93,10 @@ public class IoUtils {
 
     public static void createDirectoryIfNotExist(File directory) throws XhIoException {
         if (!directory.exists()) {
-            boolean isSuccess = directory.mkdirs();
-            if (!isSuccess) {
-                throw new XhIoException("创建文件夹失败, 路径 : " + directory.getPath());
+            try {
+                FileUtils.forceMkdir(directory);
+            } catch (IOException e) {
+                throw new XhIoException("创建文件夹失败, 路径 : " + directory.getPath(), e);
             }
         }
     }
@@ -122,6 +122,7 @@ public class IoUtils {
             while ((len = (inputStream.read(bytes))) > 0) {
                 bufferedOutputStream.write(bytes, 0, len);
             }
+            bufferedOutputStream.flush();
         } catch (IOException e) {
             throw new XhIoException(e);
         }
@@ -190,7 +191,7 @@ public class IoUtils {
     }
 
     public static String md5Sex(File file) throws XhIoException {
-        try(FileInputStream inputStream = new FileInputStream(file)){
+        try (FileInputStream inputStream = new FileInputStream(file)) {
             return DigestUtils.md5DigestAsHex(inputStream);
         } catch (IOException e) {
             throw new XhIoException(e);
@@ -212,4 +213,17 @@ public class IoUtils {
         }
     }
 
+    public static String convertFriendlySize(long bytes) {
+        final int unit = 1024;
+
+        if (bytes < unit) {
+            return "<1KB";
+        }
+        double kb = bytes * 1.0 / unit;
+        if (kb < unit) {
+            return String.format("%.2fKB", kb);
+        }
+        double mb = kb / unit;
+        return String.format("%.2fMB", mb);
+    }
 }

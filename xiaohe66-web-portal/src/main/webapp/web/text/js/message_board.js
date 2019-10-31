@@ -22,7 +22,7 @@ $(function () {
             $.each(arr,function (i, data) {
                 div.append(itemHtml);
                 var item = div.find(".item:last");
-                item.find(".head_img").attr("src","/org/usr/file/img/"+data.imgFileId);
+                item.find(".head_img").attr("src","/org/user/file/img/"+data.imgFileId);
                 var span = item.find(".u_r_d").find("span");
                 span.eq(0).text(data.usrName);
                 span.eq(1).text(data.createTime);

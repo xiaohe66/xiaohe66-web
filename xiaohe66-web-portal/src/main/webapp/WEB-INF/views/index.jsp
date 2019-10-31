@@ -73,7 +73,7 @@
                     <div class="item" articleId="${item.id}">
                         <div>
                             <div class="fl">
-                                <img class="head_img" src="/org/usr/file/img/${item.imgFileId}" alt="头像">
+                                <img class="head_img" src="/org/user/file/img/${item.imgFileId}" alt="头像">
                             </div>
                             <div class="u_r">
                                 <div class="u_r_u">
@@ -117,7 +117,7 @@
                 <c:if test="${not empty usrDivTitle}">${usrDivTitle}</c:if>
             </div>
             <div class="body master">
-                <img src="/org/usr/file/img/${usrDto.imgFileId}" class="head_img" alt="${usrDto.usrName}"
+                <img src="/org/user/file/img/${usrDto.imgFileId}" class="head_img" alt="${usrDto.usrName}"
                      onclick="location.href = '/text/article/list/${usrDto.id}'">
                 <p>${usrDto.usrName}</p>
                 <p>${usrDto.signature}</p>

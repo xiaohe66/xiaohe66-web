@@ -112,8 +112,8 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
         }
         QueryWrapper<P> queryWrapper = createDefaultQueryWrapper();
         return queryWrapper == null ?
-                super.page(xhPage) :
-                super.page(xhPage, queryWrapper);
+                page(xhPage) :
+                page(xhPage, queryWrapper);
     }
 
     /**

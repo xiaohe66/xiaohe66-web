@@ -55,7 +55,7 @@
         <div class="tab">
             <%--<a href="/text/article/all">文章</a>--%>
             <a href="/web/game/game.jsp">游戏</a>
-            <a href="/org/usr/file/all">资源</a>
+            <a href="/org/user/file/index">资源</a>
             <a href="/text/messageBoard/index">留言</a>
             <a href="/about">关于</a>
         </div>

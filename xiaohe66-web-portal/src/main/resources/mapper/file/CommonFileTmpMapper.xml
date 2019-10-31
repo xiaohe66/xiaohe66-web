@@ -7,7 +7,7 @@
     </select>
 
     <select id="findFileTmp" resultType="CommonFileTmp">
-        select * from xiaohe66_web_comm_file_tmp where md5 = #{md5}
+        select * from xiaohe66_web_comm_file_tmp where md5 = #{md5} order by chunk
     </select>
 
     <select id="countFinish" resultType="int">

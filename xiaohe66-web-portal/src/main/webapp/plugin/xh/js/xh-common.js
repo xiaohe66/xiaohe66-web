@@ -39,9 +39,9 @@ function trim(str) {
 
 function ajax(param, success, error) {
     param.success = function (data) {
-        if (data.code === 0) {
+        if (data.code === 100) {
             if (typeof success === "function") success(data.data);
-        } else if (data.code === 603) {
+        } else if (data.code === 421) {
             log("没有登录");
             alert("没有登录");
         } else {

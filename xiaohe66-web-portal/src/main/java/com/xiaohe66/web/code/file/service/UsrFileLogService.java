@@ -6,6 +6,7 @@ import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.mapper.UsrFileLogMapper;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UsrFileLog;
+import com.xiaohe66.web.code.org.helper.UserHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,12 @@ public class UsrFileLogService extends AbstractService<UsrFileLogMapper, UsrFile
         }
 
         if (!usrFileIdSet.contains(usrFileId)) {
-            po.setIp(ip);
             usrFileIdSet.add(usrFileId);
+            po.setIp(ip);
+            po.setCreateId(UserHelper.getCurrentUsrIdNotEx());
+            return super.save(po);
         }
-        return super.save(po);
+        return false;
     }
 
     /**

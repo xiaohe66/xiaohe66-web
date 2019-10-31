@@ -1,14 +1,10 @@
 package com.xiaohe66.web.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
-import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhIoException;
-import com.xiaohe66.web.code.file.dto.UsrFileDto;
 import com.xiaohe66.web.code.file.service.UserFileService;
-import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.ui.Model;
@@ -17,13 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author xh
  * @date 18-03-12 012
  */
-@XhController("/org/usr/file")
+//@XhController("/org/usr/file")
 public class UserFilePageController {
 
     private static final String USR_FILE_INDEX_PAGE_URL = "org/file_index";
@@ -43,10 +38,10 @@ public class UserFilePageController {
     public String admin(Model model){
 
         PageHelper.startPage(1,10);
-        List<UsrFileDto> list = usrFileService.findDtoByUsrId(UserHelper.getCurrentUsrId());
-        model.addAttribute("pageInfo",new PageInfo<>(list));
+//        List<UsrFileDto> list = usrFileService.findDtoByUsrId(UserHelper.getCurrentUsrId());
+//        model.addAttribute("pageInfo",new PageInfo<>(list));
         model.addAttribute("title","文件管理");
-        model.addAttribute("size",list.size());
+//        model.addAttribute("size",list.size());
         model.addAttribute("page",USR_FILE_ADMIN_PAGE_URL);
 
         return OtherPageController.USR_ZONE_PAGE_URL;
@@ -63,7 +58,7 @@ public class UserFilePageController {
     @Page("/all")
     public String all(Model model){
         PageHelper.startPage(1,20);
-        model.addAttribute("pageInfo",new PageInfo<>(usrFileService.findDtoAll(null,false)));
+//        model.addAttribute("pageInfo",new PageInfo<>(usrFileService.findDtoAll(null,false)));
         model.addAttribute("usrDto",userService.lookAtUser(null));
         model.addAttribute("title","资源列表");
         model.addAttribute("usrDivTitle","站长");

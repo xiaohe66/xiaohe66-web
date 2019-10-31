@@ -2,12 +2,16 @@ package com.xiaohe66.web.code.file.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author xiaohe
  * @time 17-11-11 011
  */
-@TableName("xiaohe66_web_org_usr_file")
+@EqualsAndHashCode(callSuper = true)
+@TableName("xiaohe66_web_org_user_file")
+@Data
 public class UserFile extends BasePoDetailed {
 
     private String fileName;
@@ -16,66 +20,22 @@ public class UserFile extends BasePoDetailed {
     private Integer fileId;
     private String extension;
 
-    public UserFile(){}
+    public UserFile() {
+    }
 
     public UserFile(Integer id, String fileName) {
         super.id = id;
         this.fileName = fileName;
     }
 
-    public String getFileName() {
-        return fileName;
+    public static class FileType {
+
+        public static final int DEFAULT_FILE = 0;
+        public static final int USER_HEAD_IMG = 1;
+        public static final int USER_ARTICLE_IMG = 2;
+
+        private FileType() {
+        }
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public Integer getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(Integer fileId) {
-        this.fileId = fileId;
-    }
-
-    public String getFileDesc() {
-        return fileDesc;
-    }
-
-    public void setFileDesc(String fileDesc) {
-        this.fileDesc = fileDesc;
-    }
-
-    public Integer getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(Integer fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
-
-    @Override
-    public String toString() {
-        return "{" + "\"createId\":\"" + createId + "\""
-                + ",\"fileName\":\"" + fileName + "\""
-                + ",\"createTime\":" + createTime
-                + ",\"fileDesc\":\"" + fileDesc + "\""
-                + ",\"id\":\"" + id + "\""
-                + ",\"updateId\":\"" + updateId + "\""
-                + ",\"fileType\":\"" + fileType + "\""
-                + ",\"updateTime\":" + updateTime
-                + ",\"fileId\":\"" + fileId + "\""
-                + ",\"isDelete\":\"" + isDelete + "\""
-                + ",\"extension\":\"" + extension + "\""
-                + "}";
-    }
 }
