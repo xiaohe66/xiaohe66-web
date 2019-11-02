@@ -30,7 +30,7 @@ public interface UserMapper extends IBaseMapper<User> {
      * @param usrPwd    密码
      * @return  Usr
      */
-    User findByUsrNameAndPwd(String usrName, String usrPwd);
+    User findByUserNameAndPwd(String usrName, String usrPwd);
 
 
     /**

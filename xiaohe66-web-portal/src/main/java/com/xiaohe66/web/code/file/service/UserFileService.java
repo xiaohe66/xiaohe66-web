@@ -20,11 +20,11 @@ import com.xiaohe66.web.code.file.param.UsrFileParam;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.UserFile;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
-import com.xiaohe66.web.code.file.po.UsrFileLog;
+import com.xiaohe66.web.code.file.po.UserFileLog;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +43,7 @@ import java.util.Set;
  * @time 18-03-12 012
  */
 @Service
+@Slf4j
 public class UserFileService extends AbstractService<UserFileMapper, UserFile> implements DtoConverter<UserFile, UserFileDto> {
 
     private static final Set<String> IMG_TYPE_SET = new HashSet<>(Arrays.asList(".png", ".jpg", ".jpeg", ".bmp", ".ico"));
@@ -53,20 +54,16 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
 
     private static final int FILE_EXTENSION_MAX_LENGTH = 8;
 
-    /**
-     * 2M
-     */
-    private static final int USR_HEAD_IMG_MAX_BYTE_LENGTH = 1024 * 1024 * 2;
 
-    @Autowired
     private CommonFileService commonFileService;
-
-    @Autowired
     private UsrFileLogService usrFileLogService;
-
-    @Autowired
     private UserService userService;
 
+    public UserFileService(CommonFileService commonFileService, UsrFileLogService usrFileLogService, UserService userService) {
+        this.commonFileService = commonFileService;
+        this.usrFileLogService = usrFileLogService;
+        this.userService = userService;
+    }
 
     @Override
     public boolean save(UserFile po) {
@@ -191,7 +188,11 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
         }
 
         //记录下载日志
-        usrFileLogService.save(new UsrFileLog(userFileId));
+        try {
+            usrFileLogService.save(new UserFileLog(userFileId));
+        } catch (Exception e) {
+            log.warn("无法保存文件下载日志", e);
+        }
     }
 
     public void updateNameById(Integer fileId, String fileName) {
@@ -271,6 +272,6 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
         dto.setFileSize(friendlySize);
 
         User createUser = userService.getById(po.getCreateId());
-        dto.setCreateUserName(createUser.getUsrName());
+        dto.setCreateUserName(createUser.getUserName());
     }
 }

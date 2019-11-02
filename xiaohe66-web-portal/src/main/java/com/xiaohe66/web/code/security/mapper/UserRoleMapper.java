@@ -4,6 +4,8 @@ import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.security.po.UserRole;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Set;
+
 /**
  * 用户角色关联dao
  *
@@ -14,11 +16,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UserRoleMapper extends IBaseMapper<UserRole> {
 
 
-    /**
-     * 给用户添加角色
-     * @param usrId     用户id
-     * @param roleIds   角色id数组
-     */
-    void addUsrRoles(@Param("usrId") Integer usrId, @Param("list") Integer[] roleIds);
+    void addUserRoles(@Param("userId") Integer usrId, @Param("roleIdSet") Set<Integer> roleIdSet);
 
 }

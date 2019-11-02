@@ -2,13 +2,18 @@ package com.xiaohe66.web.code.security.controller;
 
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
+import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
+import com.xiaohe66.web.base.exception.MsgException;
+import com.xiaohe66.web.base.exception.param.MissingParamException;
 import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.security.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 普通登录
@@ -52,6 +57,24 @@ public class LoginController {
     @Put("/pwd")
     public void updatePwd(String password, String code) {
         loginService.updatePwd(password, code);
+    }
+
+    // 用于注册发邮件
+    @Post("/register")
+    public Boolean register(User user, String code) {
+        try {
+            loginService.registerPrepare(user, code);
+        } catch (MissingParamException e) {
+            throw new MsgException(e.getCode(), e.getMessage());
+        }
+        return true;
+    }
+
+    // 用于注册验证
+    @Page("/register/{token}")
+    public String registerVerify(@PathVariable String token) {
+        loginService.register(token);
+        return "redirect:/";
     }
 
 

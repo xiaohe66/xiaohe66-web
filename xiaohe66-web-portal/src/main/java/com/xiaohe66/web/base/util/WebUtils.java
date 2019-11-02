@@ -28,13 +28,15 @@ public class WebUtils {
         return SecurityUtils.getSubject().getSession();
     }
 
-    public static boolean isPermitted(String permitted){
+    public static boolean isPermitted(String permitted) {
         return SecurityUtils.getSubject().isPermitted(permitted);
     }
-    public static boolean isRole(String role){
+
+    public static boolean isRole(String role) {
         return SecurityUtils.getSubject().hasRole(role);
     }
-    public static boolean isLogin(){
+
+    public static boolean isLogin() {
         return SecurityUtils.getSubject().isAuthenticated();
     }
 
@@ -75,5 +77,10 @@ public class WebUtils {
             return request.getRemoteAddr();
         }
         return request.getHeader("x-forwarded-for");
+    }
+
+    public static String getWebPath(){
+        HttpServletRequest request = getRequest();
+        return request.getScheme() + "://" + request.getServerName()+request.getServerPort();
     }
 }

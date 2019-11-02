@@ -26,6 +26,10 @@ public class RoleService extends AbstractService<RoleMapper, Role> {
             .expireAfterWrite(30, TimeUnit.MINUTES)
             .build();
 
+    public Set<Integer> listDefaultRoleId() {
+        return baseMapper.listDefaultRoleId();
+    }
+
     public Set<String> listRoleNameByUsrId(Integer usrId) {
         return baseMapper.listRoleNameByUsrId(usrId);
     }

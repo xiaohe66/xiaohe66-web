@@ -40,13 +40,13 @@
     <div class="t_t">
         <shiro:guest>
             <a href="/web/org/user/login.html">登录</a>
-            <a href="/org/user/register">注册</a>
+            <a href="/web/org/user/register.html">注册</a>
         </shiro:guest>
         <shiro:hasRole name="admin">
             <a href="/admin/index.html">后台管理</a>
         </shiro:hasRole>
         <shiro:authenticated>
-            <a <%--href="/org/usr/me" --%>class="loginName">${usr.usrName}</a>
+            <a <%--href="/org/usr/me" --%>class="loginName">${usr.userName}</a>
             <%--<a href="/text/article/add">写文章</a>--%>
             <a href="javascript:logout();">注销</a>
         </shiro:authenticated>

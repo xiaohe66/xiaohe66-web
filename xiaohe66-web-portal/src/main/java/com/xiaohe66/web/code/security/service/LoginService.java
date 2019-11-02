@@ -18,6 +18,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class LoginService {
 
-    private static final String REGISTER_VERIFY = "http://xiaohe66.com/org/usr/verify/";
+    @Value("${registerUrl}")
+    private String registerUrl;
 
     private UserService userService;
     private UserRoleService userRoleService;
@@ -52,10 +54,10 @@ public class LoginService {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
 
-        String userName = user.getUsrName();
+        String userName = user.getUserName();
         String email = user.getEmail();
-        Check.notEmpty(userName);
-        Check.notEmpty(email);
+        Check.notEmpty(userName,"userName");
+        Check.notEmpty(email,"email");
 
         if (!RegexUtils.testUsrName(userName) || !RegexUtils.testEmail(email)) {
             throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
@@ -71,12 +73,12 @@ public class LoginService {
 
         String token = PwdUtils.createToken();
 
-        String link = REGISTER_VERIFY + token;
+        String link = registerUrl + token;
 
         log.debug("发送link邮件，内容为: {}", link);
 
         //发送邮件
-        authService.sendLink(link, user.getEmail(), user.getUsrName(), "注册");
+        authService.sendLink(link, user.getEmail(), user.getUserName(), "注册");
 
         CacheHelper.put30(token, user);
     }
@@ -89,10 +91,10 @@ public class LoginService {
             throw new XhWebException(CodeEnum.B2_TOKEN_TIME_OUT);
         }
 
-        user.setUsrPwd(PwdUtils.hashPassword(user.getUsrPwd()));
+        user.setUserPwd(PwdUtils.hashPassword(user.getUserPwd()));
         try {
             userService.save(user);
-            userRoleService.addDefaultUsrRole(user.getId());
+            userRoleService.addDefaultUserRole(user.getId());
         } catch (Exception e) {
             throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION, "注册失败", e);
         }
@@ -117,7 +119,7 @@ public class LoginService {
         EmailAuthCode emailAuthCode = AuthCodeHelper.createEmailAuthCode(email);
 
         log.debug("发送验证码邮件，内容为：{}", emailAuthCode.getCode());
-        authService.sendAuthCode(emailAuthCode.getCode(), email, user.getUsrName(), "修改密码");
+        authService.sendAuthCode(emailAuthCode.getCode(), email, user.getUserName(), "修改密码");
     }
 
     public void updatePwd(String password, String code) {
@@ -129,7 +131,7 @@ public class LoginService {
 
         User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
 
-        user.setUsrPwd(PwdUtils.hashPassword(password));
+        user.setUserPwd(PwdUtils.hashPassword(password));
 
         userService.updateById(user);
     }
@@ -144,7 +146,7 @@ public class LoginService {
         Subject subject = SecurityUtils.getSubject();
         UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
 
-        if (currentUsr != null && loginName.equals(currentUsr.getUsrName())) {
+        if (currentUsr != null && loginName.equals(currentUsr.getUserName())) {
             //该用户已经登录
             log.debug("This user({}) is logged in", loginName);
             return currentUsr;
@@ -158,16 +160,16 @@ public class LoginService {
         }
 
         //验证密码
-        if (!PwdUtils.passwordsMatch(userPwd, dbUsr.getUsrPwd())) {
+        if (!PwdUtils.passwordsMatch(userPwd, dbUsr.getUserPwd())) {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR, "password is wrong");
         }
         return this.loginToShiro(dbUsr);
     }
 
     private UserDto loginToShiro(User user) {
-        log.info("登录到系统：{}", user.getUsrName());
-        String userName = user.getUsrName();
-        String userPwd = user.getUsrPwd();
+        log.info("登录到系统：{}", user.getUserName());
+        String userName = user.getUserName();
+        String userPwd = user.getUserPwd();
         UsernamePasswordToken token = new UsernamePasswordToken(userName, userPwd);
 
         Subject subject = SecurityUtils.getSubject();

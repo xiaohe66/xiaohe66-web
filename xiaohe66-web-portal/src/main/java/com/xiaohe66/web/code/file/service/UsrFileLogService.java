@@ -3,9 +3,9 @@ package com.xiaohe66.web.code.file.service;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.WebUtils;
-import com.xiaohe66.web.code.file.mapper.UsrFileLogMapper;
+import com.xiaohe66.web.code.file.mapper.UserFileLogMapper;
 import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
-import com.xiaohe66.web.code.file.po.UsrFileLog;
+import com.xiaohe66.web.code.file.po.UserFileLog;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import java.util.Set;
  * @date 18-04-15 015
  */
 @Service
-public class UsrFileLogService extends AbstractService<UsrFileLogMapper, UsrFileLog> {
+public class UsrFileLogService extends AbstractService<UserFileLogMapper, UserFileLog> {
 
     private static final Logger logger = LoggerFactory.getLogger(UsrFileLogService.class);
 
@@ -30,11 +30,11 @@ public class UsrFileLogService extends AbstractService<UsrFileLogMapper, UsrFile
      * @param po 插入的实体
      */
     @Override
-    public boolean save(UsrFileLog po) {
+    public boolean save(UserFileLog po) {
         String ip = WebUtils.getRequestIP();
         logger.debug("ip：{}", ip);
 
-        Integer usrFileId = po.getUsrFileId();
+        Integer usrFileId = po.getUserFileId();
 
         Set<Integer> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
 

@@ -12,11 +12,9 @@ import java.util.Set;
  * @time 17-10-28 028
  */
 public interface RoleMapper extends IBaseMapper<Role> {
-    /**
-     * 根据用户id查询角色名
-     * @param usrId 角色名
-     * @return Set<String>
-     */
+
+    Set<Integer> listDefaultRoleId();
+
     Set<String> listRoleNameByUsrId(Integer usrId);
 
     List<Role> listRoleByUserName(String userName);

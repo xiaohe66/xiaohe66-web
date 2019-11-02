@@ -271,7 +271,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
             articleDto.setText(HtmlUtils.digest(articleDto.getText(), 110));
 
             User user = userService.getById(article.getCreateId());
-            articleDto.setUsrName(user.getUsrName());
+            articleDto.setUsrName(user.getUserName());
             articleDto.setImgFileId(user.getImgFileId());
             articleDto.setCount(articleLogService.countByArticleId(article.getId()));
         });

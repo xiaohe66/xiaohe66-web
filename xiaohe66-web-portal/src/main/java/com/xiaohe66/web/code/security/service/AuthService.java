@@ -34,10 +34,9 @@ public class AuthService {
 
     public void sendAuthCode(String authCode, String targetEmail, String targetName, String handel) {
 
-        Check.notEmpty(authCode);
-        Check.notEmpty(targetEmail);
-        Check.notEmpty(targetName);
-        Check.notEmpty(handel);
+        Check.notEmpty(authCode, "authCode");
+        Check.notEmpty(targetEmail, "targetEmail");
+        Check.notEmpty(targetName, "targetName");
 
         String content = fetchAuthEmailContent(targetName, authCode, handel);
         sendEmail(targetEmail, targetName, content);
@@ -45,12 +44,13 @@ public class AuthService {
 
     public void sendLink(String link, String targetEmail, String targetName, String handel) {
 
-        Check.notEmpty(link);
-        Check.notEmpty(targetEmail);
-        Check.notEmpty(targetName);
-        Check.notEmpty(handel);
+        Check.notEmpty(link, "link");
+        Check.notEmpty(targetEmail, "targetEmail");
+        Check.notEmpty(targetName, "targetName");
 
         String content = fetchAuthLinkContent(targetName, link, handel);
+
+        log.debug("发送注册邮件，目标邮箱 : {}, 注册链接 : {}", targetEmail, link);
         sendEmail(targetEmail, targetName, content);
     }
 
@@ -71,7 +71,7 @@ public class AuthService {
         try {
             codeTemplateStr = IoUtils.readStringInJar("com/xiaohe66/web/emailTemplate/codeTemplate.html");
         } catch (XhIoException e) {
-            throw new IllegalOperationException("读取验证码模板时发生异常",e);
+            throw new IllegalOperationException("读取验证码模板时发生异常", e);
         }
         return codeTemplateStr.replace("${usrName}", usrName).replace("${handle}", handle).replace("${code}", authCode);
     }
@@ -81,7 +81,7 @@ public class AuthService {
         try {
             linkTemplateStr = IoUtils.readStringInJar("com/xiaohe66/web/emailTemplate/linkTemplate.html");
         } catch (XhIoException e) {
-            throw new IllegalOperationException("读取链接模板时发生异常",e);
+            throw new IllegalOperationException("读取链接模板时发生异常", e);
         }
         return linkTemplateStr.replace("${usrName}", usrName).replace("${handle}", handle).replace("${link}", link);
     }

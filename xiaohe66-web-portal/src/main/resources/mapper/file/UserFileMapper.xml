@@ -3,11 +3,11 @@
 <mapper namespace="com.xiaohe66.web.code.file.mapper.UserFileMapper">
 
     <select id="findByCommonFileId" resultType="userFile">
-        select * from xiaohe66_web_org_usr_file where is_delete = 0 and file_id = #{commonFileId}
+        select * from xiaohe66_web_org_user_file where is_delete = 0 and file_id = #{commonFileId}
     </select>
 
     <select id="listByParam" resultType="userFile">
-        select * from xiaohe66_web_org_usr_file
+        select * from xiaohe66_web_org_user_file
         <where>
             is_delete = 0
             and file_type = 0

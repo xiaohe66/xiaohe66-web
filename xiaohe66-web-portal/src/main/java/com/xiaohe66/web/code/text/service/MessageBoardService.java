@@ -75,10 +75,10 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
         String anonymity = po.getAnonymity();
         if (anonymity == null || anonymity.length() == 0) {
             User user = userService.getById(po.getCreateId());
-            dto.setUsrName(user.getUsrName());
+            dto.setUserName(user.getUserName());
             dto.setImgFileId(user.getImgFileId());
         } else {
-            dto.setUsrName(po.getAnonymity());
+            dto.setUserName(po.getAnonymity());
             dto.setImgFileId(1);
         }
     }

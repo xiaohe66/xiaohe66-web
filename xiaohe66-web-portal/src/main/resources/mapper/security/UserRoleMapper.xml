@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaohe66.web.code.security.mapper.UserRoleMapper">
 
-    <insert id="addUsrRoles">
-        insert into xiaohe66_web_security_user_role(usr_id,role_id)
+    <insert id="addUserRoles">
+        insert into xiaohe66_web_security_user_role(user_id,role_id)
         values
-        <foreach collection="list" separator="," item="item">
-            (#{usrId},#{item})
+        <foreach collection="roleIdSet" separator="," item="item">
+            (#{userId},#{item})
         </foreach>
     </insert>
 

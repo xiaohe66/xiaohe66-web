@@ -10,10 +10,9 @@
 <head>
     <jsp:include page="/WEB-INF/views/common/init.jsp"></jsp:include>
     <link type="text/css" rel="stylesheet" href="/web/common/css/about.css"/>
-
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
 <div class="c">
     <div class="c_c border1">
         <p>关于</p>
@@ -21,7 +20,7 @@
             <p>关于本站</p>
             <ul>
                 <li>本站由小何一人独立开发，包括原型设计、UI设计、前端开发、后端开发、数据库设计、架构设计等。于2018年5月1号上线，并由小何本人自主维护运行。</li>
-                <li>后端采用springMVC+myBatis+shrio框架，ehcache缓存框架，使用maven管理依赖。使用mysql数据库，tomcat应用服务器，并在linux环境上部署。</li>
+                <li>后端采用springMVC+myBatis+shrio框架，使用maven管理依赖。使用mysql数据库，tomcat应用服务器，并在linux环境上部署。</li>
                 <li>前端使用了开源框架jQuery.js、wangEditor.js、spark-md5.js。</li>
                 <li>本站旨在锻炼小何的动手能力和成为一个展现自我的平台。</li>
                 <%--<li class="func">

@@ -25,7 +25,7 @@ $(function () {
                 var item = div.find(".item:last");
                 item.find(".head_img").attr("src", "/org/user/file/img/" + data.imgFileId);
                 var span = item.find(".u_r_d").find("span");
-                span.eq(0).text(data.usrName);
+                span.eq(0).text(data.userName);
                 span.eq(1).text(data.createTime);
                 span.eq(2).text(data.id + "楼");
                 item.find(".desc").html(data.msg);
