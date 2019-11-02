@@ -59,11 +59,15 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
         return ClassUtils.convert(MessageBoardDto.class, page, this::convertDto);
     }
 
+
+
     @Override
     public QueryWrapper<MessageBoard> createDefaultQueryWrapper() {
         MessageBoard messageBoard = new MessageBoard();
         messageBoard.setUsrId(SysCfgHelper.findXhUsrId());
-        return new QueryWrapper<>();
+        QueryWrapper<MessageBoard> queryWrapper = new QueryWrapper<>(messageBoard);
+        queryWrapper.orderByDesc("create_time");
+        return queryWrapper;
     }
 
     @Override

@@ -34,6 +34,9 @@ public class WebUtils {
     public static boolean isRole(String role){
         return SecurityUtils.getSubject().hasRole(role);
     }
+    public static boolean isLogin(){
+        return SecurityUtils.getSubject().isAuthenticated();
+    }
 
     /**
      * 给当前session添加参数

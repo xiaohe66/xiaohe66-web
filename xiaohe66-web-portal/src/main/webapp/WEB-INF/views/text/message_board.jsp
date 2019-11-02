@@ -21,8 +21,6 @@
 <jsp:include page="/WEB-INF/views/common/top.jsp"></jsp:include>
 <div class="c">
     <div class="l">
-        <input type="hidden" id="usrId" value="${usr.id}">
-        <input type="hidden" id="size" value="${page.pages}">
         <shiro:guest>
             <input type="hidden" id="isLogin" value="0">
         </shiro:guest>
@@ -45,46 +43,35 @@
             </shiro:authenticated>
         </div>
         <div class="content">
-            <c:if test="${page.pages==0}">
-                <div class="item">
-                    <p style="text-align: center">
-                        <img style="vertical-align: middle" src="/icon/grieved.png">
-                        <span style="vertical-align: middle;display: inline-block;margin-left:
-                30px;font-size: 30px;line-height: 64px;">暂无留言</span>
-                    </p>
-                </div>
-            </c:if>
-            <c:forEach items="${page.records}" var="item" varStatus="statu">
-                <div class="item">
-                    <div>
-                        <div class="fl">
-                            <img class="head_img" src="/org/user/file/img/${item.imgFileId}" alt="头像">
+            <div class="item">
+                <div>
+                    <div class="fl">
+                        <img class="head_img" src="/org/user/file/img/0" alt="头像">
+                    </div>
+                    <div class="u_r">
+                        <div class="u_r_d">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
-                        <div class="u_r">
-                            <div class="u_r_d">
-                                <span>${item.usrName}</span>
-                                <span>${item.createTime}</span>
-                                <span>${item.id}楼</span>
-                            </div>
-                            <div class="desc">${item.msg}</div>
-                        </div>
+                        <div class="desc"></div>
                     </div>
                 </div>
-            </c:forEach>
+            </div>
         </div>
         <div id="paging"></div>
     </div>
     <div class="r">
         <div class="module1">
             <div class="title">
-                <c:if test="${empty usrDivTitle}">作者</c:if>
-                <c:if test="${not empty usrDivTitle}">${usrDivTitle}</c:if>
+                <c:if test="${empty userDivTitle}">作者</c:if>
+                <c:if test="${not empty userDivTitle}">${userDivTitle}</c:if>
             </div>
             <div class="body master">
-                <img src="/org/user/file/img/${usrDto.imgFileId}" class="head_img" alt="${usrDto.usrName}"
-                     onclick="location.href = '/text/article/list/${usrDto.id}'">
-                <p>${usrDto.usrName}</p>
-                <p>${usrDto.signature}</p>
+                <img src="/org/user/file/img/${lookAtUser.imgFileId}" class="head_img" alt="${lookAtUser.usrName}"
+                     onclick="location.href = '/text/article/list/${lookAtUser.id}'">
+                <p>${lookAtUser.usrName}</p>
+                <p>${lookAtUser.signature}</p>
             </div>
         </div>
         <div class="module1">
@@ -97,9 +84,9 @@
         </div>
         <div class="module1">
             <div class="title">
-                <c:if test="${empty usrDivTitle}">他的</c:if>
+                <c:if test="${empty userDivTitle}">他的</c:if>
                 热门资源(近30天)
-                <c:if test="${not empty usrDivTitle}">
+                <c:if test="${not empty userDivTitle}">
                     <a href="/org/usr/file/all">more>></a>
                 </c:if>
             </div>
@@ -111,9 +98,9 @@
         </div>
         <div class="module1">
             <div class="title">
-                <c:if test="${empty usrDivTitle}">他的</c:if>
+                <c:if test="${empty userDivTitle}">他的</c:if>
                 热门文章(近30天)
-                <c:if test="${not empty usrDivTitle}">
+                <c:if test="${not empty userDivTitle}">
                     <a href="/text/article/all">more>></a>
                 </c:if>
             </div>
