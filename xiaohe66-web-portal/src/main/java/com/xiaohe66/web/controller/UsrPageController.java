@@ -5,6 +5,7 @@ import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.service.LoginService;
+import com.xiaohe66.web.code.sys.controller.OtherPageController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 

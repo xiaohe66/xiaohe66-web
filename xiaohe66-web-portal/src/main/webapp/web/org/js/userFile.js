@@ -8,7 +8,7 @@ $(function () {
             extension: data.extension,
             fileType: 0
         }, function (json) {
-            $.maskHint("上传成功",function () {
+            $.maskHint("上传成功", function () {
                 location.reload();
             })
         });
@@ -22,7 +22,7 @@ $(function () {
     }
 
     var tbody = $("#file_tab").find("tbody");
-    var html = $("tr")[1].outerHTML;
+    var trHtml = $("tr")[1].outerHTML;
 
     var search = "";
 
@@ -31,7 +31,7 @@ $(function () {
         paging("/org/user/file?search=" + search, page, 15, function (data) {
             console.log("data", data);
             $.each(data.records, function (i, item) {
-                tbody.append(html);
+                tbody.append(trHtml);
                 var tr = tbody.find("tr:last");
                 tr.attr("id", item.id);
 
@@ -45,6 +45,8 @@ $(function () {
             $("#paging").paging(data.pages, data.current, getPaging);
         });
     };
+
+    getPaging(1);
 
     $("#searchBtn").click(function () {
         var val = $("#search").val();
@@ -64,7 +66,16 @@ $(function () {
         }
     });
 
-    $("#paging").paging(max, num, getPaging);
+    $("#clear").click(function () {
+        $("#search").val("");
+        $("#searchBtn").click();
+    });
+    
+    $("#rename input").keydown(function (e) {
+        if (e.keyCode === 13) {
+            $("#confirm").click();
+        }
+    });
 });
 
 $(document).on("click", ".down", function () {
@@ -72,9 +83,37 @@ $(document).on("click", ".down", function () {
     window.open("/org/user/file/down/" + id);
 });
 
+let fileId;
+let fileName;
 $(document).on("click", ".rename", function () {
-    let id = $(this).parent().parent().attr("id");
-    alert("改名弹窗");
+    let tr = $(this).parent().parent();
+    fileId = tr.attr("id");
+    fileName = tr.find(".name").text() + tr.find(".extension").text();
+    $.mask(function () {
+        $("#rename").hide();
+    });
+    $("#rename").show();
+    $("#rename input").val(fileName);
+    $("#rename input").focus();
+});
+
+$(document).on("click", "#confirm", function () {
+    let name = $("#rename input").val();
+    if (name && name !== fileName) {
+        let arr = splitFileName(name);
+        put("/org/user/file", {id: fileId, fileName: arr[0], extension: arr[1]}, function (data) {
+            let tr = $("#" + fileId);
+            tr.find(".name").text(arr[0]);
+            tr.find(".extension").text(arr[1]);
+            $("#rename").hide();
+            $.maskClose();
+        })
+    }
+});
+
+$(document).on("click", "#cencel", function () {
+    $("#rename").hide();
+    $.maskClose();
 });
 
 $(document).on("click", ".delete", function () {

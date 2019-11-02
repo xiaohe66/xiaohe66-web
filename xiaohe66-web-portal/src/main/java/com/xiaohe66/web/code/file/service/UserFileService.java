@@ -66,27 +66,11 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
     }
 
     @Override
-    public boolean save(UserFile po) {
-        String fileName = po.getFileName();
-        if (fileName == null) {
-            throw new MissingParamException("fileName");
+    public boolean save(UserFile userFile) {
+        if (userFile.getFileType() == null) {
+            userFile.setFileType(UserFile.FileType.DEFAULT_FILE);
         }
-        if (fileName.length() > FILE_NAME_MAX_LENGTH) {
-            String subFileName = fileName.substring(0, FILE_NAME_MAX_LENGTH);
-            po.setFileName(subFileName);
-        }
-
-        String extension = po.getExtension();
-        if (extension != null && extension.length() > FILE_EXTENSION_MAX_LENGTH) {
-            String subExtension = extension.substring(0, FILE_EXTENSION_MAX_LENGTH);
-            po.setExtension(subExtension);
-        }
-
-        if (po.getFileType() == null) {
-            po.setFileType(UserFile.FileType.DEFAULT_FILE);
-        }
-
-        return super.save(po);
+        return super.save(createSafetyPo(userFile));
     }
 
     public UserFile findByCommonFileId(Integer commonFileId) {
@@ -243,6 +227,24 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
         }
         //文件名字符长度不能超过20
         return extension.length() > FILE_EXTENSION_MAX_LENGTH ? extension.substring(0, FILE_EXTENSION_MAX_LENGTH) : extension;
+    }
+
+    public UserFile createSafetyPo(UserFile userFile){
+        String fileName = userFile.getFileName();
+        if (fileName == null) {
+            throw new MissingParamException("fileName");
+        }
+        if (fileName.length() > FILE_NAME_MAX_LENGTH) {
+            String subFileName = fileName.substring(0, FILE_NAME_MAX_LENGTH);
+            userFile.setFileName(subFileName);
+        }
+
+        String extension = userFile.getExtension();
+        if (extension != null && extension.length() > FILE_EXTENSION_MAX_LENGTH) {
+            String subExtension = extension.substring(0, FILE_EXTENSION_MAX_LENGTH);
+            userFile.setExtension(subExtension);
+        }
+        return userFile;
     }
 
     @Override

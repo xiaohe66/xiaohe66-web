@@ -81,6 +81,15 @@ function paging(url, pageNo, pageSize, success, error) {
     });
 }
 
+function splitFileName(name) {
+    if(!name)return;
+    let index = name.lastIndexOf(".");
+    if (index === -1) index = name.length;
+    let fileName = name.substring(0, index);
+    let extension = name.substring(index);
+    return [fileName,extension];
+}
+
 function getQueryParam(key) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");

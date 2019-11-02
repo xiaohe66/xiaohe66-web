@@ -56,7 +56,6 @@ public class UserFileController extends BaseController<UserFileService, UserFile
 
     @Page("/index")
     public String index(Model model){
-        model.addAttribute("iPage",baseService.indexDataDto());
         model.addAttribute("usrDto",userService.lookAtUser(null));
         model.addAttribute("title","资源列表");
         model.addAttribute("usrDivTitle","站长");
@@ -68,5 +67,14 @@ public class UserFileController extends BaseController<UserFileService, UserFile
     @Override
     protected void checkSelect() {
         // 不检查下载权限
+    }
+
+    @Override
+    protected void checkUpdate(UserFile po) {
+        super.checkUpdate(po);
+        // 下面3个属性不可以被更新
+        po.setFileType(null);
+        po.setFileId(null);
+        po.setFileDesc(null);
     }
 }

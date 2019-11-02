@@ -6,6 +6,7 @@ import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.code.file.service.UserFileService;
 import com.xiaohe66.web.code.org.service.UserService;
+import com.xiaohe66.web.code.sys.controller.OtherPageController;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

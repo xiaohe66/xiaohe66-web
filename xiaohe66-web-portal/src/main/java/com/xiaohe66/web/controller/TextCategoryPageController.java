@@ -4,6 +4,7 @@ import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
+import com.xiaohe66.web.code.sys.controller.OtherPageController;
 import com.xiaohe66.web.code.text.dto.TextCategoryDto;
 import com.xiaohe66.web.code.text.service.TextCategoryService;
 import org.springframework.ui.Model;

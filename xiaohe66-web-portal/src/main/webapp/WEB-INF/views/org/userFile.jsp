@@ -17,8 +17,6 @@
     <script type="text/javascript" src="/web/common/js/spark-md5.min.js"></script>
     <script type="text/javascript" src="/plugin/xh/js/xh-upload.js"></script>
     <script>
-        let max = ${iPage.pages};
-        let num = ${iPage.current};
         let hasEdit = ${hasDelete};
         let hasDelete = ${hasDelete};
     </script>
@@ -31,7 +29,10 @@
         <p class="fl">资源列表</p>
         <input id="search" placeholder="搜索">
         <a href="javascript:" class="btn" id="searchBtn">搜索</a>
-        <a href="javascript:" class="btn fr" id="upload">上传</a>
+        <a href="javascript:" class="btn" id="clear">清除</a>
+        <shiro:hasPermission name="userFile:insert">
+            <a href="javascript:" class="btn fr" id="upload">上传</a>
+        </shiro:hasPermission>
     </div>
     <div class="c_c">
         <table id="file_tab" border="0" cellpadding="0" cellspacing="0">
@@ -52,26 +53,26 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${iPage.records}" var="item">
-                <tr id="${item.id}">
-                    <td><span class="name">${item.fileName}</span><span class="extension">${item.extension}</span></td>
-                    <td>${item.createTime}</td>
-                    <td>${item.fileSize}</td>
-                    <td>${item.createUserName}</td>
-                    <td class="btnTd">
-                        <a href="javascript:" class="down">下载</a>
-                        <%--<shiro:hasPermission name="userFile:update">
-                            <a href="javascript:" class="rename">重命名</a>
-                        </shiro:hasPermission>
-                        <shiro:hasPermission name="userFile:delete">
-                            <a href="javascript:" class="delete">删除</a>
-                        </shiro:hasPermission>--%>
-                    </td>
-                </tr>
-            </c:forEach>
+            <tr>
+                <td><span class="name"></span><span class="extension"></span></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="btnTd">
+                    <a href="javascript:" class="down">下载</a>
+                </td>
+            </tr>
             </tbody>
         </table>
         <div id="paging"></div>
+    </div>
+</div>
+<div id="rename">
+    <div>请输入新名称：</div>
+    <input>
+    <div>
+        <a href="javascript:" class="btn" id="confirm">确定</a>
+        <a href="javascript:" class="btn" id="cencel">取消</a>
     </div>
 </div>
 <jsp:include page="/WEB-INF/views/common/foot.jsp"></jsp:include>
