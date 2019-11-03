@@ -6,7 +6,6 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.service.CommonFileService;
 import com.xiaohe66.web.code.love.dto.LovePhotoDto;
 import com.xiaohe66.web.code.love.mapper.PhotoMapper;
@@ -14,7 +13,6 @@ import com.xiaohe66.web.code.love.po.Photo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -44,20 +42,22 @@ public class PhotoService extends AbstractService<PhotoMapper, Photo> {
     }
 
     @Override
-    public QueryWrapper<Photo> createDefaultQueryWrapper() {
-        HttpServletRequest request = WebUtils.getRequest();
-        String name = request.getParameter("name");
+    public QueryWrapper<Photo> createDefaultQueryWrapper(Photo po) {
+        QueryWrapper<Photo> queryWrapper = new QueryWrapper<>(po);
+        queryWrapper.orderByDesc("sort", "create_time");
+
+        String name = po.getName();
         if (name != null) {
             String nameStr = name.trim();
             if (nameStr.length() != 0) {
-                Photo photo = new Photo();
-                QueryWrapper<Photo> queryWrapper = new QueryWrapper<>(photo);
                 // todo : 创建工具类，由工具类统一创建模糊查询参数
                 queryWrapper.like("name", "%" + nameStr + "%");
-                return queryWrapper;
             }
         }
-        return null;
+
+        po.setName(null);
+
+        return queryWrapper;
     }
 
     public void showImg(OutputStream outputStream, Integer id) {

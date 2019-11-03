@@ -14,7 +14,7 @@ import com.xiaohe66.web.code.love.service.BlessService;
 public class BlessController extends BaseController<BlessService, Bless, BlessDto> {
 
     @Override
-    protected void checkSelect() {
+    protected void checkSelect(Bless bless) {
         // 查询不需要检查权限
     }
     

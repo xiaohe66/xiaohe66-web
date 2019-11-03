@@ -62,8 +62,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
 
 
     @Override
-    public QueryWrapper<MessageBoard> createDefaultQueryWrapper() {
-        MessageBoard messageBoard = new MessageBoard();
+    public QueryWrapper<MessageBoard> createDefaultQueryWrapper(MessageBoard messageBoard) {
         messageBoard.setUsrId(SysCfgHelper.findXhUsrId());
         QueryWrapper<MessageBoard> queryWrapper = new QueryWrapper<>(messageBoard);
         queryWrapper.orderByDesc("create_time");

@@ -20,4 +20,5 @@ public class PhotoDto extends BaseDtoDetailed {
     private String three;
 
     private Boolean isShow;
+    private Integer sort;
 }

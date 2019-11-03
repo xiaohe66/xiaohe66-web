@@ -14,7 +14,7 @@ import com.xiaohe66.web.code.love.service.WishService;
 public class WishController extends BaseController<WishService, Wish, WishDto> {
 
     @Override
-    protected void checkSelect() {
+    protected void checkSelect(Wish wish) {
         // 查询不需要检查权限
     }
 

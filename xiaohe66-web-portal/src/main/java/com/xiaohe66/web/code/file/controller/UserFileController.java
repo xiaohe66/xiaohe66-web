@@ -65,7 +65,7 @@ public class UserFileController extends BaseController<UserFileService, UserFile
     }
 
     @Override
-    protected void checkSelect() {
+    protected void checkSelect(UserFile userFile) {
         // 不检查下载权限
     }
 

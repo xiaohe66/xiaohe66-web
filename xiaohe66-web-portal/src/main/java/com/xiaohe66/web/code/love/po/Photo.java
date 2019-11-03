@@ -20,17 +20,5 @@ public class Photo extends BasePoDetailed {
     private String two;
     private String three;
     private Boolean isShow;
-
-    @Override
-    public String toString() {
-        return "{" + "\"fileId\":\"" + fileId + "\""
-                + ",\"name\":\"" + name + "\""
-                + ",\"createId\":\"" + createId + "\""
-                + ",\"createTime\":" + createTime
-                + ",\"updateId\":\"" + updateId + "\""
-                + ",\"updateTime\":" + updateTime
-                + ",\"isDelete\":\"" + isDelete + "\""
-                + ",\"id\":\"" + id + "\""
-                + "}";
-    }
+    private Integer sort;
 }

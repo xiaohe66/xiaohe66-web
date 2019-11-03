@@ -40,7 +40,7 @@ public class PhotoController extends BaseController<PhotoService, Photo, PhotoDt
     }
 
     @Override
-    protected void checkSelect() {
+    protected void checkSelect(Photo photo) {
         // 重写该方法，表示不检查权限
     }
 

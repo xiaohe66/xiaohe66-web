@@ -102,15 +102,6 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
         });
     }
 
-    public IPage<UserFileDto> indexDataDto() {
-
-        QueryWrapper<UserFile> queryWrapper = createDefaultQueryWrapper();
-
-        IPage<UserFile> iPage = this.page(15, queryWrapper);
-
-        return ClassUtils.convert(UserFileDto.class, iPage, this::convertDto);
-    }
-
     public List<UserFileDto> findDtoHotTop5(Integer usrId) {
         List<UsrFileDownloadCount> mapList = usrFileLogService.countDownloadOfMonth(usrId);
         int i = 0;
@@ -248,9 +239,8 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
     }
 
     @Override
-    public QueryWrapper<UserFile> createDefaultQueryWrapper() {
+    public QueryWrapper<UserFile> createDefaultQueryWrapper(UserFile userFile) {
 
-        UserFile userFile = new UserFile();
         userFile.setFileType(UserFile.FileType.DEFAULT_FILE);
 
         QueryWrapper<UserFile> queryWrapper = new QueryWrapper<>(userFile);

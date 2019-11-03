@@ -43,7 +43,7 @@ public class MessageBoardController extends BaseController<MessageBoardService, 
     }
 
     @Override
-    protected void checkSelect() {
+    protected void checkSelect(MessageBoard messageBoard) {
         // 不检查查询权限
     }
 

@@ -84,7 +84,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     @SuppressWarnings("unchecked")
     @Get("/{id}")
     public Result get(@PathVariable("id") Integer id) {
-        checkSelect();
+        checkSelect(null);
         P po = baseService.getById(id);
         D dto = ClassUtils.convert(dtoClass, po);
 
@@ -97,10 +97,11 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     @SuppressWarnings("unchecked")
     @Get
     public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Long pageSize,
-                       @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Long pageNo) {
-        checkSelect();
+                       @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Long pageNo,
+                       P po) {
+        checkSelect(po);
 
-        IPage<P> poPage = baseService.pageDefault(pageSize, pageNo);
+        IPage<P> poPage = baseService.pageDefault(pageSize, pageNo, po);
 
         IPage<D> dtoPage;
         if (baseService instanceof DtoConverter) {
@@ -124,7 +125,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         checkPermitted(moduleName + ":update");
     }
 
-    protected void checkSelect() {
+    protected void checkSelect(P po) {
         checkPermitted(moduleName + ":select");
     }
 

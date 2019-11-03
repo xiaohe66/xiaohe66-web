@@ -3,6 +3,9 @@ package com.xiaohe66.web.code.org.controller;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.base.BaseController;
+import com.xiaohe66.web.base.data.Final;
+import com.xiaohe66.web.base.data.Result;
+import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
@@ -24,6 +27,12 @@ public class UserController extends BaseController<UserService, User, UserDto> {
     @Get("email")
     public Boolean isExistEmail(String email) {
         return baseService.isExistEmail(email);
+    }
+
+    @Get("/info")
+    public Result current(){
+        UserDto userDto = WebUtils.getSessionAttr(Final.Str.SESSION_UER_KEY);
+        return Result.ok(userDto);
     }
 
 }

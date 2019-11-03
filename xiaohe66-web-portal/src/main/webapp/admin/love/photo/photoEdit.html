@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/plugin/layui/css/layui.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/plugin/xh/css/xh-paging.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="/plugin/xh/css/xh-mask.css"/>-->
+    <!--<script type="text/javascript" src="/admin/Js/jquery.js"></script>-->
+    <!--<script type="text/javascript" src="/admin/Js/jquery.sorted.js"></script>-->
+    <!--<script type="text/javascript" src="/admin/Js/bootstrap.js"></script>-->
+    <!--<script type="text/javascript" src="/admin/Js/ckform.js"></script>-->
+    <!--<script type="text/javascript" src="/admin/Js/common.js"></script>-->
+    <script type="text/javascript" src="/plugin/jquery/js/jquery-3.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="/plugin/xh/js/xh-mask.js"></script>-->
+    <!--<script type="text/javascript" src="/plugin/xh/js/xh-paging.js"></script>-->
+    <script type="text/javascript" src="/web/common/js/spark-md5.min.js"></script>
+    <script type="text/javascript" src="/plugin/xh/js/xh-upload.js"></script>
+    <style>
+
+        .photo {
+            width: 100%;
+            height: 100%;
+        }
+
+        #form {
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<form id="form" class="layui-form layui-form-pane" lay-filter="form">
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-md3">
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">照片</label>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <div class="layui-input-block">
+                    <!--<img src="/love/photo/img/13" class="photo" alt="图片">-->
+                    <input type="hidden" id="fileId" name="fileId" lay-verify="fileId">
+                    <div class="layui-upload-drag" id="upload">
+                        <i class="layui-icon"></i>
+                        <p>点击上传，或将文件拖拽到此处</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md7">
+            <div class="layui-form-item">
+                <label class="layui-form-label">名称</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" name="name" lay-filter="photoName" lay-verify="required|photoName">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否显示</label>
+                <div class="layui-input-block">
+                    <select name="isShow" lay-filter="isShow">
+                        <option value="1">显示</option>
+                        <option value="0">不显示</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">第一段话</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="one" lay-verify="required|word"
+                              lay-verify="photoName"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">第二段话</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="two" lay-verify="word"
+                              lay-verify="photoName"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">第三段话</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="three" lay-verify="word"
+                              lay-verify="photoName"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" name="sort" value="0" lay-verify="required|number|sort">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
+                    <button type="button" class="layui-btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<table id="table" lay-filter="photo"></table>
+<script type="text/javascript" src="/plugin/layui/layui.all.js"></script>
+<script type="text/javascript" src="/plugin/xh/js/xh-common.js"></script>
+<script type="text/javascript" src="js/photoEdit.js"></script>
+</body>
+</html>

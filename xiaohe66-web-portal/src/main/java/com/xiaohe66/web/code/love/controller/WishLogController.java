@@ -14,7 +14,7 @@ import com.xiaohe66.web.code.love.service.WishLogService;
 public class WishLogController extends BaseController<WishLogService, WishLog, WishLogDto> {
 
     @Override
-    protected void checkSelect() {
+    protected void checkSelect(WishLog wishLog) {
         // 不检查
     }
 }

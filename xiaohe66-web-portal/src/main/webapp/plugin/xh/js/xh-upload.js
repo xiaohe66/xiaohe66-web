@@ -20,10 +20,10 @@
             let uploadSuccess = function () {
                 // if (isShowHint) $.hint("上传成功");
                 call({
-                    fileId : fileId,
-                    md5 : md5,
-                    fileName : fileName,
-                    extension : extension
+                    fileId: fileId,
+                    md5: md5,
+                    fileName: fileName,
+                    extension: extension
                 });
             };
 
@@ -41,9 +41,9 @@
                 fileId = data.fileId;
                 let missingChunk = data.missingChunk;
                 let surplus = missingChunk.length;
-                console.log("上传准备结果",data);
+                console.log("upload prepare result:", data);
 
-                if(surplus === 0){
+                if (surplus === 0) {
                     uploadSuccess();
                     return;
                 }
@@ -95,6 +95,17 @@
         });
     };
 
+    $.upload = function (isShowHint, data, call) {
+        let r = $.extend({elem: '#upload', size: 1024}, data);
+        r.auto = false;
+        r.choose = function (obj) {
+            obj.preview(function (index, file, result) {
+                console.log("file", file);
+                upload(file, call, isShowHint);
+            });
+        };
+        layui.upload.render(r);
+    };
     $.fn.upload = function (isShowHint, call) {
         $(this).change(function () {
             let filePath = $(this).val();

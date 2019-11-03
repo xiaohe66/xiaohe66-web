@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xiaohe66.web.base.base.BaseParam;
 import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.base.BasePoDetailed;
 import com.xiaohe66.web.base.base.BaseService;
@@ -13,8 +12,6 @@ import com.xiaohe66.web.base.base.XhPage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -83,7 +80,6 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
         }
         baseMapper.updateByParam(po, param);
     }*/
-
     public IPage<P> page(long pageSize) {
         return super.page(new XhPage<>(pageSize));
     }
@@ -102,7 +98,7 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
     }
 
     @Override
-    public final IPage<P> pageDefault(Long pageSize, Long pageNo) {
+    public final IPage<P> pageDefault(Long pageSize, Long pageNo, P po) {
         XhPage<P> xhPage = new XhPage<>();
         if (pageSize != null) {
             xhPage.setSize(pageSize);
@@ -110,10 +106,17 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
         if (pageNo != null) {
             xhPage.setCurrent(pageNo);
         }
-        QueryWrapper<P> queryWrapper = createDefaultQueryWrapper();
-        return queryWrapper == null ?
-                page(xhPage) :
-                page(xhPage, queryWrapper);
+        QueryWrapper<P> queryWrapper = createDefaultQueryWrapper(po);
+        if (queryWrapper == null) {
+            if (po == null) {
+                return page(xhPage);
+            } else {
+                return page(xhPage, new QueryWrapper<>(po));
+            }
+        } else {
+            queryWrapper.setEntity(po);
+            return page(xhPage, queryWrapper);
+        }
     }
 
     /**
@@ -125,9 +128,8 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
         Objects.requireNonNull(param);
         return baseMapper.selectByParam(param);
     }*/
-
     @Override
-    public QueryWrapper<P> createDefaultQueryWrapper() {
+    public QueryWrapper<P> createDefaultQueryWrapper(P po) {
         return null;
     }
 }
