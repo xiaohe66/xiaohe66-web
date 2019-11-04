@@ -13,8 +13,8 @@ $(function () {
         , page: true
         , loading: true
         , cols: [[
-            {field: 'id', title: 'ID', width: "5%", fixed: 'left'}
-            , {field: 'id', title: '缩略图', width: "6%", align: "center", fixed: 'left', templet: "#photoImg"}
+            // {field: 'id', title: 'ID', width: "5%", fixed: 'left'}
+            {field: 'id', title: '缩略图', width: "6%", align: "center", fixed: 'left', templet: "#photoImg"}
             , {field: 'name', title: '照片名称', width: "15%", fixed: 'left',}
             , {field: 'one', title: '第一段话', width: "25%"}
             , {field: 'two', title: '第二段话', width: "25%"}
@@ -39,7 +39,29 @@ $(function () {
     table.on('tool(photo)', function (obj) {
         console.log("测试", obj.data);
         if (obj.event === "edit") {
-            console.log("编辑");
+            console.log("编辑", obj.data);
+            let url = "photoEdit.html?id=" + obj.data.id;
+
+            layer.open({
+                type: 2,
+                title: false,
+                // closeBtn: 0, //不显示关闭按钮
+                // shade: [0],
+                area: ['90%', '90%'],
+                // offset: 'rb', //右下角弹出
+                // time: 2000, //2秒后自动关闭
+                maxmin: true,
+                anim: 2,
+                content: [url, 'no'], //iframe的url，no代表不显示滚动条
+                end: function () {
+                    get("/love/photo/" + obj.data.id, function (data) {
+                        console.log("关窗回调请求结果", data);
+                        delete data.isShow;
+                        obj.update(data);
+                    });
+                }
+            });
+
         } else if (obj.event === "del") {
             layer.confirm('确定删除吗', function (index) {
                 del("/love/photo/" + obj.data.id, function (data) {
@@ -74,4 +96,23 @@ $(function () {
         return false;
     });
 
+    $("#add").click(function () {
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['90%', '90%'],
+            maxmin: true,
+            anim: 2,
+            content: ['photoEdit.html', 'no'], //iframe的url，no代表不显示滚动条
+            end: function () {
+                table.reload('table');
+            }
+        });
+    });
+
 });
+
+function close(name) {
+    let index = layer.getFrameIndex(name);
+    layer.close(index);
+}

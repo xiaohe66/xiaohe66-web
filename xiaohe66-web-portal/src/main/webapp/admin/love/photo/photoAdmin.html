@@ -31,8 +31,7 @@
 </head>
 <body>
 <script type="text/html" id="isShow">
-    <input type="checkbox" name="sex" value="{{d.id}}" lay-skin="switch" lay-text="显示|不显示" lay-filter="changeIsShow"
-           {{d.isShow ? 'checked' : '' }}>
+    <input type="checkbox" name="isShow" value="{{d.id}}" lay-skin="switch" lay-text="显示|不显示" lay-filter="changeIsShow" {{d.isShow ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="photoImg">
     <img src="/love/photo/img/{{d.id}}" class="photo" alt="{{d.name}}">
@@ -57,7 +56,7 @@
         </div>
         <div class="layui-input-inline">
             <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="search">搜索</button>
-            <button type="button" class="layui-btn layui-btn-normal" lay-filter="add">新增</button>
+            <button type="button" class="layui-btn layui-btn-normal" id="add" lay-filter="add">新增</button>
         </div>
     </div>
 </form>

@@ -51,13 +51,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="name" lay-filter="photoName" lay-verify="required|photoName">
+                    <input class="layui-input" id="name" name="name" lay-filter="photoName" lay-verify="required|photoName">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">是否显示</label>
                 <div class="layui-input-block">
-                    <select name="isShow" lay-filter="isShow">
+                    <select name="isShow" lay-filter="isShow" id="isShow">
                         <option value="1">显示</option>
                         <option value="0">不显示</option>
                     </select>
@@ -66,34 +66,34 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">第一段话</label>
                 <div class="layui-input-block">
-                    <textarea class="layui-textarea" name="one" lay-verify="required|word"
+                    <textarea class="layui-textarea" id="one" name="one" lay-verify="required|word"
                               lay-verify="photoName"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">第二段话</label>
                 <div class="layui-input-block">
-                    <textarea class="layui-textarea" name="two" lay-verify="word"
+                    <textarea class="layui-textarea" name="two" id="two" lay-verify="word"
                               lay-verify="photoName"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">第三段话</label>
                 <div class="layui-input-block">
-                    <textarea class="layui-textarea" name="three" lay-verify="word"
+                    <textarea class="layui-textarea" name="three" id="three" lay-verify="word"
                               lay-verify="photoName"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">排序</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="sort" value="0" lay-verify="required|number|sort">
+                    <input class="layui-input" name="sort" id="sort" value="0" lay-verify="required|number|sort">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
-                    <button type="button" class="layui-btn">取消</button>
+                    <button type="button" class="layui-btn" id="cencel">取消</button>
                 </div>
             </div>
         </div>
