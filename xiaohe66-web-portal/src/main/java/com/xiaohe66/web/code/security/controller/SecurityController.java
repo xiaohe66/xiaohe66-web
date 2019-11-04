@@ -13,7 +13,7 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 public class SecurityController<S extends AbstractService<? extends IBaseMapper, P>, P extends BasePo, D extends BaseDto>
         extends BaseController<S, P, D> {
 
-    protected static final String ADMIN_ROLE_NAME = "admin";
+    protected static final String ADMIN_ROLE_NAME = "secAdmin";
 
     // todo : 开发阶段，暂时只限制角色，不限制功能
 

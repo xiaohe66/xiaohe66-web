@@ -8,6 +8,7 @@ import com.xiaohe66.web.code.security.po.Permission;
 import com.xiaohe66.web.code.security.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 public class PermissionController extends SecurityController<PermissionService, Permission, PermissionDto> {
 
+    @RequiresAuthentication
     @Get("/check/{name}")
     public Result check(@PathVariable String name) {
         return Result.ok(SecurityUtils.getSubject().isPermitted(name));

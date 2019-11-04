@@ -22,7 +22,7 @@ import java.util.List;
  * @author xiaohe
  * @time 17-11-08 008
  */
-@XhController("/text/article")
+//@XhController("/text/article")
 public class ArticleController {
 
     @Autowired

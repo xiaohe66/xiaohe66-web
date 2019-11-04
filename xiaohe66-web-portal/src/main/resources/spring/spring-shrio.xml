@@ -44,63 +44,9 @@
                         orguser	             org.apache.shiro.web.filter.authc.UserFilter
                 -->
 
-                /favicon.ico = anon
-                /icon/** = anon
-                /image/** anon
-                /plugin/** = anon
-                /web/** = anon
-                /about = anon
-                /index = anon
-                / = anon
+                /admin/** = roles[photoAdmin]
+                /** = anon
 
-                /comm/file/img/* = http[get]
-
-                /sys/notPermission = anon
-
-                /org/usr/file/all/*/* = http[get]
-                /org/usr/file/all = http[get]
-                /org/usr/file/img/* = anon
-
-                /text/category/* = http[get]
-
-                /text/messageBoard = anon
-                /text/messageBoard/* = anon
-
-                /text/article/log = http[post]
-                /text/article/all/*/* = http[get]
-                /text/article/usr/* = http[get]
-                /text/article/admin/* = http[get]
-                /text/article/index/* = anon
-                /text/article/detail/* = anon
-                /text/article/list/* = anon
-                /text/article/editor = authc
-                /text/article/add = authc
-                /text/article/* = http[get]
-
-                /authCode/* = anon
-
-                /sec/login = anon
-                /sec/login/pwd = anon
-
-                /resume = anon
-                /resume/index = anon
-
-                /org/usr/verify/* = http[get]
-                /org/usr/pwd = http[get]
-                /org/usr/index = anon
-                /org/usr/register = anon
-                /org/usr/img = anon
-                /org/usr/usrName/* = http[get]
-                /org/usr/email = http[post]
-                /org/usr = http[post]
-
-                /usr/register = http[post]
-
-                /love/photo/wall = anon
-                /love/wish/* = http[get]
-                /love/wish = http[get,post]
-
-                /** = authc
             </value>
         </property>
     </bean>

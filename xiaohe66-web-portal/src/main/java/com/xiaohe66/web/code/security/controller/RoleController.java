@@ -1,6 +1,5 @@
 package com.xiaohe66.web.code.security.controller;
 
-import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.code.security.dto.RoleDto;
 import com.xiaohe66.web.code.security.po.Role;
@@ -14,10 +13,5 @@ import lombok.extern.slf4j.Slf4j;
 @XhController("/sec/role")
 @Slf4j
 public class RoleController extends SecurityController<RoleService, Role, RoleDto> {
-
-    @Get("/test")
-    public String test(){
-        return "test";
-    }
 
 }

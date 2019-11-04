@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author xh
  * @date 18-10-26 026
  */
-@XhController("/text/article/log")
+//@XhController("/text/article/log")
 public class ArticleLogController {
 
     @Autowired

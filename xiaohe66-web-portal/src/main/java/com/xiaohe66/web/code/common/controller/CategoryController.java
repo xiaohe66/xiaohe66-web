@@ -19,7 +19,7 @@ import java.util.List;
  * @author xh
  * @date 18-03-07 007
  */
-@XhController("/category")
+//@XhController("/category")
 public class CategoryController {
 
     @Autowired

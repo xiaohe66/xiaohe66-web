@@ -12,6 +12,7 @@ import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
 import com.xiaohe66.web.code.file.service.CommonFileService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,12 +47,14 @@ public class CommonFileController {
         }
     }
 
+    @RequiresAuthentication
     @Post("/prepare")
     public Result uploadFilePrepare(String md5, Float mb) {
         UploadFilePrepareDto uploadFilePrepareDto = commonFileService.uploadFilePrepare(md5, mb);
         return Result.ok(uploadFilePrepareDto);
     }
 
+    @RequiresAuthentication
     @Post
     public Boolean uploadFile(MultipartFile file, String md5, Integer chunk) throws XhIoException {
         return commonFileService.uploadFile(file, md5, chunk);

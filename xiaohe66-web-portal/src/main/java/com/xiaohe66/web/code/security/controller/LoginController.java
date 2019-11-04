@@ -11,6 +11,7 @@ import com.xiaohe66.web.base.exception.param.MissingParamException;
 import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.security.service.LoginService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,7 @@ public class LoginController {
         return loginService.login(loginName, userPwd);
     }
 
+    @RequiresAuthentication
     @Del
     public void logout() {
         loginService.logout();
