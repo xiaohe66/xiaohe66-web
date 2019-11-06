@@ -8,3 +8,6 @@ out/
 
 # 开发环境配置
 xiaohe66-web-portal/src/main/resources/dev
+
+# 生产环境配置
+xiaohe66-web-portal/src/main/resources/prod
