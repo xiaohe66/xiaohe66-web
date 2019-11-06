@@ -42,11 +42,12 @@
             <a href="/web/org/user/login.html">登录</a>
             <a href="/web/org/user/register.html">注册</a>
         </shiro:guest>
-        <shiro:hasRole name="admin">
+        <shiro:hasPermission name="admin:view">
             <a href="/admin/index.html">后台管理</a>
-        </shiro:hasRole>
+        </shiro:hasPermission>
         <shiro:authenticated>
-            <a <%--href="/org/usr/me" --%>class="loginName">${usr.userName}</a>
+            <span>${user.userName}</span>
+            <%--<a href="/org/usr/me" class="loginName">${usr.userName}</a>--%>
             <%--<a href="/text/article/add">写文章</a>--%>
             <a href="javascript:logout();">注销</a>
         </shiro:authenticated>

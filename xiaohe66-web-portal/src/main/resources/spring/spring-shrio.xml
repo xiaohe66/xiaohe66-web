@@ -44,7 +44,7 @@
                         orguser	             org.apache.shiro.web.filter.authc.UserFilter
                 -->
 
-                /admin/** = roles[photoAdmin,userFileAdmin,secAdmin]
+                /admin/** = perms[admin:view]
                 /** = anon
 
             </value>
