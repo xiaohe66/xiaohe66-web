@@ -103,8 +103,8 @@ public class LoginService {
     }
 
     public void updatePwdPrepare(String email, String code) {
-        Check.notEmpty(email);
-        Check.notEmpty(code);
+        Check.notEmpty(email,"email");
+        Check.notEmpty(code,"code");
         if (!AuthCodeHelper.verifyImgCode(code)) {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
@@ -131,9 +131,11 @@ public class LoginService {
 
         User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
 
-        user.setUserPwd(PwdUtils.hashPassword(password));
+        User newUser = new User();
+        newUser.setId(user.getId());
+        newUser.setUserPwd(PwdUtils.hashPassword(password));
 
-        userService.updateById(user);
+        userService.updateById(newUser);
     }
 
     public UserDto login(String loginName, String userPwd) {

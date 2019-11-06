@@ -40,36 +40,25 @@ $(function () {
     $("#next").click(function () {
         if (!s1.verify())return;
         $.hint("处理中……");
-        $.ajax({
-            url:"/sec/login/pwd",
-            type:"post",
-            data:{
-                email:emailInp.val(),
-                code:codeInp.val()
-            },
-            dataType:"json",
-            success:function (result) {
-                console.log(result);
-                if(result.code === 200){
-                    $(".s1").hide();
-                    $(".s2").show();
-                    $("#submit").css("display","inline-block");
-                    $("#prev").css("display","inline-block");
-                    $("#next").hide();
-                    emailInp.attr("disabled",true);
-                    $.hintClose();
-                }else if(result.code === 500){
-                    $.maskHint("出现未知错误，请刷新后重试");
-                }else{
-                    $.maskHint(result.msg);
-                }
-                refreshAuthCode();
-            },
-            error:function (err) {
-                log(err);
-                $.maskHint("出现未知错误，请刷新后重试");
-                refreshAuthCode();
+        post("/sec/login/pwd",{
+            email:emailInp.val(),
+            code:codeInp.val()
+        },function (data) {
+            $(".s1").hide();
+            $(".s2").show();
+            $("#submit").css("display","inline-block");
+            $("#prev").css("display","inline-block");
+            $("#next").hide();
+            emailInp.attr("disabled",true);
+            $.hintClose();
+            refreshAuthCode();
+        },function (data) {
+            if(data.code === 425){
+                $.maskHint("验证码错误，请重试");
+            }else{
+                $.maskHint("系统繁忙，请刷新后重试");
             }
+            refreshAuthCode();
         });
     });
 
@@ -99,32 +88,16 @@ $(function () {
     $("#submit").click(function () {
         if (!s2.verify()) return;
         $.hint("处理中……");
-        $.ajax({
-            url:"/sec/login/pwd",
-            type:"put",
-            data:{
-                password:pwdInp.val(),
-                code:emailCodeInp.val()
-            },
-            dataType:"json",
-            success:function (result) {
-                console.log(result);
-                if(result.code === 200){
-                    $.maskHint("修改成功",function () {
-                        location.href = "/index";
-                    });
-                }else if(result.code === 500){
-                    $.maskHint("出现未知错误，请刷新后重试");
-                }else{
-                    $.maskHint(result.msg);
-                }
-                refreshAuthCode();
-            },
-            error:function (err) {
-                log(err);
-                $.maskHint("出现未知错误，请刷新后重试");
-                refreshAuthCode();
-            }
+        put("/sec/login/pwd",{
+            password:pwdInp.val(),
+            code:emailCodeInp.val()
+        },function (data) {
+            $.maskHint("修改成功",function () {
+                location.href = "/index";
+            });
+        },function (data) {
+            $.maskHint("系统繁忙，请刷新后重试");
+            refreshAuthCode();
         });
     });
 });

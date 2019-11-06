@@ -14,6 +14,7 @@ import com.xiaohe66.web.code.security.service.LoginService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -48,6 +49,12 @@ public class LoginController {
     @Del
     public void logout() {
         loginService.logout();
+    }
+
+    @Page("/findPwd")
+    public String findPwdPage(Model model){
+        model.addAttribute("title","修改密码");
+        return "org/find_pwd";
     }
 
     // 用于邮箱找回密码

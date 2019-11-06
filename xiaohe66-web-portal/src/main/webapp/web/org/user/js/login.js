@@ -11,7 +11,7 @@ $(function () {
     });
 
     $("#find div").click(function () {
-        location.href = "/org/user/pwd";
+        location.href = "/sec/login/findPwd";
     });
 
 
