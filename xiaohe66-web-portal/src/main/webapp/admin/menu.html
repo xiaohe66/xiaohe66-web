@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>后台管理系统-xiaohe66</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../plugin/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <style>
+
+        #body {
+            padding-left: 200px;
+            left: 0;
+            bottom: 0;
+        }
+
+        .layui-tab-content {
+            position: absolute;
+            left: 200px;
+            right: 0;
+            bottom: 0;
+            top: 50px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .layui-tab-item {
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">后台管理</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <!--<li class="layui-nav-item">
+                <button class="layui-btn site-demo-active" data-type="tabAdd">新增Tab项</button>
+            </li>-->
+            <!--<li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>-->
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="" class="layui-nav-img">小何
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree" lay-filter="menu" id="menu">
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" id="body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab" lay-filter="tab" lay-allowclose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="-1">Home</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe src="../web/ie.html" width="100%" height="100%" frameborder="no" border="0" marginwidth="0"
+                            marginheight="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="layui-footer">
+        &lt;!&ndash; 底部固定区域 &ndash;&gt;
+        © layui.com - 底部固定区域
+    </div>-->
+</div>
+<script src="../plugin/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        let groups = [
+            {
+                name: '我们的', urls: [
+                    {id: 1, name: 't1', url: "../web/ie.html"},
+                    {id: 2, name: 't2', url: "../web/ie.html"},
+                    {id: 3, name: 't2', url: "../web/ie.html"},
+                ]
+            }
+        ];
+
+        let $menu = $("#menu");
+        $.each(groups, function (index, group) {
+
+            let groupName = '<a class="" href="javascript:;">' + group.name + '</a>';
+            let li = $('<li class="layui-nav-item layui-nav-itemed"></li>');
+            li.append(groupName);
+            $menu.append(li);
+            if (group.urls) {
+                let dl = $('<dl class="layui-nav-child"></dl>');
+                li.append(dl);
+                $.each(group.urls, function (i, item) {
+                    let dd = $('<dd><a href="javascript:;">' + item.name + '</a></dd>');
+                    dd.attr('id', item.id);
+                    dd.attr('url', item.url);
+                    dl.append(dd);
+                });
+            }
+        });
+
+        element.render('nav');
+
+        let tabs = {};
+        element.on('nav(menu)', function (elem) {
+            let dd = elem.parent();
+            let url = dd.attr('url');
+            if (!url) return;
+            let id = dd.attr('id');
+            if (!tabs[id]) {
+                tabs[id] = id;
+                let iframe = '<iframe src="' + url + '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>';
+                element.tabAdd('tab', {
+                    title: elem.text(),
+                    content: iframe,
+                    id: id
+                });
+            }
+            element.tabChange('tab', id);
+        });
+
+        element.on('tabDelete(tab)', function (data) {
+            let id = $(this).parent().attr('lay-id');
+            delete tabs[id];
+        });
+
+    });
+</script>
+</body>
+</html>
