@@ -105,11 +105,11 @@
         </dependency>
 
         <!-- cache start -->
-        <dependency>
+        <!--<dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>2.10.5</version>
-        </dependency>
+        </dependency>-->
         <!-- cache end -->
 
         <!-- log4j -->
@@ -226,10 +226,10 @@
             <artifactId>mybatis-spring</artifactId>
         </dependency>-->
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--mysql driver-->
         <dependency>

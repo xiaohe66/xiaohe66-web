@@ -1,6 +1,5 @@
 package com.xiaohe66.web.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhIoException;
@@ -38,7 +37,7 @@ public class UserFilePageController {
     @Page("/admin")
     public String admin(Model model){
 
-        PageHelper.startPage(1,10);
+//        PageHelper.startPage(1,10);
 //        List<UsrFileDto> list = usrFileService.findDtoByUsrId(UserHelper.getCurrentUsrId());
 //        model.addAttribute("pageInfo",new PageInfo<>(list));
         model.addAttribute("title","文件管理");
@@ -58,7 +57,7 @@ public class UserFilePageController {
 
     @Page("/all")
     public String all(Model model){
-        PageHelper.startPage(1,20);
+//        PageHelper.startPage(1,20);
 //        model.addAttribute("pageInfo",new PageInfo<>(usrFileService.findDtoAll(null,false)));
         model.addAttribute("usrDto",userService.lookAtUser(null));
         model.addAttribute("title","资源列表");

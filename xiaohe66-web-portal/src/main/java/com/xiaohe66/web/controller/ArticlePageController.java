@@ -1,7 +1,5 @@
 package com.xiaohe66.web.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.data.CodeEnum;
@@ -113,10 +111,10 @@ public class ArticlePageController {
     public String list(Model model,@PathVariable("usrId") Integer usrId){
         LookAtUserDto usrDto = userService.lookAtUser(usrId);
 
-        PageHelper.startPage(1,10);
+//        PageHelper.startPage(1,10);
         List<ArticleDto> dtoArticleList = articleService.findDtoByUsrId(usrDto.getId(),Final.Article.SECRET_LEVEL_PUBLIC);
 
-        model.addAttribute("pageInfo",new PageInfo<>(dtoArticleList));
+//        model.addAttribute("pageInfo",new PageInfo<>(dtoArticleList));
         model.addAttribute("usrDto",usrDto);
         model.addAttribute("title",usrDto.getUserName()+"的文章");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(usrId));
@@ -127,9 +125,9 @@ public class ArticlePageController {
 
     @Page("/admin/index")
     public String admin(Model model){
-        PageHelper.startPage(1,10);
+//        /PageHelper.startPage(1,10);
         List<ArticleDto> list = articleService.findDtoByUsrId(UserHelper.getCurrentUsrId(),null);
-        model.addAttribute("pageInfo",new PageInfo<>(list));
+//        model.addAttribute("pageInfo",new PageInfo<>(list));
         model.addAttribute("title","文章管理");
         model.addAttribute("size",list.size());
         model.addAttribute("page",ARTICLE_ADMIN_PAGE_URL);
@@ -141,8 +139,8 @@ public class ArticlePageController {
     public String all(Model model){
         LookAtUserDto usrDto = userService.lookAtUser(null);
 
-        PageHelper.startPage(1,10);
-        model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));
+//        PageHelper.startPage(1,10);
+//        model.addAttribute("pageInfo",new PageInfo<>(articleService.findDtoAll(null,false)));
         model.addAttribute("usrDto",usrDto);
         model.addAttribute("title","文章列表");
         model.addAttribute("usrDivTitle","站长");
