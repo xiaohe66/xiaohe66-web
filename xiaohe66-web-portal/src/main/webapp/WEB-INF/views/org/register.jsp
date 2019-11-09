@@ -20,7 +20,7 @@
     <div class="c_c border1">
         <p>欢迎注册</p>
         <ul>
-            <li id="usrName">
+            <li id="userName">
                 <div><label>*</label>用户名:</div><input placeholder="用户名(中、英、数字和下划线)">
                 <span></span>
             </li>

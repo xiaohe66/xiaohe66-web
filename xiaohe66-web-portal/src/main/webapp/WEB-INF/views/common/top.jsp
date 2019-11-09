@@ -43,7 +43,7 @@
             <a href="/web/org/user/register.html">注册</a>
         </shiro:guest>
         <shiro:hasPermission name="admin:view">
-            <a href="/admin/index.html">后台管理</a>
+            <a href="/admin/menu.html">后台管理</a>
         </shiro:hasPermission>
         <shiro:authenticated>
             <span>${user.userName}</span>

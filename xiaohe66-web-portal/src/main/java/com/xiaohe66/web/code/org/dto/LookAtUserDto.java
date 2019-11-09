@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 public class LookAtUserDto extends BaseDto {
 
-    private String usrName;
+    private String userName;
     private String signature;
     private Integer imgFileId;
 }

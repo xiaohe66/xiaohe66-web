@@ -111,9 +111,9 @@
             let filePath = $(this).val();
             if (filePath === "") return;
             let file = this.files[0];
-            let fileSizi = (file.size / 1024).toFixed(2);
-            if (fileSizi > 1048576) {
-                alert("目前仅支持1G以内的文件上传");
+            let fileSizi = (file.size / 1024 / 1024).toFixed(2);
+            if (fileSizi > 100) {
+                alert("目前仅支持100M以内的文件上传");
                 return;
             }
             upload(file, call, isShowHint);
@@ -129,9 +129,9 @@
             let filePath = $(this).val();
             if (filePath === "") return;
             let file = this.files[0];
-            let fileSizi = (file.size / 1024).toFixed(2);
-            if (fileSizi > 1048576) {
-                alert("目前仅支持1G以内的文件上传");
+            let fileSizi = (file.size / 1024 / 1024).toFixed(2);
+            if (fileSizi > 100) {
+                alert("目前仅支持100M以内的文件上传");
                 return;
             }
             upload(file, call, isShowHint);

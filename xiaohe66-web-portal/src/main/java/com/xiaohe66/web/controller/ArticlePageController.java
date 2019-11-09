@@ -118,7 +118,7 @@ public class ArticlePageController {
 
         model.addAttribute("pageInfo",new PageInfo<>(dtoArticleList));
         model.addAttribute("usrDto",usrDto);
-        model.addAttribute("title",usrDto.getUsrName()+"的文章");
+        model.addAttribute("title",usrDto.getUserName()+"的文章");
         model.addAttribute("fileList",usrFileService.findDtoHotTop5(usrId));
         model.addAttribute("hotArticle",articleService.findDtoHotTop5(usrId));
         model.addAttribute("page",ARTICLE_LIST_PAGE_URL);

@@ -29,7 +29,7 @@ public class MessageBoardController extends BaseController<MessageBoardService, 
     public String index(Model model) {
         LookAtUserDto lookAtUser = userService.lookAtUser(null);
         model.addAttribute("lookAtUser", lookAtUser);
-        model.addAttribute("title", lookAtUser.getUsrName() + "的留言板");
+        model.addAttribute("title", lookAtUser.getUserName() + "的留言板");
         model.addAttribute("userDivTitle", "站长");
         return "text/message_board";
     }

@@ -105,9 +105,12 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (!md5.equalsIgnoreCase(serviceMd5)) {
             log.error("合并后的文件md5和提供的md5不一致, 合并后的 : {}, 提供的 : {}", serviceMd5, md5);
 
-            // todo : 删除数据库记录失败
             // 删除临时文件
-            commonFileTmpService.delByMd5(md5);
+            try {
+                commonFileTmpService.delByMd5(md5);
+            } catch (Exception e) {
+                log.error("无法删除临时文件", e);
+            }
 
             throw new IllegalOperationException("合并后的md5与提供的不一致");
         }
@@ -144,6 +147,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (mb == null || mb <= 0 || mb > maxMbFilePer) {
             throw new IllegalParamException("mb小于0或大于最大值, mb=" + mb);
         }
+        log.info("文件上传准备, md5 : {}, 大小 : {}MB", md5, mb);
 
         // todo :  如果刚好除尽没有余数时，会出现异常吗？
         int currentMaxChunk = mb.intValue() / maxMbChunkPer + 1;
@@ -186,6 +190,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
         if (commonFile.getEndTime() != null) {
             //已经上传完成，返回空集合
+            log.info("文件已上传完成, md5 : {}, 大小 : {}MB", md5, mb);
             uploadFilePrepareDto.setMissingChunk(Collections.emptySet());
             return uploadFilePrepareDto;
 
@@ -239,6 +244,8 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (chunk < 1 || chunk > currentMaxChunk) {
             throw new XhWebException(CodeEnum.B0_ILLEGAL_REQUEST, "上传文件的区块不在区间内, 区块 : " + chunk);
         }
+
+        log.info("文件上传，md5 : {}, 块 : {}", md5, chunk);
 
         InputStream fileInput;
         int fileByte;
@@ -296,7 +303,9 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             if (countFinish >= currentMaxChunk) {
                 log.info("所有块都上传完成，开始合并文件,md5 : {}", md5);
                 try {
+                    log.info("合并临时文件，md5 : {}", md5);
                     mergeTmpFile(md5);
+                    log.info("合并临时文件完成，md5 : {}", md5);
                 } catch (IOException | XhIoException e) {
                     log.error("合并文件失败, md5 : {}", md5);
                     throw new XhWebException(CodeEnum.EXCEPTION, "合并文件失败", e);

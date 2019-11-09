@@ -12,10 +12,10 @@ public interface UserMapper extends IBaseMapper<User> {
 
     /**
      * 根据用户名查询
-     * @param usrName   用户名
+     * @param userName   用户名
      * @return  Usr
      */
-    User getByUserName(String usrName);
+    User getByUserName(String userName);
 
     /**
      * 根据邮箱地址查询
@@ -26,11 +26,11 @@ public interface UserMapper extends IBaseMapper<User> {
 
     /**
      * 根据用户名和密码查询
-     * @param usrName   用户名
+     * @param userName   用户名
      * @param usrPwd    密码
      * @return  Usr
      */
-    User findByUserNameAndPwd(String usrName, String usrPwd);
+    User findByUserNameAndPwd(String userName, String usrPwd);
 
 
     /**
