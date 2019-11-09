@@ -65,17 +65,6 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         this.commonFileTmpService = commonFileTmpService;
     }
 
-    @Override
-    public boolean save(CommonFile po) {
-        // name 的最大长度
-        String name = po.getName();
-        if (name != null && name.length() > 200) {
-            po.setName(name.substring(0, 200));
-        }
-
-        return super.save(po);
-    }
-
     private void saveSessionPrepareId(Integer id) {
         Set<Integer> cache = WebUtils.getSessionAttr(CACHE_FILE_MD5_SESSION_KEY);
         if (cache == null) {

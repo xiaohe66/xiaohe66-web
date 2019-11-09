@@ -7,7 +7,7 @@
 (function ($) {
 
     $.fn.paging = function (max, current, event) {
-        if (max === 1) {
+        if (max <= 1) {
             return;
         }
         let pageCount = 5;

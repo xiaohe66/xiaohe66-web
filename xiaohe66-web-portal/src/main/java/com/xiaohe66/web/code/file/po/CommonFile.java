@@ -28,9 +28,6 @@ public class CommonFile extends BasePo {
 
     protected Date endTime;
 
-    @TableField("`name`")
-    protected String name;
-
     public CommonFile() {
     }
 

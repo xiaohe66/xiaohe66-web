@@ -7,6 +7,7 @@
 $(function () {
     var div = $(".content");
     var itemHtml = div.find(".item")[0].outerHTML;
+    div.html("");
 
     $(".anonymityOn").change(function () {
         if ($(this).is(":checked")) {
