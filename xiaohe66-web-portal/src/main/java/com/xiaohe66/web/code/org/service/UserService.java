@@ -53,9 +53,9 @@ public class UserService extends AbstractService<UserMapper, User> {
         UserHelper.getCurrentUsr().setImgFileId(imgFileId);
     }
 
-    public User getByUserName(String usrName) {
-        Check.notEmpty(usrName);
-        return baseMapper.getByUserName(usrName);
+    public User getByUserName(String userName) {
+        Check.notEmpty(userName);
+        return baseMapper.getByUserName(userName);
     }
 
     public User getByEmail(String email) {
@@ -64,8 +64,8 @@ public class UserService extends AbstractService<UserMapper, User> {
     }
 
 
-    public boolean isExistUserName(String usrName) {
-        return this.getByUserName(usrName) != null;
+    public boolean isExistUserName(String userName) {
+        return this.getByUserName(userName) != null;
     }
 
     public boolean isExistEmail(String email) {

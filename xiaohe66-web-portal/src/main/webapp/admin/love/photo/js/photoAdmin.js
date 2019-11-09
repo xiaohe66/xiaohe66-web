@@ -9,7 +9,7 @@ $(function () {
         , title: "照片墙"
         , url: '/love/photo'
         // , cellMinWidth: 20
-        , height: 'full-200'
+        , height: 'full-120'
         , page: true
         , loading: true
         , cols: [[
@@ -50,7 +50,7 @@ $(function () {
                 area: ['90%', '90%'],
                 // offset: 'rb', //右下角弹出
                 // time: 2000, //2秒后自动关闭
-                maxmin: true,
+                // maxmin: true,
                 anim: 2,
                 content: [url, 'no'], //iframe的url，no代表不显示滚动条
                 end: function () {

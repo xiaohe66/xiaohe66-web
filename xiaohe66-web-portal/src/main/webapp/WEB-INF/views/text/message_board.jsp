@@ -46,7 +46,7 @@
             <div class="item">
                 <div>
                     <div class="fl">
-                        <img class="head_img" src="/org/user/file/img/0" alt="头像">
+                        <img class="head_img" src="" alt="头像">
                     </div>
                     <div class="u_r">
                         <div class="u_r_d">
@@ -68,9 +68,9 @@
                 <c:if test="${not empty userDivTitle}">${userDivTitle}</c:if>
             </div>
             <div class="body master">
-                <img src="/org/user/file/img/${lookAtUser.imgFileId}" class="head_img" alt="${lookAtUser.usrName}"
+                <img src="/org/user/file/img/${lookAtUser.imgFileId}" class="head_img" alt="${lookAtUser.userName}"
                      onclick="location.href = '/text/article/list/${lookAtUser.id}'">
-                <p>${lookAtUser.usrName}</p>
+                <p>${lookAtUser.userName}</p>
                 <p>${lookAtUser.signature}</p>
             </div>
         </div>
@@ -79,7 +79,7 @@
             <div class="body link">
                 <a href="http://www.github.com/tiy-he" target="_blank">小何的GitHub</a>
                 <a href="https://blog.csdn.net/xiaohe73" target="_blank">小何的Csdn</a>
-                <a href="https://love.xiaohe66.com" target="_blank">love.xiaohe66.com</a>
+                <a href="https://love.xiaohe66.com" target="_blank">He&Yan的爱恋</a>
             </div>
         </div>
         <div class="module1">

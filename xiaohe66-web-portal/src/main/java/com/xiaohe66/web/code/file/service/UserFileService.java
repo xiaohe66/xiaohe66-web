@@ -1,7 +1,6 @@
 package com.xiaohe66.web.code.file.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.base.DtoConverter;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
@@ -19,8 +18,8 @@ import com.xiaohe66.web.code.file.mapper.UserFileMapper;
 import com.xiaohe66.web.code.file.param.UsrFileParam;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.UserFile;
-import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.file.po.UserFileLog;
+import com.xiaohe66.web.code.file.po.UsrFileDownloadCount;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
@@ -164,6 +163,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
 
         //记录下载日志
         try {
+            log.info("文件被下载，userFileId : {}, 文件名 : {}{}",userFileId, userFile.getFileName(), userFile.getExtension());
             usrFileLogService.save(new UserFileLog(userFileId));
         } catch (Exception e) {
             log.warn("无法保存文件下载日志", e);
@@ -220,7 +220,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
         return extension.length() > FILE_EXTENSION_MAX_LENGTH ? extension.substring(0, FILE_EXTENSION_MAX_LENGTH) : extension;
     }
 
-    public UserFile createSafetyPo(UserFile userFile){
+    public UserFile createSafetyPo(UserFile userFile) {
         String fileName = userFile.getFileName();
         if (fileName == null) {
             throw new MissingParamException("fileName");

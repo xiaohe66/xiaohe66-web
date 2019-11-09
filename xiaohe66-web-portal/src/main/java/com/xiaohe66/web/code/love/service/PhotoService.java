@@ -44,7 +44,7 @@ public class PhotoService extends AbstractService<PhotoMapper, Photo> {
     @Override
     public QueryWrapper<Photo> createDefaultQueryWrapper(Photo po) {
         QueryWrapper<Photo> queryWrapper = new QueryWrapper<>(po);
-        queryWrapper.orderByDesc("sort", "create_time");
+        queryWrapper.orderByDesc("is_show","sort", "create_time");
 
         String name = po.getName();
         if (name != null) {

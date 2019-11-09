@@ -89,7 +89,7 @@
                                     <div class="title">${item.title}</div>
                                 </div>
                                 <div class="u_r_d">
-                                    <span>${item.usrName}</span>
+                                    <span>${item.userName}</span>
                                     <span>${item.createTime}</span>
                                     <span>${item.sysCategoryName}</span>
                                     <span>${item.perCategoryNames}</span>
@@ -117,9 +117,9 @@
                 <c:if test="${not empty usrDivTitle}">${usrDivTitle}</c:if>
             </div>
             <div class="body master">
-                <img src="/org/user/file/img/${usrDto.imgFileId}" class="head_img" alt="${usrDto.usrName}"
+                <img src="/org/user/file/img/${usrDto.imgFileId}" class="head_img" alt="${usrDto.userName}"
                      onclick="location.href = '/text/article/list/${usrDto.id}'">
-                <p>${usrDto.usrName}</p>
+                <p>${usrDto.userName}</p>
                 <p>${usrDto.signature}</p>
             </div>
         </div>
@@ -128,7 +128,7 @@
             <div class="body link">
                 <a href="http://www.github.com/tiy-he" target="_blank">小何的GitHub</a>
                 <a href="https://blog.csdn.net/xiaohe73" target="_blank">小何的Csdn</a>
-                <a href="https://love.xiaohe66.com" target="_blank">love.xiaohe66.com</a>
+                <a href="https://love.xiaohe66.com" target="_blank">He&Yan的爱恋</a>
             </div>
         </div>
         <div class="module1">
