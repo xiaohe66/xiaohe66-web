@@ -13,31 +13,29 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 public class SecurityController<S extends AbstractService<? extends IBaseMapper, P>, P extends BasePo, D extends BaseDto>
         extends BaseController<S, P, D> {
 
-    protected static final String ADMIN_ROLE_NAME = "secAdmin";
-
-    // todo : 开发阶段，暂时只限制角色，不限制功能
+    protected static final String SEC_ADMIN_ROLE_NAME = "secAdmin";
 
     @Override
     protected void checkSave(P po) {
-        checkRole(ADMIN_ROLE_NAME);
-//        super.checkSave();
+        checkRole(SEC_ADMIN_ROLE_NAME);
+        checkSavePermitted();
     }
 
     @Override
     protected void checkDelete(Integer id) {
-        checkRole(ADMIN_ROLE_NAME);
-//        super.checkDelete();
+        checkRole(SEC_ADMIN_ROLE_NAME);
+        checkDeletePermitted();
     }
 
     @Override
     protected void checkUpdate(P po) {
-        checkRole(ADMIN_ROLE_NAME);
-//        super.checkUpdate();
+        checkRole(SEC_ADMIN_ROLE_NAME);
+        checkUpdatePermitted();
     }
 
     @Override
     protected void checkSelect(P po) {
-        checkRole(ADMIN_ROLE_NAME);
-//        super.checkSelect();
+        checkRole(SEC_ADMIN_ROLE_NAME);
+        checkSelectPermitted();
     }
 }

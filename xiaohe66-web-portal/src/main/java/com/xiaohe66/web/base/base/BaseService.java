@@ -20,12 +20,5 @@ public interface BaseService<P extends BasePo> extends IService<P> {
 
     IPage<P> pageDefault(Long pageSize, Long pageNo, P po);
 
-    /**
-     * 数据统计
-     *
-     * @return 返回表的数据数量
-     */
-//    Integer count();
-
-    QueryWrapper<P> createDefaultQueryWrapper(P po);
+    QueryWrapper<P> createPageDefaultQueryWrapper(P po);
 }

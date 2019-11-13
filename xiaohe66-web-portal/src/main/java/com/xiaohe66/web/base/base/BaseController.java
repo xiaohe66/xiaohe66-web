@@ -14,8 +14,6 @@ import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -28,9 +26,8 @@ import java.lang.reflect.Type;
  * @time 2019.10.12 11:34
  */
 @Slf4j
-public abstract class BaseController<S extends AbstractService<? extends IBaseMapper, P>, P extends BasePo, D extends BaseDto> {
-
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+public abstract class BaseController<S extends AbstractService<? extends IBaseMapper, P>, P
+        extends BasePo, D extends BaseDto> {
 
     @Autowired
     protected S baseService;
@@ -49,7 +46,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         chars[0] = Character.toLowerCase(chars[0]);
         moduleName = new String(chars);
 
-        logger.info("moduleName : {}", moduleName);
+        log.info("moduleName : {}", moduleName);
 
         dtoClass = ((Class<D>) type[2]);
         log.info("dtoClass : {}", dtoClass.getName());
@@ -74,10 +71,6 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     @Put
     public Result put(P po) {
         checkUpdate(po);
-        if (po instanceof BasePoDetailed) {
-            Integer currentUsrId = UserHelper.getCurrentUsrId();
-            ((BasePoDetailed) po).setUpdateId(currentUsrId);
-        }
         return Result.ok(baseService.updateById(po));
     }
 
@@ -114,18 +107,34 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
     }
 
     protected void checkSave(P po) {
-        checkPermitted(moduleName + ":insert");
+        checkSavePermitted();
     }
 
     protected void checkDelete(Integer id) {
-        checkPermitted(moduleName + ":delete");
+        checkDeletePermitted();
     }
 
     protected void checkUpdate(P po) {
-        checkPermitted(moduleName + ":update");
+        checkUpdatePermitted();
     }
 
     protected void checkSelect(P po) {
+        checkSelectPermitted();
+    }
+
+    protected void checkSavePermitted() {
+        checkPermitted(moduleName + ":insert");
+    }
+
+    protected void checkDeletePermitted() {
+        checkPermitted(moduleName + ":delete");
+    }
+
+    protected void checkUpdatePermitted() {
+        checkPermitted(moduleName + ":update");
+    }
+
+    protected void checkSelectPermitted() {
         checkPermitted(moduleName + ":select");
     }
 

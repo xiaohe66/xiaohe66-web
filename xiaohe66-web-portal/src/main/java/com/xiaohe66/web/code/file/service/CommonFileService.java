@@ -8,7 +8,7 @@ import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.exception.param.IllegalParamException;
 import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.base.util.DateUtils;
+import com.xiaohe66.web.base.util.XhDateFormatUtils;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
@@ -353,7 +353,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
      * @return 格式：2018-07/a/a5f3a36d02749cc5cf049fga80727f90
      */
     public String createLogicPath(String md5) {
-        return DateUtils.yyyyMM.format(new Date()) + File.separator + md5.substring(0, 1) + File.separator + md5;
+        return XhDateFormatUtils.yyyyMM.format(new Date()) + File.separator + md5.substring(0, 1) + File.separator + md5;
     }
 
 }

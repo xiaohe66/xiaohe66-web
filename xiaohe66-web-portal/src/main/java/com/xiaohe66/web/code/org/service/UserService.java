@@ -25,11 +25,6 @@ import org.springframework.stereotype.Service;
 public class UserService extends AbstractService<UserMapper, User> {
 
     @Override
-    public boolean save(User po) {
-        return retBool(baseMapper.insert(po));
-    }
-
-    @Override
     public boolean updateById(User po) {
         String signature = po.getSignature();
         if (signature != null) {
