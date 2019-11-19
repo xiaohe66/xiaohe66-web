@@ -89,8 +89,8 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @SuppressWarnings("unchecked")
     @Get
-    public Result list(@RequestHeader(value = Final.Str.PAGING_SIZE_KEY, required = false) Long pageSize,
-                       @RequestHeader(value = Final.Str.PAGING_NO_KEY, required = false) Long pageNo,
+    public Result list(@RequestHeader(value = Final.HeaderKey.PAGE_SIZE, required = false) Long pageSize,
+                       @RequestHeader(value = Final.HeaderKey.PAGE_NO, required = false) Long pageNo,
                        P po) {
         checkSelect(po);
 

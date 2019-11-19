@@ -2,6 +2,7 @@ package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.resume.service.ResumeProjectService;
 import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
@@ -29,7 +30,7 @@ public class ResumeProjectPageController {
 
     @Page("/{resumeId}")
     public String index(Model model, @PathVariable("resumeId") Integer resumeId){
-        Integer xhUsrId = SysCfgHelper.findXhUsrId();
+        Integer xhUsrId = Final.User.XIAO_HE_USER_ID;
         model.addAttribute("title","小何的简历-项目详情");
         model.addAttribute("usrDivTitle","小何");
         model.addAttribute("usrDto",userService.lookAtUser(xhUsrId));

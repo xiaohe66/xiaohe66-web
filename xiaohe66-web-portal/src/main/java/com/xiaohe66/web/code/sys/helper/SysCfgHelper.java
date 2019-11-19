@@ -44,9 +44,4 @@ public class SysCfgHelper {
         Object obj = getObj(key);
         return obj == null ? "" : obj.toString();
     }
-
-    public static Integer findXhUsrId() {
-        String usrIdStr = getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-        return StrUtils.toInt(usrIdStr);
-    }
 }

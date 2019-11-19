@@ -180,8 +180,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     public List<Article> findByUsrId(Integer userId, Integer secretLevel) {
         if (userId == null) {
             //默认显示站长的列表
-            String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-            userId = StrUtils.toInt(usrIdStr);
+            userId = Final.User.XIAO_HE_USER_ID;
         }
         Article param = new Article();
         param.setCreateId(userId);
@@ -223,8 +222,7 @@ public class ArticleService extends AbstractService<ArticleMapper, Article> {
     public List<ArticleDto> findDtoAll(String search, boolean onlyWebmaster) {
         ArticleParam param = new ArticleParam();
         if (onlyWebmaster) {
-            String usrIdStr = SysCfgHelper.getString(Final.Str.CFG_KEY_XIAO_HE_USR_ID);
-            param.setCreateId(StrUtils.toInt(usrIdStr));
+            param.setCreateId(Final.User.XIAO_HE_USER_ID);
         }
         if (Check.isNotEmpty(search)) {
             param.setTitle("%" + search + "%");

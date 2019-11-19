@@ -114,7 +114,7 @@ public class LoginService {
             throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST);
         }
 
-        WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY, user);
+        WebUtils.setSessionAttr(Final.SessionKey.UPDATE_PWD_USER, user);
 
         EmailAuthCode emailAuthCode = AuthCodeHelper.createEmailAuthCode(email);
 
@@ -129,7 +129,7 @@ public class LoginService {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
 
-        User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
+        User user = WebUtils.getSessionAttr(Final.SessionKey.UPDATE_PWD_USER);
 
         User newUser = new User();
         newUser.setId(user.getId());
@@ -146,7 +146,7 @@ public class LoginService {
         Check.notEmpty(loginName, "userPwd");
 
         Subject subject = SecurityUtils.getSubject();
-        UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
+        UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.SessionKey.CURRENT_LOGIN_USER);
 
         if (currentUsr != null && loginName.equals(currentUsr.getUserName())) {
             //该用户已经登录
@@ -184,7 +184,7 @@ public class LoginService {
         //构建dto
         UserDto dtoUsr = new UserDto(user);
         //注入session
-        subject.getSession().setAttribute(Final.Str.SESSION_UER_KEY, dtoUsr);
+        subject.getSession().setAttribute(Final.SessionKey.CURRENT_LOGIN_USER, dtoUsr);
         return dtoUsr;
     }
 
@@ -192,7 +192,7 @@ public class LoginService {
         log.debug("注销登录");
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        subject.getSession().removeAttribute(Final.Str.SESSION_UER_KEY);
+        subject.getSession().removeAttribute(Final.SessionKey.CURRENT_LOGIN_USER);
     }
 
     public boolean isLogin() {

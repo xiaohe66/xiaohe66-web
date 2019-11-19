@@ -65,7 +65,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
         }
 
         try {
-            response.setContentType(Final.Str.HEADER_JSON_UTF_8);
+            response.setContentType(Final.HeaderKey.JSON_UTF_8);
             response.getWriter().print(JsonUtils.toString(result));
         } catch (IOException e1) {
             log.error("getWriter() exception", e1);

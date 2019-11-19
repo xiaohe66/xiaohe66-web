@@ -29,7 +29,7 @@ public class UserHelper {
     }
 
     public static UserDto getCurrentUsrNotEx() {
-        return WebUtils.getSessionAttr(Final.Str.SESSION_UER_KEY);
+        return WebUtils.getSessionAttr(Final.SessionKey.CURRENT_LOGIN_USER);
     }
 
     public static Integer getCurrentUsrIdNotEx() {

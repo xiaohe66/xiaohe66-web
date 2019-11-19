@@ -75,7 +75,7 @@ public class UserService extends AbstractService<UserMapper, User> {
      */
     public LookAtUserDto lookAtUser(Integer userId) {
         if (userId == null) {
-            userId = Final.Sys.XIAO_HE_USR_ID;
+            userId = Final.User.XIAO_HE_USER_ID;
         }
         User user = getById(userId);
 

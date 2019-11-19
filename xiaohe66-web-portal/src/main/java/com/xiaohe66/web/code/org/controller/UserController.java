@@ -31,7 +31,7 @@ public class UserController extends BaseController<UserService, User, UserDto> {
 
     @Get("/info")
     public Result current(){
-        UserDto userDto = WebUtils.getSessionAttr(Final.Str.SESSION_UER_KEY);
+        UserDto userDto = WebUtils.getSessionAttr(Final.SessionKey.CURRENT_LOGIN_USER);
         return Result.ok(userDto);
     }
 
