@@ -101,6 +101,12 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>4.2.2</version>
+            </dependency>
+
             <!-- json -->
             <!--<dependency>
                 <groupId>org.json</groupId>
