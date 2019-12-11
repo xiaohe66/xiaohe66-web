@@ -8,4 +8,6 @@ public interface BaseCallback<O extends BaseResponse> {
 
     void onResponse(O response);
 
+    void onException(Exception e);
+
 }

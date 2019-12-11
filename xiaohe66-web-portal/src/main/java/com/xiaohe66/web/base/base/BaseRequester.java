@@ -44,14 +44,20 @@ public abstract class BaseRequester<I extends BaseRequest, O extends BaseRespons
 
             @Override
             public void onFailure(Call call, IOException e) {
-                log.warn("请求失败", e);
-                callback.onResponse(null);
+                log.warn("请求失败, requestParam : {}", request);
+                callback.onException(e);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                O o = parseResponse(response);
-                callback.onResponse(o);
+                try {
+                    O o = parseResponse(response);
+                    // todo : o 为 null情况处理
+                    callback.onResponse(o);
+                } catch (Exception e) {
+                    log.warn("处理或解析响应数据发生异常, requestParam : {}", request);
+                    callback.onException(e);
+                }
             }
         });
     }
