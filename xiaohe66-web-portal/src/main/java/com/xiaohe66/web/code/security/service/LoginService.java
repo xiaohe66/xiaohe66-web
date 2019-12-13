@@ -83,13 +83,20 @@ public class LoginService {
         CacheHelper.put30(token, user);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void register(String token) {
         User user = CacheHelper.get30(token);
 
         if (user == null) {
             throw new XhWebException(CodeEnum.B2_TOKEN_TIME_OUT);
         }
+
+        register(user);
+
+        CacheHelper.remove30(token);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void register(User user) {
 
         user.setUserPwd(PwdUtils.hashPassword(user.getUserPwd()));
         try {
@@ -98,8 +105,6 @@ public class LoginService {
         } catch (Exception e) {
             throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION, "注册失败", e);
         }
-
-        CacheHelper.remove30(token);
     }
 
     public void updatePwdPrepare(String email, String code) {
@@ -136,6 +141,11 @@ public class LoginService {
         newUser.setUserPwd(PwdUtils.hashPassword(password));
 
         userService.updateById(newUser);
+    }
+
+    public UserDto login(Integer userId) {
+        User user = userService.getById(userId);
+        return loginToShiro(user);
     }
 
     public UserDto login(String loginName, String userPwd) {
@@ -178,7 +188,7 @@ public class LoginService {
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            log.debug("login failing:createUserName:{}, userPwd:{}", userName, userPwd);
+            log.debug("login failing, userName:{}, userPwd:{}", userName, userPwd, e);
             return null;
         }
         //构建dto

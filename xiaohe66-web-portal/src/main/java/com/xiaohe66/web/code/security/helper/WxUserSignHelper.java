@@ -1,7 +1,7 @@
-package com.xiaohe66.web.code.org.helper;
+package com.xiaohe66.web.code.security.helper;
 
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.code.org.dto.WxUserLoginInDto;
+import com.xiaohe66.web.code.security.dto.WxUserLoginInDto;
 import org.springframework.util.DigestUtils;
 
 /**
