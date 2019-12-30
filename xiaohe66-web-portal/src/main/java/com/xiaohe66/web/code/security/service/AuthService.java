@@ -1,6 +1,5 @@
 package com.xiaohe66.web.code.security.service;
 
-import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.IoUtils;
@@ -10,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -70,7 +70,7 @@ public class AuthService {
         String codeTemplateStr;
         try {
             codeTemplateStr = IoUtils.readStringInJar("com/xiaohe66/web/emailTemplate/codeTemplate.html");
-        } catch (XhIoException e) {
+        } catch (IOException e) {
             throw new IllegalOperationException("读取验证码模板时发生异常", e);
         }
         return codeTemplateStr.replace("${usrName}", usrName).replace("${handle}", handle).replace("${code}", authCode);
@@ -80,7 +80,7 @@ public class AuthService {
         String linkTemplateStr;
         try {
             linkTemplateStr = IoUtils.readStringInJar("com/xiaohe66/web/emailTemplate/linkTemplate.html");
-        } catch (XhIoException e) {
+        } catch (IOException e) {
             throw new IllegalOperationException("读取链接模板时发生异常", e);
         }
         return linkTemplateStr.replace("${usrName}", usrName).replace("${handle}", handle).replace("${link}", link);

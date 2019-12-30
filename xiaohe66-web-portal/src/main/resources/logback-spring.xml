@@ -93,6 +93,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+
     <logger name="org.springframework" additivity="false">
         <level value="ERROR"/>
         <appender-ref ref="STDOUT"/>
@@ -112,10 +113,29 @@
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="errorAppender"/>
     </logger>
-    <root level="DEBUG">
+
+    <!-- 去除myBatis-plus 启动时生成默认增删改查方法 -->
+    <logger name="com.baomidou.mybatisplus.core.MybatisConfiguration" additivity="false">
+        <level value="INFO"/>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>
+        <appender-ref ref="warnAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>
+
+    <!-- spring boot 依赖关系 -->
+    <logger name="org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="infoAppender"/>
+        <appender-ref ref="warnAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="debugAppender"/>
+        <appender-ref ref="infoAppender"/>
         <appender-ref ref="warnAppender"/>
         <appender-ref ref="errorAppender"/>
     </root>

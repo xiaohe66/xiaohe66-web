@@ -20,29 +20,33 @@ server:
     max-threads: 1000
 #------------- mybatis ---------------------------------
 mybatis-plus:
+  # 配置MyBaties全局配置文件:mybatis-config.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
   # 对应实体类的包名
   type-aliases-package: com.xiaohe66.web.code
+  # 和 typeAliasesPackage 配合使用，表示仅描述该类的子类
+  type-aliases-super-type: com.xiaohe66.web.base.base.BasePo
   # mapper.xml文件所在位置
   mapper-locations: classpath:/mapper/**/*.xml
+
 #------------- logback ---------------------------------
 logging:
-  config: classpath:logback.xml
+  config: classpath:logback-spring.xml
   path: C:\\xiaohe66\\logs
   pattern:
     console: '%d{HH:mm:ss.SSS} %highlight[%-5p] %cyan(%logger{15}) >>> %msg %n'
     file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] %logger{30} >>> %msg %n'
 
 #配置性参数
-file:
-  home:
-
-maxMbChunkPer: 1
-maxMbFilePer: 50
-registerUrl: https://localhost/sec/login/register/
-
-wx:
-  code2SessionUrl: http
-  appId: appid
-  appSecret: secret
+xiaohe66:
+  file:
+    home: C:\\xiaohe66\\file
+    maxMbChunkPer: 1
+    maxMbFilePer: 50
+  registerUrl: https://localhost/sec/login/register/
+  wx:
+    code2SessionUrl: http
+    appId: appid
+    appSecret: secret
 
 

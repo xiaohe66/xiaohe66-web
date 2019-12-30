@@ -1,6 +1,5 @@
 package com.xiaohe66.web.code.security.service;
 
-import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.po.WxUser;
@@ -9,9 +8,8 @@ import com.xiaohe66.web.code.org.service.WxUserService;
 import com.xiaohe66.web.code.wx.request.WxCode2SessionRequest;
 import com.xiaohe66.web.code.wx.requester.WxCode2SessionRequester;
 import com.xiaohe66.web.code.wx.response.WxCode2SessionResponse;
+import com.xiaohe66.web.config.WxConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -30,6 +28,8 @@ public class WxLoginService {
 
     private WxCode2SessionRequester requester;
 
+    private WxConfig config;
+
     public WxLoginService(LoginService loginService, UserService userService, WxUserService wxUserService, WxCode2SessionRequester requester) {
         this.loginService = loginService;
         this.userService = userService;
@@ -37,17 +37,10 @@ public class WxLoginService {
         this.requester = requester;
     }
 
-    @Value("${wx.appId}")
-    private String appId;
-
-
-    @Value("${wx.appSecret}")
-    private String appSecret;
-
     public String login(String code) {
         WxCode2SessionRequest request = new WxCode2SessionRequest();
-        request.setAppId(appId);
-        request.setAppSecret(appSecret);
+        request.setAppId(config.getAppId());
+        request.setAppSecret(config.getAppSecret());
         request.setCode(code);
 
         WxCode2SessionResponse response = requester.call(request);

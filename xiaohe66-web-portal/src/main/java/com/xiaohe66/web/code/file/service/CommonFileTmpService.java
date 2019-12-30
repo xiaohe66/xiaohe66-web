@@ -1,16 +1,15 @@
 package com.xiaohe66.web.code.file.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.code.file.mapper.CommonFileTmpMapper;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
-import org.apache.commons.io.IOUtils;
+import com.xiaohe66.web.config.FileConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +32,12 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
 
     private static final Logger logger = LoggerFactory.getLogger(CommonFileTmpService.class);
 
-    @Value("${file.home}")
-    private String fileHomeUrl;
+    private final FileConfig config;
+
+    @Autowired
+    public CommonFileTmpService(FileConfig config) {
+        this.config = config;
+    }
 
     /**
      * 上传一个临时文件，若文件已存在，则不上传，直接返回结果
@@ -51,10 +54,11 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
 
         if (!isExist(md5, chunk)) {
             String path = createLogicPath(md5) + chunk;
-            File writeFile = new File(fileHomeUrl + path);
+            File writeFile = new File(config.getHome() + path);
             try {
                 IoUtils.writeToFile(inputStream, writeFile, false);
-            } catch (XhIoException e) {
+
+            } catch (IOException e) {
                 throw new IllegalOperationException("写文件时发生异常, path : " + writeFile.getPath(), e);
             }
 
@@ -116,15 +120,16 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
             fileTmp = new File(commonFileTmp.getFileUrl());
             try {
                 IoUtils.writeToFile(fileTmp, fileFull, true);
-            } catch (XhIoException e) {
+
+            } catch (IOException e) {
                 String msg = "合并文件发生异常, tmpFile : " + fileTmp.getPath() + ", fullFile : " + fileFull.getPath();
                 throw new IllegalOperationException(msg, e);
             }
         }
     }
 
-    public void createTmpDirectory(String md5) throws XhIoException {
-        String tmp = fileHomeUrl + createLogicPath(md5);
+    public void createTmpDirectory(String md5) throws IOException {
+        String tmp = config.getHome() + createLogicPath(md5);
         IoUtils.createDirectoryIfNotExist(new File(tmp).getParentFile());
     }
 
@@ -139,9 +144,9 @@ public class CommonFileTmpService extends AbstractService<CommonFileTmpMapper, C
 
         Check.notEmpty(md5);
 
-        removeByMap(Collections.singletonMap("md5",md5));
+        removeByMap(Collections.singletonMap("md5", md5));
 
-        String path = fileHomeUrl + createLogicPath(md5);
+        String path = config.getHome() + createLogicPath(md5);
         try {
             IoUtils.delete(path);
         } catch (IOException e) {
