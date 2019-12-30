@@ -46,10 +46,8 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         chars[0] = Character.toLowerCase(chars[0]);
         moduleName = new String(chars);
 
-        log.info("moduleName : {}", moduleName);
-
         dtoClass = ((Class<D>) type[2]);
-        log.info("dtoClass : {}", dtoClass.getName());
+        log.info("moduleName : {}, dtoClass : {}", moduleName, dtoClass.getName());
     }
 
     @Post

@@ -1,0 +1,48 @@
+#数据库链接配置
+spring:
+  profiles:
+    active: dev
+  aop.proxy-target-class: true
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+#-------------------------------------------
+server:
+  port: 8080
+  session:
+    #用户会话session过期时间，以秒为单位
+    timeout: 360
+  tomcat:
+    # 配置Tomcat编码,默认为UTF-8
+    uri-encoding: UTF-8
+    # 配置最大线程数
+    max-threads: 1000
+#------------- mybatis ---------------------------------
+mybatis-plus:
+  # 对应实体类的包名
+  type-aliases-package: com.xiaohe66.web.code
+  # mapper.xml文件所在位置
+  mapper-locations: classpath:/mapper/**/*.xml
+#------------- logback ---------------------------------
+logging:
+  config: classpath:logback.xml
+  path: C:\\xiaohe66\\logs
+  pattern:
+    console: '%d{HH:mm:ss.SSS} %highlight[%-5p] %cyan(%logger{15}) >>> %msg %n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] %logger{30} >>> %msg %n'
+
+#配置性参数
+file:
+  home:
+
+maxMbChunkPer: 1
+maxMbFilePer: 50
+registerUrl: https://localhost/sec/login/register/
+
+wx:
+  code2SessionUrl: http
+  appId: appid
+  appSecret: secret
+
+

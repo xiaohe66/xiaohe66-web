@@ -10,7 +10,7 @@ import com.xiaohe66.web.code.org.service.WxUserService;
  * @author xiaohe
  * @time 2019.12.06 16:23
  */
-@XhController("/org/wxUser")
+//@XhController("/org/wxUser")
 public class WxUserController extends BaseController<WxUserService, WxUser, WxUserDto> {
 
 
