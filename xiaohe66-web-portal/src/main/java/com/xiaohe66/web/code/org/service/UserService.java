@@ -25,11 +25,6 @@ import org.springframework.stereotype.Service;
 public class UserService extends AbstractService<UserMapper, User> {
 
     @Override
-    public boolean save(User po) {
-        return retBool(baseMapper.insert(po));
-    }
-
-    @Override
     public boolean updateById(User po) {
         String signature = po.getSignature();
         if (signature != null) {
@@ -80,7 +75,7 @@ public class UserService extends AbstractService<UserMapper, User> {
      */
     public LookAtUserDto lookAtUser(Integer userId) {
         if (userId == null) {
-            userId = Final.Sys.XIAO_HE_USR_ID;
+            userId = Final.User.XIAO_HE_USER_ID;
         }
         User user = getById(userId);
 

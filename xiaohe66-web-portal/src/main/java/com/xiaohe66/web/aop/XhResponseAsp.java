@@ -52,7 +52,7 @@ public class XhResponseAsp {
         Result result = retVal instanceof Result ? (Result) retVal : Result.ok(retVal);
 
         HttpServletResponse response = WebUtils.getResponse();
-        response.setContentType(Final.Str.HEADER_JSON_UTF_8);
+        response.setContentType(Final.HeaderKey.JSON_UTF_8);
         response.getWriter().print(JsonUtils.toString(result));
         return null;
     }

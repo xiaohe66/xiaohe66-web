@@ -1,7 +1,6 @@
 package com.xiaohe66.web.base.util;
 
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -35,7 +34,7 @@ public class IoUtils {
 
     private static final int BUFF_BYTE_SIZE = 2048;
 
-    public static String readStringWithInput(InputStream inputStream) throws XhIoException {
+    public static String readStringWithInput(InputStream inputStream) throws IOException {
         try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(reader)) {
 
@@ -45,8 +44,6 @@ public class IoUtils {
                 stringBuilder.append(line);
             }
             return stringBuilder.toString();
-        } catch (IOException e) {
-            throw new XhIoException(e);
         }
     }
 
@@ -56,15 +53,16 @@ public class IoUtils {
      * @param filePath 文件路径
      * @return 读取到的内容
      */
-    public static String readStringInClassPath(String filePath) throws XhIoException {
+    public static String readStringInClassPath(String filePath) throws IOException {
         URL url = IoUtils.class.getClassLoader().getResource(filePath);
         if (url == null) {
-            throw new XhIoException("资源不存在 : " + filePath);
+            throw new IOException("资源不存在 : " + filePath);
         }
         try (InputStream inputStream = new FileInputStream(new File(url.toURI()))) {
             return readStringWithInput(inputStream);
-        } catch (URISyntaxException | IOException e) {
-            throw new XhIoException(e);
+
+        } catch (URISyntaxException e) {
+            throw new IOException(e);
         }
     }
 
@@ -74,30 +72,22 @@ public class IoUtils {
      * @param filePath 文件路径
      * @return 读取到的内容
      */
-    public static String readStringInJar(String filePath) throws XhIoException {
+    public static String readStringInJar(String filePath) throws IOException {
         return readStringWithInput(IoUtils.class.getClassLoader().getResourceAsStream(filePath));
     }
 
     // todo : 线程安全
-    public static void createFileIfNotExsit(File file) throws XhIoException {
+    public static void createFileIfNotExsit(File file) throws IOException {
         if (!file.exists()) {
             log.debug("文件不存在，创建文件:" + file.getPath());
             createDirectoryIfNotExist(file.getParentFile());
-            try {
-                Files.createFile(file.toPath());
-            } catch (IOException e) {
-                throw new XhIoException(e);
-            }
+            Files.createFile(file.toPath());
         }
     }
 
-    public static void createDirectoryIfNotExist(File directory) throws XhIoException {
+    public static void createDirectoryIfNotExist(File directory) throws IOException {
         if (!directory.exists()) {
-            try {
-                FileUtils.forceMkdir(directory);
-            } catch (IOException e) {
-                throw new XhIoException("创建文件夹失败, 路径 : " + directory.getPath(), e);
-            }
+            FileUtils.forceMkdir(directory);
         }
     }
 
@@ -108,7 +98,7 @@ public class IoUtils {
      * @param file        目标文件
      * @param append      是否在文件末尾定稿，传入true时，在文件的末尾写入。传入false时会覆盖旧文件。
      */
-    public static void writeToFile(InputStream inputStream, File file, boolean append) throws XhIoException {
+    public static void writeToFile(InputStream inputStream, File file, boolean append) throws IOException {
         Objects.requireNonNull(inputStream);
         Objects.requireNonNull(file);
 
@@ -123,20 +113,16 @@ public class IoUtils {
                 bufferedOutputStream.write(bytes, 0, len);
             }
             bufferedOutputStream.flush();
-        } catch (IOException e) {
-            throw new XhIoException(e);
         }
     }
 
-    public static void writeToFile(File readFile, File writeFile, boolean append) throws XhIoException {
+    public static void writeToFile(File readFile, File writeFile, boolean append) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(readFile)) {
             writeToFile(fileInputStream, writeFile, append);
-        } catch (IOException e) {
-            throw new XhIoException(e);
         }
     }
 
-    public static void writeToOutput(File file, OutputStream outputStream) throws XhIoException {
+    public static void writeToOutput(File file, OutputStream outputStream) throws IOException {
         Objects.requireNonNull(file);
         Objects.requireNonNull(outputStream);
 
@@ -147,8 +133,6 @@ public class IoUtils {
             while ((len = (fileInputStream.read(bytes))) > 0) {
                 bufferedOutputStream.write(bytes, 0, len);
             }
-        } catch (IOException e) {
-            throw new XhIoException(e);
         }
     }
 
@@ -190,11 +174,9 @@ public class IoUtils {
         }
     }
 
-    public static String md5Sex(File file) throws XhIoException {
+    public static String md5Sex(File file) throws IOException {
         try (FileInputStream inputStream = new FileInputStream(file)) {
             return DigestUtils.md5DigestAsHex(inputStream);
-        } catch (IOException e) {
-            throw new XhIoException(e);
         }
     }
 

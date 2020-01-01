@@ -13,12 +13,13 @@ import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.auth.entity.EmailAuthCode;
 import com.xiaohe66.web.code.security.auth.helper.AuthCodeHelper;
+import com.xiaohe66.web.config.MainConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,17 +31,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class LoginService {
 
-    @Value("${registerUrl}")
-    private String registerUrl;
-
     private UserService userService;
     private UserRoleService userRoleService;
     private AuthService authService;
 
-    public LoginService(UserService userService, UserRoleService userRoleService, AuthService authService) {
+    private final MainConfig mainConfig;
+
+    @Autowired
+    public LoginService(UserService userService, UserRoleService userRoleService, AuthService authService, MainConfig mainConfig) {
         this.userService = userService;
         this.userRoleService = userRoleService;
         this.authService = authService;
+        this.mainConfig = mainConfig;
     }
 
     /**
@@ -56,8 +58,8 @@ public class LoginService {
 
         String userName = user.getUserName();
         String email = user.getEmail();
-        Check.notEmpty(userName,"userName");
-        Check.notEmpty(email,"email");
+        Check.notEmpty(userName, "userName");
+        Check.notEmpty(email, "email");
 
         if (!RegexUtils.testUsrName(userName) || !RegexUtils.testEmail(email)) {
             throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM);
@@ -73,7 +75,7 @@ public class LoginService {
 
         String token = PwdUtils.createToken();
 
-        String link = registerUrl + token;
+        String link = mainConfig.getRegisterUrl() + token;
 
         log.debug("发送link邮件，内容为: {}", link);
 
@@ -83,13 +85,20 @@ public class LoginService {
         CacheHelper.put30(token, user);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void register(String token) {
         User user = CacheHelper.get30(token);
 
         if (user == null) {
             throw new XhWebException(CodeEnum.B2_TOKEN_TIME_OUT);
         }
+
+        register(user);
+
+        CacheHelper.remove30(token);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void register(User user) {
 
         user.setUserPwd(PwdUtils.hashPassword(user.getUserPwd()));
         try {
@@ -98,13 +107,11 @@ public class LoginService {
         } catch (Exception e) {
             throw new XhWebException(CodeEnum.RUNTIME_EXCEPTION, "注册失败", e);
         }
-
-        CacheHelper.remove30(token);
     }
 
     public void updatePwdPrepare(String email, String code) {
-        Check.notEmpty(email,"email");
-        Check.notEmpty(code,"code");
+        Check.notEmpty(email, "email");
+        Check.notEmpty(code, "code");
         if (!AuthCodeHelper.verifyImgCode(code)) {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
@@ -114,7 +121,7 @@ public class LoginService {
             throw new XhWebException(CodeEnum.B1_OBJ_NOT_EXIST);
         }
 
-        WebUtils.setSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY, user);
+        WebUtils.setSessionAttr(Final.SessionKey.UPDATE_PWD_USER, user);
 
         EmailAuthCode emailAuthCode = AuthCodeHelper.createEmailAuthCode(email);
 
@@ -129,13 +136,18 @@ public class LoginService {
             throw new XhWebException(CodeEnum.B2_TOKEN_ERROR);
         }
 
-        User user = WebUtils.getSessionAttr(Final.Str.SESSION_UPDATE_PWD_USR_KEY);
+        User user = WebUtils.getSessionAttr(Final.SessionKey.UPDATE_PWD_USER);
 
         User newUser = new User();
         newUser.setId(user.getId());
         newUser.setUserPwd(PwdUtils.hashPassword(password));
 
         userService.updateById(newUser);
+    }
+
+    public UserDto login(Integer userId) {
+        User user = userService.getById(userId);
+        return loginToShiro(user);
     }
 
     public UserDto login(String loginName, String userPwd) {
@@ -146,7 +158,7 @@ public class LoginService {
         Check.notEmpty(loginName, "userPwd");
 
         Subject subject = SecurityUtils.getSubject();
-        UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.Str.SESSION_UER_KEY);
+        UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.SessionKey.CURRENT_LOGIN_USER);
 
         if (currentUsr != null && loginName.equals(currentUsr.getUserName())) {
             //该用户已经登录
@@ -178,13 +190,13 @@ public class LoginService {
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            log.debug("login failing:createUserName:{}, userPwd:{}", userName, userPwd);
+            log.debug("login failing, userName:{}, userPwd:{}", userName, userPwd, e);
             return null;
         }
         //构建dto
         UserDto dtoUsr = new UserDto(user);
         //注入session
-        subject.getSession().setAttribute(Final.Str.SESSION_UER_KEY, dtoUsr);
+        subject.getSession().setAttribute(Final.SessionKey.CURRENT_LOGIN_USER, dtoUsr);
         return dtoUsr;
     }
 
@@ -192,7 +204,7 @@ public class LoginService {
         log.debug("注销登录");
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        subject.getSession().removeAttribute(Final.Str.SESSION_UER_KEY);
+        subject.getSession().removeAttribute(Final.SessionKey.CURRENT_LOGIN_USER);
     }
 
     public boolean isLogin() {

@@ -21,6 +21,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +54,7 @@ public class EmailService implements InitializingBean {
         }
         log.info("初始化邮件发送服务session");
 
-        String smtpHost = SysCfgHelper.getString(Final.Str.SYS_EMAIL_SMTP_HOST_KEY);
+        String smtpHost = SysCfgHelper.getString(Final.ConfigKey.EMAIL_SMTP_HOST);
 
         log.debug("smtpHost : {}", smtpHost);
 
@@ -76,7 +77,7 @@ public class EmailService implements InitializingBean {
         InternetAddress[] internetAddress;
         try {
             internetAddress = new InternetAddress[]{
-                    new InternetAddress(targetEmail, targetName, Final.Str.UTF_8)
+                    new InternetAddress(targetEmail, targetName, StandardCharsets.UTF_8.name())
             };
         } catch (UnsupportedEncodingException e) {
             throw new EmailSendException(e);
@@ -90,8 +91,8 @@ public class EmailService implements InitializingBean {
         check(email);
         try {
             MimeMessage message = createMimeMessage(email);
-            String emailAccount = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
-            String emailPwd = EncoderUtils.base64Decode(SysCfgHelper.getString(Final.Str.SYS_EMAIL_PWD_KEY));
+            String emailAccount = SysCfgHelper.getString(Final.ConfigKey.EMAIL_HOST);
+            String emailPwd = EncoderUtils.base64Decode(SysCfgHelper.getString(Final.ConfigKey.EMAIL_PWD));
             Transport.send(message, emailAccount, emailPwd);
             log.info("邮件发送成功,主题 : {}", email.getSubject());
 
@@ -157,8 +158,8 @@ public class EmailService implements InitializingBean {
             MimeMessage message = createMimeMessage(email);
 
             log.warn("尝试重新发送");
-            String emailAccount = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
-            String emailPwd = EncoderUtils.base64Decode(SysCfgHelper.getString(Final.Str.SYS_EMAIL_PWD_KEY));
+            String emailAccount = SysCfgHelper.getString(Final.ConfigKey.EMAIL_HOST);
+            String emailPwd = EncoderUtils.base64Decode(SysCfgHelper.getString(Final.ConfigKey.EMAIL_PWD));
             Transport.send(message, emailAccount, emailPwd);
             log.warn("邮件发送成功");
 
@@ -193,11 +194,11 @@ public class EmailService implements InitializingBean {
 
         MimeMessage message = new MimeMessage(session);
 
-        String emailUserName = SysCfgHelper.getString(Final.Str.SYS_EMAIL_USR_NAME_KEY);
-        String emailAccount = SysCfgHelper.getString(Final.Str.SYS_EMAIL_HOST_KEY);
+        String emailUserName = SysCfgHelper.getString(Final.ConfigKey.EMAIL_USER_NAME);
+        String emailAccount = SysCfgHelper.getString(Final.ConfigKey.EMAIL_HOST);
 
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, Final.Str.UTF_8);
-        helper.setFrom(new InternetAddress(emailAccount, emailUserName, Final.Str.UTF_8));
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
+        helper.setFrom(new InternetAddress(emailAccount, emailUserName, StandardCharsets.UTF_8.name()));
         helper.setTo(email.getTargetAddressArr());
         helper.setSubject(email.getSubject());
         helper.setText(email.getContent(), true);

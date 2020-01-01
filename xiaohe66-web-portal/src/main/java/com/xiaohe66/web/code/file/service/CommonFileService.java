@@ -3,21 +3,20 @@ package com.xiaohe66.web.code.file.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.CodeEnum;
-import com.xiaohe66.web.base.exception.XhIoException;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.exception.param.IllegalParamException;
 import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.base.util.DateUtils;
 import com.xiaohe66.web.base.util.IoUtils;
 import com.xiaohe66.web.base.util.WebUtils;
+import com.xiaohe66.web.base.util.XhDateFormatUtils;
 import com.xiaohe66.web.code.file.dto.UploadFilePrepareDto;
 import com.xiaohe66.web.code.file.mapper.CommonFileMapper;
 import com.xiaohe66.web.code.file.po.CommonFile;
 import com.xiaohe66.web.code.file.po.CommonFileTmp;
+import com.xiaohe66.web.config.FileConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,30 +49,13 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
     public static final String CACHE_FILE_MD5_SESSION_KEY = "cacheFileMd5";
 
-    @Value("${file.home}")
-    private String fileHomeUrl;
+    private final CommonFileTmpService commonFileTmpService;
 
-    @Value("${maxMbChunkPer}")
-    private Integer maxMbChunkPer;
+    private final FileConfig config;
 
-    @Value("${maxMbFilePer}")
-    private Integer maxMbFilePer;
-
-    private CommonFileTmpService commonFileTmpService;
-
-    public CommonFileService(CommonFileTmpService commonFileTmpService) {
+    public CommonFileService(CommonFileTmpService commonFileTmpService, FileConfig config) {
         this.commonFileTmpService = commonFileTmpService;
-    }
-
-    @Override
-    public boolean save(CommonFile po) {
-        // name 的最大长度
-        String name = po.getName();
-        if (name != null && name.length() > 200) {
-            po.setName(name.substring(0, 200));
-        }
-
-        return super.save(po);
+        this.config = config;
     }
 
     private void saveSessionPrepareId(Integer id) {
@@ -85,18 +67,18 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         cache.add(id);
     }
 
-    private void mergeTmpFile(String md5) throws IOException, XhIoException {
+    private void mergeTmpFile(String md5) throws IOException {
 
         String path = createLogicPath(md5);
 
-        File fullFile = new File(fileHomeUrl + path);
+        File fullFile = new File(config.getHome() + path);
 
         //整合临时文件到主文件
         Files.deleteIfExists(fullFile.toPath());
 
         List<CommonFileTmp> commonFileTmpList = commonFileTmpService.findFileTmp(md5);
         for (CommonFileTmp commonFileTmp : commonFileTmpList) {
-            File tmpFile = new File(fileHomeUrl + commonFileTmp.getFileUrl());
+            File tmpFile = new File(config.getHome() + commonFileTmp.getFileUrl());
             IoUtils.writeToFile(tmpFile, fullFile, true);
         }
 
@@ -144,19 +126,19 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (md5 == null || md5.length() != md5Length) {
             throw new XhWebException(CodeEnum.B1_ILLEGAL_PARAM, "md5为null，或长度不为" + md5Length + "位");
         }
-        if (mb == null || mb <= 0 || mb > maxMbFilePer) {
+        if (mb == null || mb <= 0 || mb > config.getMaxMbFilePer()) {
             throw new IllegalParamException("mb小于0或大于最大值, mb=" + mb);
         }
         log.info("文件上传准备, md5 : {}, 大小 : {}MB", md5, mb);
 
         // todo :  如果刚好除尽没有余数时，会出现异常吗？
-        int currentMaxChunk = mb.intValue() / maxMbChunkPer + 1;
+        int currentMaxChunk = mb.intValue() / config.getMaxMbChunkPer() + 1;
 
         WebUtils.setSessionAttr(UPLOAD_FILE_MD5_SESSION_KEY, md5);
         WebUtils.setSessionAttr(CURRENT_FILE_MAX_CHUNK_SESSION_KEY, currentMaxChunk);
 
         UploadFilePrepareDto uploadFilePrepareDto = new UploadFilePrepareDto();
-        uploadFilePrepareDto.setMaxMbChunkPer(maxMbChunkPer);
+        uploadFilePrepareDto.setMaxMbChunkPer(config.getMaxMbChunkPer());
         uploadFilePrepareDto.setCountChunk(currentMaxChunk);
 
         CommonFile commonFile = getByMd5(md5);
@@ -165,7 +147,8 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
             try {
                 commonFileTmpService.createTmpDirectory(md5);
-            } catch (XhIoException e) {
+
+            } catch (IOException e) {
                 throw new XhWebException(CodeEnum.EXCEPTION, "无法生成临时文件夹", e);
             }
 
@@ -202,7 +185,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
                 try {
                     mergeTmpFile(md5);
                     log.warn("自动合并文件成功, md5 : {}", md5);
-                } catch (IOException | XhIoException e) {
+                } catch (IOException e) {
                     log.error("尝试合并文件失败, md5 : {}", md5, e);
                 }
                 uploadFilePrepareDto.setMissingChunk(Collections.emptySet());
@@ -259,10 +242,11 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         if (currentMaxChunk == 1) {
             //只有一个临时文件，直接上传至主文件
             String path = createLogicPath(md5);
-            File file = new File(fileHomeUrl + path);
+            File file = new File(config.getHome() + path);
             try {
                 IoUtils.writeToFile(fileInput, file, false);
-            } catch (XhIoException e) {
+
+            } catch (IOException e) {
                 log.error("无法写入文件,path : {}", file);
                 throw new XhWebException(CodeEnum.EXCEPTION, "无法写文件", e);
             }
@@ -270,7 +254,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
             String serviceMd5;
             try {
                 serviceMd5 = IoUtils.md5Sex(file);
-            } catch (XhIoException e) {
+            } catch (IOException e) {
                 throw new XhWebException(CodeEnum.EXCEPTION, e);
             }
 
@@ -306,7 +290,8 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
                     log.info("合并临时文件，md5 : {}", md5);
                     mergeTmpFile(md5);
                     log.info("合并临时文件完成，md5 : {}", md5);
-                } catch (IOException | XhIoException e) {
+
+                } catch (IOException e) {
                     log.error("合并文件失败, md5 : {}", md5);
                     throw new XhWebException(CodeEnum.EXCEPTION, "合并文件失败", e);
                 }
@@ -345,14 +330,15 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
     public void outputFile(OutputStream outputStream, CommonFile commonFile) {
 
-        String url = fileHomeUrl + commonFile.getFileUrl();
+        String filePath = config.getHome() + commonFile.getFileUrl();
 
-        File file = new File(url);
+        File file = new File(filePath);
 
         try {
             IoUtils.writeToOutput(file, outputStream);
-        } catch (XhIoException e) {
-            log.error("无法输出文件", e);
+
+        } catch (IOException e) {
+            log.error("无法输出文件, filePath : {}", filePath);
             throw new XhWebException(CodeEnum.EXCEPTION, e);
         }
     }
@@ -364,7 +350,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
      * @return 格式：2018-07/a/a5f3a36d02749cc5cf049fga80727f90
      */
     public String createLogicPath(String md5) {
-        return DateUtils.yyyyMM.format(new Date()) + File.separator + md5.substring(0, 1) + File.separator + md5;
+        return XhDateFormatUtils.yyyyMM.format(new Date()) + File.separator + md5.substring(0, 1) + File.separator + md5;
     }
 
 }

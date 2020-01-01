@@ -126,7 +126,7 @@
         <div class="module1">
             <div class="title">友情链接</div>
             <div class="body link">
-                <a href="http://www.github.com/tiy-he" target="_blank">小何的GitHub</a>
+                <a href="http://www.github.com/xiaohe66" target="_blank">小何的GitHub</a>
                 <a href="https://blog.csdn.net/xiaohe73" target="_blank">小何的Csdn</a>
                 <a href="https://love.xiaohe66.com" target="_blank">He&Yan的爱恋</a>
             </div>

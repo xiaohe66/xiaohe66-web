@@ -9,15 +9,13 @@ import java.util.Date;
  * 日期相关工具类
  * <p>正常是带格式的，日期用 “-”分开，日间用“：”分开
  * <p>所有格式后面带个2的，这些是不带格式的
- * <p>
- * todo : rename to XhDateFormatUtils
  *
  * @author xiaohe
  * @time 2019-10-29 18:37
  */
-public class DateUtils {
+public class XhDateFormatUtils {
 
-    private DateUtils() {
+    private XhDateFormatUtils() {
     }
 
     public static final DateFormat yyyyMMddHHmmss;

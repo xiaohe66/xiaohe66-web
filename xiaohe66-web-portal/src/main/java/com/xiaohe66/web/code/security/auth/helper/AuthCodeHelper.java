@@ -27,40 +27,40 @@ public class AuthCodeHelper {
 
     public static ImgAuthCode createImgAuthCode() {
         ImgAuthCode imgAuthCode = AuthCodeFactory.createImgAuthCode();
-        WebUtils.setSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY, imgAuthCode);
+        WebUtils.setSessionAttr(Final.SessionKey.IMG_AUTH_CODE, imgAuthCode);
         return imgAuthCode;
     }
 
     public static EmailAuthCode createEmailAuthCode(String email) {
         EmailAuthCode emailAuthCode = AuthCodeFactory.createEmailAuthCode(email);
-        WebUtils.setSessionAttr(Final.Str.SESSION_EMAIL_AUTH_CODE_KEY, emailAuthCode);
+        WebUtils.setSessionAttr(Final.SessionKey.EMAIL_AUTH_CODE, emailAuthCode);
         return emailAuthCode;
     }
 
     public static boolean verifyImgCode(String code) {
-        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.SessionKey.IMG_AUTH_CODE);
         return verify(code, authCodeObj);
     }
 
     public static boolean verifyImgCodeNotClearSession(String code) {
-        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.SessionKey.IMG_AUTH_CODE);
         return verifyNotClearSession(code, authCodeObj);
     }
 
     public static boolean verifyEmailCode(String code) {
-        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_EMAIL_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.SessionKey.EMAIL_AUTH_CODE);
         return verify(code, authCodeObj);
 
     }
 
     public static boolean verifyEmailCodeNotClearSession(String code) {
-        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.Str.SESSION_EMAIL_AUTH_CODE_KEY);
+        AuthCode authCodeObj = WebUtils.getSessionAttr(Final.SessionKey.EMAIL_AUTH_CODE);
         return verifyNotClearSession(code, authCodeObj);
     }
 
     private static boolean verify(String code, AuthCode authCodeObj) {
         if (verifyNotClearSession(code, authCodeObj)) {
-            WebUtils.removeSessionAttr(Final.Str.SESSION_IMG_AUTH_CODE_KEY);
+            WebUtils.removeSessionAttr(Final.SessionKey.IMG_AUTH_CODE);
             return true;
         }
         return false;

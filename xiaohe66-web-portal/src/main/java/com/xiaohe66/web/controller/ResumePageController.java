@@ -2,9 +2,9 @@ package com.xiaohe66.web.controller;
 
 import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.XhController;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.resume.service.ResumeMainService;
-import com.xiaohe66.web.code.sys.helper.SysCfgHelper;
 import com.xiaohe66.web.code.text.service.ArticleService;
 import org.springframework.ui.Model;
 
@@ -28,18 +28,18 @@ public class ResumePageController {
     private ResumeMainService resumeMainService;
 
     @Page
-    public String ind(Model model){
+    public String ind(Model model) {
         return index(model);
     }
 
     @Page("/index")
-    public String index(Model model){
-        Integer xhUsrId = SysCfgHelper.findXhUsrId();
-        model.addAttribute("title","小何的简历");
-        model.addAttribute("usrDivTitle","小何");
-        model.addAttribute("usrDto",userService.lookAtUser(xhUsrId));
-        model.addAttribute("hotArticle",articleService.findDtoHotTop5(xhUsrId));
-        model.addAttribute("resumeMain",resumeMainService.findDtoByUsrId(xhUsrId));
+    public String index(Model model) {
+        Integer xhUsrId = Final.User.XIAO_HE_USER_ID;
+        model.addAttribute("title", "小何的简历");
+        model.addAttribute("usrDivTitle", "小何");
+        model.addAttribute("usrDto", userService.lookAtUser(xhUsrId));
+        model.addAttribute("hotArticle", articleService.findDtoHotTop5(xhUsrId));
+        model.addAttribute("resumeMain", resumeMainService.findDtoByUsrId(xhUsrId));
         return "resume/resume_index";
     }
 

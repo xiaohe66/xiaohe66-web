@@ -36,11 +36,11 @@ public class UsrFileLogService extends AbstractService<UserFileLogMapper, UserFi
 
         Integer usrFileId = po.getUserFileId();
 
-        Set<Integer> usrFileIdSet = WebUtils.getSessionAttr(Final.Str.USR_FILE_LOG_CACHE);
+        Set<Integer> usrFileIdSet = WebUtils.getSessionAttr(Final.CacheKey.USER_FILE_LOG_CACHE);
 
         if (usrFileIdSet == null) {
             usrFileIdSet = new HashSet<>();
-            WebUtils.setSessionAttr(Final.Str.USR_FILE_LOG_CACHE, usrFileIdSet);
+            WebUtils.setSessionAttr(Final.CacheKey.USER_FILE_LOG_CACHE, usrFileIdSet);
         }
 
         if (!usrFileIdSet.contains(usrFileId)) {
