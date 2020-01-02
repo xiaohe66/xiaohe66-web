@@ -1,5 +1,7 @@
 package com.xiaohe66.web.config;
 
+import com.xiaohe66.web.base.holder.ApplicationContextHolder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -8,5 +10,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MainConfiguration {
+
+    @Bean
+    public ApplicationContextHolder applicationContextHolder(){
+        return new ApplicationContextHolder();
+    }
 
 }

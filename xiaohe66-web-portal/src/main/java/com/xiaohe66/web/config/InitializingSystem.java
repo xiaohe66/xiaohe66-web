@@ -7,6 +7,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 /**
+ *
+ * 实现 {@link ApplicationRunner} 接口，使其在项目启动完成的立即运行
+ *
  * @author xiaohe
  * @time 2019.12.30 11:40
  */
