@@ -7,6 +7,20 @@
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
+        <springProfile name="prod">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+        </springProfile>
+        <springProfile name="test">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+        </springProfile>
     </appender>
     <!-- INFO -->
     <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -124,7 +138,8 @@
     </logger>
 
     <!-- spring boot 依赖关系 -->
-    <logger name="org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer" additivity="false">
+    <logger name="org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer"
+            additivity="false">
         <level value="INFO"/>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>
@@ -133,10 +148,23 @@
     </logger>
 
     <root level="DEBUG">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="debugAppender"/>
-        <appender-ref ref="infoAppender"/>
-        <appender-ref ref="warnAppender"/>
-        <appender-ref ref="errorAppender"/>
+        <springProfile name="dev">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+        <springProfile name="prod">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="debugAppender"/>
+            <appender-ref ref="infoAppender"/>
+            <appender-ref ref="warnAppender"/>
+            <appender-ref ref="errorAppender"/>
+        </springProfile>
+        <springProfile name="test">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="debugAppender"/>
+            <appender-ref ref="infoAppender"/>
+            <appender-ref ref="warnAppender"/>
+            <appender-ref ref="errorAppender"/>
+        </springProfile>
     </root>
+
 </configuration>

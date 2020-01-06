@@ -24,23 +24,14 @@
             <resource>
                 <!-- 指定resources插件处理哪个目录下的资源文件 -->
                 <directory>src/main/resources</directory>
-                <!-- 不包含directory指定目录下的以下文件 -->
+                <!--只（这个字很重要）包含directory指定目录下的以下文件<include>和<exclude>都存在的话，那就发生冲突了，这时会以<exclude>为准-->
                 <excludes>
                     <exclude>dev/*</exclude>
                     <exclude>prod/*</exclude>
                     <exclude>test/*</exclude>
-                    <exclude>application-*.yml</exclude>
                 </excludes>
-            </resource>
-
-            <resource>
-                <directory>src/main/resources</directory>
-                <!--只（这个字很重要）包含directory指定目录下的以下文件<include>和<exclude>都存在的话，那就发生冲突了，这时会以<exclude>为准-->
-                <includes>
-                    <include>application-${profiles.active}.yml</include>
-                </includes>
                 <!--为true，把过滤的文件<excludes>打到classpath下。false，会把不需要过滤的文件<includes>打到classpath下-->
-                <filtering>false</filtering>
+                <filtering>true</filtering>
             </resource>
 
             <resource>
