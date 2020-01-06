@@ -13,5 +13,5 @@ import lombok.EqualsAndHashCode;
 public class SmallDailyDto extends BaseDto {
 
     private String desc;
-    private Integer level;
+    private Integer mood;
 }

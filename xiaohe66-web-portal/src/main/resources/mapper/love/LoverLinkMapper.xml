@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaohe66.web.code.love.mapper.LoverLinkMapper">
+
+    <select id="selectLoverUserId" resultType="integer">
+        select l2.user_id from xiaohe66_web_love_lover_link l
+        join xiaohe66_web_love_lover_link l2 on l.lover_id = l2.lover_id and l.user_id != l2.user_id
+        where l.user_id = #{userId}
+    </select>
+
+</mapper>

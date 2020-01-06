@@ -59,7 +59,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
             }
             // 其它
             else {
-                log.error("系统发生错误, 当前用户 : {}, code : {}", currentUserId, e);
+                log.error("系统发生错误, 当前用户 : {}, code : {}", currentUserId, e.getCode(), e);
             }
             result = Result.err(code);
         }
