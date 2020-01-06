@@ -23,7 +23,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfiguration {
 
-
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();

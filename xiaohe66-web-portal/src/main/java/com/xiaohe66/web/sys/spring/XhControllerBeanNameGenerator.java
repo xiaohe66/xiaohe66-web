@@ -1,4 +1,4 @@
-package com.xiaohe66.web.spring;
+package com.xiaohe66.web.sys.spring;
 
 import com.xiaohe66.web.base.annotation.XhController;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;

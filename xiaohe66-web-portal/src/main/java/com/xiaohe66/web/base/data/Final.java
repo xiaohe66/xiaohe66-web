@@ -47,7 +47,8 @@ public final class Final {
         private User() {
         }
 
-        public static final int ROOT_USER_ID = 1;
+        public static final int ADMIN_USER_ID = 1;
+        public static final String ADMIN_USER_NAME = "admin";
         public static final int YAN_ZI_USER_ID = 2;
         public static final int XIAO_HE_USER_ID = 3;
     }

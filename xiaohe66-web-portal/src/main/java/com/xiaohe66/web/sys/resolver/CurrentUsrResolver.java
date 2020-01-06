@@ -1,4 +1,4 @@
-package com.xiaohe66.web.resolver;
+package com.xiaohe66.web.sys.resolver;
 
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;

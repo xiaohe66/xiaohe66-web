@@ -1,7 +1,7 @@
 package com.xiaohe66.web;
 
 import com.xiaohe66.web.base.base.IBaseMapper;
-import com.xiaohe66.web.spring.XhControllerBeanNameGenerator;
+import com.xiaohe66.web.sys.spring.XhControllerBeanNameGenerator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @MapperScan(basePackages = "com.xiaohe66.web.code", markerInterface = IBaseMapper.class)
 @ComponentScan(nameGenerator = XhControllerBeanNameGenerator.class,
-        basePackages = {"com.xiaohe66.web.code", "com.xiaohe66.web.config"})
+        basePackages = {"com.xiaohe66.web.code", "com.xiaohe66.web.config", "com.xiaohe66.web.sys.aop"})
 public class Application extends SpringBootServletInitializer {
 
 

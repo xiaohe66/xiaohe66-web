@@ -1,7 +1,7 @@
 package com.xiaohe66.web.base.exception;
 
 import com.xiaohe66.common.ex.XhRuntimeException;
-import com.xiaohe66.web.aop.GlobalExceptionHandler;
+import com.xiaohe66.web.sys.aop.GlobalExceptionHandler;
 import com.xiaohe66.web.base.data.CodeEnum;
 
 /**

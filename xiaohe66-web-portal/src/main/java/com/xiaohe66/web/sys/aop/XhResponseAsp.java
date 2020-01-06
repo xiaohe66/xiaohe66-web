@@ -1,4 +1,4 @@
-package com.xiaohe66.web.aop;
+package com.xiaohe66.web.sys.aop;
 
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;

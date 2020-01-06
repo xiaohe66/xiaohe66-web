@@ -1,4 +1,4 @@
-package com.xiaohe66.web.aop;
+package com.xiaohe66.web.sys.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;

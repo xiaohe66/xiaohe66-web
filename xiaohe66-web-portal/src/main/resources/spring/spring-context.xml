@@ -17,8 +17,8 @@
 
     <context:component-scan base-package="com.xiaohe66.web.code.**.service"/>
     <!--<context:component-scan base-package="com.xiaohe66.web.controller"/>-->
-    <context:component-scan base-package="com.xiaohe66.web.code.**.controller" name-generator="com.xiaohe66.web.spring.XhControllerBeanNameGenerator"/>
-    <context:component-scan base-package="com.xiaohe66.web.aop"/>
+    <context:component-scan base-package="com.xiaohe66.web.code.**.controller" name-generator="com.xiaohe66.web.sys.spring.XhControllerBeanNameGenerator"/>
+    <context:component-scan base-package="com.xiaohe66.web.sys.aop"/>
     <context:component-scan base-package="com.xiaohe66.web.servlet"/>
     <context:component-scan base-package="com.xiaohe66.web.config"/>
 
