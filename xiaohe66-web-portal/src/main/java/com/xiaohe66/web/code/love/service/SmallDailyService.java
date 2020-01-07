@@ -2,7 +2,6 @@ package com.xiaohe66.web.code.love.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.code.love.mapper.SmallDailyMapper;
 import com.xiaohe66.web.code.love.po.SmallDaily;
 import lombok.AllArgsConstructor;
@@ -18,15 +17,7 @@ import java.io.Serializable;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class SmallDailyService extends AbstractService<SmallDailyMapper, SmallDaily> {
-
-    private LoverService loverService;
-
-    @Override
-    public boolean save(SmallDaily po) {
-        po.setLoverId(loverService.getCurrentUserLoverId());
-        return super.save(po);
-    }
+public class SmallDailyService extends LoveService<SmallDailyMapper, SmallDaily> {
 
     @Override
     public boolean removeById(Serializable id) {

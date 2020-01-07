@@ -57,7 +57,8 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
             Integer currentUsrId = UserHelper.getCurrentUsrIdNotEx();
             ((BasePoDetailed) po).setCreateId(currentUsrId);
         }
-        return Result.ok(baseService.save(po));
+        baseService.save(po);
+        return Result.ok(po.getId());
     }
 
     @Del("/{id}")

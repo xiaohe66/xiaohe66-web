@@ -11,6 +11,7 @@ import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ import java.util.List;
  * @time 2020.01.06 16:42
  */
 @Service
+@Slf4j
 @AllArgsConstructor
 public class LoverService extends AbstractService<LoverMapper, Lover> {
 
@@ -42,10 +44,14 @@ public class LoverService extends AbstractService<LoverMapper, Lover> {
         loverLinkService.saveBatch(list);
     }
 
-    public Integer getCurrentUserLoverId(){
+    public Integer getCurrentUserLoverId() {
         Integer currentUsrId = UserHelper.getCurrentUsrId();
 
-        return baseMapper.selectLoverIdByUserId(currentUsrId);
+        Integer loverId = baseMapper.selectLoverIdByUserId(currentUsrId);
+        if (loverId == null) {
+            log.warn("用户{}的loverId为null", currentUsrId);
+        }
+        return loverId;
     }
 
     public LoverDto getByUserId(Integer userId) {
