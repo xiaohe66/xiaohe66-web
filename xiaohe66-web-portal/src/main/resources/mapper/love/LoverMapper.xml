@@ -12,4 +12,17 @@
         select lover_id from xiaohe66_web_love_lover_link where user_id = #{userId}
     </select>
 
+    <update id="createTable">
+        CREATE TABLE if not exists `xiaohe66_web_love_lover` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `create_id` int(11) NOT NULL COMMENT '创建者id',
+            `create_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+            `update_id` int(11) NOT NULL COMMENT '更新者id',
+            `update_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+            `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除,1:删除）',
+            `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态(0:申请中;1:已关联;2:已解除)',
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </update>
+
 </mapper>

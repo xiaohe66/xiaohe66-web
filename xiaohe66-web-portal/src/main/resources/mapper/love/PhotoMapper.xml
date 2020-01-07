@@ -6,4 +6,24 @@
         select * from xiaohe66_web_love_photo_desc where photo_id = #{photoId} and is_delete = 0
     </select>
 
+
+    <update id="createTable">
+        CREATE TABLE if not exists `xiaohe66_web_love_photo` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `create_id` int(11) NOT NULL COMMENT '创建者id',
+          `create_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+          `update_id` int(11) NOT NULL COMMENT '更新者id',
+          `update_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+          `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除,1:删除）',
+          `file_id` int(11) NOT NULL,
+          `name` varchar(16) NOT NULL,
+          `one` varchar(255) NOT NULL,
+          `two` varchar(255) DEFAULT NULL,
+          `three` varchar(255) DEFAULT NULL,
+          `is_show` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否显示,1显示,0不显示',
+          `sort` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
+          PRIMARY KEY (`id`) USING BTREE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+    </update>
+
 </mapper>
