@@ -1,4 +1,4 @@
-package com.xiaohe66.web.code.love.app.dto;
+package com.xiaohe66.web.code.love.dto;
 
 import com.xiaohe66.web.base.base.BaseDto;
 import lombok.Data;

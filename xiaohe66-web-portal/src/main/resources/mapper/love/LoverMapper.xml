@@ -8,4 +8,8 @@
         where ln.user_id = #{userId}
     </select>
 
+    <select id="selectLoverIdByUserId" resultType="java.lang.Integer">
+        select lover_id from xiaohe66_web_love_lover_link where user_id = #{userId}
+    </select>
+
 </mapper>

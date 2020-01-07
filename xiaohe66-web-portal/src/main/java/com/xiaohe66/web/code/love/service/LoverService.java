@@ -42,6 +42,12 @@ public class LoverService extends AbstractService<LoverMapper, Lover> {
         loverLinkService.saveBatch(list);
     }
 
+    public Integer getCurrentUserLoverId(){
+        Integer currentUsrId = UserHelper.getCurrentUsrId();
+
+        return baseMapper.selectLoverIdByUserId(currentUsrId);
+    }
+
     public LoverDto getByUserId(Integer userId) {
 
         Lover lover = baseMapper.selectByLoverUserId(userId);

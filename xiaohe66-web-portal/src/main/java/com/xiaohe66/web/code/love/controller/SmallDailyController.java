@@ -1,12 +1,14 @@
-package com.xiaohe66.web.code.love.app.controller;
+package com.xiaohe66.web.code.love.controller;
 
 import com.xiaohe66.web.base.annotation.XhController;
 import com.xiaohe66.web.base.base.BaseController;
+import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.param.IllegalParamException;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.code.love.app.dto.SmallDailyDto;
-import com.xiaohe66.web.code.love.app.po.SmallDaily;
-import com.xiaohe66.web.code.love.app.service.SmallDailyService;
+import com.xiaohe66.web.code.love.dto.SmallDailyDto;
+import com.xiaohe66.web.code.love.po.SmallDaily;
+import com.xiaohe66.web.code.love.service.SmallDailyService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,7 +17,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @XhController("/love/app/smallDaily")
 @Slf4j
+@AllArgsConstructor
 public class SmallDailyController extends BaseController<SmallDailyService, SmallDaily, SmallDailyDto> {
+
+    @Override
+    public Result put(SmallDaily po) {
+        po.setLoverId(null);
+        return super.put(po);
+    }
 
     @Override
     protected void checkSave(SmallDaily po) {

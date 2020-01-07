@@ -1,4 +1,4 @@
-package com.xiaohe66.web.code.love.app.po;
+package com.xiaohe66.web.code.love.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -20,7 +20,7 @@ public class SmallDaily extends BasePoDetailed {
 
     @TableField("`desc`")
     private String desc;
-
+    private Integer loverId;
     private Integer mood;
 
     @Getter

@@ -10,4 +10,6 @@ import com.xiaohe66.web.code.love.po.Lover;
 public interface LoverMapper extends IBaseMapper<Lover> {
 
     Lover selectByLoverUserId(Integer userId);
+
+    Integer selectLoverIdByUserId(Integer userId);
 }

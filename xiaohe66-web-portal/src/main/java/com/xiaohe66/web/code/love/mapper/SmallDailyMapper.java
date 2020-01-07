@@ -1,7 +1,7 @@
-package com.xiaohe66.web.code.love.app.mapper;
+package com.xiaohe66.web.code.love.mapper;
 
 import com.xiaohe66.web.base.base.IBaseMapper;
-import com.xiaohe66.web.code.love.app.po.SmallDaily;
+import com.xiaohe66.web.code.love.po.SmallDaily;
 
 /**
  * @author xiaohe
