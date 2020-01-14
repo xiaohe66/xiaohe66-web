@@ -2,8 +2,8 @@ package com.xiaohe66.web.code.love.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.xiaohe66.web.code.love.mapper.SmallDailyMapper;
-import com.xiaohe66.web.code.love.po.SmallDaily;
+import com.xiaohe66.web.code.love.mapper.DailyMapper;
+import com.xiaohe66.web.code.love.po.Daily;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,30 +17,28 @@ import java.io.Serializable;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class SmallDailyService extends LoveService<SmallDailyMapper, SmallDaily> {
+public class DailyService extends LoveService<DailyMapper, Daily> {
 
     @Override
     public boolean removeById(Serializable id) {
 
         Integer currentUserLoverId = loverService.getCurrentUserLoverId();
 
-        SmallDaily smallDaily = new SmallDaily();
+        Daily smallDaily = new Daily();
         smallDaily.setId((Integer) id);
+        // todo : 超级管理员可删除全部
         smallDaily.setLoverId(currentUserLoverId);
 
-        UpdateWrapper<SmallDaily> updateWrapper = new UpdateWrapper<>(smallDaily);
+        UpdateWrapper<Daily> updateWrapper = new UpdateWrapper<>(smallDaily);
 
         return remove(updateWrapper);
     }
 
+
     @Override
-    public QueryWrapper<SmallDaily> createPageDefaultQueryWrapper(SmallDaily po) {
-
-        Integer currentUserLoverId = loverService.getCurrentUserLoverId();
-
-        log.debug("添加默认查询条件, currentUserLoverId : {}", currentUserLoverId);
-        po.setLoverId(currentUserLoverId);
-
-        return new QueryWrapper<>(po);
+    public QueryWrapper<Daily> createPageDefaultQueryWrapper(Daily po) {
+        QueryWrapper<Daily> queryWrapper = super.createPageDefaultQueryWrapper(po);
+        queryWrapper.orderByDesc("create_time");
+        return queryWrapper;
     }
 }

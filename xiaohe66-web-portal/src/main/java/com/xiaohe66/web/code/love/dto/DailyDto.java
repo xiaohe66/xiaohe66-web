@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SmallDailyDto extends BaseDto {
+public class DailyDto extends BaseDto {
 
     private String desc;
     private Integer mood;

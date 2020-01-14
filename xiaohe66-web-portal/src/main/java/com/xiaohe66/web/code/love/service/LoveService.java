@@ -3,6 +3,8 @@ package com.xiaohe66.web.code.love.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.exception.XhWebException;
+import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.code.love.po.LovePo;
 import com.xiaohe66.web.code.love.po.LovePoDetailed;
 import com.xiaohe66.web.code.org.helper.UserHelper;
@@ -35,6 +37,9 @@ public class LoveService<M extends IBaseMapper<P>, P extends LovePo> extends Abs
     public QueryWrapper<P> createPageDefaultQueryWrapper(P po) {
 
         Integer currentUserLoverId = loverService.getCurrentUserLoverId();
+        if(currentUserLoverId == null){
+            throw new IllegalOperationException("未绑定Lover");
+        }
         po.setLoverId(currentUserLoverId);
 
         return new QueryWrapper<>(po);

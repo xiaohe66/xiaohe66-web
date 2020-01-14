@@ -5,9 +5,9 @@ import com.xiaohe66.web.base.base.BaseController;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.param.IllegalParamException;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.code.love.dto.SmallDailyDto;
-import com.xiaohe66.web.code.love.po.SmallDaily;
-import com.xiaohe66.web.code.love.service.SmallDailyService;
+import com.xiaohe66.web.code.love.dto.DailyDto;
+import com.xiaohe66.web.code.love.po.Daily;
+import com.xiaohe66.web.code.love.service.DailyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,36 +18,39 @@ import lombok.extern.slf4j.Slf4j;
 @XhController("/love/app/smallDaily")
 @Slf4j
 @AllArgsConstructor
-public class SmallDailyController extends BaseController<SmallDailyService, SmallDaily, SmallDailyDto> {
+public class DailyController extends BaseController<DailyService, Daily, DailyDto> {
 
     @Override
-    public Result put(SmallDaily po) {
+    public Result put(Daily po) {
         po.setLoverId(null);
         return super.put(po);
     }
 
     @Override
-    protected void checkSave(SmallDaily po) {
+    protected void checkSave(Daily po) {
         super.checkSave(po);
         checkPo(po);
     }
 
     @Override
-    protected void checkUpdate(SmallDaily po) {
+    protected void checkUpdate(Daily po) {
         super.checkUpdate(po);
         checkPo(po);
     }
 
-    private void checkPo(SmallDaily po) {
+    private void checkPo(Daily po) {
         Check.notEmpty(po.getDesc());
 
         Integer mood = po.getMood();
         Check.notEmpty(mood);
 
-        if (mood < SmallDaily.Mood.MIN.getVal() ||
-                mood > SmallDaily.Mood.MAX.getVal()) {
-            throw new IllegalParamException("mood参数取值错误");
+        Daily.Mood[] moods = Daily.Mood.values();
+        for (Daily.Mood sysMood : moods) {
+            if (sysMood.getVal().equals(mood)) {
+                return;
+            }
         }
 
+        throw new IllegalParamException("mood参数取值错误 : " + mood);
     }
 }
