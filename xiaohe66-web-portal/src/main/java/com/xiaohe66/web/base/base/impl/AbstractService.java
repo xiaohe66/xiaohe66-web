@@ -13,6 +13,9 @@ import com.xiaohe66.web.code.org.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ *
+ * todo : 增加 checkPo 方法
+ *
  * @author xiaohe
  * @time 17-10-28 028
  */

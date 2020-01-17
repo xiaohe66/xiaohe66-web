@@ -38,6 +38,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @SuppressWarnings("unchecked")
     public BaseController() {
+        // todo : 初始化太慢
         Type[] type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
 
         Class<P> poClass = ((Class<P>) type[1]);
