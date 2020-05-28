@@ -49,13 +49,20 @@ public class InitializingSystem implements ApplicationRunner {
     private void createTable() {
 
         ApplicationContext context = ApplicationContextHolder.get();
+        String profile = context.getEnvironment().getActiveProfiles()[0];
+
+        if ("dev".equals(profile)) {
+
+            log.debug("开发环境不自动创建表");
+            return;
+        }
 
         Map<String, CreateTableMapper> beans = context.getBeansOfType(CreateTableMapper.class);
 
         for (Map.Entry<String, CreateTableMapper> entry : beans.entrySet()) {
             String mapperName = entry.getKey();
 
-            log.info("调用{}", mapperName);
+            log.info("调用{}创建表", mapperName);
             CreateTableMapper mapper = entry.getValue();
             try {
                 mapper.createTable();

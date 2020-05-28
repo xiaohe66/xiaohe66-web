@@ -5,7 +5,7 @@
  */
 let mouseMoveOn = true;
 let mouseClickOn = true;
-let loveShowOn = true;
+let loveShowOn = false;
 $(function () {
 
     if (loveShowOn) {

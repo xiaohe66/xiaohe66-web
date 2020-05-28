@@ -24,7 +24,9 @@ public class AuthCodeFactory {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
             'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    private static final Random RAN = new Random();
+    private static final Random random = new Random();
+
+    private AuthCodeFactory(){}
 
     public static ImgAuthCode createImgAuthCode() {
         String codeStr = createCodeStr();
@@ -43,9 +45,8 @@ public class AuthCodeFactory {
 
     private static String createCodeStr(int size){
         StringBuilder code = new StringBuilder();
-        Random ran = new Random();
         for (int i = 0; i < size; i++) {
-            int n = ran.nextInt(CHARS.length);
+            int n = random.nextInt(CHARS.length);
             code.append(CHARS[n]);
         }
         return code.toString();
@@ -73,7 +74,6 @@ public class AuthCodeFactory {
         // 4.绘制矩形背景
         graphic.fillRect(0, 0, width, height);
         // 5.画验证字符
-        Random ran = new Random();
         for (int i = 0; i < code.length; i++) {
             // 设置随机颜色
             graphic.setColor(getRandomColor());
@@ -87,14 +87,14 @@ public class AuthCodeFactory {
             // 设置随机颜色
             graphic.setColor(getRandomColor());
             // 随机画线
-            graphic.drawLine(ran.nextInt(width), ran.nextInt(height),ran.nextInt(width), ran.nextInt(height));
+            graphic.drawLine(random.nextInt(width), random.nextInt(height),random.nextInt(width), random.nextInt(height));
         }
 
         //画点
         final int divisor = 20;
         for(int i=0;i<width*height/divisor;i++){
             graphic.setColor(getRandomColor());
-            graphic.fillOval(ran.nextInt(width),ran.nextInt(height),2,2);
+            graphic.fillOval(random.nextInt(width),random.nextInt(height),2,2);
         }
 
         return image;
@@ -120,7 +120,7 @@ public class AuthCodeFactory {
     }
 
     private static int nextColorVal(){
-        return RAN.nextInt(256);
+        return random.nextInt(256);
     }
 
 }
