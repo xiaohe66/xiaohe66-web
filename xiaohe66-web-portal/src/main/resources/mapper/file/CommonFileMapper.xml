@@ -5,7 +5,7 @@
     <!-- 在上传小文件时，需要一次性插入链接、文件大小等数据 -->
     <!--<insert id="add" parameterType="CommonFile" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into xiaohe66_web_comm_file(md5,file_url,file_byte,end_time)
-        values(#{md5},#{fileUrl},#{fileByte},#{endTime})
+        values(#{md5},#{filePath},#{fileByte},#{endTime})
     </insert>-->
 
     <select id="findByMd5" resultType="CommonFile">
@@ -18,8 +18,8 @@
             <if test="endTime != null">
                 end_time = #{endTime},
             </if>
-            <if test="fileUrl != null">
-                file_url = #{fileUrl},
+            <if test="filePath != null">
+                file_path = #{filePath},
             </if>
             <if test="fileByte != null">
                 file_byte = #{fileByte},

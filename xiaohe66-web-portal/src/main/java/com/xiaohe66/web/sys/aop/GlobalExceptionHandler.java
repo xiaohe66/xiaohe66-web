@@ -11,6 +11,7 @@ import com.xiaohe66.web.base.util.JsonUtils;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +29,10 @@ import java.io.IOException;
 public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
     @Override
-    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception exception) {
+    public ModelAndView resolveException(@NotNull HttpServletRequest request,
+                                         @NotNull HttpServletResponse response,
+                                         Object o,
+                                         @NotNull Exception exception) {
 
         log.debug("catch到全局异常 : {}", exception.getMessage());
 

@@ -19,8 +19,7 @@ public class CommonFile extends BasePo {
 
     protected String md5;
 
-    // todo : rename to filePath
-    protected String fileUrl;
+    protected String filePath;
 
     protected Long fileByte;
 

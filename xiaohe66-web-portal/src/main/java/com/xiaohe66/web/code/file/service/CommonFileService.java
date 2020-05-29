@@ -305,7 +305,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
         CommonFile commonFile = new CommonFile();
         commonFile.setMd5(md5);
         commonFile.setEndTime(date);
-        commonFile.setFileUrl(path);
+        commonFile.setFilePath(path);
         commonFile.setFileByte(fileBytes);
         baseMapper.updateByMd5(commonFile);
     }
@@ -330,7 +330,7 @@ public class CommonFileService extends AbstractService<CommonFileMapper, CommonF
 
     public void outputFile(OutputStream outputStream, CommonFile commonFile) {
 
-        String filePath = config.getHome() + commonFile.getFileUrl();
+        String filePath = config.getHome() + commonFile.getFilePath();
 
         File file = new File(filePath);
 

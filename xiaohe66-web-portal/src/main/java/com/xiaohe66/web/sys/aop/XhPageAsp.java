@@ -28,8 +28,6 @@ import java.io.IOException;
 @Slf4j
 public class XhPageAsp {
 
-    private static final String ERROR_PAGE_PATH = "common/error";
-
     @Pointcut("@annotation(com.xiaohe66.web.base.annotation.Page)")
     private void pagingPointCut() {
         // 切面
@@ -45,26 +43,23 @@ public class XhPageAsp {
             }
             return proceedingJoinPoint.proceed();
 
-        } catch (XhWebException e) {
+        } catch (MsgException e) {
+            // 消息类
             Integer currentUserId = UserHelper.getCurrentUsrIdNotEx();
             CodeEnum code = e.getCode();
+            log.info("错误消息, 当前用户 : {}, code : {}, message : {}", currentUserId, code, e.getMessage());
+            log.debug(code.toString(), e);
 
-            // todo : 代码重复了，考虑合并代码
-            // 消息类
-            if (e instanceof MsgException) {
-                log.info("错误消息, 当前用户 : {}, code : {}, message : {}", currentUserId, code, e.getMessage());
-                log.debug(code.toString(), e);
-            }
+        } catch (XhWebException e) {
             // 其它
-            else {
-                log.error("系统发生错误, 当前用户 : {}, code : {}", currentUserId, e);
-            }
-
+            Integer currentUserId = UserHelper.getCurrentUsrIdNotEx();
+            CodeEnum code = e.getCode();
+            log.error("系统发生错误, 当前用户 : {}, code : {}", currentUserId, code, e);
 
         } catch (Throwable exception) {
             log.error("系统异常", exception);
         }
         request.setAttribute("msg", "系统繁忙");
-        return ERROR_PAGE_PATH;
+        return "common/error";
     }
 }
