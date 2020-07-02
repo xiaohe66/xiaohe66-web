@@ -30,7 +30,7 @@ public class PhotoController extends BaseController<PhotoService, Photo, PhotoDt
         return Result.ok(photoDtoList);
     }
 
-    @Page("/img/{id}")
+//    @Page("/img/{id}")
     public void showImg(HttpServletResponse response, @PathVariable("id") Integer id) throws IOException {
 
         Check.notEmpty(id, "id");

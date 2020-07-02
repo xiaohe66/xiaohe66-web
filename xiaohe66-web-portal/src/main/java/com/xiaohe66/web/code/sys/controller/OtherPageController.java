@@ -29,17 +29,17 @@ public class OtherPageController {
         this.userService = userService;
     }
 
-    @Page("/about")
+//    @Page("/about")
     public String about(Model model){
         model.addAttribute("title","关于");
         return "about";
     }
 
     @Page(value = {"/index",""})
-    public String index(Model model){
-        model.addAttribute("title","乱七八糟导航");
-        model.addAttribute("usrDto",userService.lookAtUser(null));
-        model.addAttribute("usrDivTitle","站长");
+    public String index(){
+//        model.addAttribute("title","乱七八糟导航");
+//        model.addAttribute("usrDto",userService.lookAtUser(null));
+//        model.addAttribute("usrDivTitle","站长");
         return "index";
     }
 

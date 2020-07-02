@@ -51,7 +51,7 @@ public class LoginController {
         loginService.logout();
     }
 
-    @Page("/findPwd")
+//    @Page("/findPwd")
     public String findPwdPage(Model model){
         model.addAttribute("title","修改密码");
         return "org/find_pwd";
@@ -69,7 +69,7 @@ public class LoginController {
     }
 
     // 用于注册发邮件
-    @Post("/register")
+//    @Post("/register")
     public Boolean register(User user, String code) {
         try {
             loginService.registerPrepare(user, code);
@@ -80,7 +80,7 @@ public class LoginController {
     }
 
     // 用于注册验证
-    @Page("/register/{token}")
+//    @Page("/register/{token}")
     public String registerVerify(@PathVariable String token) {
         loginService.register(token);
         return "redirect:/";

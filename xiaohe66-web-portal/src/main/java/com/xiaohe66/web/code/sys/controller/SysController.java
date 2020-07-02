@@ -10,7 +10,7 @@ import com.xiaohe66.web.base.exception.XhWebException;
  * @author xiaohe
  * @time 17-11-11 011
  */
-@XhController( "/sys")
+//@XhController( "/sys")
 public class SysController {
 
     @Get("/notLoggedIn")

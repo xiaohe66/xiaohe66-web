@@ -54,7 +54,7 @@ public class UserFileController extends BaseController<UserFileService, UserFile
         return Result.ok();
     }
 
-    @Page("/index")
+//    @Page("/index")
     public String index(Model model){
         model.addAttribute("usrDto",userService.lookAtUser(null));
         model.addAttribute("title","资源列表");

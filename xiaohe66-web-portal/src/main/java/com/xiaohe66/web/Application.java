@@ -5,10 +5,10 @@ import com.xiaohe66.web.sys.spring.XhControllerBeanNameGenerator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author xiaohe
@@ -19,12 +19,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan(basePackages = "com.xiaohe66.web.code", markerInterface = IBaseMapper.class)
 @ComponentScan(nameGenerator = XhControllerBeanNameGenerator.class,
         basePackages = {"com.xiaohe66.web.code", "com.xiaohe66.web.config", "com.xiaohe66.web.sys.aop"})
-public class Application extends SpringBootServletInitializer {
-
+public class Application implements WebMvcConfigurer {
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Application.class);
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 增加这个资源映射，是为了前端页面在引用时，可以有代码提示
+        // 前端在引用时，若不加 static,则不会出现url提示
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
     public static void main(String[] args) {

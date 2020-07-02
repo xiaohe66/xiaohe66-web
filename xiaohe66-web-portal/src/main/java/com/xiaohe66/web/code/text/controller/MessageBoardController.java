@@ -25,7 +25,7 @@ public class MessageBoardController extends BaseController<MessageBoardService, 
         this.userService = userService;
     }
 
-    @Page("/index")
+//    @Page("/index")
     public String index(Model model) {
         LookAtUserDto lookAtUser = userService.lookAtUser(null);
         model.addAttribute("lookAtUser", lookAtUser);
