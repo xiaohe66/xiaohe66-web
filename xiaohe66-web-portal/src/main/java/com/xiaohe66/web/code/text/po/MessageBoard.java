@@ -2,14 +2,19 @@ package com.xiaohe66.web.code.text.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.base.base.BasePoDetailed;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author xh
  * @date 18-04-01 001
  */
 @TableName("xiaohe66_web_text_message_board")
-public class MessageBoard extends BasePoDetailed{
-    protected Integer usrId;
+@Getter
+@Setter
+public class MessageBoard extends BasePoDetailed {
+    protected Integer userId;
     protected String msg;
 
     /**
@@ -17,41 +22,20 @@ public class MessageBoard extends BasePoDetailed{
      */
     protected String anonymity;
 
-    public MessageBoard(){}
+    protected String contact;
 
-    public MessageBoard(Integer usrId, String msg) {
-        this.usrId = usrId;
+    public MessageBoard() {
+    }
+
+    public MessageBoard(Integer userId, String msg) {
+        this.userId = userId;
         this.msg = msg;
-    }
-
-    public Integer getUsrId() {
-        return usrId;
-    }
-
-    public void setUsrId(Integer usrId) {
-        this.usrId = usrId;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getAnonymity() {
-        return anonymity;
-    }
-
-    public void setAnonymity(String anonymity) {
-        this.anonymity = anonymity;
     }
 
     @Override
     public String toString() {
         return "{" + "\"createId\":\"" + createId + "\""
-                + ",\"usrId\":\"" + usrId + "\""
+                + ",\"userId\":\"" + userId + "\""
                 + ",\"createTime\":" + createTime
                 + ",\"msg\":\"" + msg + "\""
                 + ",\"id\":\"" + id + "\""

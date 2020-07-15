@@ -61,5 +61,7 @@ public class DailyService extends LoveService<DailyMapper, Daily> implements Dto
     @Override
     public void convertDto(DailyDto dto, Daily po) {
         // todo : rsa 加密
+        String desc = XhEncryptUtils.decode(po.getDesc());
+        dto.setDesc(desc);
     }
 }

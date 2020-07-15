@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class DailyDto extends BaseDto {
 
+    private String createTime;
     private String desc;
     private Integer mood;
 }

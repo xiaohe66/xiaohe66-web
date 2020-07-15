@@ -35,7 +35,7 @@ public class OtherPageController {
         return "about";
     }
 
-    @Page(value = {"/index",""})
+//    @Page(value = {"/index",""})
     public String index(){
 //        model.addAttribute("title","乱七八糟导航");
 //        model.addAttribute("usrDto",userService.lookAtUser(null));

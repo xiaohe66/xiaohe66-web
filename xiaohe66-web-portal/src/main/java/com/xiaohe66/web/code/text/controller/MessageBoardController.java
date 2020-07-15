@@ -39,6 +39,9 @@ public class MessageBoardController extends BaseController<MessageBoardService, 
         // 未登录者，需要填写匿名名称
         if (!WebUtils.isLogin()) {
             Check.notEmpty(po);
+            Check.notEmpty(po.getMsg());
+            Check.notEmpty(po.getContact());
+            Check.notEmpty(po.getAnonymity());
         }
     }
 
@@ -47,4 +50,8 @@ public class MessageBoardController extends BaseController<MessageBoardService, 
         // 不检查查询权限
     }
 
+    @Override
+    protected void checkSavePermitted() {
+        // 不检查保存权限
+    }
 }

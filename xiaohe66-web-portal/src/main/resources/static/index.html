@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Unrivaled Personal Category Bootstrap Responsive Template | Home :: W3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content=""/>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css"/>
+    <script type="text/javascript" src="/static/plugin/jquery/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/plugin/layui/layui.js"></script>
+    <script>
+        let layer;
+        layui.use('layer', function () {
+            layer = layui.layer;
+        });
+
+        let doing = false;
+        $(function () {
+            window.scrollTo(0, 1);
+
+            $("#submit").click(function () {
+
+                if(doing){
+                    return;
+                }
+                doing = true;
+
+                let name = $("#name").val();
+                let contact = $("#contact").val();
+                let msg = $("#msg").val();
+
+                if (!name) {
+                    layer.tips('名字不能为空', '#name');
+                    return;
+                }
+                if (!contact) {
+                    layer.tips('联系方式不能为空', '#contact');
+                    return;
+                }
+                if (!msg) {
+                    layer.tips('留言不能为空', '#msg');
+                    return;
+                }
+
+                let index = layer.load();
+                $.ajax({
+                    url: "/text/messageBoard",
+                    type: "post",
+                    data: {
+                        anonymity: name,
+                        contact: contact,
+                        msg: msg
+                    },
+                    success: function (data) {
+                        layer.msg("留言成功");
+                        $("#name").val("");
+                        $("#contact").val("");
+                         $("#msg").val("");
+                        layer.close(index);
+                        doing = false;
+                    },
+                    error: function () {
+                        layer.msg("留言失败");
+                        doing = false;
+                        layer.close(index);
+                    }
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="main-banner" id="home">
+    <div class="banner-info">
+        <div class="logo text-center">
+            <h1><a href="index.html">xiaohe66</a></h1>
+        </div>
+        <div class="middile-inner-con">
+            <div class="tab-main mx-auto">
+
+                <input id="tab1" type="radio" name="tabs" checked>
+                <label for="tab1" class="tab-label">Home</label>
+
+                <!--<input id="tab2" type="radio" name="tabs">-->
+                <!--<label for="tab2" class="tab-label">About</label>-->
+
+                <input id="tab4" type="radio" name="tabs">
+                <label for="tab4" class="tab-label">Contact</label>
+
+                <section id="content1" class="tab">
+                    <img src="image/icon/xiaohe.jpg" class="xiaohe" alt="mobile-image">
+                    <h4>小何</h4>
+                    <h2>&nbsp;</h2>
+                    <p>世界上只有一种成功，就是用自己喜欢的方式度过自己的一生。</p>
+                </section>
+                <section id="content2" class="tab">
+                    <h3>？？？</h3>
+                    <p>……</p>
+                </section>
+                <section id="content4" class="tab">
+                    <h3>想要留言吗？</h3>
+                    <div class="row">
+                        <div class="w50">
+                            <div class="form-group">
+                                <p>你的名字</p>
+                                <input id="name" type="text" class="form-control" id="name" placeholder="你的名字">
+                            </div>
+                            <div class="form-group">
+                                <p>你的联系方式</p>
+                                <input id="contact" type="email" class="form-control" id="email" placeholder="手机/邮箱/微信">
+                            </div>
+                        </div>
+                        <div class="w50">
+                            <div class="form-group">
+                                <p>你的留言</p>
+                                <textarea id="msg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="submit" type="submit" class="btn">发送</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="copy">
+        <p>© 2019 Unrivaled. All rights reserved | Design by
+            <a href="https://xiaohe66.com"> Xiao He.</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

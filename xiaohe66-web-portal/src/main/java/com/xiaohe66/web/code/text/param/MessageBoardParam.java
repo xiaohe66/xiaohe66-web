@@ -11,8 +11,7 @@ public class MessageBoardParam extends MessageBoard{
     public MessageBoardParam() {
     }
 
-    public MessageBoardParam(Integer usrId){
-        super();
-        super.usrId = usrId;
+    public MessageBoardParam(Integer userId){
+        super.userId = userId;
     }
 }

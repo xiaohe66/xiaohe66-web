@@ -42,7 +42,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
         }
 
         // todo : 目前只能给站长留言
-        po.setUsrId(Final.User.XIAO_HE_USER_ID);
+        po.setUserId(Final.User.XIAO_HE_USER_ID);
 
         // 留言信息去掉删除掉标签，前端在传入时是转码后的，若传入带标签的，则会自动被删除掉
         String msg = HtmlUtils.delHtmlTag(po.getMsg());
@@ -54,7 +54,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
 
     public IPage<MessageBoardDto> pageData() {
         MessageBoard messageBoard = new MessageBoard();
-        messageBoard.setUsrId(Final.User.XIAO_HE_USER_ID);
+        messageBoard.setUserId(Final.User.XIAO_HE_USER_ID);
         IPage<MessageBoard> page = page(10, new QueryWrapper<>(messageBoard));
 
         return ClassUtils.convert(MessageBoardDto.class, page, this::convertDto);
@@ -64,7 +64,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
 
     @Override
     public QueryWrapper<MessageBoard> createPageDefaultQueryWrapper(MessageBoard messageBoard) {
-        messageBoard.setUsrId(Final.User.XIAO_HE_USER_ID);
+        messageBoard.setUserId(Final.User.XIAO_HE_USER_ID);
         QueryWrapper<MessageBoard> queryWrapper = new QueryWrapper<>(messageBoard);
         queryWrapper.orderByDesc("create_time");
         return queryWrapper;
