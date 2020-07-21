@@ -1,5 +1,6 @@
-
 spring:
+  profiles:
+    active: prod
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/xiaohe66_web?characterEncoding=UTF-8&amp;useUnicode=true&amp;autoReconnect=true
@@ -8,9 +9,14 @@ spring:
 
 server:
   port: 8080
-  session:
-    #用户会话session过期时间，以秒为单位
-    timeout: 360
 
 logging:
-  path: /work/logs
+  file:
+    path: /home/xiaohe/log/
+
+xiaohe66:
+  file:
+    home: /home/xiaohe/file/
+    maxMbChunkPer: 2
+    maxMbFilePer: 64
+  registerUrl: https://xiaohe66.com/sec/login/register/
