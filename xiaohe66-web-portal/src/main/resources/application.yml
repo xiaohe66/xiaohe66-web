@@ -1,9 +1,5 @@
-
-debug: false
 #--------------------------------------------
 spring:
-  profiles:
-    active: dev
   resources:
     # 配置静态资源路径，默认配置失效[public、static、META-INF/resource]
     static-locations: ["classpath:/static"]
@@ -11,17 +7,16 @@ spring:
     static-path-pattern: /**
   thymeleaf:
     prefix: classpath:/template
+  datasource:
+    hikari:
+      # 最小空闲时连接数
+      minimum-idle: 2
 #-------------------------------------------
 server:
   port: 8080
-  session:
-    #用户会话session过期时间，以秒为单位
-    timeout: 180
   tomcat:
     # 配置Tomcat编码,默认为UTF-8
     uri-encoding: UTF-8
-    # 配置最大线程数
-    max-threads: 1000
 #------------- mybatis ---------------------------------
 mybatis-plus:
   # 配置MyBaties全局配置文件:mybatis-config.xml
@@ -40,18 +35,16 @@ logging:
     console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15}) >>> %msg %n'
     file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30} >>> %msg %n'
   file:
-    path: C:\\xiaohe66\\logs
+    path: C:\\xiaohe66\\log\\
 
 #------------- shrio ---------------------------------
-
-
 #配置性参数
 xiaohe66:
   file:
-    home: C:\\xiaohe66\\file
+    home: C:\\xiaohe66\\file\\
     maxMbChunkPer: 1
-    maxMbFilePer: 50
-  registerUrl: https://localhost/sec/login/register/
+    maxMbFilePer: 8
+  registerUrl: https://xiaohe66.com/sec/login/register/
   wx:
     code2SessionUrl: http
     appId: appid

@@ -1,5 +1,7 @@
-
+debug: true
 spring:
+  profiles:
+    active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/xiaohe66_web?characterEncoding=UTF-8&amp;useUnicode=true&amp;autoReconnect=true
@@ -9,13 +11,19 @@ spring:
     cache: false
 
 server:
-  port: 80
-  session:
-    #用户会话session过期时间，以秒为单位
-    timeout: 180
+  port: 8080
 
 logging:
   file:
-    path: C:\\xiaohe66\\logs
+    path: C:\\xiaohe66\\log\\
 
-debug: true
+xiaohe66:
+  file:
+    home: C:\\xiaohe66\\file\\
+    maxMbChunkPer: 1
+    maxMbFilePer: 8
+  registerUrl: http://localhost/sec/login/register/
+  wx:
+    code2SessionUrl: http
+    appId: appid
+    appSecret: secret
