@@ -52,4 +52,12 @@ public class Result {
     public Object getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "\"code\":\"" + code + "\""
+                + ",\"msg\":\"" + msg + "\""
+                + ",\"data\":" + data
+                + "}";
+    }
 }

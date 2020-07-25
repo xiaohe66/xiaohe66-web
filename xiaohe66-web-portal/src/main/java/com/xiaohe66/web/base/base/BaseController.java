@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.Post;
+import com.xiaohe66.web.base.annotation.PrintLog;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
@@ -52,6 +53,7 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         log.info("moduleName : {}, dtoClass : {}", moduleName, dtoClass.getName());
     }
 
+    @PrintLog
     @Post
     public Result post(P po) {
         checkSave(po);
@@ -63,12 +65,14 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
         return Result.ok(po.getId());
     }
 
+    @PrintLog
     @Del("/{id}")
     public Result del(@PathVariable("id") Integer id) {
         checkDelete(id);
         return Result.ok(baseService.removeById(id));
     }
 
+    @PrintLog
     @Put
     public Result put(P po) {
         checkUpdate(po);

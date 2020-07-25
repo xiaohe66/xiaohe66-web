@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @see Result
  */
 @Aspect
-@Component
+//@Component
 @Slf4j
 public class XhResponseAsp {
 
@@ -54,6 +54,8 @@ public class XhResponseAsp {
         HttpServletResponse response = WebUtils.getResponse();
         response.setContentType(Final.HeaderKey.JSON_UTF_8);
         response.getWriter().print(JsonUtils.toString(result));
+
+        // 这里返回null 之后，其它通知便无法获取到返回值
         return null;
     }
 }

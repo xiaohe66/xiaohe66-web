@@ -2,13 +2,12 @@ package com.xiaohe66.web.code.security.controller;
 
 import com.xiaohe66.web.base.annotation.Del;
 import com.xiaohe66.web.base.annotation.Get;
-import com.xiaohe66.web.base.annotation.Page;
 import com.xiaohe66.web.base.annotation.Post;
 import com.xiaohe66.web.base.annotation.Put;
 import com.xiaohe66.web.base.annotation.XhController;
+import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.exception.MsgException;
 import com.xiaohe66.web.base.exception.param.MissingParamException;
-import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.security.service.LoginService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -36,13 +35,13 @@ public class LoginController {
     }
 
     @Get
-    public Boolean isLogin() {
-        return loginService.isLogin();
+    public Result isLogin() {
+        return Result.ok(loginService.isLogin());
     }
 
     @Post
-    public UserDto login(String loginName, String userPwd) {
-        return loginService.login(loginName, userPwd);
+    public Result login(String loginName, String userPwd) {
+        return Result.ok(loginService.login(loginName, userPwd));
     }
 
     @RequiresAuthentication
@@ -51,9 +50,9 @@ public class LoginController {
         loginService.logout();
     }
 
-//    @Page("/findPwd")
-    public String findPwdPage(Model model){
-        model.addAttribute("title","修改密码");
+    //    @Page("/findPwd")
+    public String findPwdPage(Model model) {
+        model.addAttribute("title", "修改密码");
         return "org/find_pwd";
     }
 
