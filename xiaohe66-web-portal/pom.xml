@@ -12,7 +12,7 @@
 
     <artifactId>web-portal</artifactId>
     <groupId>com.xiaohe66.web</groupId>
-    <version>1.0</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
 
     <build>
@@ -26,12 +26,17 @@
                 <directory>src/main/resources</directory>
                 <!--只（这个字很重要）包含directory指定目录下的以下文件<include>和<exclude>都存在的话，那就发生冲突了，这时会以<exclude>为准-->
                 <excludes>
-                    <exclude>dev/*</exclude>
-                    <exclude>prod/*</exclude>
-                    <exclude>test/*</exclude>
+                    <exclude>bak/**</exclude>
                 </excludes>
                 <!--为true，把过滤的文件<excludes>打到classpath下。false，会把不需要过滤的文件<includes>打到classpath下-->
                 <filtering>true</filtering>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>application-${profiles.active}.yml</include>
+                </includes>
             </resource>
 
             <!--<resource>
@@ -51,6 +56,52 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-lib</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.xiaohe66.web.Application</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>bak/*</exclude>
+                        <exclude>application-*.yml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>-->
 
             <!--<plugin>
 

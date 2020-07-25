@@ -13,7 +13,6 @@ spring:
       minimum-idle: 2
 #-------------------------------------------
 server:
-  port: 8080
   tomcat:
     # 配置Tomcat编码,默认为UTF-8
     uri-encoding: UTF-8
@@ -34,17 +33,10 @@ logging:
   pattern:
     console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15}) >>> %msg %n'
     file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30} >>> %msg %n'
-  file:
-    path: C:\\xiaohe66\\log\\
 
 #------------- shrio ---------------------------------
 #配置性参数
 xiaohe66:
-  file:
-    home: C:\\xiaohe66\\file\\
-    maxMbChunkPer: 1
-    maxMbFilePer: 8
-  registerUrl: https://xiaohe66.com/sec/login/register/
   wx:
     code2SessionUrl: http
     appId: appid
