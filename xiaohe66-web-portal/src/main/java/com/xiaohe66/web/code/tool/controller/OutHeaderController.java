@@ -1,4 +1,4 @@
-package com.xiaohe66.web.code.test.controller;
+package com.xiaohe66.web.code.tool.controller;
 
 import com.xiaohe66.web.base.annotation.Get;
 import com.xiaohe66.web.base.annotation.XhController;
@@ -13,16 +13,15 @@ import java.util.Map;
 
 /**
  * @author xiaohe
- * @time 2019.12.26 18:43
+ * @time 2020.07.30 23:03
  */
-//@XhController("/test")
-public class TestController {
+@XhController("/tool")
+public class OutHeaderController {
 
-    private static final Logger log = LoggerFactory.getLogger(TestController.class);
+    private static final Logger log = LoggerFactory.getLogger(OutHeaderController.class);
 
-    @Get
-    public Result request(HttpServletRequest request) {
-
+    @Get("/header")
+    public Result header(HttpServletRequest request){
         Enumeration<String> headerNames = request.getHeaderNames();
 
         Map<String, String> map = new HashMap<>();
@@ -33,8 +32,9 @@ public class TestController {
             map.put(name, value);
         }
 
-        log.info("获取到的header : {}", map);
+        log.info("header : {}", map);
 
         return Result.ok(map);
     }
+
 }
