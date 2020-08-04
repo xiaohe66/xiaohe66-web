@@ -1,7 +1,5 @@
 
 spring:
-  profiles:
-    active: test
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/xiaohe66_web_test?characterEncoding=UTF-8&amp;useUnicode=true&amp;autoReconnect=true
