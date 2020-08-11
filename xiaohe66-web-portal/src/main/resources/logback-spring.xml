@@ -7,7 +7,7 @@
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
-        <springProfile name="prod">
+        <!--<springProfile name="prod">
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>INFO</level>
                 <onMatch>ACCEPT</onMatch>
@@ -20,7 +20,7 @@
                 <onMatch>ACCEPT</onMatch>
                 <onMismatch>DENY</onMismatch>
             </filter>
-        </springProfile>
+        </springProfile>-->
     </appender>
     <!-- INFO -->
     <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -37,11 +37,11 @@
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
-        </filter>
+        </filter>-->
     </appender>
 
     <!-- DEBUG -->
