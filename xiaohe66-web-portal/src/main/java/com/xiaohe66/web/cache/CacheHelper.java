@@ -23,6 +23,10 @@ public class CacheHelper {
             .expireAfterAccess(5, TimeUnit.MINUTES)
             .build();
 
+    private static Cache<String, Object> cache7d = CacheBuilder.newBuilder()
+            .expireAfterAccess(7, TimeUnit.DAYS)
+            .build();
+
     public static void put5(String key, Object value) {
         cache5.put(key, value);
     }
@@ -58,6 +62,25 @@ public class CacheHelper {
 
     public static String getStr30(String key) {
         Object value = cache30.getIfPresent(key);
+        return value == null ? "" : value.toString();
+    }
+
+    public static void put7d(String key, Object value) {
+        cache7d.put(key, value);
+    }
+
+    public static void remove7d(String key) {
+        cache7d.invalidate(key);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T get7d(String key) {
+        Object value = cache7d.getIfPresent(key);
+        return value == null ? null : (T) value;
+    }
+
+    public static String getStr7d(String key) {
+        Object value = cache7d.getIfPresent(key);
         return value == null ? "" : value.toString();
     }
 

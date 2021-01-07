@@ -7,6 +7,8 @@ spring:
     password: root
   thymeleaf:
     cache: false
+  resources:
+    static-locations: ["classpath:../res/"]
 
 server:
   port: 8080

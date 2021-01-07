@@ -2,6 +2,7 @@ package com.xiaohe66.web.config;
 
 import com.xiaohe66.web.code.security.auth.shrio.HttpMethodAuthorizationFilter;
 import com.xiaohe66.web.code.security.realm.XhDefaultRealm;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -10,6 +11,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ import java.util.Map;
 public class ShiroConfiguration {
 
     @Bean
+    @Order
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager());
@@ -56,6 +59,7 @@ public class ShiroConfiguration {
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        SecurityUtils.setSecurityManager(securityManager);
         securityManager.setRealm(myRealm());
         return securityManager;
     }

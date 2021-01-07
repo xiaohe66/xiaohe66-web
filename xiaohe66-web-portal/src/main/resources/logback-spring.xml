@@ -147,6 +147,15 @@
         <appender-ref ref="errorAppender"/>
     </logger>
 
+    <!-- spring boot 依赖关系 -->
+    <logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="infoAppender"/>
+        <appender-ref ref="warnAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>
+
     <root level="DEBUG">
         <springProfile name="dev">
             <appender-ref ref="STDOUT"/>

@@ -15,6 +15,5 @@ public class WxUser extends BasePoDetailed {
     private Integer userId;
     private String openId;
     private String nickname;
-    private String token;
 
 }
