@@ -15,7 +15,9 @@ public interface RoleMapper extends IBaseMapper<Role> {
 
     Set<Integer> listDefaultRoleId();
 
-    Set<String> listRoleNameByUsrId(Integer usrId);
+    Set<String> listRoleNameByUsrId(Integer userId);
+
+    List<Role> listRoleByUserId(Integer userId);
 
     List<Role> listRoleByUserName(String userName);
 }

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>权限管理|xiaohe66</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/plugin/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="/static/plugin/layui/layui.all.js"></script>
+    <style>
+        .layui-container {
+            margin-top: 50px;
+            width: 90%;
+        }
+
+        .mytitle {
+            margin: 40px 0;
+            font-size: 30px;
+        }
+
+        #userList li:hover,
+        #roleList li:hover {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="layui-container">
+
+    <div class="layui-btn-container">
+        <!--<button type="button" class="layui-btn layui-btn-sm" btn="getChecked">获取选中节点数据</button>-->
+        <!--<button type="button" class="layui-btn layui-btn-sm" btn="setChecked">勾选指定节点</button>-->
+        <!--<button type="button" class="layui-btn layui-btn-sm" btn="reload">重载实例</button>-->
+    </div>
+    <div class="layui-row">
+
+        <div class="layui-col-md6">
+            <div class="layui-row mytitle">
+                <div class="layui-col-md2">角色管理</div>
+                <div class="layui-col-md10">
+                    <button type="button" class="layui-btn layui-btn-sm" btn="saveUser">保存</button>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md4">
+                    <div class="layui-transfer layui-form layui-border-box" lay-filter="LAY-transfer-2">
+                        <div class="layui-transfer-box" data-index="0" style="width: 150px; height: 500px;">
+                            <div class="layui-transfer-header">用户</div>
+                            <div class="layui-transfer-search">
+                                <i class="layui-icon layui-icon-search"></i>
+                                <input type="input" class="layui-input" placeholder="关键词搜索">
+                            </div>
+                            <ul id="userList" class="layui-transfer-data" style="height: 407px;">
+                                <li th:each="item : ${userList}" th:text="${{item.userName}}"
+                                    th:attr="id=${{item.id}}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md8">
+                    <div id="userRole" class="demo-transfer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-row mytitle">
+                <div class="layui-col-md2">角色管理</div>
+                <div class="layui-col-md10">
+                    <button type="button" class="layui-btn layui-btn-sm" btn="saveRole">保存</button>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md4">
+                    <div class="layui-transfer layui-form layui-border-box" lay-filter="LAY-transfer-2">
+                        <div class="layui-transfer-box" data-index="0" style="width: 150px; height: 500px;">
+                            <div class="layui-transfer-header">角色</div>
+                            <div class="layui-transfer-search">
+                                <i class="layui-icon layui-icon-search"></i>
+                                <input type="input" class="layui-input" placeholder="关键词搜索">
+                            </div>
+                            <ul id="roleList" class="layui-transfer-data" style="height: 407px;">
+                                <li th:each="item : ${roleList}" th:text="${{item.roleName}}"
+                                    th:attr="id=${{item.id}}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md8">
+                    <div id="rolePerm" class="demo-transfer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['transfer', 'layer', 'util'], function () {
+        let $ = layui.$
+            , transfer = layui.transfer
+            , layer = layui.layer
+            , util = layui.util;
+
+        let curUserId;
+        let curRoleId;
+
+        //模拟数据
+        let data1 = [
+            {"value": "1", "title": "李白"},
+            {"value": "2", "title": "杜甫"},
+            {"value": "3", "title": "苏轼"},
+            {"value": "4", "title": "李清照"},
+            {"value": "5", "title": "鲁迅"},
+            {"value": "6", "title": "巴金"},
+            {"value": "7", "title": "冰心"},
+            {"value": "8", "title": "矛盾"},
+            {"value": "9", "title": "贤心"}
+        ];
+
+
+        let showUserRole = function (data) {
+            transfer.render({
+                elem: '#userRole',
+                data: data,
+                title: ['未关联', '已关联'],
+                showSearch: true,
+                width: 150,
+                height: 500,
+                parseData: function (res) {
+                    return {
+                        "value": res.id
+                        , "title": res.roleName
+                        , "checked": res.isChecked
+                    }
+                }
+            });
+        };
+        showUserRole();
+
+        let showRolePerm = function (data) {
+            transfer.render({
+                elem: '#rolePerm',
+                data: data,
+                title: ['未关联', '已关联'],
+                showSearch: true,
+                width: 150,
+                height: 500,
+                parseData: function (res) {
+                    return {
+                        "value": res.id
+                        , "title": res.roleName
+                        , "checked": res.isChecked
+                    }
+                }
+            });
+        };
+        showUserRole();
+
+        let listRole = function (userId) {
+            $.ajax({
+                url: "/sec/user/role/list/" + userId,
+                success: function (ret) {
+                    showUserRole(ret.data);
+                }
+            });
+        };
+
+
+        util.event('btn', {
+            saveUser: function () {
+
+            },
+            saveRole: function () {
+
+            }
+        });
+
+        $("#userList li").click(function () {
+            curUserId = $(this).attr("id");
+            $("#userList li").removeClass("layui-bg-blue");
+            $(this).addClass("layui-bg-blue");
+            console.log("curUserId", curUserId);
+            listRole(curUserId);
+        });
+
+        $("#roleList li").click(function () {
+            curRoleId = $(this).attr("id");
+            $("#roleList li").removeClass("layui-bg-blue");
+            $(this).addClass("layui-bg-blue");
+            console.log("curRoleId", curRoleId);
+        });
+    });
+</script>
+</body>
+</html>

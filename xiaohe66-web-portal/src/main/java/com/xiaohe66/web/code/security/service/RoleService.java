@@ -30,8 +30,12 @@ public class RoleService extends AbstractService<RoleMapper, Role> {
         return baseMapper.listDefaultRoleId();
     }
 
-    public Set<String> listRoleNameByUsrId(Integer usrId) {
-        return baseMapper.listRoleNameByUsrId(usrId);
+    public Set<String> listRoleNameByUserId(Integer userId) {
+        return baseMapper.listRoleNameByUsrId(userId);
+    }
+
+    public List<Role> listRoleByUserId(Integer userId) {
+        return baseMapper.listRoleByUserId(userId);
     }
 
     /**

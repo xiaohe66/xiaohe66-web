@@ -4,6 +4,7 @@ import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.code.security.po.UserRole;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,5 +18,7 @@ public interface UserRoleMapper extends IBaseMapper<UserRole> {
 
 
     void addUserRoles(@Param("userId") Integer usrId, @Param("roleIdSet") Set<Integer> roleIdSet);
+
+    List<UserRole> listByUserId(Integer userId);
 
 }

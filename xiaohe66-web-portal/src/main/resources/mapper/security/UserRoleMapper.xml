@@ -10,4 +10,8 @@
         </foreach>
     </insert>
 
+    <select id="listByUserId" resultType="com.xiaohe66.web.code.security.po.UserRole">
+        select * from xiaohe66_web_security_user_role where user_id = #{userId}
+    </select>
+
 </mapper>

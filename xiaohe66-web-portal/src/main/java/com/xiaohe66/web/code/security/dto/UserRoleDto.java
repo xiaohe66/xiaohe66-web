@@ -1,10 +1,17 @@
 package com.xiaohe66.web.code.security.dto;
 
-import com.xiaohe66.web.base.base.BaseDtoDetailed;
+import com.xiaohe66.web.base.base.BaseDto;
+import lombok.Data;
 
 /**
  * @author xiaohe
  * @time 2019.10.21 11:19
  */
-public class UserRoleDto extends BaseDtoDetailed {
+@Data
+public class UserRoleDto extends BaseDto {
+
+    private String roleName;
+    private Boolean isChecked;
+
+
 }

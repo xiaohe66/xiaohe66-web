@@ -27,16 +27,19 @@
                 <!--只（这个字很重要）包含directory指定目录下的以下文件<include>和<exclude>都存在的话，那就发生冲突了，这时会以<exclude>为准-->
                 <excludes>
                     <exclude>bak/**</exclude>
+                    <exclude>**/font/**</exclude>
                 </excludes>
                 <!--为true，把过滤的文件<excludes>打到classpath下。false，会把不需要过滤的文件<includes>打到classpath下-->
                 <filtering>true</filtering>
             </resource>
 
+            <!-- 通过这种方式加载的文件，不会改变其二进制结构，如字体 -->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>application-${profiles.active}.yml</include>
+                    <include>**/font/**</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
 
             <!--<resource>
