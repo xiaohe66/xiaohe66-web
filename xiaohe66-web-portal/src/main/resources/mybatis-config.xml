@@ -19,6 +19,10 @@
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
     </settings>
 
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.xiaohe66.web.base.enums.SexEnum"/>
+    </typeHandlers>
+
     <!-- 配置分页插件 -->
     <plugins>
 

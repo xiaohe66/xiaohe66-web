@@ -11,7 +11,6 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.Order;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -26,7 +25,6 @@ import java.util.Map;
 public class ShiroConfiguration {
 
     @Bean
-    @Order
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager());
