@@ -25,13 +25,23 @@
             <resource>
                 <!-- 指定resources插件处理哪个目录下的资源文件 -->
                 <directory>src/main/resources</directory>
-                <targetPath>${project.build.directory}/res</targetPath>
+                <targetPath>${project.build.directory}/classes</targetPath>
                 <!--只（这个字很重要）包含directory指定目录下的以下文件<include>和<exclude>都存在的话，那就发生冲突了，这时会以<exclude>为准-->
                 <excludes>
                     <exclude>bak/**</exclude>
+                    <exclude>static/**</exclude>
                 </excludes>
                 <!--为true，把过滤的文件<excludes>打到classpath下。false，会把不需要过滤的文件<includes>打到classpath下-->
-                <filtering>false</filtering>
+                <filtering>true</filtering>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>${project.build.directory}/res</targetPath>
+                <includes>
+                    <include>static/**</include>
+                </includes>
+                <filtering>true</filtering>
             </resource>
 
         </resources>
@@ -56,6 +66,7 @@
                 <executions>
                     <execution>
                         <id>copy-lib</id>
+                        <!-- 表明在什么阶段执行，若为 package ，则会在打包时复制jar包 -->
                         <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>

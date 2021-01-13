@@ -8,7 +8,7 @@ spring:
   thymeleaf:
     cache: false
   resources:
-    static-locations: ["classpath:../res/"]
+    static-locations: file:${project.build.directory}/res/static/
 
 server:
   port: 8080
