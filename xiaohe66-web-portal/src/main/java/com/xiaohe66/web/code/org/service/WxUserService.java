@@ -1,7 +1,9 @@
 package com.xiaohe66.web.code.org.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xiaohe66.web.base.base.DtoConverter;
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.code.org.dto.WxUserDto;
 import com.xiaohe66.web.code.org.mapper.WxUserMapper;
 import com.xiaohe66.web.code.org.po.WxUser;
 import org.springframework.stereotype.Service;
@@ -10,8 +12,8 @@ import org.springframework.stereotype.Service;
  * @author xiaohe
  * @time 2019.12.06 16:22
  */
-//@Service
-public class WxUserService extends AbstractService<WxUserMapper, WxUser> {
+@Service
+public class WxUserService extends AbstractService<WxUserMapper, WxUser> implements DtoConverter<WxUser, WxUserDto> {
 
     @Override
     public boolean save(WxUser po) {
@@ -25,4 +27,8 @@ public class WxUserService extends AbstractService<WxUserMapper, WxUser> {
         return getOne(new QueryWrapper<>(user));
     }
 
+    @Override
+    public void convertDto(WxUserDto dto, WxUser po) {
+        dto.setSexStr(po.getSex().getName());
+    }
 }

@@ -44,10 +44,11 @@ public class LoginController {
         return Result.ok(loginService.login(loginName, userPwd));
     }
 
-    @RequiresAuthentication
     @Del
-    public void logout() {
+    public Result logout() {
         loginService.logout();
+
+        return Result.ok();
     }
 
     //    @Page("/findPwd")

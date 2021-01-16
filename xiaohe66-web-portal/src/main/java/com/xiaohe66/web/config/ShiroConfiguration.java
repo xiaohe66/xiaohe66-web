@@ -2,6 +2,7 @@ package com.xiaohe66.web.config;
 
 import com.xiaohe66.web.code.security.auth.shrio.HttpMethodAuthorizationFilter;
 import com.xiaohe66.web.code.security.realm.XhDefaultRealm;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -56,6 +57,7 @@ public class ShiroConfiguration {
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        SecurityUtils.setSecurityManager(securityManager);
         securityManager.setRealm(myRealm());
         return securityManager;
     }

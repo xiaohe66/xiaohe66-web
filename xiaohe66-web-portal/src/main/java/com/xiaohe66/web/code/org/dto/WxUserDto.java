@@ -14,4 +14,5 @@ public class WxUserDto extends BaseDto {
 
     private String nickname;
     private String token;
+    private String sexStr;
 }

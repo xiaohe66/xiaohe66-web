@@ -85,6 +85,13 @@ public class LoginService {
         CacheHelper.put30(token, user);
     }
 
+    /**
+     * 通过邮件中的token 进行注册， 和微信登录的 token 有命名冲突
+     *
+     * todo : 需要修改邮件的注册逻辑
+     *
+     * @param token 邮件中的 token
+     */
     public void register(String token) {
         User user = CacheHelper.get30(token);
 

@@ -1,7 +1,5 @@
 debug: true
 spring:
-  profiles:
-    active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/xiaohe66_web?characterEncoding=UTF-8&amp;useUnicode=true&amp;autoReconnect=true
@@ -9,6 +7,8 @@ spring:
     password: root
   thymeleaf:
     cache: false
+  resources:
+    static-locations: file:${project.build.directory}/res/static/
 
 server:
   port: 8080

@@ -30,6 +30,10 @@ public class WxCode2SessionResponse implements BaseResponse {
     @Getter
     public enum ErrCode {
 
+        /*
+        *
+        *
+        * */
         OK(0),
 
         /**
