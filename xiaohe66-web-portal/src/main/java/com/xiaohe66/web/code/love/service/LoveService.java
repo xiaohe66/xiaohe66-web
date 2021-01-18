@@ -34,7 +34,7 @@ public class LoveService<M extends IBaseMapper<P>, P extends LovePo> extends Abs
     }
 
     @Override
-    public QueryWrapper<P> createPageDefaultQueryWrapper(P po) {
+    public QueryWrapper<P> createDefaultQueryWrapper(P po) {
 
         Integer currentUserLoverId = loverService.getCurrentUserLoverId();
         if(currentUserLoverId == null){

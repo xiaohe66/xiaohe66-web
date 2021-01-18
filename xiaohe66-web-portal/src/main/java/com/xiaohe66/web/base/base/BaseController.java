@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * @author xiaohe
@@ -40,7 +41,6 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
 
     @SuppressWarnings("unchecked")
     public BaseController() {
-        // todo : 初始化太慢
         Type[] type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
 
         Class<P> poClass = ((Class<P>) type[1]);
@@ -109,6 +109,26 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
             dtoPage = ClassUtils.convert(dtoClass, poPage);
         }
         return Result.ok(dtoPage);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Get("/list")
+    public Result page(@RequestHeader(value = Final.HeaderKey.PAGE_SIZE, defaultValue = "10" ,required = false) Long pageSize,
+                       @RequestHeader(value = Final.HeaderKey.START_ID, defaultValue = "0", required = false) Long start,
+                       P po){
+
+        checkSelect(po);
+
+        List<P> list = baseService.listStartId(pageSize, start, po);
+
+        List<D> dtoList;
+        if (baseService instanceof DtoConverter) {
+            DtoConverter<P, D> dtoConverter = (DtoConverter) this.baseService;
+            dtoList = ClassUtils.convert(dtoClass, list, dtoConverter::convertDto);
+        } else {
+            dtoList = ClassUtils.convert(dtoClass, list);
+        }
+        return Result.ok(dtoList);
     }
 
     protected void checkSave(P po) {

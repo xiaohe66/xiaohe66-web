@@ -36,8 +36,8 @@ public class DailyService extends LoveService<DailyMapper, Daily> {
 
 
     @Override
-    public QueryWrapper<Daily> createPageDefaultQueryWrapper(Daily po) {
-        QueryWrapper<Daily> queryWrapper = super.createPageDefaultQueryWrapper(po);
+    public QueryWrapper<Daily> createDefaultQueryWrapper(Daily po) {
+        QueryWrapper<Daily> queryWrapper = super.createDefaultQueryWrapper(po);
         queryWrapper.orderByDesc("create_time");
         return queryWrapper;
     }

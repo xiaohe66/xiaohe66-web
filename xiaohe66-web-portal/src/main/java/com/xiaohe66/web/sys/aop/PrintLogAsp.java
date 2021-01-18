@@ -31,7 +31,7 @@ public class PrintLogAsp {
         Signature signature = joinPoint.getSignature();
         String args = Arrays.toString(joinPoint.getArgs());
 
-        log.info("{}#{}{}", signature.getDeclaringTypeName(), signature.getName(), args);
+        log.info("in --> {}#{}{}", signature.getDeclaringTypeName(), signature.getName(), args);
     }
 
     @AfterReturning(value = "printLog()", returning = "result")
@@ -39,6 +39,6 @@ public class PrintLogAsp {
 
         Signature signature = joinPoint.getSignature();
 
-        log.info("{}#{}={}", signature.getDeclaringTypeName(), signature.getName(), result);
+        log.info("out <-- {}#{}={}", signature.getDeclaringTypeName(), signature.getName(), result);
     }
 }

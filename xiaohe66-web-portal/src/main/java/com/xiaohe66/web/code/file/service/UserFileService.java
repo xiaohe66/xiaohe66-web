@@ -239,7 +239,7 @@ public class UserFileService extends AbstractService<UserFileMapper, UserFile> i
     }
 
     @Override
-    public QueryWrapper<UserFile> createPageDefaultQueryWrapper(UserFile userFile) {
+    public QueryWrapper<UserFile> createDefaultQueryWrapper(UserFile userFile) {
 
         userFile.setFileType(UserFile.FileType.DEFAULT_FILE);
 

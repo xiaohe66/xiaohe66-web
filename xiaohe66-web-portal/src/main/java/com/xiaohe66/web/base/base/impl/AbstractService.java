@@ -12,6 +12,8 @@ import com.xiaohe66.web.base.base.XhPage;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 /**
  *
  * todo : 增加 checkPo 方法
@@ -48,14 +50,17 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
         return super.updateById(po);
     }
 
+    @Override
     public IPage<P> page(long pageSize) {
         return super.page(new XhPage<>(pageSize));
     }
 
+    @Override
     public IPage<P> page(long pageSize, long pageNo) {
         return super.page(new XhPage<>(pageSize, pageNo));
     }
 
+    @Override
     public IPage<P> page(long pageSize, P po) {
         QueryWrapper<P> queryWrapper = new QueryWrapper<>(po);
         return page(pageSize, queryWrapper);
@@ -74,20 +79,28 @@ public abstract class AbstractService<M extends IBaseMapper<P>, P extends BasePo
         if (pageNo != null) {
             xhPage.setCurrent(pageNo);
         }
-        QueryWrapper<P> queryWrapper = createPageDefaultQueryWrapper(po);
-        if (queryWrapper == null) {
-            if (po == null) {
-                return page(xhPage);
-            } else {
-                return page(xhPage, new QueryWrapper<>(po));
-            }
-        } else {
-            queryWrapper.setEntity(po);
-            return page(xhPage, queryWrapper);
+
+        if(po == null){
+            return page(xhPage);
+
+        }else{
+            return page(xhPage, createDefaultQueryWrapper(po));
         }
     }
 
-    public QueryWrapper<P> createPageDefaultQueryWrapper(P po) {
-        return null;
+    @Override
+    public List<P> listStartId(Long pageSize, Long startId, P po) {
+
+        QueryWrapper<P> queryWrapper = createDefaultQueryWrapper(po);
+
+        queryWrapper.gt("id",startId);
+        queryWrapper.last("limit "+pageSize);
+
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public QueryWrapper<P> createDefaultQueryWrapper(P po) {
+        return new QueryWrapper<>(po);
     }
 }
