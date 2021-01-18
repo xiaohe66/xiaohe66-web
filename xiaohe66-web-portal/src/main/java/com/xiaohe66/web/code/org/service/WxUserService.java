@@ -28,6 +28,13 @@ public class WxUserService extends AbstractService<WxUserMapper, WxUser> impleme
         return getOne(new QueryWrapper<>(user));
     }
 
+    public WxUser getByUserId(Integer userId){
+        WxUser user = new WxUser();
+        user.setUserId(userId);
+
+        return getOne(new QueryWrapper<>(user));
+    }
+
     @Override
     public void convertDto(WxUserDto dto, WxUser po) {
         SexEnum sexEnum = SexEnum.valueOf(po.getSex());
