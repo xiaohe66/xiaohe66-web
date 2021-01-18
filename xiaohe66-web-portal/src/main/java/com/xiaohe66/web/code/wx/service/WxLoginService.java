@@ -1,6 +1,7 @@
 package com.xiaohe66.web.code.wx.service;
 
 import com.xiaohe66.common.net.ex.RequesterException;
+import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.cache.CacheHelper;
 import com.xiaohe66.web.code.org.dto.UserDto;
@@ -14,6 +15,8 @@ import com.xiaohe66.web.code.wx.requester.WxCode2SessionRequester;
 import com.xiaohe66.web.code.wx.response.WxCode2SessionResponse;
 import com.xiaohe66.web.config.WxConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +49,7 @@ public class WxLoginService {
         this.config = config;
     }
 
-    public Result login(String code) {
+    public Result login(WxUser wxUser, String code) {
 
         WxCode2SessionRequest request = new WxCode2SessionRequest();
         request.setAppId(config.getAppId());
@@ -68,17 +71,29 @@ public class WxLoginService {
 
             String openId = response.getOpenId();
 
-            WxUser wxUser = wxUserService.getByOpenId(openId);
-            if (wxUser == null) {
+            wxUser.setOpenId(openId);
+            wxUser.setUnionId(response.getUnionId());
+            wxUser.setSessionKey(response.getSessionKey());
+
+            WxUser dbWxUser = wxUserService.getByOpenId(openId);
+            if (dbWxUser == null) {
 
                 // 注册账号, 自己调用自己的方法会导致事务失效，因此需要获取自己的代理类后再调用
                 WxLoginService currentProxy = (WxLoginService) AopContext.currentProxy();
-                wxUser = currentProxy.register(openId);
+                dbWxUser = currentProxy.register(wxUser);
+
+            } else {
+                wxUser.setId(dbWxUser.getId());
+                wxUserService.updateById(wxUser);
             }
 
-            UserDto userDto = loginService.login(wxUser.getUserId());
+            UserDto userDto = loginService.login(dbWxUser.getUserId());
 
-            String token = UUID.randomUUID().toString();
+            //注入session
+            Session session = SecurityUtils.getSubject().getSession();
+            session.setAttribute(Final.SessionKey.CURRENT_LOGIN_WXUSER, wxUser);
+
+            String token = UUID.randomUUID().toString().replace("-", "");
 
             // 保存 token
             CacheHelper.put7d(token, userDto.getId());
@@ -92,7 +107,9 @@ public class WxLoginService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public WxUser register(String openId) {
+    public WxUser register(WxUser wxUser) {
+
+        String openId = wxUser.getOpenId();
 
         User user = new User();
 
@@ -106,9 +123,7 @@ public class WxLoginService {
         log.info("微信新用户注册账号, openId : {}", openId);
         loginService.register(user);
 
-        WxUser wxUser = new WxUser();
         wxUser.setUserId(user.getId());
-        wxUser.setOpenId(openId);
 
         wxUserService.save(wxUser);
         log.info("微信新用户注册账号成功, openId : {}", openId);

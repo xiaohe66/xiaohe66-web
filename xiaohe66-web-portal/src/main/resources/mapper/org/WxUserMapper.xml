@@ -15,7 +15,7 @@
           `union_id` varchar(64) NOT NULL DEFAULT '',
           `phone` varchar(32) NOT NULL DEFAULT '',
           `nickname` varchar(255) NOT NULL DEFAULT '',
-          `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别: 0:未知;1:男;2:女',
+          `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别: 0:未知;1:男;2:女',
           `province` varchar(32) NOT NULL DEFAULT '',
           `city` varchar(32) NOT NULL DEFAULT '',
           `country` varchar(32) NOT NULL DEFAULT '',

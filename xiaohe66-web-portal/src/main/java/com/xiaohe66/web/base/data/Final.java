@@ -61,6 +61,7 @@ public final class Final {
         public static final String EMAIL_AUTH_CODE = "emailAuthCode";
         public static final String REGISTERING_USER = "registeringUser";
         public static final String CURRENT_LOGIN_USER = "user";
+        public static final String CURRENT_LOGIN_WXUSER = "wxuser";
         public static final String UPDATE_PWD_USER = "updatePwdUser";
     }
 

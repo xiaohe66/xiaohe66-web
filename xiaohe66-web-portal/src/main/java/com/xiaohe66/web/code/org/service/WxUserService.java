@@ -3,6 +3,7 @@ package com.xiaohe66.web.code.org.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaohe66.web.base.base.DtoConverter;
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.enums.SexEnum;
 import com.xiaohe66.web.code.org.dto.WxUserDto;
 import com.xiaohe66.web.code.org.mapper.WxUserMapper;
 import com.xiaohe66.web.code.org.po.WxUser;
@@ -29,6 +30,9 @@ public class WxUserService extends AbstractService<WxUserMapper, WxUser> impleme
 
     @Override
     public void convertDto(WxUserDto dto, WxUser po) {
-        dto.setSexStr(po.getSex().getName());
+        SexEnum sexEnum = SexEnum.valueOf(po.getSex());
+        if(sexEnum != null){
+            dto.setSexStr(sexEnum.getName());
+        }
     }
 }
