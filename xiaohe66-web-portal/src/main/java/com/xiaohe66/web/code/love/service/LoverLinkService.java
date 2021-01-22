@@ -13,9 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoverLinkService extends AbstractService<LoverLinkMapper, LoverLink> {
 
+    /**
+     * 获取爱人的 link
+     */
     public LoverLink getLoverLink(Integer loverId, Integer userId) {
 
         QueryWrapper<LoverLink> queryWrapper = new QueryWrapper<>();
+        // ne : 不等
         queryWrapper.ne("user_id", userId);
         queryWrapper.eq("lover_id", loverId);
 

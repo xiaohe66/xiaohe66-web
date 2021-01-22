@@ -92,6 +92,8 @@ public final class Final {
         private CacheKey(){
         }
         public static final String USER_FILE_LOG_CACHE = "USER_FILE_LOG_CACHE";
+
+        public static final String LOVER_SERIAL_NO_KEY = "LOVER_SERIAL_NO_KEY";
     }
 
     public interface Str {
