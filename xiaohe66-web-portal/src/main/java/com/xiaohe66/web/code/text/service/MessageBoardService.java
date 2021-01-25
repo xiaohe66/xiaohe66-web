@@ -63,7 +63,7 @@ public class MessageBoardService extends AbstractService<MessageBoardMapper, Mes
 
 
     @Override
-    public QueryWrapper<MessageBoard> createPageDefaultQueryWrapper(MessageBoard messageBoard) {
+    public QueryWrapper<MessageBoard> createDefaultQueryWrapper(MessageBoard messageBoard) {
         messageBoard.setUserId(Final.User.XIAO_HE_USER_ID);
         QueryWrapper<MessageBoard> queryWrapper = new QueryWrapper<>(messageBoard);
         queryWrapper.orderByDesc("create_time");

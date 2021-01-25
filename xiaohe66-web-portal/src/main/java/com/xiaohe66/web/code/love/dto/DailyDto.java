@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class DailyDto extends BaseDto {
 
-    private Integer createId;
+    private String avatarUrl;
     private String createTime;
     private String desc;
     private Integer mood;

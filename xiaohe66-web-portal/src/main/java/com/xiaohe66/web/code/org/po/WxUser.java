@@ -18,9 +18,11 @@ public class WxUser extends BasePoDetailed {
     private String unionId;
     private String nickname;
     private String phone;
-    private SexEnum sex;
+    private Integer sex;
     private String province;
     private String city;
     private String country;
     private String avatarUrl;
+    private String sessionKey;
+
 }

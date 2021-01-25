@@ -13,6 +13,6 @@ import lombok.EqualsAndHashCode;
 public class LoverLinkDto extends BaseDto {
 
     private String loverUserName;
-    private Integer loveImgFileId;
+    private String loverAvatarUrl;
 
 }

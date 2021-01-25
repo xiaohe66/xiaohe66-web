@@ -42,7 +42,7 @@ public class PhotoService extends AbstractService<PhotoMapper, Photo> {
     }
 
     @Override
-    public QueryWrapper<Photo> createPageDefaultQueryWrapper(Photo po) {
+    public QueryWrapper<Photo> createDefaultQueryWrapper(Photo po) {
         QueryWrapper<Photo> queryWrapper = new QueryWrapper<>(po);
         queryWrapper.orderByDesc("is_show","sort", "create_time");
 

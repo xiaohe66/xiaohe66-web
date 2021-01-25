@@ -61,6 +61,7 @@ public final class Final {
         public static final String EMAIL_AUTH_CODE = "emailAuthCode";
         public static final String REGISTERING_USER = "registeringUser";
         public static final String CURRENT_LOGIN_USER = "user";
+        public static final String CURRENT_LOGIN_WXUSER = "wxuser";
         public static final String UPDATE_PWD_USER = "updatePwdUser";
     }
 
@@ -83,12 +84,16 @@ public final class Final {
         public static final String PAGE_SIZE = "pageSize";
         public static final String PAGE_NO = "pageNo";
 
+        public static final String START_ID = "startId";
+
     }
 
     public static final class CacheKey {
         private CacheKey(){
         }
         public static final String USER_FILE_LOG_CACHE = "USER_FILE_LOG_CACHE";
+
+        public static final String LOVER_SERIAL_NO_KEY = "LOVER_SERIAL_NO_KEY";
     }
 
     public interface Str {

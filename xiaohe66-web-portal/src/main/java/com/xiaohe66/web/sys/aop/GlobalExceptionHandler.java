@@ -49,20 +49,14 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
             // 消息类
             if (e instanceof MsgException) {
 
-                if (log.isDebugEnabled()) {
-                    log.debug(code.toString(), e);
-                } else {
-                    log.info("错误消息, 当前用户 : {}, code : {}, message : {}", currentUserId, code, e.getMessage());
-                }
+                log.info("错误消息, 当前用户 : {}, code : {}, message : {}", currentUserId, code, e.getMessage());
+                log.debug(code.toString(), e);
 
             } else if (e instanceof IllegalOperationException ||
                     e instanceof IllegalParamException) {
 
-                if (log.isDebugEnabled()) {
-                    log.debug(e.getMessage(), e);
-                } else {
-                    log.info(e.getMessage());
-                }
+                log.info(e.getMessage());
+                log.debug(e.getMessage(), e);
             }
             // 其它
             else {

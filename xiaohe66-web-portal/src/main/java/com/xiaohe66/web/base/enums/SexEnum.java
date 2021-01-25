@@ -20,4 +20,17 @@ public enum SexEnum {
 
     private Integer code;
     private String name;
+
+    public static SexEnum valueOf(Integer code){
+        SexEnum[] values = SexEnum.values();
+
+        for (SexEnum sexEnum : values) {
+
+            if (sexEnum.code.equals(code)) {
+                return sexEnum;
+            }
+        }
+
+        return null;
+    }
 }
