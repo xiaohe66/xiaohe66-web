@@ -24,6 +24,6 @@ xiaohe66:
     maxMbFilePer: 8
   registerUrl: http://localhost/sec/login/register/
   wx:
-    code2SessionUrl: http
+    miniProgramState: developer
     appId: appid
     appSecret: secret

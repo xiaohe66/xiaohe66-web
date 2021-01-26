@@ -2,8 +2,9 @@ package com.xiaohe66.web.base.base;
 
 import com.xiaohe66.common.net.OkHttpClientHolder;
 import com.xiaohe66.common.net.req.AbstractHttpRequester;
-import com.xiaohe66.web.config.WxConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.xiaohe66.common.util.JsonUtils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import java.lang.reflect.Type;
 
@@ -13,11 +14,15 @@ import java.lang.reflect.Type;
  */
 public abstract class WxHttpRequester<P, R> extends AbstractHttpRequester<P, R> {
 
-    @Autowired
-    private WxConfig wxConfig;
+    protected static final MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
 
     public WxHttpRequester(String queryUrl, Type beanType) {
         super("https://api.weixin.qq.com", queryUrl, OkHttpClientHolder.get(), beanType);
+    }
+
+    protected final RequestBody createJsonBody(P request) {
+
+        return RequestBody.create(JsonUtils.toString(request), jsonMediaType);
     }
 
 }

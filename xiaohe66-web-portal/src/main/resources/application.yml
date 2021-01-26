@@ -38,6 +38,6 @@ logging:
 #配置性参数
 xiaohe66:
   wx:
-    code2SessionUrl: http
+    miniProgramState: developer
     appId: appid
     appSecret: secret

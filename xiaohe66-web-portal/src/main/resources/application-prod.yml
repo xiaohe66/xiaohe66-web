@@ -18,3 +18,7 @@ xiaohe66:
     maxMbChunkPer: 2
     maxMbFilePer: 64
   registerUrl: https://xiaohe66.com/sec/login/register/
+  wx:
+    miniProgramState: formal
+    appId: appid
+    appSecret: secret

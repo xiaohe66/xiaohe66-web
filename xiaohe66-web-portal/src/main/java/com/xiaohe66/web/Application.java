@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableAspectJAutoProxy(proxyTargetClass = true,exposeProxy = true)
 @EnableTransactionManagement
 @SpringBootApplication
+@EnableScheduling
 @MapperScan(basePackages = "com.xiaohe66.web.code", markerInterface = IBaseMapper.class)
 @ComponentScan(nameGenerator = XhControllerBeanNameGenerator.class,
         basePackages = {"com.xiaohe66.web.code", "com.xiaohe66.web.config", "com.xiaohe66.web.sys.aop"})

@@ -1,18 +1,20 @@
 package com.xiaohe66.web.config;
 
 import com.xiaohe66.web.base.holder.ApplicationContextHolder;
-import com.xiaohe66.web.code.security.service.LoginService;
+import com.xiaohe66.web.base.holder.WxAccessTokenHolder;
 import com.xiaohe66.web.sys.filter.DevAutoLoginFilter;
 import com.xiaohe66.web.sys.filter.TokenLoginFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * @author xiaohe
  * @time 2019.10.12 17:05
  */
 @Configuration
+@Import(WxAccessTokenHolder.class)
 public class MainConfiguration {
 
     @Bean
