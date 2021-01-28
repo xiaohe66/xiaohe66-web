@@ -1,7 +1,7 @@
 package com.xiaohe66.web.code.security.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xiaohe66.web.base.base.BasePo;
+import com.xiaohe66.web.base.base.BasePoDetailed;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName("xiaohe66_web_security_role")
 @Data
-public class Role extends BasePo {
+public class Role extends BasePoDetailed {
 
     private String roleName;
     private String roleDesc;
