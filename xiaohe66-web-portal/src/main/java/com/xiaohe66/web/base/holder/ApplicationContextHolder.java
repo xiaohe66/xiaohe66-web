@@ -25,4 +25,8 @@ public class ApplicationContextHolder implements ApplicationContextAware{
     public static Object getBean(String beanName) {
         return applicationContext.getBean(beanName);
     }
+
+    public static String getActive(){
+        return applicationContext.getEnvironment().getActiveProfiles()[0];
+    }
 }
