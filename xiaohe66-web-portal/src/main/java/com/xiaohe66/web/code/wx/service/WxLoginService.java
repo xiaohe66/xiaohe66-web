@@ -1,9 +1,9 @@
 package com.xiaohe66.web.code.wx.service;
 
 import com.xiaohe66.common.net.ex.RequesterException;
+import com.xiaohe66.web.base.annotation.PrintLog;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
-import com.xiaohe66.web.cache.CacheHelper;
 import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.po.WxUser;
@@ -21,7 +21,8 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author xiaohe
@@ -49,6 +50,7 @@ public class WxLoginService {
         this.config = config;
     }
 
+    @PrintLog
     public Result login(WxUser wxUser, String code) {
 
         WxCode2SessionRequest request = new WxCode2SessionRequest();
@@ -61,13 +63,14 @@ public class WxLoginService {
             response = requester.call(request);
 
         } catch (RequesterException e) {
-            log.error("微信登录失败, code : {}", e);
+            log.error("微信登录失败, code : {}", code, e);
             return Result.err("微信登录失败");
         }
 
         log.info("微信登录接口返回 : {}", response);
 
-        if (response != null && response.getErrCode() == WxCode2SessionResponse.ErrCode.OK.getCode()) {
+        // note : 微信接口文档写了会返回 errcode，但实际上并没有返回
+        if (response != null && response.getOpenId() != null) {
 
             String openId = response.getOpenId();
 
@@ -93,12 +96,18 @@ public class WxLoginService {
             Session session = SecurityUtils.getSubject().getSession();
             session.setAttribute(Final.SessionKey.CURRENT_LOGIN_WXUSER, wxUser);
 
-            String token = UUID.randomUUID().toString().replace("-", "");
+            //String token = UUID.randomUUID().toString().replace("-", "");
 
             // 保存 token
-            CacheHelper.put7d(token, userDto.getId());
+            //CacheHelper.put7d(token, userDto.getId());
 
-            return Result.ok(token);
+            //return Result.ok(token);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("userDto", userDto);
+            map.put("sessionId", session.getId());
+
+            return Result.ok(map);
         }
 
         log.error("微信登录失败, code : {}", code);
@@ -113,10 +122,12 @@ public class WxLoginService {
 
         User user = new User();
 
-        String pwd = String.valueOf(openId.hashCode());
-        String email = openId + "@xiaohe66.com";
+        String userName = String.valueOf(System.currentTimeMillis() / 1000);
 
-        user.setUserName(openId);
+        String pwd = String.valueOf(openId.hashCode());
+        String email = userName + "@xiaohe66.com";
+
+        user.setUserName(userName);
         user.setUserPwd(pwd);
         user.setEmail(email);
 

@@ -46,7 +46,6 @@ public class LoverController extends BaseController<LoverService, Lover, LoverDt
     public Result confirm() {
 
         checkLogin();
-        checkUpdatePermitted();
 
         baseService.confirm();
 

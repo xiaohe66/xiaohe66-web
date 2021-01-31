@@ -55,6 +55,8 @@ public class LoverService extends AbstractService<LoverMapper, Lover> {
         CacheHelper.put30(serialNo, currentUsrId);
         WebUtils.setSessionAttr(Final.CacheKey.LOVER_SERIAL_NO_KEY, serialNo);
 
+        log.info("准备绑定爱人, currentUserId : {}, serialNo : {}", currentUsrId, serialNo);
+
         return serialNo;
     }
 
@@ -126,6 +128,10 @@ public class LoverService extends AbstractService<LoverMapper, Lover> {
     public LoverDto getByUserId(Integer userId) {
 
         Lover lover = baseMapper.selectByLoverUserId(userId);
+
+        if(lover == null){
+            return null;
+        }
 
         LoverLink loverLink = loverLinkService.getLoverLink(lover.getId(), userId);
 

@@ -3,17 +3,17 @@ package com.xiaohe66.web.code.love.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
-import com.xiaohe66.web.base.exception.XhWebException;
-import com.xiaohe66.web.base.exception.sec.IllegalOperationException;
 import com.xiaohe66.web.code.love.po.LovePo;
 import com.xiaohe66.web.code.love.po.LovePoDetailed;
 import com.xiaohe66.web.code.org.helper.UserHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author xiaohe
  * @time 2020.01.07 12:24
  */
+@Slf4j
 public class LoveService<M extends IBaseMapper<P>, P extends LovePo> extends AbstractService<M, P> {
 
     @Autowired
@@ -37,10 +37,13 @@ public class LoveService<M extends IBaseMapper<P>, P extends LovePo> extends Abs
     public QueryWrapper<P> createDefaultQueryWrapper(P po) {
 
         Integer currentUserLoverId = loverService.getCurrentUserLoverId();
-        if(currentUserLoverId == null){
-            throw new IllegalOperationException("未绑定Lover");
+        if (currentUserLoverId == null) {
+            log.info("未绑定Lover, select po : {}", po);
+            // 设置为-1，则无法查询出结果
+            po.setLoverId(-1);
+        } else {
+            po.setLoverId(currentUserLoverId);
         }
-        po.setLoverId(currentUserLoverId);
 
         return new QueryWrapper<>(po);
     }

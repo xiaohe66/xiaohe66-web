@@ -51,8 +51,6 @@ public class DailyService extends LoveService<DailyMapper, Daily> implements Dto
     @Override
     public void convertDto(DailyDto dto, Daily po) {
 
-        WxUser wxUser = wxUserService.getByUserId(po.getCreateId());
-        dto.setAvatarUrl(wxUser.getAvatarUrl());
 
     }
 }

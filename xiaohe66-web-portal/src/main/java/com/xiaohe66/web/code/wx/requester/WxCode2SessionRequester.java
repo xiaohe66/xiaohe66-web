@@ -1,6 +1,5 @@
 package com.xiaohe66.web.code.wx.requester;
 
-import com.xiaohe66.common.net.ex.RequesterException;
 import com.xiaohe66.web.base.base.WxHttpRequester;
 import com.xiaohe66.web.code.wx.request.WxCode2SessionRequest;
 import com.xiaohe66.web.code.wx.response.WxCode2SessionResponse;
@@ -30,16 +29,5 @@ public class WxCode2SessionRequester extends WxHttpRequester<WxCode2SessionReque
                 .url(url)
                 .get()
                 .build();
-    }
-
-    // todo : 当前是测试，因此不请求网络
-    @Override
-    public WxCode2SessionResponse call(WxCode2SessionRequest param) throws RequesterException {
-
-        WxCode2SessionResponse response = new WxCode2SessionResponse();
-        response.setErrCode(WxCode2SessionResponse.ErrCode.OK.getCode());
-        response.setOpenId("test_open_id");
-
-        return response;
     }
 }

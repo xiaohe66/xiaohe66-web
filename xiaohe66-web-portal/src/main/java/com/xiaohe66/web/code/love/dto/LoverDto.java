@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class LoverDto extends BaseDto {
 
+    private Integer createId;
     private String createTime;
     private Integer status;
 
