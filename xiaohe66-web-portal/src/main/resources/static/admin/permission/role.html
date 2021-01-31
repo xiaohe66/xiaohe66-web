@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/static/plugin/layui/css/layui.css" media="all">
+</head>
+<body>
+
+<table class="layui-hide" id="table" lay-filter="table"></table>
+
+<div class="layui-row" id="form" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" lay-filter="form" action="" style="margin-top:20px">
+            <input name="id" type="hidden">
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="roleName" required lay-verify="required" autocomplete="off"
+                           placeholder="请输入角色名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="roleDesc" autocomplete="off" placeholder="请输入角色描述" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否默认</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="isDefault" lay-skin="switch" lay-text="是|否" value="1">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:40px">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn  layui-btn-submit" lay-submit="" lay-filter="confirm">确认
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-primary cancel">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+    </div>
+</script>
+
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="isDefaultTpl">
+    <input type="checkbox" name="isDefault" lay-skin="switch" value="{{d.id}}" title="默认"
+           lay-filter="isDefault" lay-text="是|否" disabled {{ d.isDefault ? 'checked' : '' }}>
+</script>
+
+<script src="/static/plugin/layui/layui.js" charset="utf-8"></script>
+<script src="/static/plugin/xh/js/xh-common.js"></script>
+
+<script>
+    layui.use('table', function () {
+        let table = layui.table
+            , form = layui.form
+            , layer = layui.layer;
+
+        $ = layui.jquery;
+
+        table.render({
+            elem: '#table'
+            , url: '/sec/role'
+            , height: 'full-20'
+            , cellMinWidth: 80
+            , toolbar: '#toolbar'
+            , cols: [[
+                {field: 'id', title: 'ID', width: 100, hide: true}
+                , {field: 'roleName', title: '角色名', width: 200}
+                , {field: 'roleDesc', title: '角色描述'}
+                , {field: 'isDefault', title: '是否默认', width: 110, templet: '#isDefaultTpl'}
+                , {fixed: 'right', title: '操作', toolbar: '#bar', width: 150}
+            ]]
+            , page: true
+            , response: {
+                statusCode: 100
+            }
+            , parseData: function (res) {
+                return {
+                    "code": res.code,
+                    "msg": res.msg,
+                    "count": res.data && res.data.total,
+                    "data": res.data && res.data.records
+                };
+            }
+        });
+
+        let index;
+        let openForm = function (data) {
+            index = layer.open({
+                type: 1,
+                title: "表单",
+                area: ['420px', '330px'],
+                shadeClose: false,
+                content: $("#form")
+            });
+
+            if (data) {
+                form.val("form", data);
+            }
+        };
+
+        $(document).on("click", ".cancel", function () {
+            layer.close(index);
+        });
+
+        //头工具栏事件
+        table.on('toolbar(table)', function (obj) {
+            let checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'add':
+                    openForm({
+                        id: '',
+                        roleName: '',
+                        roleDesc: '',
+                        isDefault: 0
+                    });
+                    break;
+            }
+        });
+
+
+        let error = function (data) {
+            layer.alert('失败');
+        };
+
+        table.on('tool(table)', function (obj) {
+            let data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确认删除？', function (index) {
+
+                    del("/sec/role/"+ data.id, function () {
+                        obj.del();
+                        layer.close(index);
+                    }, error);
+                });
+            } else if (obj.event === 'edit') {
+                openForm(data);
+
+            }
+        });
+
+        form.on('submit(confirm)', function (massage) {
+            console.log("log", massage.field);
+            let data = massage.field;
+            if (!data.isDefault) {
+                data.isDefault = 0;
+            }
+
+            if (data.id) {
+                put("/sec/role", data, function (data) {
+                    table.reload('table', {});
+                    layer.close(index);
+                }, error)
+            } else {
+                post("/sec/role", data, function (data) {
+                    table.reload('table', {});
+                    layer.close(index);
+                }, error)
+            }
+
+
+            return false;
+        })
+    });
+</script>
+
+</body>
+</html>

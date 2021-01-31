@@ -1,6 +1,6 @@
 package com.xiaohe66.web.code.security.dto;
 
-import com.xiaohe66.web.base.base.BaseDtoDetailed;
+import com.xiaohe66.web.base.base.BaseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PermissionDto extends BaseDtoDetailed {
+public class PermissionDto extends BaseDto {
 
     private String name;
     private String desc;

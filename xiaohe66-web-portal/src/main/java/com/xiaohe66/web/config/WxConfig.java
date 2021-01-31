@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class WxConfig {
 
-    private String code2SessionUrl;
+    private String miniProgramState;
     private String appId;
     private String appSecret;
 

@@ -1,12 +1,15 @@
 package com.xiaohe66.web;
 
 import com.xiaohe66.web.base.base.IBaseMapper;
+import com.xiaohe66.web.base.holder.ApplicationContextHolder;
 import com.xiaohe66.web.sys.spring.XhControllerBeanNameGenerator;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,19 +18,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author xiaohe
  * @time 2019.12.26 15:46
  */
-@EnableAspectJAutoProxy(proxyTargetClass = true,exposeProxy = true)
+@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 @EnableTransactionManagement
 @SpringBootApplication
+@EnableScheduling
 @MapperScan(basePackages = "com.xiaohe66.web.code", markerInterface = IBaseMapper.class)
 @ComponentScan(nameGenerator = XhControllerBeanNameGenerator.class,
         basePackages = {"com.xiaohe66.web.code", "com.xiaohe66.web.config", "com.xiaohe66.web.sys.aop"})
 public class Application implements WebMvcConfigurer {
 
+    @Value("${spring.resources.static-locations}")
+    private String staticLocations;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 增加这个资源映射，是为了前端页面在引用时，可以有代码提示
         // 前端在引用时，若不加 static,则不会出现url提示
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+
+        String active = ApplicationContextHolder.getActive();
+        if ("dev".equals(active)) {
+            registry.addResourceHandler("/static/**").addResourceLocations(staticLocations);
+
+        } else {
+            registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+        }
     }
 
     public static void main(String[] args) {

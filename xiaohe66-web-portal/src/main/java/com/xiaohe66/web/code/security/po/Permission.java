@@ -2,7 +2,7 @@ package com.xiaohe66.web.code.security.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xiaohe66.web.base.base.BasePo;
+import com.xiaohe66.web.base.base.BasePoDetailed;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("xiaohe66_web_security_permission")
-public class Permission extends BasePo {
+public class Permission extends BasePoDetailed {
 
     @TableField("`name`")
     private String name;

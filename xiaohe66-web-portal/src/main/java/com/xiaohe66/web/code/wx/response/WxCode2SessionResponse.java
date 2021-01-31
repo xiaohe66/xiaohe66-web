@@ -3,20 +3,16 @@ package com.xiaohe66.web.code.wx.response;
 import com.google.gson.annotations.SerializedName;
 import com.xiaohe66.web.base.base.BaseResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * @author xiaohe
  * @time 2019.12.10 15:48
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class WxCode2SessionResponse implements BaseResponse {
-
-    @SerializedName("errcode")
-    private Integer errCode;
-
-    @SerializedName("errmsg")
-    private String errMsg;
+public class WxCode2SessionResponse extends BaseResponse {
 
     @SerializedName("openid")
     private String openId;
@@ -31,9 +27,9 @@ public class WxCode2SessionResponse implements BaseResponse {
     public enum ErrCode {
 
         /*
-        *
-        *
-        * */
+         *
+         *
+         * */
         OK(0),
 
         /**
