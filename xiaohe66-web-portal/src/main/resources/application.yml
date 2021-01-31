@@ -2,7 +2,7 @@
 spring:
   resources:
     # 配置静态资源路径，默认配置失效[public、static、META-INF/resource]
-    static-locations: ["classpath:/static"]
+    static-locations: classpath:/static
   mvc:
     static-path-pattern: /**
   thymeleaf:

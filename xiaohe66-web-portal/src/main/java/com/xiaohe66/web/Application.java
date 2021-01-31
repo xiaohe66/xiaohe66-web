@@ -40,7 +40,7 @@ public class Application implements WebMvcConfigurer {
             registry.addResourceHandler("/static/**").addResourceLocations(staticLocations);
 
         } else {
-            registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+            registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         }
     }
 
