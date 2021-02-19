@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaohe66.web.code.love.mapper.NoteBakMapper">
+
+    <update id="createTable">
+        CREATE TABLE if not exists `love_note_bak` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `create_id` int(11) NOT NULL COMMENT '创建者id',
+          `create_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+          `note_id` int(11) NOT NULL,
+          `title` varchar(64) NOT NULL COMMENT '标题',
+          `desc` text COMMENT '内容',
+          PRIMARY KEY (`id`),
+          KEY `ak_noteid_createtime` (`note_id`,`create_time`) USING BTREE
+        ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+    </update>
+
+</mapper>
