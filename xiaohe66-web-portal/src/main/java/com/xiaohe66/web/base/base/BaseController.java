@@ -99,6 +99,8 @@ public abstract class BaseController<S extends AbstractService<? extends IBaseMa
                        P po) {
         checkSelect(po);
 
+        // todo : 查询总数可以由前端传入，此时后端不查总数
+
         IPage<P> poPage = baseService.pageDefault(pageSize, pageNo, po);
 
         IPage<D> dtoPage;

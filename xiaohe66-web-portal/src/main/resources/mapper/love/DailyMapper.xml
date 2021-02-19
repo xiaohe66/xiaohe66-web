@@ -11,7 +11,7 @@
           `update_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
           `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除,1:删除）',
           `lover_id` int(11) NOT NULL,
-          `desc` varchar(255) NOT NULL,
+          `desc` text NOT NULL,
           `mood` tinyint(4) NOT NULL,
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
