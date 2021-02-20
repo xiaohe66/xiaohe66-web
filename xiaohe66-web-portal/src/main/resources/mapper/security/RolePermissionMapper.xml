@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaohe66.web.code.security.mapper.RolePermissionMapper">
+
+    <select id="listPermissionIdInRoleId" resultType="java.lang.Integer">
+        select f.id from xiaohe66_web_security_permission f
+        join xiaohe66_web_security_role_permission rf on f.id = rf.permission_id
+        where rf.role_id = #{roleId} and r.is_delete = 0
+    </select>
+
+</mapper>

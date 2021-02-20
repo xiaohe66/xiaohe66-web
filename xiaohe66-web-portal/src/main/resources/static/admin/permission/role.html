@@ -8,14 +8,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="/static/plugin/layui/css/layui.css" media="all">
+    <style>
+        .tree-c {
+            padding-left: 30px;
+        }
+
+        .layui-form {
+            margin-top: 20px;
+        }
+
+        #tree {
+            overflow-y: auto;
+        }
+
+        .active {
+            background-color: #ced4da;
+        }
+
+        #permission {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
 
-<table class="layui-hide" id="table" lay-filter="table"></table>
+<div class="layui-row">
+    <div id="tableDiv" class="layui-col-md6">
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+    </div>
+    <div class="layui-col-md6 tree-c">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>权限</legend>
+        </fieldset>
+        <div class="layui-row">
+            <span id="roleName"></span>
+            <button type="button" class="layui-btn layui-btn-sm" lay-btn="save">保存</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-btn="add">新增</button>
+        </div>
+        <div id="tree"></div>
+    </div>
+</div>
+<div class="layui-row" id="permission">
+    <div class="layui-col-md11">
+        <form class="layui-form layui-from-pane" lay-filter="form-permission" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" autocomplete="off"
+                           placeholder="请输入权限名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="desc" required autocomplete="off"
+                           placeholder="请输入权限描述" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">增删改查</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="switch" lay-skin="switch">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:40px">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn  layui-btn-submit" lay-submit=""
+                            lay-filter="confirm-permission">确认
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-primary" lay-btn="cancel">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="layui-row" id="form" style="display:none;">
     <div class="layui-col-md10">
-        <form class="layui-form layui-from-pane" lay-filter="form" action="" style="margin-top:20px">
+        <form class="layui-form layui-from-pane" lay-filter="form" action="">
             <input name="id" type="hidden">
             <div class="layui-form-item">
                 <label class="layui-form-label">角色名称</label>
@@ -68,22 +139,85 @@
 <script src="/static/plugin/xh/js/xh-common.js"></script>
 
 <script>
-    layui.use('table', function () {
+    layui.use(['table', 'tree'], function () {
         let table = layui.table
+            , tree = layui.tree
             , form = layui.form
+            , util = layui.util
             , layer = layui.layer;
 
+        let global = {};
+
         $ = layui.jquery;
+
+        tree.render({
+            elem: '#tree',
+            showCheckbox: true,
+            id: "permissionTree",
+            edit: ['del'],
+            operate: function (obj) {
+                let type = obj.type; //得到操作类型：add、edit、del
+                let data = obj.data; //得到当前节点的数据
+                let elem = obj.elem; //得到当前节点元素
+
+                if (type === 'del') {
+                    let success = function () {
+                    };
+                    if (data.id < 0) {
+                        $.each(data.children, function (i, item) {
+                            del("/sec/permission/" + item.id, success)
+                        });
+                    } else {
+                        del("/sec/permission/" + data.id, success)
+                    }
+                }
+            }
+        });
+
+        let loadTree = function () {
+            let index = layer.load();
+            get("/sec/permission/all", function (res) {
+
+                let map = {};
+                $.each(res, function (i, item) {
+                    let name = item.name.split(":")[0];
+                    let arr = map[name];
+                    if (!arr) {
+                        arr = map[name] = [];
+                    }
+                    arr.push({
+                        title: (item.desc || '') + '(' + (item.name || '') + ')',
+                        id: item.id
+                    });
+                });
+
+                let treeData = [];
+                let id = -1; //一级目录没有id时，会导致无法获取数据
+                for (let key in map) {
+                    treeData.push({
+                        title: key,
+                        id: id--,
+                        children: map[key],
+                        spread: true,    // 默认展开
+                        // disabled : true
+                    });
+                }
+
+                tree.reload("permissionTree", {data: treeData});
+                layer.close(index);
+            });
+        };
+        loadTree();
 
         table.render({
             elem: '#table'
             , url: '/sec/role'
-            , height: 'full-20'
+            , height: 'full-30'
             , cellMinWidth: 80
             , toolbar: '#toolbar'
             , cols: [[
                 {field: 'id', title: 'ID', width: 100, hide: true}
-                , {field: 'roleName', title: '角色名', width: 200}
+                , {field: 'roleName', title: '角色名', width: 100}
                 , {field: 'roleDesc', title: '角色描述'}
                 , {field: 'isDefault', title: '是否默认', width: 110, templet: '#isDefaultTpl'}
                 , {fixed: 'right', title: '操作', toolbar: '#bar', width: 150}
@@ -102,11 +236,80 @@
             }
         });
 
+        $("#tree").height($("#tableDiv").height() - 100);
+
         let index;
+        util.event('lay-btn', {
+            save: function (othis) {
+                let roleId = global.roleId;
+                if (!roleId) {
+                    return;
+                }
+
+                let checkedData = tree.getChecked('permissionTree');
+                let arr = [];
+                $.each(checkedData, function (i1, item1) {
+                    $.each(item1.children, function (i2, item2) {
+                        arr.push(item2.id);
+                    });
+                });
+
+                let index = layer.load();
+                put("/sec/role/permission/role", {roleId: roleId, ids: arr}, function (res) {
+                    layer.close(index);
+                });
+            },
+            add: function (othis) {
+                index = layer.open({
+                    type: 1,
+                    title: "权限编辑",
+                    area: ['420px', '330px'],
+                    shadeClose: false,
+                    content: $("#permission")
+                });
+            },
+            cancel: function (othis) {
+                layer.close(index);
+            }
+        });
+
+        form.on('submit(confirm-permission)', function (massage) {
+
+            let data = massage.field;
+
+            let success = function () {
+                loadTree();
+                form.val("form-permission", {
+                    name: "",
+                    desc: "",
+                    switch: false
+                });
+                layer.close(index);
+            };
+            let error = function () {
+                layer.alert("新增失败");
+            };
+
+            if (data.switch === 'on') {
+                let nameAfter = [':insert', ':delete', ':update', ':select'];
+                let descAfter = ['-增', '-删', '-改', '-查'];
+                for (let i = 0; i < 4; i++) {
+                    let d = {
+                        name: data.name + nameAfter[i],
+                        desc: data.desc + descAfter[i]
+                    };
+                    post("/sec/permission", d, success, error);
+                }
+            } else {
+                post("/sec/permission", data, success, error);
+            }
+            return false;
+        });
+
         let openForm = function (data) {
             index = layer.open({
                 type: 1,
-                title: "表单",
+                title: "角色编辑",
                 area: ['420px', '330px'],
                 shadeClose: false,
                 content: $("#form")
@@ -136,6 +339,24 @@
             }
         });
 
+        let loadPermission = function (roleId) {
+
+            global.roleId = null;
+
+            get("/sec/role/permission/role/" + roleId, function (res) {
+                tree.reload('permissionTree');
+                tree.setChecked('permissionTree', res);
+
+                global.roleId = roleId;
+            })
+
+        };
+
+        table.on('row(table)', function (obj) {
+            obj.tr.addClass("active").siblings().removeClass("active");
+            $("#roleName").text((obj.data.roleDesc || '') + '(' + (obj.data.roleName || '') + ')');
+            loadPermission(obj.data.id);
+        });
 
         let error = function (data) {
             layer.alert('失败');
@@ -146,7 +367,7 @@
             if (obj.event === 'del') {
                 layer.confirm('确认删除？', function (index) {
 
-                    del("/sec/role/"+ data.id, function () {
+                    del("/sec/role/" + data.id, function () {
                         obj.del();
                         layer.close(index);
                     }, error);
@@ -175,7 +396,6 @@
                     layer.close(index);
                 }, error)
             }
-
 
             return false;
         })
