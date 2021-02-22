@@ -53,6 +53,14 @@ public final class Final {
         public static final int XIAO_HE_USER_ID = 3;
     }
 
+    public static final class Sys{
+        private Sys(){
+
+        }
+
+        public static final String SEC_ADMIN_ROLE_NAME = "secAdmin";
+    }
+
     public static final class SessionKey {
         private SessionKey() {
         }

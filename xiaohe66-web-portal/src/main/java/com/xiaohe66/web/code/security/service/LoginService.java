@@ -8,7 +8,7 @@ import com.xiaohe66.web.base.util.PwdUtils;
 import com.xiaohe66.web.base.util.RegexUtils;
 import com.xiaohe66.web.base.util.WebUtils;
 import com.xiaohe66.web.cache.CacheHelper;
-import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.dto.CurrentUser;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.security.auth.entity.EmailAuthCode;
@@ -152,12 +152,12 @@ public class LoginService {
         userService.updateById(newUser);
     }
 
-    public UserDto login(Integer userId) {
+    public CurrentUser login(Integer userId) {
         User user = userService.getById(userId);
         return loginToShiro(user);
     }
 
-    public UserDto login(String loginName, String userPwd) {
+    public CurrentUser login(String loginName, String userPwd) {
 
         log.debug("loginName={}", loginName);
 
@@ -165,7 +165,7 @@ public class LoginService {
         Check.notEmpty(loginName, "userPwd");
 
         Subject subject = SecurityUtils.getSubject();
-        UserDto currentUsr = (UserDto) subject.getSession().getAttribute(Final.SessionKey.CURRENT_LOGIN_USER);
+        CurrentUser currentUsr = (CurrentUser) subject.getSession().getAttribute(Final.SessionKey.CURRENT_LOGIN_USER);
 
         if (currentUsr != null && loginName.equals(currentUsr.getUserName())) {
             //该用户已经登录
@@ -187,7 +187,7 @@ public class LoginService {
         return this.loginToShiro(dbUsr);
     }
 
-    private UserDto loginToShiro(User user) {
+    private CurrentUser loginToShiro(User user) {
         log.info("登录到系统：{}", user.getUserName());
         String userName = user.getUserName();
         String userPwd = user.getUserPwd();
@@ -201,7 +201,7 @@ public class LoginService {
             return null;
         }
         //构建dto
-        UserDto dtoUsr = new UserDto(user);
+        CurrentUser dtoUsr = new CurrentUser(user);
         //注入session
         subject.getSession().setAttribute(Final.SessionKey.CURRENT_LOGIN_USER, dtoUsr);
         return dtoUsr;

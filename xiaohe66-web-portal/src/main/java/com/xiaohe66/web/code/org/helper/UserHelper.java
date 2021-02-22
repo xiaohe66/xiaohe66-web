@@ -4,7 +4,7 @@ import com.xiaohe66.web.base.data.CodeEnum;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.exception.XhWebException;
 import com.xiaohe66.web.base.util.WebUtils;
-import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.dto.CurrentUser;
 
 /**
  * @author xh
@@ -16,8 +16,8 @@ public class UserHelper {
     private UserHelper() {
     }
 
-    public static UserDto getCurrentUsr() {
-        UserDto usrDto = getCurrentUsrNotEx();
+    public static CurrentUser getCurrentUsr() {
+        CurrentUser usrDto = getCurrentUsrNotEx();
         if (usrDto == null) {
             throw new XhWebException(CodeEnum.B2_NOT_LOGGED_IN);
         }
@@ -28,12 +28,12 @@ public class UserHelper {
         return getCurrentUsr().getId();
     }
 
-    public static UserDto getCurrentUsrNotEx() {
+    public static CurrentUser getCurrentUsrNotEx() {
         return WebUtils.getSessionAttr(Final.SessionKey.CURRENT_LOGIN_USER);
     }
 
     public static Integer getCurrentUsrIdNotEx() {
-        UserDto usrDto = getCurrentUsrNotEx();
+        CurrentUser usrDto = getCurrentUsrNotEx();
         return usrDto == null ? null : usrDto.getId();
     }
 }

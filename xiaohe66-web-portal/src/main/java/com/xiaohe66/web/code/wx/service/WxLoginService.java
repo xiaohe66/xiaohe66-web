@@ -4,7 +4,7 @@ import com.xiaohe66.common.net.ex.RequesterException;
 import com.xiaohe66.web.base.annotation.PrintLog;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
-import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.dto.CurrentUser;
 import com.xiaohe66.web.code.org.po.User;
 import com.xiaohe66.web.code.org.po.WxUser;
 import com.xiaohe66.web.code.org.service.UserService;
@@ -90,7 +90,7 @@ public class WxLoginService {
                 wxUserService.updateById(wxUser);
             }
 
-            UserDto userDto = loginService.login(dbWxUser.getUserId());
+            CurrentUser userDto = loginService.login(dbWxUser.getUserId());
 
             //注入session
             Session session = SecurityUtils.getSubject().getSession();

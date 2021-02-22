@@ -21,4 +21,6 @@ public interface UserRoleMapper extends IBaseMapper<UserRole> {
 
     List<UserRole> listByUserId(Integer userId);
 
+    Set<Integer> listRoleByUserId(Integer userId);
+
 }

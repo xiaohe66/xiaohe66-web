@@ -1,14 +1,18 @@
 package com.xiaohe66.web.code.org.service;
 
+import com.xiaohe66.web.base.base.DtoConverter;
 import com.xiaohe66.web.base.base.impl.AbstractService;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.util.Check;
 import com.xiaohe66.web.base.util.ClassUtils;
 import com.xiaohe66.web.base.util.HtmlUtils;
 import com.xiaohe66.web.code.org.dto.LookAtUserDto;
+import com.xiaohe66.web.code.org.dto.UserDto;
 import com.xiaohe66.web.code.org.helper.UserHelper;
 import com.xiaohe66.web.code.org.mapper.UserMapper;
 import com.xiaohe66.web.code.org.po.User;
+import com.xiaohe66.web.code.org.po.WxUser;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +26,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class UserService extends AbstractService<UserMapper, User> {
+@AllArgsConstructor
+public class UserService extends AbstractService<UserMapper, User> implements DtoConverter<User, UserDto> {
+
+    private final WxUserService wxUserService;
 
     @Override
     public boolean updateById(User po) {
@@ -80,5 +87,15 @@ public class UserService extends AbstractService<UserMapper, User> {
         User user = getById(userId);
 
         return ClassUtils.convert(LookAtUserDto.class, user);
+    }
+
+    @Override
+    public void convertDto(UserDto dto, User po) {
+
+        WxUser wxUser = wxUserService.getByUserId(po.getId());
+        if(wxUser != null){
+            dto.setWxNickname(wxUser.getNickname());
+        }
+
     }
 }

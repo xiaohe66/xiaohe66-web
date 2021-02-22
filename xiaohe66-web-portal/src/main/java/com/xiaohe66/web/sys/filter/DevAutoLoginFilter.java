@@ -1,7 +1,7 @@
 package com.xiaohe66.web.sys.filter;
 
 import com.xiaohe66.web.base.data.Final;
-import com.xiaohe66.web.code.org.dto.UserDto;
+import com.xiaohe66.web.code.org.dto.CurrentUser;
 import com.xiaohe66.web.code.security.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -41,7 +41,7 @@ public class DevAutoLoginFilter implements Filter {
             if (!"/wx/login".equals(uri)) {
                 log.info("开发登录器自动登录");
                 try {
-                    UserDto user = loginService.login(Final.User.ADMIN_USER_ID);
+                    CurrentUser user = loginService.login(Final.User.ADMIN_USER_ID);
                     log.info("登录成功, userDto : {}", user);
 
                 } catch (Exception e) {

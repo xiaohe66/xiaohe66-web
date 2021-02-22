@@ -16,6 +16,5 @@ public class UserRole extends BasePo {
 
     private Integer userId;
     private Integer roleId;
-    private Boolean isDefault;
 
 }

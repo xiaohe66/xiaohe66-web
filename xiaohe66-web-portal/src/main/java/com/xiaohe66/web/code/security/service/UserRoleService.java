@@ -1,16 +1,19 @@
 package com.xiaohe66.web.code.security.service;
 
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.data.Result;
 import com.xiaohe66.web.base.util.Check;
-import com.xiaohe66.web.base.util.ClassUtils;
-import com.xiaohe66.web.code.security.dto.UserRoleDto;
 import com.xiaohe66.web.code.security.mapper.UserRoleMapper;
-import com.xiaohe66.web.code.security.po.Role;
 import com.xiaohe66.web.code.security.po.UserRole;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 用户角色关联service
@@ -40,29 +43,29 @@ public class UserRoleService extends AbstractService<UserRoleMapper, UserRole> {
         baseMapper.addUserRoles(userId, roleIdSet);
     }
 
-    public List<UserRole> listByUserId(Integer userId) {
-        return baseMapper.listByUserId(userId);
+    @Transactional(rollbackFor = Exception.class)
+    public Result updateByUserId(Integer userId, int[] roleIdArr) {
+
+        UserRoleService userRoleService = (UserRoleService) AopContext.currentProxy();
+        userRoleService.removeByMap(Collections.singletonMap("user_id", userId));
+
+        if (roleIdArr.length > 0) {
+            List<UserRole> newUserRoleList = Arrays.stream(roleIdArr)
+                    .mapToObj(roleId -> {
+                        UserRole userRole = new UserRole();
+                        userRole.setUserId(userId);
+                        userRole.setRoleId(roleId);
+                        return userRole;
+                    }).collect(Collectors.toList());
+
+            userRoleService.saveBatch(newUserRoleList);
+        }
+
+        return Result.ok();
     }
 
-    public List<UserRoleDto> listUserRole(Integer userId) {
-
-        List<Role> roleList = roleService.list();
-
-        List<UserRole> userRoleList = listByUserId(userId);
-
-        return ClassUtils.convert(UserRoleDto.class, roleList, (dto, po) -> {
-
-            dto.setIsChecked(false);
-            for (UserRole userRole : userRoleList) {
-                if (po.getId().equals(userRole.getRoleId())) {
-
-                    dto.setIsChecked(true);
-
-                    userRoleList.remove(userRole);
-                    break;
-                }
-            }
-
-        });
+    public Set<Integer> listRoleByUserId(Integer userId) {
+        return baseMapper.listRoleByUserId(userId);
     }
+
 }

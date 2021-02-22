@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/static/plugin/layui/css/layui.css" media="all">
+    <style>
+        .tree-c {
+            padding-left: 30px;
+        }
+
+        .layui-form {
+            margin-top: 20px;
+        }
+
+        #tree {
+            overflow-y: auto;
+        }
+
+        .active {
+            background-color: #ced4da;
+        }
+
+        #permission {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="layui-row">
+    <div id="tableDiv" class="layui-col-md6">
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+    </div>
+    <div class="layui-col-md6 tree-c">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>角色</legend>
+        </fieldset>
+        <div class="layui-row">
+            <span id="userName"></span>
+            <button type="button" class="layui-btn layui-btn-sm" lay-btn="save">保存</button>
+        </div>
+        <div id="transfer"></div>
+    </div>
+</div>
+
+<script src="/static/plugin/layui/layui.js" charset="utf-8"></script>
+<script src="/static/plugin/xh/js/xh-common.js"></script>
+
+<script>
+    layui.use(['table', 'transfer'], function () {
+        let table = layui.table
+            , transfer = layui.transfer
+            , form = layui.form
+            , util = layui.util
+            , layer = layui.layer;
+
+        let global = {
+            roleList: []
+        };
+
+        $ = layui.jquery;
+
+        let showRole = function (value) {
+            transfer.render({
+                elem: '#transfer',
+                title: ['未选角色', '已选角色'],
+                data: global.roleList,
+                id: "transfer",
+                value: value || [],
+                parseData(item) {
+                    return {
+                        value: item.id,
+                        title: (item.roleDesc || '') + '(' + item.roleName + ')'
+                    }
+                }
+            });
+        };
+
+        get("/sec/role/all", function (res) {
+            global.roleList = res;
+            showRole();
+        });
+
+        table.render({
+            elem: '#table'
+            , url: '/org/user'
+            , height: 'full-30'
+            , cellMinWidth: 80
+            , cols: [[
+                {field: 'id', title: 'ID', width: 50}
+                , {field: 'userName', title: '用户名', width: 150}
+                , {field: 'email', title: '邮箱'}
+                , {field: 'wxNickname', title: '微信用户'},
+            ]]
+            , page: true
+            , response: {
+                statusCode: 100
+            }
+            , parseData: function (res) {
+                return {
+                    "code": res.code,
+                    "msg": res.msg,
+                    "count": res.data && res.data.total,
+                    "data": res.data && res.data.records
+                };
+            }
+        });
+
+        let index;
+        util.event('lay-btn', {
+            save: function (othis) {
+                let userId = global.userId;
+                if (!userId) {
+                    return;
+                }
+                let roleIdArr = transfer.getData('transfer');
+
+                let arr = [];
+                $.each(roleIdArr,function(i,item){
+                    arr.push(item.value);
+                });
+
+                let index = layer.load();
+                put("/sec/user/role/user", {userId: userId, ids: arr}, function (res) {
+                    layer.close(index);
+                });
+            }
+        });
+
+        table.on('row(table)', function (obj) {
+            obj.tr.addClass("active").siblings().removeClass("active");
+
+            $("#userName").text(obj.data.wxNickname || obj.data.userName);
+            global.userId = null;
+
+            get("/sec/user/role/user/" + obj.data.id, function (res) {
+                showRole(res);
+                global.userId = obj.data.id;
+            })
+
+        });
+    });
+</script>
+
+</body>
+</html>

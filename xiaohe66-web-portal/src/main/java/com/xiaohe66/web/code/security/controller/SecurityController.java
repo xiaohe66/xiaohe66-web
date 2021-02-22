@@ -5,6 +5,7 @@ import com.xiaohe66.web.base.base.BaseDto;
 import com.xiaohe66.web.base.base.BasePo;
 import com.xiaohe66.web.base.base.IBaseMapper;
 import com.xiaohe66.web.base.base.impl.AbstractService;
+import com.xiaohe66.web.base.data.Final;
 
 /**
  * @author xiaohe
@@ -13,7 +14,7 @@ import com.xiaohe66.web.base.base.impl.AbstractService;
 public class SecurityController<S extends AbstractService<? extends IBaseMapper, P>, P extends BasePo, D extends BaseDto>
         extends BaseController<S, P, D> {
 
-    protected static final String SEC_ADMIN_ROLE_NAME = "secAdmin";
+    protected static final String SEC_ADMIN_ROLE_NAME = Final.Sys.SEC_ADMIN_ROLE_NAME;
 
     @Override
     protected void checkSave(P po) {

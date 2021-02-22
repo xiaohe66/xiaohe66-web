@@ -34,16 +34,19 @@ public class RolePermissionService extends AbstractService<RolePermissionMapper,
 
         rolePermissionService.removeByMap(Collections.singletonMap("role_id", roleId));
 
-        List<RolePermission> list = Arrays.stream(permissionIdArr)
-                .mapToObj(id -> {
-                    RolePermission rolePermission = new RolePermission();
-                    rolePermission.setRoleId(roleId);
-                    rolePermission.setPermissionId(id);
-                    return rolePermission;
-                })
-                .collect(Collectors.toList());
+        if (permissionIdArr.length > 0) {
 
-        rolePermissionService.saveBatch(list);
+            List<RolePermission> list = Arrays.stream(permissionIdArr)
+                    .mapToObj(id -> {
+                        RolePermission rolePermission = new RolePermission();
+                        rolePermission.setRoleId(roleId);
+                        rolePermission.setPermissionId(id);
+                        return rolePermission;
+                    })
+                    .collect(Collectors.toList());
+
+            rolePermissionService.saveBatch(list);
+        }
 
         return Result.ok();
     }
