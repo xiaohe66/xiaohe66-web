@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaohe66.web.code.sys.mapper.MenuMapper">
+
+    <update id="createTable">
+        CREATE TABLE `sys_menu` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `create_id` int(11) NOT NULL COMMENT '创建者id',
+          `create_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+          `update_id` int(11) NOT NULL COMMENT '更新者id',
+          `update_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+          `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除,1:删除）',
+          `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级菜单;值为0时为1级菜单',
+          `name` varchar(32) NOT NULL,
+          `link` varchar(512) NOT NULL,
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </update>
+
+    <select id="selectByPid" resultType="com.xiaohe66.web.code.sys.po.Menu">
+        select * from sys_menu where pid = #{pid} and is_delete = 0
+    </select>
+
+</mapper>

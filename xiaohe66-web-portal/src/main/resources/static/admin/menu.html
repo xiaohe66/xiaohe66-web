@@ -26,7 +26,7 @@
             height: 100%;
         }
 
-        #home{
+        #home {
             cursor: pointer;
         }
 
@@ -35,23 +35,9 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo" id="home">xiaohe66首页</div>
+        <div class="layui-logo" id="home">xiaohe66</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <!--<li class="layui-nav-item">
-                <button class="layui-btn site-demo-active" data-type="tabAdd">新增Tab项</button>
-            </li>-->
-            <!--<li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>-->
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
@@ -89,68 +75,62 @@
         © layui.com - 底部固定区域
     </div>-->
 </div>
-<script src="../plugin/layui/layui.js"></script>
+<script type="text/javascript" src="/static/plugin/layui/layui.js"></script>
+<script type="text/javascript" src="/static/plugin/xh/js/xh-common.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function () {
-        var $ = layui.jquery
-            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+        let element = layui.element;
 
-        let groups = [
-            {
-                name: '我们的', urls: [
-                    {id: 1, name: '照片墙管理', url: "/admin/love/photo/photoAdmin.html"}
-                ]
-            }
-        ];
+        $ = layui.jquery;
 
-        let $menu = $("#menu");
-        $.each(groups, function (index, group) {
+        get("/sys/menu/all", function (res) {
+            $.each(res, function (index, group) {
+                let groupName = '<a class="" href="javascript:;">' + group.name + '</a>';
+                let li = $('<li class="layui-nav-item layui-nav-itemed"></li>');
+                li.append(groupName);
+                $("#menu").append(li);
+                if (group.children) {
+                    let dl = $('<dl class="layui-nav-child"></dl>');
+                    li.append(dl);
+                    $.each(group.children, function (i, item) {
+                        let dd = $('<dd><a href="javascript:;">' + item.name + '</a></dd>');
+                        dd.attr('id', item.id);
+                        dd.attr('link', item.link);
+                        dl.append(dd);
+                    });
+                }
+            });
 
-            let groupName = '<a class="" href="javascript:;">' + group.name + '</a>';
-            let li = $('<li class="layui-nav-item layui-nav-itemed"></li>');
-            li.append(groupName);
-            $menu.append(li);
-            if (group.urls) {
-                let dl = $('<dl class="layui-nav-child"></dl>');
-                li.append(dl);
-                $.each(group.urls, function (i, item) {
-                    let dd = $('<dd><a href="javascript:;">' + item.name + '</a></dd>');
-                    dd.attr('id', item.id);
-                    dd.attr('url', item.url);
-                    dl.append(dd);
-                });
-            }
+            element.render('nav');
+
+            let tabs = {};
+            element.on('nav(menu)', function (elem) {
+                let dd = elem.parent();
+                let link = dd.attr('link');
+                if (!link) return;
+                let id = dd.attr('id');
+                if (!tabs[id]) {
+                    tabs[id] = id;
+                    let iframe = '<iframe src="' + link + '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>';
+                    element.tabAdd('tab', {
+                        title: elem.text(),
+                        content: iframe,
+                        id: id
+                    });
+                }
+                element.tabChange('tab', id);
+            });
+
+            element.on('tabDelete(tab)', function (data) {
+                let id = $(this).parent().attr('lay-id');
+                delete tabs[id];
+            });
         });
 
-        element.render('nav');
-
-        let tabs = {};
-        element.on('nav(menu)', function (elem) {
-            let dd = elem.parent();
-            let url = dd.attr('url');
-            if (!url) return;
-            let id = dd.attr('id');
-            if (!tabs[id]) {
-                tabs[id] = id;
-                let iframe = '<iframe src="' + url + '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>';
-                element.tabAdd('tab', {
-                    title: elem.text(),
-                    content: iframe,
-                    id: id
-                });
-            }
-            element.tabChange('tab', id);
-        });
-
-        element.on('tabDelete(tab)', function (data) {
-            let id = $(this).parent().attr('lay-id');
-            delete tabs[id];
-        });
-
-        $.get("/org/user/info",function (data) {
-            if(data.code === 100){
-                $("#userImg").attr("src","/org/user/file/img/"+data.data.imgFileId);
+        $.get("/org/user/info", function (data) {
+            if (data.code === 100) {
+                $("#userImg").attr("src", "/org/user/file/img/" + data.data.imgFileId);
                 $("#userName").text(data.data.userName);
             }
         });

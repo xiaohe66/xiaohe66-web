@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/static/plugin/layui/css/layui.css" media="all">
+    <style>
+        .tree-c {
+            padding-left: 30px;
+        }
+
+        .layui-form {
+            margin-top: 20px;
+        }
+
+        #tree {
+            overflow-y: auto;
+        }
+
+        .active {
+            background-color: #ced4da;
+        }
+
+        #form {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="layui-row">
+    <div id="tableDiv" class="layui-col-md6">
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+    </div>
+    <div class="layui-col-md6 tree-c">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>菜单</legend>
+        </fieldset>
+        <div class="layui-row">
+            <span id="name"></span>
+            <button type="button" class="layui-btn layui-btn-sm" lay-btn="save">保存</button>
+        </div>
+        <div id="tree"></div>
+    </div>
+</div>
+<div class="layui-row" id="form">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" lay-filter="form" action="" style="margin-top:20px">
+            <input name="id" type="hidden">
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" autocomplete="off"
+                           placeholder="请输入权限名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="desc" autocomplete="off" placeholder="请输入权限描述" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:40px">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn  layui-btn-submit" lay-submit="" lay-filter="confirm">确认
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-primary cancel" lay-btn="cancel">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="layui-row" id="menuForm" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" lay-filter="menuForm" action="">
+            <input name="id" type="hidden">
+            <input name="pid" type="hidden">
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" autocomplete="off"
+                           placeholder="请输入菜单名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="link" autocomplete="off" placeholder="请输入菜单链接" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:40px">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn  layui-btn-submit" lay-submit="" lay-filter="menuConfirm">确认
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-primary cancel" lay-btn="cancel">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+    </div>
+</script>
+
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-xs" lay-event="save">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="/static/plugin/layui/layui.js" charset="utf-8"></script>
+<script src="/static/plugin/xh/js/xh-common.js"></script>
+
+<script>
+    layui.use(['table', 'tree'], function () {
+        let table = layui.table
+            , tree = layui.tree
+            , form = layui.form
+            , util = layui.util
+            , layer = layui.layer;
+
+        $ = layui.jquery;
+
+        let index = null;
+        let global = {
+            addPid: null
+        };
+
+        let error = function (data) {
+            layer.alert('失败');
+        };
+
+        tree.render({
+            elem: '#tree',
+            showCheckbox: true,
+            id: "menuTree",
+            edit: ['del', 'add'],
+            operate: function (obj) {
+                let type = obj.type; //得到操作类型：add、edit、del
+                let data = obj.data; //得到当前节点的数据
+                let elem = obj.elem; //得到当前节点元素
+
+                if (type === 'del') {
+                    if (data.id > 0) {
+                        del("/sys/menu/" + data.id, function () {
+                        })
+                    }
+                } else if (type === 'add') {
+                    global.addPid = obj.data.id;
+                }
+            },
+            click: function (obj) {
+                if (obj.data.id === 0) return;
+
+                index = layer.open({
+                    type: 1,
+                    title: "菜单编辑",
+                    area: ['420px', '250px'],
+                    shadeClose: false,
+                    content: $("#menuForm")
+                });
+
+                form.val("menuForm", obj.data.id ? obj.data : {name: '', link: '', id: '', pid: global.addPid});
+            }
+        });
+
+        let loadTree = function () {
+            index = layer.load();
+            get("/sys/menu/all", function (res) {
+
+                let rename = function (arr) {
+                    $.each(arr, function (i, item) {
+                        item.title = item.name;
+                        item.spread = true;
+                        rename(item.children);
+                    });
+                };
+
+                rename(res);
+
+                let treeData = [{
+                    id: 0,
+                    title: '菜单',
+                    spread: true,    // 默认展开
+                    children: res
+                }];
+
+                tree.reload("menuTree", {data: treeData});
+                layer.close(index);
+            });
+        };
+        loadTree();
+
+        form.on('submit(menuConfirm)', function (massage) {
+            console.log("massage", massage);
+            let data = massage.field;
+
+            if (data.id) {
+                put("/sys/menu", data, function (data) {
+                    layer.close(index);
+                    loadTree();
+                }, error)
+            } else {
+
+                post("/sys/menu", data, function (res) {
+                    layer.close(index);
+                    loadTree();
+                }, error)
+            }
+
+            return false;
+        });
+
+        util.event('lay-btn', {
+            save: function (othis) {
+                console.log("save");
+                /*let roleId = global.roleId;
+                if (!roleId) {
+                    return;
+                }
+
+                let checkedData = tree.getChecked('permissionTree');
+                let arr = [];
+                $.each(checkedData, function (i1, item1) {
+                    $.each(item1.children, function (i2, item2) {
+                        arr.push(item2.id);
+                    });
+                });
+
+                let index = layer.load();
+                put("/sec/role/permission/role", {roleId: roleId, ids: arr}, function (res) {
+                    layer.close(index);
+                });*/
+            },
+            cancel: function (othis) {
+                layer.close(index);
+            }
+        });
+
+
+        table.render({
+            elem: '#table'
+            , url: '/sec/permission'
+            , height: 'full-20'
+            , cellMinWidth: 80
+            , toolbar: '#toolbar'
+            , cols: [[
+                {field: 'id', title: 'ID', width: 100, hide: true}
+                , {field: 'name', title: '权限名称', width: 200}
+                , {field: 'desc', title: '权限描述'}
+                , {fixed: 'right', title: '操作', toolbar: '#bar', width: 150}
+            ]]
+            , page: true
+            , response: {
+                statusCode: 100
+            }
+            , parseData: function (res) {
+                return {
+                    "code": res.code,
+                    "msg": res.msg,
+                    "count": res.data && res.data.total,
+                    "data": res.data && res.data.records
+                };
+            }
+        });
+
+        let openForm = function (data) {
+            index = layer.open({
+                type: 1,
+                title: "表单",
+                area: ['420px', '300px'],
+                shadeClose: false,
+                content: $("#form")
+            });
+
+            if (data) {
+                form.val("form", data);
+            }
+        };
+
+        let loadMenu = function (roleId) {
+
+            global.roleId = null;
+
+            // todo : 菜单权限
+            /*get("/sec/role/permission/role/" + roleId, function (res) {
+                tree.reload('permissionTree');
+                tree.setChecked('permissionTree', res);
+
+                global.roleId = roleId;
+            })*/
+
+        };
+
+        table.on('row(table)', function (obj) {
+            obj.tr.addClass("active").siblings().removeClass("active");
+            $("#name").text((obj.data.name || '') + '(' + (obj.data.desc || '') + ')');
+            loadMenu(obj.data.id);
+        });
+
+        //头工具栏事件
+        table.on('toolbar(table)', function (obj) {
+            switch (obj.event) {
+                case 'add':
+                    openForm({
+                        id: '',
+                        name: '',
+                        desc: ''
+                    });
+                    break;
+            }
+        });
+
+        table.on('tool(table)', function (obj) {
+            let data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确认删除？', function (index) {
+
+                    del("/sec/permission/" + data.id, function () {
+                        obj.del();
+                        layer.close(index);
+                    }, error);
+                });
+            } else if (obj.event === 'save') {
+                openForm(data);
+            }
+        });
+
+        form.on('submit(confirm)', function (massage) {
+            let data = massage.field;
+
+            if (data.id) {
+                put("/sec/permission", data, function (data) {
+                    table.reload('table', {});
+                    layer.close(index);
+                }, error)
+            } else {
+                post("/sec/permission", data, function (data) {
+                    table.reload('table', {});
+                    layer.close(index);
+                }, error)
+            }
+
+            return false;
+        })
+
+    });
+</script>
+
+</body>
+</html>
