@@ -1,4 +1,4 @@
-package com.xiaohe66.web.sys.filter;
+package com.xiaohe66.web.code.security.auth.shrio;
 
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.code.org.dto.CurrentUser;
@@ -7,35 +7,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author xiaohe
  * @time 2019.12.09 11:07
  */
 @Slf4j
-public class DevAutoLoginFilter implements Filter {
+public class DevAutoLoginExtend implements ShiroFilterIsAccessAllowedHandler.Extend {
 
     @Autowired
     private LoginService loginService;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        log.info("初始化开发登录器");
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public boolean before(HttpServletRequest request, HttpServletResponse response) {
         if (!SecurityUtils.getSubject().isAuthenticated()) {
 
-            HttpServletRequest request = (HttpServletRequest) servletRequest;
             String uri = request.getRequestURI();
 
             if (!"/wx/login".equals(uri)) {
@@ -49,11 +37,6 @@ public class DevAutoLoginFilter implements Filter {
                 }
             }
         }
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void destroy() {
-        log.info("销毁开发登录器");
+        return true;
     }
 }
