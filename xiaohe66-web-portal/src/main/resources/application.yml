@@ -28,11 +28,14 @@ mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
 
 #------------- logback ---------------------------------
+# 输出格式：
+# %line 行号
+# %M  方法名
 logging:
   config: classpath:logback-spring.xml
   pattern:
-    console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15}) >>> %msg %n'
-    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30} >>> %msg %n'
+    console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15})#M.%line >>> %msg %n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30}#M.%line >>> %msg %n'
 
 #------------- shrio ---------------------------------
 #配置性参数
