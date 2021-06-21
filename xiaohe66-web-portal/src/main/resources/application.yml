@@ -34,8 +34,8 @@ mybatis-plus:
 logging:
   config: classpath:logback-spring.xml
   pattern:
-    console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15})#M.%line >>> %msg %n'
-    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30}#M.%line >>> %msg %n'
+    console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15}) - %msg %n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30} - %msg %n'
 
 #------------- shrio ---------------------------------
 #配置性参数
