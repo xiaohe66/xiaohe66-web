@@ -1,8 +1,8 @@
-package com.xiaohe66.web.code.wx.request;
+package com.xiaohe66.web.code.wx.api.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.xiaohe66.web.base.base.BaseRequest;
+import com.xiaohe66.common.api.IApiModel;
 import lombok.Data;
 
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * @time 2021.01.26 14:50
  */
 @Data
-public class WxSubscribeMessageSendRequest implements BaseRequest {
+public class WxSubscribeMessageSendModel implements IApiModel {
 
     @Expose
     private String accessToken;

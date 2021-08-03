@@ -1,6 +1,6 @@
 package com.xiaohe66.web.code.wx.service;
 
-import com.xiaohe66.common.net.ex.RequesterException;
+import com.xiaohe66.common.api.ApiException;
 import com.xiaohe66.web.base.annotation.PrintLog;
 import com.xiaohe66.web.base.data.Final;
 import com.xiaohe66.web.base.data.Result;
@@ -10,10 +10,12 @@ import com.xiaohe66.web.code.org.po.WxUser;
 import com.xiaohe66.web.code.org.service.UserService;
 import com.xiaohe66.web.code.org.service.WxUserService;
 import com.xiaohe66.web.code.security.service.LoginService;
-import com.xiaohe66.web.code.wx.request.WxCode2SessionRequest;
-import com.xiaohe66.web.code.wx.requester.WxCode2SessionRequester;
-import com.xiaohe66.web.code.wx.response.WxCode2SessionResponse;
+import com.xiaohe66.web.code.wx.api.WxApiClient;
+import com.xiaohe66.web.code.wx.api.model.WxCode2SessionModel;
+import com.xiaohe66.web.code.wx.api.request.WxCode2SessionRequest;
+import com.xiaohe66.web.code.wx.api.response.WxCode2SessionResponse;
 import com.xiaohe66.web.config.WxConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -30,39 +32,32 @@ import java.util.Map;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class WxLoginService {
 
-    private LoginService loginService;
-
-    private UserService userService;
-
-    private WxUserService wxUserService;
-
-    private final WxCode2SessionRequester requester;
+    private final LoginService loginService;
+    private final UserService userService;
+    private final WxUserService wxUserService;
+    private final WxApiClient client;
 
     private final WxConfig config;
-
-    public WxLoginService(LoginService loginService, UserService userService, WxUserService wxUserService, WxCode2SessionRequester requester, WxConfig config) {
-        this.loginService = loginService;
-        this.userService = userService;
-        this.wxUserService = wxUserService;
-        this.requester = requester;
-        this.config = config;
-    }
 
     @PrintLog
     public Result login(WxUser wxUser, String code) {
 
+        WxCode2SessionModel model = new WxCode2SessionModel();
+        model.setAppId(config.getAppId());
+        model.setAppSecret(config.getAppSecret());
+        model.setCode(code);
+
         WxCode2SessionRequest request = new WxCode2SessionRequest();
-        request.setAppId(config.getAppId());
-        request.setAppSecret(config.getAppSecret());
-        request.setCode(code);
+        request.setModel(model);
 
         WxCode2SessionResponse response;
         try {
-            response = requester.call(request);
+            response = client.execute(request);
 
-        } catch (RequesterException e) {
+        } catch (ApiException e) {
             log.error("微信登录失败, code : {}", code, e);
             return Result.err("微信登录失败");
         }

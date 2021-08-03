@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.wx.request;
+package com.xiaohe66.web.code.wx.api.model;
 
-import com.xiaohe66.web.base.base.BaseRequest;
+import com.xiaohe66.common.api.IApiModel;
 import lombok.Data;
 
 /**
@@ -8,7 +8,7 @@ import lombok.Data;
  * @time 2021.01.26 14:33
  */
 @Data
-public class WxGetAccessTokenRequest implements BaseRequest {
+public class WxGetAccessTokenModel implements IApiModel {
 
     private String grantType;
     private String appId;

@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.wx.request;
+package com.xiaohe66.web.code.wx.api.model;
 
-import com.xiaohe66.web.base.base.BaseRequest;
+import com.xiaohe66.common.api.IApiModel;
 import lombok.Data;
 
 /**
@@ -8,7 +8,7 @@ import lombok.Data;
  * @time 2019.12.10 15:48
  */
 @Data
-public class WxCode2SessionRequest implements BaseRequest {
+public class WxCode2SessionModel implements IApiModel {
 
     private String appId;
     private String appSecret;

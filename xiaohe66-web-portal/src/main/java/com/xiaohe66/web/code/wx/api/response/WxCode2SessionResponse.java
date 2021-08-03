@@ -1,7 +1,7 @@
-package com.xiaohe66.web.code.wx.response;
+package com.xiaohe66.web.code.wx.api.response;
 
-import com.google.gson.annotations.SerializedName;
-import com.xiaohe66.web.base.base.BaseResponse;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xiaohe66.web.code.wx.api.BaseWxApiResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,15 +12,15 @@ import lombok.Getter;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class WxCode2SessionResponse extends BaseResponse {
+public class WxCode2SessionResponse extends BaseWxApiResponse {
 
-    @SerializedName("openid")
+    @JsonProperty("openid")
     private String openId;
 
-    @SerializedName("session_key")
+    @JsonProperty("session_key")
     private String sessionKey;
 
-    @SerializedName("unionid")
+    @JsonProperty("unionid")
     private String unionId;
 
     @Getter

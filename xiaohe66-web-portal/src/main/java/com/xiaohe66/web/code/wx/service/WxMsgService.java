@@ -1,10 +1,11 @@
 package com.xiaohe66.web.code.wx.service;
 
-import com.xiaohe66.common.net.ex.RequesterException;
+import com.xiaohe66.common.api.ApiException;
 import com.xiaohe66.web.base.holder.WxAccessTokenHolder;
-import com.xiaohe66.web.code.wx.request.WxSubscribeMessageSendRequest;
-import com.xiaohe66.web.code.wx.requester.WxSubscribeMessageSendRequester;
-import com.xiaohe66.web.code.wx.response.WxSubscribeMessageSendResponse;
+import com.xiaohe66.web.code.wx.api.WxApiClient;
+import com.xiaohe66.web.code.wx.api.model.WxSubscribeMessageSendModel;
+import com.xiaohe66.web.code.wx.api.request.WxSubscribeMessageSendRequest;
+import com.xiaohe66.web.code.wx.api.response.WxSubscribeMessageSendResponse;
 import com.xiaohe66.web.config.WxConfig;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,21 +22,25 @@ import java.util.Map;
 @Slf4j
 public class WxMsgService {
 
-    private WxSubscribeMessageSendRequester sendRequester;
-    private WxConfig wxConfig;
+    private final WxApiClient client;
+    private final WxConfig wxConfig;
 
     public boolean sendWxMsg(String templateId, String openId, Map<String, Object> data) {
 
-        WxSubscribeMessageSendRequest request = new WxSubscribeMessageSendRequest();
+        WxSubscribeMessageSendModel model = new WxSubscribeMessageSendModel();
 
-        request.setAccessToken(WxAccessTokenHolder.get());
-        request.setToUser(openId);
-        request.setMiniProgramState(wxConfig.getMiniProgramState());
-        request.setTemplateId(templateId);
-        request.setData(data);
+        model.setAccessToken(WxAccessTokenHolder.get());
+        model.setToUser(openId);
+        model.setMiniProgramState(wxConfig.getMiniProgramState());
+        model.setTemplateId(templateId);
+        model.setData(data);
+
+        WxSubscribeMessageSendRequest request = new WxSubscribeMessageSendRequest();
+        request.setModel(model);
 
         try {
-            WxSubscribeMessageSendResponse response = sendRequester.call(request);
+
+            WxSubscribeMessageSendResponse response = client.execute(request);
             Integer errCode = response.getErrCode();
             if (errCode != null && errCode != 0) {
                 log.error("send wx msg error, templateId : {}, openId : {}, data : {}", templateId, openId, data);
@@ -43,7 +48,7 @@ public class WxMsgService {
             }
             return true;
 
-        } catch (RequesterException e) {
+        } catch (ApiException e) {
             log.error("send wx msg error, templateId : {}, openId : {}, data : {}", templateId, openId, data, e);
             return false;
         }

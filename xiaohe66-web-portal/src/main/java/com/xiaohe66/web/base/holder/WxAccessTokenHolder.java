@@ -1,9 +1,10 @@
 package com.xiaohe66.web.base.holder;
 
-import com.xiaohe66.common.net.ex.RequesterException;
-import com.xiaohe66.web.code.wx.request.WxGetAccessTokenRequest;
-import com.xiaohe66.web.code.wx.requester.WxGetAccessTokenRequester;
-import com.xiaohe66.web.code.wx.response.WxGetAccessTokenResponse;
+import com.xiaohe66.common.api.ApiException;
+import com.xiaohe66.web.code.wx.api.WxApiClient;
+import com.xiaohe66.web.code.wx.api.model.WxGetAccessTokenModel;
+import com.xiaohe66.web.code.wx.api.request.WxGetAccessTokenRequest;
+import com.xiaohe66.web.code.wx.api.response.WxGetAccessTokenResponse;
 import com.xiaohe66.web.config.WxConfig;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,11 @@ public class WxAccessTokenHolder {
 
     private static String accessToken;
 
-    private final WxGetAccessTokenRequester requester;
+    private final WxApiClient apiClient;
     private final WxConfig wxConfig;
 
     public static String get() {
+
         if (accessToken == null) {
             throw new IllegalStateException("cannot get accessToken");
         }
@@ -33,20 +35,25 @@ public class WxAccessTokenHolder {
 
     private WxGetAccessTokenResponse getAccessToken() {
 
+        WxGetAccessTokenModel model = new WxGetAccessTokenModel();
+        model.setAppId(wxConfig.getAppId());
+        model.setSecret(wxConfig.getAppSecret());
+        model.setGrantType("client_credential");
+
         WxGetAccessTokenRequest request = new WxGetAccessTokenRequest();
-        request.setAppId(wxConfig.getAppId());
-        request.setSecret(wxConfig.getAppSecret());
-        request.setGrantType("client_credential");
+        request.setModel(model);
 
         WxGetAccessTokenResponse response;
         try {
-            response = requester.call(request);
-        } catch (RequesterException e) {
+            response = apiClient.execute(request);
+
+        } catch (ApiException e) {
 
             log.warn("getAccessToken异常, 重试一次 , errMsg : {}", e.getMessage());
             try {
-                response = requester.call(request);
-            } catch (RequesterException e1) {
+                response = apiClient.execute(request);
+
+            } catch (ApiException e1) {
 
                 log.error("getAccessToken异常，重试后仍然失败");
                 return null;
