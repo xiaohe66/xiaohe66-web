@@ -5,12 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xiaohe66</groupId>
-    <artifactId>web</artifactId>
+    <artifactId>xiaohe66-web</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
     <modules>
         <module>xiaohe66-web-portal</module>
+        <module>xiaohe66-web-core</module>
+        <module>xiaohe66-web-infrastructure-mybatis</module>
     </modules>
 
     <build>
@@ -19,7 +21,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
@@ -48,6 +50,9 @@
         <commons.io.version>2.4</commons.io.version>
 
         <xh-commons.version>1.0.0</xh-commons.version>
+        <xiaohe66-ddd.version>0.0.1</xiaohe66-ddd.version>
+        <lombok.version>1.18.10</lombok.version>
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 
     </properties>
 
@@ -89,6 +94,12 @@
                 <groupId>com.xiaohe66</groupId>
                 <artifactId>commons</artifactId>
                 <version>${xh-commons.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66</groupId>
+                <artifactId>xiaohe66-web-core</artifactId>
+                <version>${xiaohe66-ddd.version}</version>
             </dependency>
 
             <!-- commons -->
@@ -150,8 +161,15 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.10</version>
+                <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+                <!--<scope>provided</scope>-->
             </dependency>
 
         </dependencies>
