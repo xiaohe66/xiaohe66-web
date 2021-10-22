@@ -18,8 +18,8 @@ public interface AccountDataConverter extends DataConverter {
 
     AccountDo toDo(Account account);
 
-    default long asId(AccountId id) {
-        return id.getValue();
+    default Long asId(AccountId id) {
+        return id == null ? null : id.getValue();
     }
 
     default String asName(AccountName name) {

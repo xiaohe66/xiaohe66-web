@@ -2,7 +2,7 @@ debug: true
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/xiaohe66_web?characterEncoding=UTF-8&amp;useUnicode=true&amp;autoReconnect=true
+    url: jdbc:mysql://localhost:3306/xiaohe66-web?characterEncoding=UTF-8&useUnicode=true&autoReconnect=true&useSSL=false&serverTimezone=GMT
     username: root
     password: root
   thymeleaf:
@@ -15,7 +15,7 @@ server:
 
 logging:
   file:
-    path: C:\\xiaohe66\\log\\
+    path: logs/
 
 xiaohe66:
   file:

@@ -16,7 +16,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @RequiredArgsConstructor
-public class AccountRepositoryImpl extends AbstractMybatisService<AccountDataConverter, AccountMapper, AccountDo> implements AccountRepository {
+public class AccountRepositoryImpl extends AbstractMybatisService<AccountDataConverter, AccountMapper, AccountDo>
+        implements AccountRepository {
 
     @Override
     public Account findById(AccountId id) {
@@ -28,9 +29,15 @@ public class AccountRepositoryImpl extends AbstractMybatisService<AccountDataCon
     @Override
     public void save(Account aggregate) {
 
-        // todo : 怎么区分是插入还是删除？
         AccountDo accountDo = dataConverter.toDo(aggregate);
-        save(accountDo);
+
+        if (accountDo.getId() != null && accountDo.getId() > 0) {
+
+            updateById(accountDo);
+
+        } else {
+            save(accountDo);
+        }
     }
 
     @Override
