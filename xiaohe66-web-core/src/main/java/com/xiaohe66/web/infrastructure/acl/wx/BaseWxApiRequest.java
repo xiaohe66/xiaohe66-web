@@ -1,6 +1,7 @@
-package com.xiaohe66.web.code.wx.api;
+package com.xiaohe66.web.infrastructure.acl.wx;
 
 
+import com.xiaohe66.common.api.IApiModel;
 import com.xiaohe66.common.api.okhttp.BaseOkHttpApiRequest;
 import com.xiaohe66.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,10 @@ public abstract class BaseWxApiRequest<E extends BaseWxApiResponse> extends Base
     @Override
     public RequestBody buildRequestBody() {
 
-        return RequestBody.create(JsonUtils.toString(getModel()), jsonMediaType);
+        IApiModel model = getModel();
+
+        String body = JsonUtils.toString(model);
+
+        return RequestBody.create(jsonMediaType, body);
     }
 }

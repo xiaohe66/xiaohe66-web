@@ -1,4 +1,4 @@
-package com.xiaohe66.web.code.wx.api.model;
+package com.xiaohe66.web.infrastructure.acl.wx.model;
 
 import com.xiaohe66.common.api.IApiModel;
 import lombok.Data;

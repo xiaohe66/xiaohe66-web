@@ -1,8 +1,8 @@
-package com.xiaohe66.web.code.wx.api.request;
+package com.xiaohe66.web.infrastructure.acl.wx.request;
 
-import com.xiaohe66.web.code.wx.api.BaseWxApiRequest;
-import com.xiaohe66.web.code.wx.api.model.WxSubscribeMessageSendModel;
-import com.xiaohe66.web.code.wx.api.response.WxSubscribeMessageSendResponse;
+import com.xiaohe66.web.infrastructure.acl.wx.BaseWxApiRequest;
+import com.xiaohe66.web.infrastructure.acl.wx.model.WxSubscribeMessageSendModel;
+import com.xiaohe66.web.infrastructure.acl.wx.response.WxSubscribeMessageSendResponse;
 import org.springframework.stereotype.Component;
 
 /**

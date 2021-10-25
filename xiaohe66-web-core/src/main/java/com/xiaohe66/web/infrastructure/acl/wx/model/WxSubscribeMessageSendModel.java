@@ -1,7 +1,6 @@
-package com.xiaohe66.web.code.wx.api.model;
+package com.xiaohe66.web.infrastructure.acl.wx.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xiaohe66.common.api.IApiModel;
 import lombok.Data;
 
@@ -14,20 +13,19 @@ import java.util.Map;
 @Data
 public class WxSubscribeMessageSendModel implements IApiModel {
 
-    @Expose
     private String accessToken;
 
-    @SerializedName("touser")
+    @JsonProperty("touser")
     private String toUser;
 
-    @SerializedName("template_id")
+    @JsonProperty("template_id")
     private String templateId;
 
     private String page;
 
     private Map<String, Object> data;
 
-    @SerializedName("miniprogram_state")
+    @JsonProperty("miniprogram_state")
     private String miniProgramState;
 
 }

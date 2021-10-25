@@ -1,6 +1,7 @@
-package com.xiaohe66.web.code.wx.api.response;
+package com.xiaohe66.web.infrastructure.acl.wx.response;
 
-import com.xiaohe66.web.code.wx.api.BaseWxApiResponse;
+
+import com.xiaohe66.web.infrastructure.acl.wx.BaseWxApiResponse;
 
 /**
  * @author xiaohe

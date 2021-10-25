@@ -13,6 +13,7 @@ module xiaohe.web.core {
     opens com.xiaohe66.web.domain.account.repository;
 
     requires transitive xiaohe.common.base;
+    requires transitive xiaohe.common.api;
 
     requires static lombok;
     requires transitive spring.context;

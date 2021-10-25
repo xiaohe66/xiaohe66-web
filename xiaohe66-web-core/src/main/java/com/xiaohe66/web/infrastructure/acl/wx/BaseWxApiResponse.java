@@ -1,6 +1,6 @@
-package com.xiaohe66.web.code.wx.api;
+package com.xiaohe66.web.infrastructure.acl.wx;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xiaohe66.common.api.BaseApiResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,10 +13,10 @@ import lombok.EqualsAndHashCode;
 @Data
 public abstract class BaseWxApiResponse extends BaseApiResponse {
 
-    @SerializedName("errcode")
+    @JsonProperty("errcode")
     private Integer errCode;
 
-    @SerializedName("errmsg")
+    @JsonProperty("errmsg")
     private String errMsg;
 
     @Override

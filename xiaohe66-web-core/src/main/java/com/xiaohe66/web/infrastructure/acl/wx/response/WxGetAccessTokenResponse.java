@@ -1,7 +1,7 @@
-package com.xiaohe66.web.code.wx.api.response;
+package com.xiaohe66.web.infrastructure.acl.wx.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xiaohe66.web.code.wx.api.BaseWxApiResponse;
+import com.xiaohe66.web.infrastructure.acl.wx.BaseWxApiResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

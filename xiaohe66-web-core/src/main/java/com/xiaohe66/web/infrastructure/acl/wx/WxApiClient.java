@@ -1,7 +1,7 @@
-package com.xiaohe66.web.code.wx.api;
+package com.xiaohe66.web.infrastructure.acl.wx;
 
 import com.xiaohe66.common.api.okhttp.AbstractOkHttpApiClient;
-import com.xiaohe66.common.net.OkHttpClientHolder;
+import com.xiaohe66.common.api.okhttp.OkHttpClientHolder;
 import org.springframework.stereotype.Component;
 
 /**
