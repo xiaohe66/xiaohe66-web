@@ -19,6 +19,16 @@
         </dependency>
 
         <dependency>
+            <groupId>com.xiaohe66</groupId>
+            <artifactId>xiaohe66-web-gateway-http</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaohe66</groupId>
+            <artifactId>xiaohe66-web-infrastructure-shiro</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>

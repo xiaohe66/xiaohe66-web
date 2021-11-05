@@ -8,6 +8,8 @@ package com.xiaohe66.web.integration.domain;
  * @author xiaohe
  * @since 2021.08.10 10:08
  */
-public interface Aggregate<I extends Id> extends Entity<I> {
+public interface Aggregate<T extends Aggregate<T, I>, I extends Id> extends Entity<I> {
+
+    boolean hasDiffRoot(T other);
 
 }

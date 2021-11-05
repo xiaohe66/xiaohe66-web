@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaohe66.web.infrastructure.mybatis.sys.sec.mapper.RoleMapper">
+
+    <select id="listByAccountId" resultType="com.xiaohe66.web.infrastructure.mybatis.sys.sec.model.RoleDo">
+        select r.id,r.role_name,r.role_desc,r.default_role from sys_role r
+        join sys_account_role ar on r.id = ar.role_id
+        where ar.account_id = #{accountId}
+    </select>
+
+</mapper>

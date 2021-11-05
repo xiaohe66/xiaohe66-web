@@ -3,35 +3,77 @@ package com.xiaohe66.web.infrastructure.mybatis.account.convert;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
+import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.infrastructure.mybatis.account.model.AccountDo;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.mybatis.sys.sec.model.AccountRoleDo;
+import com.xiaohe66.web.integration.DataConverter;
 import org.mapstruct.Mapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author xiaohe
  * @since 2021.08.12 11:02
  */
 @Mapper(componentModel = "spring")
-public interface AccountDataConverter extends DataConverter {
+public interface AccountDataConverter extends DataConverter<Account, AccountDo> {
 
-    Account toEntity(AccountDo accountDo);
+    //@Mapping(source = "password", target = "passwordSalt")
+    //@Mapping(source = "password", target = "passwordHash")
+    //Account toEntity(AccountDo accountDo);
 
-    AccountDo toDo(Account account);
+    default AccountId newId(Long id) {
+        return ifPresent(id, AccountId::new);
+    }
 
     default Long asId(AccountId id) {
         return id == null ? null : id.getValue();
     }
 
     default String asName(AccountName name) {
-        return name.getValue();
+        return ifPresent(name, AccountName::getValue);
     }
 
     default AccountName newName(String name) {
-        return new AccountName(name);
+        return ifPresent(name, AccountName::new);
     }
 
-    default AccountId newId(long id) {
-        return new AccountId(id);
+    default AccountPassword newPassword(String password) {
+        return ifPresent(password, AccountPassword::new);
     }
+
+    default String asPassword(AccountPassword password) {
+        return ifPresent(password, AccountPassword::getValue);
+    }
+
+
+    default List<AccountRoleDo> toAccountRoleList(Account account) {
+
+        Long accountIdValue = account.getId().getValue();
+
+        return account.roleIdsStream()
+                .map(roleId -> {
+                    AccountRoleDo accountRoleDo = new AccountRoleDo();
+                    accountRoleDo.setAccountId(accountIdValue);
+                    accountRoleDo.setRoleId(roleId.getValue());
+                    return accountRoleDo;
+                })
+                .collect(Collectors.toList());
+    }
+
+    /*default AccountPasswordSalt newSalt(String password) {
+        return new AccountPasswordSalt(PasswordUtils.getSalt(password));
+    }
+
+    default AccountPasswordHash newHash(String password) {
+        return new AccountPasswordHash(PasswordUtils.getHash(password));
+    }
+
+    @AfterMapping
+    default void asPassword(Account source, @MappingTarget AccountDo target) {
+        String pwd = source.getPasswordSalt().getValue() + source.getPasswordHash().getValue();
+        target.setPassword(pwd);
+    }*/
 
 }

@@ -34,8 +34,9 @@ public class AccountDataConverterTest {
         long id = 100;
         String name = "test name";
 
-        Account account = new Account(new AccountId(id));
-        account.setName(new AccountName(name));
+        //Account account = new Account(new AccountId(id));
+        //account.setName(new AccountName(name));
+        Account account = null;
 
         AccountDo accountDo = converter.toDo(account);
 
@@ -45,11 +46,10 @@ public class AccountDataConverterTest {
 
         assertEquals(correct, accountDo);
 
-        Account result = converter.toEntity(accountDo);
+        Account result = converter.toAgg(accountDo);
 
         assertEquals(account, result);
 
         log.info("result : {}", result);
-
     }
 }

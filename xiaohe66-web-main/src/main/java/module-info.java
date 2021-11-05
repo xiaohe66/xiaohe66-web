@@ -3,7 +3,9 @@ module xiaohe.web.main {
     opens com.xiaohe66.web;
 
     requires xiaohe.web.core;
+    requires xiaohe.web.gateway.http;
     requires xiaohe.web.infrastructure.mybatis;
+    requires xiaohe.web.infrastructure.shiro;
 
     // 解决 mybatis报 Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
     requires com.zaxxer.hikari;

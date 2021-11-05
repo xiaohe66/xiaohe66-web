@@ -9,6 +9,8 @@ import java.io.Serializable;
  * @author xiaohe
  * @since 2021.08.10 10:31
  */
-public interface Id extends Serializable, ValueObject {
+public interface Id extends ValueObject {
+
+    Serializable getValue();
 
 }

@@ -11,4 +11,11 @@ package com.xiaohe66.web.integration.domain;
  */
 public interface Entity<I extends Id> extends Identifiable<I> {
 
+    default boolean isSameIdentity(Entity<I> other) {
+
+        I id = getId();
+
+        return id == null ? other == null : id.equals(other.getId());
+    }
+
 }

@@ -20,7 +20,7 @@ server:
 mybatis-plus:
   global-config:
     db-config:
-      id-type: id_worker
+      id-type: input
 #------------- logback ---------------------------------
 # 输出格式：
 # %line 行号

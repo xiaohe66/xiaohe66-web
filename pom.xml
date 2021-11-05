@@ -10,10 +10,11 @@
     <version>1.0</version>
 
     <modules>
-        <!--<module>xiaohe66-web-portal</module>-->
         <module>xiaohe66-web-core</module>
+        <module>xiaohe66-web-infrastructure-shiro</module>
         <module>xiaohe66-web-infrastructure-mybatis</module>
         <module>xiaohe66-web-main</module>
+        <module>xiaohe66-web-gateway-http</module>
     </modules>
 
     <properties>
@@ -95,11 +96,11 @@
                 <version>3.2.0</version>
             </dependency>
 
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
-                <version>1.7.1</version>
-            </dependency>-->
+                <version>1.8.0</version>
+            </dependency>
             <!-- spring boot starter end -->
 
             <!-- xiaohe66 start -->
@@ -111,11 +112,11 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
+            <!--<dependency>
                 <groupId>com.xiaohe66</groupId>
                 <artifactId>xiaohe66-crud-core</artifactId>
                 <version>1.0.0</version>
-            </dependency>
+            </dependency>-->
 
             <dependency>
                 <groupId>com.xiaohe66</groupId>
@@ -126,6 +127,18 @@
             <dependency>
                 <groupId>com.xiaohe66</groupId>
                 <artifactId>xiaohe66-web-infrastructure-mybatis</artifactId>
+                <version>${xiaohe66-ddd.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66</groupId>
+                <artifactId>xiaohe66-web-gateway-http</artifactId>
+                <version>${xiaohe66-ddd.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66</groupId>
+                <artifactId>xiaohe66-web-infrastructure-shiro</artifactId>
                 <version>${xiaohe66-ddd.version}</version>
             </dependency>
 
