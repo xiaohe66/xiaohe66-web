@@ -3,16 +3,19 @@ package com.xiaohe66.web.gateway.http.sec;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.sys.sec.LoginService;
 import com.xiaohe66.web.application.sys.sec.WxLoginService;
-import com.xiaohe66.web.application.sys.sec.request.WxLoginRequest;
-import com.xiaohe66.web.domain.account.value.AccountName;
+import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
 import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
+import com.xiaohe66.web.gateway.http.sec.convert.WxLoginDtoConverter;
+import com.xiaohe66.web.gateway.http.sec.req.LoginRequest;
+import com.xiaohe66.web.gateway.http.sec.req.WxLoginRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +36,8 @@ public class LoginController {
     private final WxLoginService wxLoginService;
     private final SecurityService securityService;
 
+    private final WxLoginDtoConverter wxLoginDtoConverter;
+
     @GetMapping("/islogin")
     public R<Boolean> isLogin() {
         return R.ok(securityService.isLogin());
@@ -44,19 +49,12 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public R<String> login(String loginName, String password) {
-
-        if (StringUtils.isBlank(loginName)) {
-            return R.err("登录名不能为空");
-        }
-        if (StringUtils.isBlank(password)) {
-            return R.err("密码不能为空");
-        }
+    public R<String> login(@RequestBody @Validated LoginRequest request) {
 
         // TODO : 邮箱登录
 
         try {
-            loginService.login(loginName, password);
+            loginService.login(request.getLoginName(), request.getPassword());
             return R.ok(securityService.getSessionId());
 
         } catch (LoginException e) {
@@ -66,9 +64,11 @@ public class LoginController {
     }
 
     @PostMapping("/login/wx")
-    public R<String> wxLogin(WxLoginRequest wxLoginRequest){
+    public R<String> wxLogin(WxLoginRequest request) {
 
-        return wxLoginService.login(wxLoginRequest);
+        WxLoginBo bo = wxLoginDtoConverter.toBo(request);
+
+        return wxLoginService.login(bo);
     }
 
     @PostMapping

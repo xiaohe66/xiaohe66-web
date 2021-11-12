@@ -1,6 +1,7 @@
 package com.xiaohe66.web.domain.wx.user.aggregate;
 
 import com.xiaohe66.web.domain.account.value.AccountId;
+import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTodoUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
@@ -40,8 +41,8 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
     private String sessionKey;
 
     private WxTodoUserOpenId wxTodoUserOpenId;
+    private WxLoveUserOpenId wxLoveUserOpenId;
 
-    // TODO : WxLoveUserOpenId
 
     @Override
     public WxUserId getId() {

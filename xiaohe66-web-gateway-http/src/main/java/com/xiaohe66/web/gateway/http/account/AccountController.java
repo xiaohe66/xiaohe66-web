@@ -1,4 +1,4 @@
-package com.xiaohe66.web.gateway.http;
+package com.xiaohe66.web.gateway.http.account;
 
 import com.xiaohe66.web.domain.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;

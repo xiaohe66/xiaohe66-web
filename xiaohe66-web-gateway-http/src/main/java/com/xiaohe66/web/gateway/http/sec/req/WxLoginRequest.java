@@ -1,10 +1,12 @@
-package com.xiaohe66.web.application.sys.sec.request;
+package com.xiaohe66.web.gateway.http.sec.req;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author xiaohe
- * @since 2021.10.28 16:07
+ * @since 2021.11.12 17:16
  */
 @Data
 public class WxLoginRequest {
@@ -19,15 +21,10 @@ public class WxLoginRequest {
     /**
      * 微信登录 code
      */
+    @NotBlank
     private String code;
 
-    private Type type;
-
-    public enum Type{
-        /**
-         *
-         */
-        TODO, LOVE
-    }
+    @NotBlank
+    private String type;
 
 }

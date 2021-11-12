@@ -2,7 +2,7 @@ module xiaohe.web.core {
 
     //exports com.xiaohe66.web.application;
     exports com.xiaohe66.web.application.sys.sec;
-    exports com.xiaohe66.web.application.sys.sec.request;
+    exports com.xiaohe66.web.application.sys.sec.bo;
 
     exports com.xiaohe66.web.domain.account.aggregate;
     exports com.xiaohe66.web.domain.account.value;

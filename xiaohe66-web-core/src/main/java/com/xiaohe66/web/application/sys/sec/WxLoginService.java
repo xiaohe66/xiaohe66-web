@@ -4,7 +4,7 @@ import com.xiaohe66.common.api.ApiException;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.application.sys.sec.convert.WxLoginDataConverter;
-import com.xiaohe66.web.application.sys.sec.request.WxLoginRequest;
+import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
@@ -45,16 +45,16 @@ public class WxLoginService {
 
     private final WxConfig wxConfig;
 
-    public R<String> login(WxLoginRequest request) {
+    public R<String> login(WxLoginBo loginBo) {
 
         // 1. ACL 调用微信
         WxCode2SessionResponse response;
         try {
-            response = requestCode2Session(request.getType(), request.getCode());
+            response = requestCode2Session(loginBo.getType(), loginBo.getCode());
             log.info("wx code2session response : {}", response);
 
         } catch (ApiException e) {
-            log.error("wx code2session error, code : {}", request.getCode(), e);
+            log.error("wx code2session error, code : {}", loginBo.getCode(), e);
             return R.err("微信登录失败");
         }
 
@@ -65,7 +65,7 @@ public class WxLoginService {
 
             log.info("register wx account, unionId : {}", response.getUnionId());
 
-            Account account = registerAccount(request);
+            Account account = registerAccount(loginBo);
 
             log.info("save wxUser, unionId : {}", response.getUnionId());
 
@@ -76,8 +76,8 @@ public class WxLoginService {
                     .build();
         }
 
-        wxLoginDataConverter.copyValueToWxUser(wxUser, request);
-        wxLoginDataConverter.setOpenId(wxUser, request.getType(), response.getOpenId());
+        wxLoginDataConverter.copyValueToWxUser(wxUser, loginBo);
+        wxLoginDataConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
 
         wxUserService.saveWxUser(wxUser);
 
@@ -98,9 +98,9 @@ public class WxLoginService {
 
     }
 
-    private WxCode2SessionResponse requestCode2Session(WxLoginRequest.Type type, String code) throws ApiException {
+    private WxCode2SessionResponse requestCode2Session(WxLoginBo.Type type, String code) throws ApiException {
 
-        WxConfig.Prop prop = type == WxLoginRequest.Type.TODO ?
+        WxConfig.Prop prop = type == WxLoginBo.Type.TODO ?
                 wxConfig.getTodo() :
                 wxConfig.getLove();
 
@@ -126,11 +126,11 @@ public class WxLoginService {
     }
 
 
-    public Account registerAccount(WxLoginRequest loginRequest) {
+    protected Account registerAccount(WxLoginBo loginBo) {
 
         Account account = Account.builder()
                 .id(new AccountId(IdWorker.genId()))
-                .name(new AccountName(loginRequest.getNickname()))
+                .name(new AccountName(loginBo.getNickname()))
                 .build();
 
         accountService.register(account);
