@@ -1,4 +1,4 @@
-package com.xiaohe66.web.application.request;
+package com.xiaohe66.web.application.sys.sec.request;
 
 import lombok.Data;
 
@@ -15,5 +15,19 @@ public class WxLoginRequest {
     private String country;
     private String avatarUrl;
     private String sessionKey;
+
+    /**
+     * 微信登录 code
+     */
+    private String code;
+
+    private Type type;
+
+    public enum Type{
+        /**
+         *
+         */
+        TODO, LOVE
+    }
 
 }

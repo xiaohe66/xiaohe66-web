@@ -1,23 +1,21 @@
-package com.xiaohe66.web.application;
+package com.xiaohe66.web.application.sys.sec;
 
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.repository.AccountRepository;
-import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
-import com.xiaohe66.web.domain.sys.sec.aggregate.Role;
 import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
 import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.repository.RoleRepository;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
+import com.xiaohe66.web.domain.sys.sec.service.SessionManager;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,10 +27,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class LoginService {
 
-    private final AccountService accountService;
     private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
     private final SecurityService securityService;
+
+    private final SessionManager sessionManager;
+    /*
+    TODO : 登录的返回值需要改变成 R<?> 吗
+     */
 
     CurrentAccount login(@NonNull AccountId accountId) throws LoginException {
 
@@ -60,25 +62,26 @@ public class LoginService {
 
         securityService.login(currentAccount);
 
-        // TODO : 变量统一
-        securityService.setAttribute("currentAccount", currentAccount);
+        sessionManager.setCurrentAccount(currentAccount);
 
         return currentAccount;
     }
 
-    public CurrentAccount login(@NonNull AccountName accountName,
+    public CurrentAccount login(@NonNull String accountNameValue,
                                 @NonNull String password) throws LoginException {
+
+        AccountName accountName = new AccountName(accountNameValue);
 
         AccountPassword dbPassword = accountRepository.getPasswordByName(accountName);
 
         if (dbPassword == null) {
-            throw new LoginException("account not found : " + accountName.getValue());
+            throw new LoginException("account not found : " + accountNameValue);
         }
 
         // 验证密码
         if (!dbPassword.verify(password)) {
 
-            throw new LoginException("password is error : " + accountName.getValue());
+            throw new LoginException("password is error : " + accountNameValue);
         }
 
         Account account = accountRepository.getByName(accountName);
@@ -86,16 +89,4 @@ public class LoginService {
         return login(account);
     }
 
-    public Account register(Account account) {
-
-        List<Role> defaultRoles = roleRepository.listDefaultRole();
-
-        for (Role role : defaultRoles) {
-            account.addRole(role.getId());
-        }
-
-        accountRepository.save(account);
-
-        return account;
-    }
 }

@@ -37,6 +37,11 @@ logging:
 #配置性参数
 xiaohe66:
   wx:
-    miniProgramState: developer
-    appId: appid
-    appSecret: secret
+    todo:
+      miniProgramState: developer
+      appId: appid_todo
+      appSecret: secret_todo
+    love:
+      miniProgramState: developer
+      appId: appid_love
+      appSecret: secret_love

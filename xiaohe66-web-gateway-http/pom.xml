@@ -15,6 +15,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.xiaohe66</groupId>
             <artifactId>xiaohe66-web-core</artifactId>
         </dependency>

@@ -1,4 +1,4 @@
-package com.xiaohe66.web.application.config;
+package com.xiaohe66.web.integration.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,8 +13,14 @@ import org.springframework.stereotype.Component;
 @Data
 public class WxConfig {
 
-    private String miniProgramState;
-    private String appId;
-    private String appSecret;
+    private Prop todo;
+    private Prop love;
+
+    @Data
+    public static class Prop {
+        private String miniProgramState;
+        private String appId;
+        private String appSecret;
+    }
 
 }

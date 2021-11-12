@@ -1,7 +1,9 @@
 package com.xiaohe66.web.gateway.http.sec;
 
 import com.xiaohe66.common.dto.R;
-import com.xiaohe66.web.application.LoginService;
+import com.xiaohe66.web.application.sys.sec.LoginService;
+import com.xiaohe66.web.application.sys.sec.WxLoginService;
+import com.xiaohe66.web.application.sys.sec.request.WxLoginRequest;
 import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
+    private final WxLoginService wxLoginService;
     private final SecurityService securityService;
 
     @GetMapping("/islogin")
@@ -50,16 +53,22 @@ public class LoginController {
             return R.err("密码不能为空");
         }
 
-        AccountName accountName = new AccountName(loginName);
+        // TODO : 邮箱登录
 
         try {
-            loginService.login(accountName, password);
+            loginService.login(loginName, password);
             return R.ok(securityService.getSessionId());
 
         } catch (LoginException e) {
             log.info("login fail", e);
             return R.err("登录失败");
         }
+    }
+
+    @PostMapping("/login/wx")
+    public R<String> wxLogin(WxLoginRequest wxLoginRequest){
+
+        return wxLoginService.login(wxLoginRequest);
     }
 
     @PostMapping

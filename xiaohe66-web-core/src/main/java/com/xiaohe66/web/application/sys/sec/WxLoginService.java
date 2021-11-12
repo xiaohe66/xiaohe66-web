@@ -1,11 +1,10 @@
-package com.xiaohe66.web.application;
+package com.xiaohe66.web.application.sys.sec;
 
 import com.xiaohe66.common.api.ApiException;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
-import com.xiaohe66.web.application.config.WxConfig;
-import com.xiaohe66.web.application.convert.WxLoginDataConverter;
-import com.xiaohe66.web.application.request.WxLoginRequest;
+import com.xiaohe66.web.application.sys.sec.convert.WxLoginDataConverter;
+import com.xiaohe66.web.application.sys.sec.request.WxLoginRequest;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
@@ -14,12 +13,14 @@ import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
+import com.xiaohe66.web.domain.wx.user.service.WxUserService;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
 import com.xiaohe66.web.infrastructure.acl.wx.WxApiClient;
 import com.xiaohe66.web.infrastructure.acl.wx.model.WxCode2SessionModel;
 import com.xiaohe66.web.infrastructure.acl.wx.request.WxCode2SessionRequest;
 import com.xiaohe66.web.infrastructure.acl.wx.response.WxCode2SessionResponse;
+import com.xiaohe66.web.integration.config.WxConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,60 +34,54 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class WxLoginService {
 
-    public static final String SESSION_KEY_WX_USER = "currentWxUser";
-
     private final LoginService loginService;
     private final AccountService accountService;
+    private final WxUserService wxUserService;
     private final WxUserRepository wxUserRepository;
     private final WxApiClient client;
 
-    private final SecurityService sessionService;
+    private final SecurityService securityService;
     private final WxLoginDataConverter wxLoginDataConverter;
 
-    private final WxConfig config;
+    private final WxConfig wxConfig;
 
-    public R<String> login(WxLoginRequest loginRequest, String code) {
+    public R<String> login(WxLoginRequest request) {
 
+        // 1. ACL 调用微信
         WxCode2SessionResponse response;
         try {
-            response = requestCode2Session(code);
+            response = requestCode2Session(request.getType(), request.getCode());
             log.info("wx code2session response : {}", response);
 
         } catch (ApiException e) {
-            log.error("wx code2session error, code : {}", code, e);
+            log.error("wx code2session error, code : {}", request.getCode(), e);
             return R.err("微信登录失败");
         }
 
-        // note : 微信接口文档写了会返回 errcode，但实际上并没有返回
-        if (response == null || response.getUnionId() == null) {
-
-            log.error("wx code2session fail, code : {}", code);
-
-            return R.err("微信登录失败");
-        }
-
+        // 2. 更新账号数据, 不存在则创建
         WxUnionId unionId = new WxUnionId(response.getUnionId());
         WxUser wxUser = wxUserRepository.getByUnionId(unionId);
         if (wxUser == null) {
 
-            log.info("register wx user, unionId : {}", response.getUnionId());
+            log.info("register wx account, unionId : {}", response.getUnionId());
 
-            Account account = registerAccount(loginRequest, response);
+            Account account = registerAccount(request);
+
+            log.info("save wxUser, unionId : {}", response.getUnionId());
 
             wxUser = WxUser.builder()
-                    .id(new WxUserId(IdWorker.getId()))
+                    .id(new WxUserId(IdWorker.genId()))
                     .accountId(account.getId())
                     .unionId(unionId)
                     .build();
-
-            log.info("register wx user success, unionId : {}, accountId : {}",
-                    response.getUnionId(),
-                    account.getId().getValue());
         }
 
-        wxLoginDataConverter.copyValueToWxUser(wxUser, loginRequest);
-        wxUserRepository.save(wxUser);
+        wxLoginDataConverter.copyValueToWxUser(wxUser, request);
+        wxLoginDataConverter.setOpenId(wxUser, request.getType(), response.getOpenId());
 
+        wxUserService.saveWxUser(wxUser);
+
+        // 3.录到系统
         try {
             loginService.login(wxUser.getAccountId());
 
@@ -96,30 +91,45 @@ public class WxLoginService {
 
         log.info("wx account login success, unionId : {}", response.getUnionId());
 
-        //注入session
-        sessionService.setAttribute(SESSION_KEY_WX_USER, wxUser);
+        // TODO : 注入session
+        //securityService.setAttribute(SESSION_KEY_WX_USER, wxUser);
 
-        return R.ok(sessionService.getSessionId());
+        return R.ok(securityService.getSessionId());
 
     }
 
-    private WxCode2SessionResponse requestCode2Session(String code) throws ApiException {
+    private WxCode2SessionResponse requestCode2Session(WxLoginRequest.Type type, String code) throws ApiException {
+
+        WxConfig.Prop prop = type == WxLoginRequest.Type.TODO ?
+                wxConfig.getTodo() :
+                wxConfig.getLove();
+
         WxCode2SessionModel model = new WxCode2SessionModel();
-        model.setAppId(config.getAppId());
-        model.setAppSecret(config.getAppSecret());
+        model.setAppId(prop.getAppId());
+        model.setAppSecret(prop.getAppSecret());
         model.setCode(code);
 
         WxCode2SessionRequest request = new WxCode2SessionRequest();
         request.setModel(model);
 
-        return client.execute(request);
+        WxCode2SessionResponse response = client.execute(request);
+
+        // note : 微信接口文档写了会返回 errcode，但实际上并没有返回
+        if (response == null || response.getUnionId() == null) {
+
+            log.error("wx code2session fail, code : {}", code);
+
+            throw new ApiException("response.unionId is null");
+        }
+
+        return response;
     }
 
 
-    public Account registerAccount(WxLoginRequest loginRequest, WxCode2SessionResponse response) {
+    public Account registerAccount(WxLoginRequest loginRequest) {
 
         Account account = Account.builder()
-                .id(new AccountId(IdWorker.getId()))
+                .id(new AccountId(IdWorker.genId()))
                 .name(new AccountName(loginRequest.getNickname()))
                 .build();
 

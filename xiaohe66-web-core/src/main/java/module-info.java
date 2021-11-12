@@ -1,7 +1,8 @@
 module xiaohe.web.core {
 
-    exports com.xiaohe66.web.application;
-    exports com.xiaohe66.web.application.request;
+    //exports com.xiaohe66.web.application;
+    exports com.xiaohe66.web.application.sys.sec;
+    exports com.xiaohe66.web.application.sys.sec.request;
 
     exports com.xiaohe66.web.domain.account.aggregate;
     exports com.xiaohe66.web.domain.account.value;
@@ -18,17 +19,20 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.domain.sys.sec.service;
 
     exports com.xiaohe66.web.integration.domain;
+    exports com.xiaohe66.web.integration.ex;
     exports com.xiaohe66.web.integration.value;
 
-    opens com.xiaohe66.web.application;
-    opens com.xiaohe66.web.application.config;
-    opens com.xiaohe66.web.application.convert;
+    opens com.xiaohe66.web.application.sys.sec.convert;
 
     opens com.xiaohe66.web.domain.account.service;
     opens com.xiaohe66.web.domain.account.repository;
 
+    opens com.xiaohe66.web.domain.wx.user.service;
+
     opens com.xiaohe66.web.infrastructure.acl.wx;
     opens com.xiaohe66.web.infrastructure.acl.wx.request;
+
+    opens com.xiaohe66.web.integration.config;
 
     requires transitive xiaohe.common.base;
     requires transitive xiaohe.common.api;

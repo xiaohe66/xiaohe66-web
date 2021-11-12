@@ -82,15 +82,15 @@ public abstract class AbstractMybatisService<C extends DataConverter<A, D>, M ex
         save(agg);
     }
 
+    protected void removeByIdImpl(I id) {
+        removeById(id.getValue());
+    }
+    
     protected void updateImpl(A agg, A snapshot) {
         if (agg.hasDiffRoot(snapshot)) {
             D d = dataConverter.toDo(agg);
             updateById(d);
         }
-    }
-
-    protected void removeByIdImpl(I id) {
-        removeById(id.getValue());
     }
 
     protected A getByIdImpl(I id) {
