@@ -1,23 +1,12 @@
-package com.xiaohe66.web.integration;
-
-import com.xiaohe66.web.integration.domain.Aggregate;
-import com.xiaohe66.web.integration.domain.IntId;
-import com.xiaohe66.web.integration.domain.LongId;
-import com.xiaohe66.web.integration.domain.StringValue;
+package com.xiaohe66.web.integration.domain;
 
 import java.util.function.Function;
 
 /**
  * @author xiaohe
- * @since 2021.08.12 12:00
+ * @since 2021.11.17 15:07
  */
-public interface DataConverter<A extends Aggregate<A, ?>, D extends IDo> {
-
-    A toAgg(D doObj);
-
-    D toDo(A agg);
-
-    A copyAgg(A account);
+public interface DataConverter {
 
     default <T, V> V ifPresent(T object, Function<T, V> supplier) {
         return object != null ? supplier.apply(object) : null;
@@ -29,6 +18,14 @@ public interface DataConverter<A extends Aggregate<A, ?>, D extends IDo> {
 
     default Integer asIntId(IntId longId) {
         return ifPresent(longId, IntId::getValue);
+    }
+
+    default long asLongValue(LongValue longValue) {
+        return ifPresent(longValue, LongValue::getValue);
+    }
+
+    default int asIntValue(IntValue intValue) {
+        return ifPresent(intValue, IntValue::getValue);
     }
 
     default String asString(StringValue value) {

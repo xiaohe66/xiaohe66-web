@@ -7,8 +7,8 @@ import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
 import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.gateway.http.sec.convert.WxLoginDtoConverter;
-import com.xiaohe66.web.gateway.http.sec.req.LoginRequest;
-import com.xiaohe66.web.gateway.http.sec.req.WxLoginRequest;
+import com.xiaohe66.web.gateway.http.sec.req.LoginDto;
+import com.xiaohe66.web.gateway.http.sec.req.WxLoginDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
@@ -49,12 +49,12 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public R<String> login(@RequestBody @Validated LoginRequest request) {
+    public R<String> login(@RequestBody @Validated LoginDto dto) {
 
         // TODO : 邮箱登录
 
         try {
-            loginService.login(request.getLoginName(), request.getPassword());
+            loginService.login(dto.getLoginName(), dto.getPassword());
             return R.ok(securityService.getSessionId());
 
         } catch (LoginException e) {
@@ -64,7 +64,7 @@ public class LoginController {
     }
 
     @PostMapping("/login/wx")
-    public R<String> wxLogin(WxLoginRequest request) {
+    public R<String> wxLogin(WxLoginDto request) {
 
         WxLoginBo bo = wxLoginDtoConverter.toBo(request);
 

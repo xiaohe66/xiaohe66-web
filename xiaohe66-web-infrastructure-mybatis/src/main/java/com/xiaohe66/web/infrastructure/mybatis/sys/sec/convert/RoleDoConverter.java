@@ -4,7 +4,7 @@ import com.xiaohe66.web.domain.sys.sec.aggregate.Role;
 import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.infrastructure.mybatis.sys.sec.model.RoleDo;
-import com.xiaohe66.web.integration.DataConverter;
+import com.xiaohe66.web.integration.DoConverter;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2021.11.01 16:59
  */
 @Mapper(componentModel = "spring")
-public interface RoleDataConverter extends DataConverter<Role, RoleDo> {
+public interface RoleDoConverter extends DoConverter<Role, RoleDo> {
 
     List<Role> toEntity(List<RoleDo> roleDo);
 

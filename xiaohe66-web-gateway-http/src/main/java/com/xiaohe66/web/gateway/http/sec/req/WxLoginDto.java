@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  * @since 2021.11.12 17:16
  */
 @Data
-public class WxLoginRequest {
+public class WxLoginDto {
 
     private String nickname;
     private String province;

@@ -2,7 +2,7 @@ package com.xiaohe66.web.gateway.http.sec.convert;
 
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
 import com.xiaohe66.web.gateway.http.DtoConverter;
-import com.xiaohe66.web.gateway.http.sec.req.WxLoginRequest;
+import com.xiaohe66.web.gateway.http.sec.req.WxLoginDto;
 import org.mapstruct.Mapper;
 
 /**
@@ -10,7 +10,10 @@ import org.mapstruct.Mapper;
  * @since 2021.11.12 17:14
  */
 @Mapper(componentModel = "spring")
-public interface WxLoginDtoConverter extends DtoConverter<WxLoginRequest, WxLoginBo> {
+public interface WxLoginDtoConverter extends DtoConverter<WxLoginDto, WxLoginBo> {
+
+    @Override
+    WxLoginBo toBo(WxLoginDto dto);
 
     default WxLoginBo.Type asType(String type) {
 

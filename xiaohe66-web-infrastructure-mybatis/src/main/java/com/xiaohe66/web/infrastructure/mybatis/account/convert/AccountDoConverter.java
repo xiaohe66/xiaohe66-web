@@ -6,7 +6,7 @@ import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.infrastructure.mybatis.account.model.AccountDo;
 import com.xiaohe66.web.infrastructure.mybatis.sys.sec.model.AccountRoleDo;
-import com.xiaohe66.web.integration.DataConverter;
+import com.xiaohe66.web.integration.DoConverter;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @since 2021.08.12 11:02
  */
 @Mapper(componentModel = "spring")
-public interface AccountDataConverter extends DataConverter<Account, AccountDo> {
+public interface AccountDoConverter extends DoConverter<Account, AccountDo> {
 
     //@Mapping(source = "password", target = "passwordSalt")
     //@Mapping(source = "password", target = "passwordHash")

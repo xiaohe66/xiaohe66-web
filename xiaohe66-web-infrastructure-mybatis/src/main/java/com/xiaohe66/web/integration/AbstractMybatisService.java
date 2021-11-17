@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author xiaohe
  * @since 2021.08.12 10:03
  */
-public abstract class AbstractMybatisService<C extends DataConverter<A, D>, M extends IBaseMapper<D>, D extends IDo, A extends Aggregate<A, I>, I extends Id>
+public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M extends IBaseMapper<D>, D extends IDo, A extends Aggregate<A, I>, I extends Id>
         extends ServiceImpl<M, D>
         implements IBaseService<D>, Repository<A, I> {
 

@@ -1,6 +1,9 @@
 package com.xiaohe66.web.domain.sys.sec.service;
 
+import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
+import com.xiaohe66.web.integration.ex.BusinessException;
+import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +36,13 @@ public class SessionManager {
     }
 
     public CurrentAccount getCurrentAccount() {
+        if (!securityService.isLogin()) {
+            throw new BusinessException(ErrorCodeEnum.NOT_LOGIN);
+        }
         return securityService.getAttribute(CURRENT_USER_KEY);
+    }
+
+    public AccountId getCurrentAccountId() {
+        return getCurrentAccount().getId();
     }
 }

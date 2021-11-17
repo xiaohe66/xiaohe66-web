@@ -6,7 +6,7 @@ import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
 import com.xiaohe66.web.domain.wx.user.value.WxTodoUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
-import com.xiaohe66.web.infrastructure.mybatis.wx.user.convert.WxUserDataConverter;
+import com.xiaohe66.web.infrastructure.mybatis.wx.user.convert.WxUserDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.mapper.WxUserMapper;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxTodoUserDo;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxUserDo;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 @Slf4j
 public class WxUserRepositoryImpl
-        extends AbstractMybatisService<WxUserDataConverter, WxUserMapper, WxUserDo, WxUser, WxUserId>
+        extends AbstractMybatisService<WxUserDoConverter, WxUserMapper, WxUserDo, WxUser, WxUserId>
         implements WxUserRepository {
 
     private final WxTodoUserRepositoryImpl wxTodoUserRepository;

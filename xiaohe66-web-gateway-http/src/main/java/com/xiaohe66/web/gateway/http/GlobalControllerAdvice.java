@@ -3,6 +3,7 @@ package com.xiaohe66.web.gateway.http;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,7 +19,16 @@ import java.util.stream.Collectors;
  * @since 2021.11.12 10:30
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalControllerAdvice {
+
+    @ExceptionHandler({Exception.class})
+    public R<Void> exceptionHandler(Exception e) {
+
+        log.error("system error", e);
+
+        return R.build(ErrorCodeEnum.ERROR.getCode(),ErrorCodeEnum.ERROR.getMsg());
+    }
 
     @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class, ConstraintViolationException.class})
     public R<Void> bindExceptionHandler(BindException e) {

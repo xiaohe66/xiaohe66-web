@@ -8,7 +8,7 @@ import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.domain.sys.sec.aggregate.Role;
-import com.xiaohe66.web.infrastructure.mybatis.account.convert.AccountDataConverter;
+import com.xiaohe66.web.infrastructure.mybatis.account.convert.AccountDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.account.mapper.AccountMapper;
 import com.xiaohe66.web.infrastructure.mybatis.account.model.AccountDo;
 import com.xiaohe66.web.infrastructure.mybatis.sys.sec.model.AccountRoleDo;
@@ -30,7 +30,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class AccountRepositoryImpl
-        extends AbstractMybatisService<AccountDataConverter, AccountMapper, AccountDo, Account, AccountId>
+        extends AbstractMybatisService<AccountDoConverter, AccountMapper, AccountDo, Account, AccountId>
         implements AccountRepository {
 
     private final AccountRoleRepositoryImpl accountRoleRepository;

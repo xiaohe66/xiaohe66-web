@@ -1,8 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis.account.convert;
 
 import com.xiaohe66.web.domain.account.aggregate.Account;
-import com.xiaohe66.web.domain.account.value.AccountId;
-import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.infrastructure.mybatis.account.model.AccountDo;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,16 +14,16 @@ public class AccountDataConverterTest {
 
     private static final Logger log = LoggerFactory.getLogger(AccountDataConverterTest.class);
 
-    private AccountDataConverter converter;
+    private AccountDoConverter converter;
 
     @Before
     public void name() {
 
         // 初始化一个容器用于扫描
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.scan(AccountDataConverter.class.getPackage().getName());
+        context.scan(AccountDoConverter.class.getPackage().getName());
         context.refresh();
-        converter = context.getBean(AccountDataConverter.class);
+        converter = context.getBean(AccountDoConverter.class);
     }
 
     @Test

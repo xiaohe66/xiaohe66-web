@@ -18,7 +18,10 @@ public enum ErrorCodeEnum {
      * 400** : 客户异常
      * 500** : 服务异常
      */
-    PARAM_ERROR(40000, "参数错误");
+    PARAM_ERROR(40000, "参数错误"),
+    NOT_LOGIN(40100, "未登录"),
+
+    ERROR(50000, "系统繁忙");
 
     private final int code;
     private final String msg;

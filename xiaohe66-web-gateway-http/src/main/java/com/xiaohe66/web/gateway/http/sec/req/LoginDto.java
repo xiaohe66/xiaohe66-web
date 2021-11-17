@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
  * @since 2021.11.12 16:21
  */
 @Data
-public class LoginRequest {
+public class LoginDto {
 
     @NotBlank
     @Size(min = 1, max = 64)

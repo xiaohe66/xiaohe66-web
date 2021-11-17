@@ -5,7 +5,7 @@ import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.aggregate.Role;
 import com.xiaohe66.web.domain.sys.sec.repository.RoleRepository;
 import com.xiaohe66.web.domain.sys.sec.value.RoleId;
-import com.xiaohe66.web.infrastructure.mybatis.sys.sec.convert.RoleDataConverter;
+import com.xiaohe66.web.infrastructure.mybatis.sys.sec.convert.RoleDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.sys.sec.mapper.RoleMapper;
 import com.xiaohe66.web.infrastructure.mybatis.sys.sec.model.RoleDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
@@ -21,7 +21,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class RoleRepositoryImpl
-        extends AbstractMybatisService<RoleDataConverter, RoleMapper, RoleDo, Role, RoleId>
+        extends AbstractMybatisService<RoleDoConverter, RoleMapper, RoleDo, Role, RoleId>
         implements RoleRepository {
 
     @Override
