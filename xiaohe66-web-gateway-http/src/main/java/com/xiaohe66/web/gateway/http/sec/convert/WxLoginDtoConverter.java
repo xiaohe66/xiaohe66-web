@@ -10,9 +10,8 @@ import org.mapstruct.Mapper;
  * @since 2021.11.12 17:14
  */
 @Mapper(componentModel = "spring")
-public interface WxLoginDtoConverter extends DtoConverter<WxLoginDto, WxLoginBo> {
+public interface WxLoginDtoConverter extends DtoConverter {
 
-    @Override
     WxLoginBo toBo(WxLoginDto dto);
 
     default WxLoginBo.Type asType(String type) {

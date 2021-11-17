@@ -18,6 +18,14 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     @Autowired
     protected C dataConverter;
 
+    /**
+     * note : 对查询集合时快照保存的思考
+     * <p>
+     * 1.若保存大量数据，则服务器无法承受，因此限制快照只能保存一个对象。
+     * 2.在不提供集合查询的前提下，调用方依然可以保存多个对象的引用。因此限制集合查询没有意义。
+     * <p>
+     * 因此，对于集合查询制定的规则便是：不保存集合查询的快照。
+     */
     protected final AggregateSnapshot<A, I> aggregateSnapshot = new ThreadLocalAggregateSnapshot<>();
 
     protected void saveSnapshot(A agg) {
@@ -55,7 +63,8 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
             insertImpl(agg);
         }
 
-        aggregateSnapshot.save(agg);
+        snapshot = dataConverter.copyAgg(agg);
+        aggregateSnapshot.save(snapshot);
     }
 
     @Override
@@ -85,7 +94,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     protected void removeByIdImpl(I id) {
         removeById(id.getValue());
     }
-    
+
     protected void updateImpl(A agg, A snapshot) {
         if (agg.hasDiffRoot(snapshot)) {
             D d = dataConverter.toDo(agg);
