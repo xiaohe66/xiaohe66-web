@@ -7,6 +7,8 @@ import com.xiaohe66.web.integration.domain.Id;
 import com.xiaohe66.web.integration.domain.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
+
 /**
  * @author xiaohe
  * @since 2021.08.12 10:03
@@ -28,20 +30,21 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
      */
     protected final AggregateSnapshot<A, I> aggregateSnapshot = new ThreadLocalAggregateSnapshot<>();
 
-    protected void saveSnapshot(A agg) {
+    protected final void saveSnapshot(A agg) {
         aggregateSnapshot.save(agg);
     }
 
-    protected void removeSnapshot() {
+    protected final void removeSnapshot() {
         aggregateSnapshot.remove();
     }
 
-    protected void getSnapshot(I id) {
+    protected final void getSnapshot(I id) {
         aggregateSnapshot.get(id);
     }
 
-    public boolean isExistId(long id) {
+    public boolean isExistId(Serializable id) {
 
+        // TODO : 使用自定义sql实现
         QueryWrapper<D> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.eq("id", id);
@@ -60,9 +63,17 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
 
         } else {
 
-            insertImpl(agg);
+            // 若在更新前未执行查询操作，若多个快照之间相互覆盖，则无法使用快照判断是否存在。这时就需要判断数据库中是否存在
+            boolean existId = isExistId(agg.getId().getValue());
+            if (existId) {
+                updateImpl(agg, snapshot);
+
+            } else {
+                insertImpl(agg);
+            }
         }
 
+        // 保存快照
         snapshot = dataConverter.copyAgg(agg);
         aggregateSnapshot.save(snapshot);
     }
@@ -88,7 +99,8 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     }
 
     protected void insertImpl(A agg) {
-        save(agg);
+        D d = dataConverter.toDo(agg);
+        save(d);
     }
 
     protected void removeByIdImpl(I id) {
@@ -96,7 +108,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     }
 
     protected void updateImpl(A agg, A snapshot) {
-        if (agg.hasDiffRoot(snapshot)) {
+        if (snapshot == null || agg.hasDiffRoot(snapshot)) {
             D d = dataConverter.toDo(agg);
             updateById(d);
         }

@@ -21,7 +21,15 @@ public enum ErrorCodeEnum {
      * 原则上以 http code + 编号组成错误码
      */
     PARAM_ERROR(40000, "参数错误"),
+
+    /**
+     * 权限 - 401
+     * 401-1* = 功能权限
+     * 401-2* = 数据权限
+     */
     NOT_LOGIN(40100, "未登录"),
+    NOT_FUNCTION_PERMISSION(40110, "无操作权限"),
+    NOT_DATA_PERMISSION(40120, "无操作权限"),
 
     NOT_FOUND(40400, "操作对象不存在"),
 

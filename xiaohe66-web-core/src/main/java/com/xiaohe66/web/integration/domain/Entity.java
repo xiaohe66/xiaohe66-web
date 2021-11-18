@@ -15,7 +15,11 @@ public interface Entity<I extends Id> extends Identifiable<I> {
 
         I id = getId();
 
-        return id == null ? other == null : id.equals(other.getId());
+        if (id == null) {
+            return other == null;
+        }
+
+        return other != null && id.equals(other.getId());
     }
 
 }

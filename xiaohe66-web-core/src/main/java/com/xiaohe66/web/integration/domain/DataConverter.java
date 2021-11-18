@@ -21,11 +21,11 @@ public interface DataConverter {
     }
 
     default long asLongValue(LongValue longValue) {
-        return ifPresent(longValue, LongValue::getValue);
+        return longValue == null ? 0 : longValue.getValue();
     }
 
     default int asIntValue(IntValue intValue) {
-        return ifPresent(intValue, IntValue::getValue);
+        return intValue == null ? 0 : intValue.getValue();
     }
 
     default String asString(StringValue value) {
