@@ -1,11 +1,13 @@
 package com.xiaohe66.web.infrastructure.shiro;
 
+import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
-import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.sys.sec.value.PermissionName;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.infrastructure.shiro.token.XhShiroAuthenticationToken;
+import com.xiaohe66.web.integration.ex.BusinessException;
+import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -28,11 +30,17 @@ import java.util.stream.Collectors;
 public class SecurityServiceImpl implements SecurityService {
 
     @Override
-    public void login(CurrentAccount context) throws LoginException {
+    public void login(CurrentAccount context) {
 
         Long accountId = context.getId().getValue();
-        Set<String> roles = context.getRoleNames().stream().map(RoleName::getValue).collect(Collectors.toSet());
-        Set<String> permissions = context.getPermissionNames().stream().map(PermissionName::getValue).collect(Collectors.toSet());
+
+        Set<String> roles = context.getRoleNames().stream()
+                .map(RoleName::getValue)
+                .collect(Collectors.toSet());
+
+        Set<String> permissions = context.getPermissionNames().stream()
+                .map(PermissionName::getValue)
+                .collect(Collectors.toSet());
 
         XhShiroAuthenticationToken token = new XhShiroAuthenticationToken(accountId, roles, permissions);
 
@@ -46,9 +54,9 @@ public class SecurityServiceImpl implements SecurityService {
             log.error("shiro login fail : {}({})",
                     context.getName().getValue(),
                     context.getId().getValue(),
-                    e.getMessage());
+                    e);
 
-            throw new LoginException("shiro login fail", e);
+            throw new BusinessException(ErrorCodeEnum.ERROR);
         }
 
     }
@@ -70,6 +78,25 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
+    public void setCurrentAccount(CurrentAccount account) {
+        setAttribute(CURRENT_USER_KEY, account);
+    }
+
+    @Override
+    public CurrentAccount getCurrentAccount() {
+
+        if (!isLogin()) {
+            throw new BusinessException(ErrorCodeEnum.NOT_LOGIN);
+        }
+        return getAttribute(CURRENT_USER_KEY);
+    }
+
+    @Override
+    public AccountId getCurrentAccountId() {
+        return getCurrentAccount().getId();
+    }
+
+    @Override
     public void setAttribute(Object key, Object value) {
 
         Session session = getSession();
@@ -83,6 +110,11 @@ public class SecurityServiceImpl implements SecurityService {
 
         Session session = getSession();
         return (T) session.getAttribute(key);
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return getSubject().hasRole(ShiroConst.ADMIN_ROLE_NAME);
     }
 
     @Override
@@ -102,8 +134,72 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public boolean hasPermission(String... permission) {
+    public boolean hasPermissions(String... permission) {
         return getSubject().isPermittedAll(permission);
+    }
+
+    /**
+     * 是否有创建人权限（检查当前用户是否为指定值，管理员默认拥有全部权限）
+     */
+    @Override
+    public boolean hasCreatorPermission(AccountId createId) {
+
+        if (createId == null) {
+            return false;
+        }
+
+        if (isAdmin()) {
+            return true;
+        }
+
+        AccountId accountId = getCurrentAccountId();
+
+        return accountId.equals(createId);
+    }
+
+    @Override
+    public void checkLogin() {
+        if (!isLogin()) {
+            throw new BusinessException(ErrorCodeEnum.NOT_LOGIN);
+        }
+    }
+
+    @Override
+    public void checkRole(String role) {
+        if (!hasRole(role)) {
+            throw new BusinessException(ErrorCodeEnum.NOT_FUNCTION_PERMISSION);
+        }
+    }
+
+    @Override
+    public void checkRoles(String... roles) {
+        if (!hasRoles(roles)) {
+            throw new BusinessException(ErrorCodeEnum.NOT_FUNCTION_PERMISSION);
+        }
+    }
+
+    @Override
+    public void checkPermission(String permission) {
+        if (!hasPermission(permission)) {
+            throw new BusinessException(ErrorCodeEnum.NOT_FUNCTION_PERMISSION);
+        }
+    }
+
+    @Override
+    public void checkPermission(String... permission) {
+        if (!hasPermissions(permission)) {
+            throw new BusinessException(ErrorCodeEnum.NOT_FUNCTION_PERMISSION);
+        }
+    }
+
+    /**
+     * 检查是否有创建人权限（检查当前用户是否为指定值，管理员默认拥有全部权限）
+     */
+    @Override
+    public void checkCreatorPermission(AccountId createId) {
+        if (!hasCreatorPermission(createId)) {
+            throw new BusinessException(ErrorCodeEnum.NOT_DATA_PERMISSION);
+        }
     }
 
     private Subject getSubject() {

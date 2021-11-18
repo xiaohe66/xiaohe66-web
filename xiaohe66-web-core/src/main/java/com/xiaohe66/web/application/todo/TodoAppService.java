@@ -9,7 +9,7 @@ import com.xiaohe66.web.application.todo.convert.TodoBoConverter;
 import com.xiaohe66.web.application.todo.result.TodoDetailResult;
 import com.xiaohe66.web.application.todo.result.TodoListResult;
 import com.xiaohe66.web.domain.account.value.AccountId;
-import com.xiaohe66.web.domain.sys.sec.service.SessionManager;
+import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.todo.agg.Todo;
 import com.xiaohe66.web.domain.todo.entity.TodoPool;
 import com.xiaohe66.web.domain.todo.repository.TodoRepository;
@@ -38,11 +38,11 @@ public class TodoAppService {
 
     private final TodoService todoService;
     private final TodoRepository todoRepository;
-    private final SessionManager sessionManager;
+    private final SecurityService securityService;
 
     public R<Long> save(TodoSaveBo saveBo) {
 
-        AccountId accountId = sessionManager.getCurrentAccountId();
+        AccountId accountId = securityService.getCurrentAccountId();
 
         if (saveBo.getId() == null) {
             saveBo.setId(IdWorker.genId());
@@ -54,6 +54,10 @@ public class TodoAppService {
     }
 
     public R<Void> remove(Long id) {
+
+        // TODO : 使用注解来判断权限
+        securityService.checkLogin();
+
         TodoId todoId = new TodoId(id);
         todoService.removeById(todoId);
         return R.ok();
@@ -84,7 +88,7 @@ public class TodoAppService {
 
     public R<TodoListResult> queryList() {
 
-        AccountId currentAccountId = sessionManager.getCurrentAccountId();
+        AccountId currentAccountId = securityService.getCurrentAccountId();
 
         List<TodoListResult.Pool> resultPools = TodoPool.defaultPool().stream()
                 .map(pool -> {

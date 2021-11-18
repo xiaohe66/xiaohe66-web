@@ -17,7 +17,6 @@ module xiaohe.web.core {
 
     exports com.xiaohe66.web.domain.sys.sec.aggregate;
     exports com.xiaohe66.web.domain.sys.sec.entity;
-    exports com.xiaohe66.web.domain.sys.sec.ex;
     exports com.xiaohe66.web.domain.sys.sec.value;
     exports com.xiaohe66.web.domain.sys.sec.repository;
     exports com.xiaohe66.web.domain.sys.sec.service;

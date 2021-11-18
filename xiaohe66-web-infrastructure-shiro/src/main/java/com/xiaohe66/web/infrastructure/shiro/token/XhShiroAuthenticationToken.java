@@ -23,7 +23,7 @@ public class XhShiroAuthenticationToken implements AuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return accountId;
+        return this;
     }
 
     @Override

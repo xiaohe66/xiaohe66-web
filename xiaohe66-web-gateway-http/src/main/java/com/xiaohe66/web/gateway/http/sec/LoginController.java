@@ -4,7 +4,6 @@ import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.sys.sec.LoginService;
 import com.xiaohe66.web.application.sys.sec.WxLoginService;
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
-import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.gateway.http.sec.convert.WxLoginDtoConverter;
 import com.xiaohe66.web.gateway.http.sec.req.LoginDto;
@@ -44,8 +43,8 @@ public class LoginController {
     }
 
     @GetMapping("/getsessionid")
-    public R<Boolean> getSessionId() {
-        return R.ok(securityService.isLogin());
+    public R<String> getSessionId() {
+        return R.ok(securityService.getSessionId());
     }
 
     @PostMapping("/login")
@@ -53,14 +52,8 @@ public class LoginController {
 
         // TODO : 邮箱登录
 
-        try {
-            loginService.login(dto.getLoginName(), dto.getPassword());
-            return R.ok(securityService.getSessionId());
-
-        } catch (LoginException e) {
-            log.info("login fail", e);
-            return R.err("登录失败");
-        }
+        loginService.login(dto.getLoginName(), dto.getPassword());
+        return R.ok(securityService.getSessionId());
     }
 
     @PostMapping("/login/wx")
@@ -71,7 +64,7 @@ public class LoginController {
         return wxLoginService.login(bo);
     }
 
-    @PostMapping
+    @PostMapping("/logout")
     public R<Void> logout() {
 
         securityService.logout();

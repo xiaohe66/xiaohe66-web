@@ -24,10 +24,14 @@ public enum ErrorCodeEnum {
 
     /**
      * 权限 - 401
+     * 401-0* = 登录相关
      * 401-1* = 功能权限
      * 401-2* = 数据权限
      */
     NOT_LOGIN(40100, "未登录"),
+    NOT_FOUND_ACCOUNT(40101, "账户不存在"),
+    INVALID_TOKEN(40102, "无效的令牌"),
+
     NOT_FUNCTION_PERMISSION(40110, "无操作权限"),
     NOT_DATA_PERMISSION(40120, "无操作权限"),
 

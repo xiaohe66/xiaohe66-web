@@ -1,8 +1,10 @@
 package com.xiaohe66.web.infrastructure.shiro;
 
+import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.infrastructure.shiro.handler.ShiroFilterInterceptor;
 import com.xiaohe66.web.infrastructure.shiro.handler.ShiroFilterIsAccessAllowedHandler;
 import com.xiaohe66.web.infrastructure.shiro.handler.ShiroFilterOnAccessDeniedHandler;
+import com.xiaohe66.web.infrastructure.shiro.handler.extend.DevAutoLoginExtend;
 import com.xiaohe66.web.infrastructure.shiro.realm.XhDefaultRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -12,6 +14,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -38,11 +41,11 @@ public class ShiroConfiguration {
         return new TokenLoginExtend();
     }*/
 
-    /*@Bean
-    @ConditionalOnProperty(value = "debug", havingValue = "true")
-    public DevAutoLoginExtend devAuthLoginExtend() {
-        return new DevAutoLoginExtend();
-    }*/
+    @Bean
+    @ConditionalOnProperty(value = "autologin", havingValue = "true")
+    public DevAutoLoginExtend devAuthLoginExtend(SecurityService securityService) {
+        return new DevAutoLoginExtend(securityService);
+    }
 
     @Bean
     public ShiroFilterIsAccessAllowedHandler isAccessAllowedExtend(ApplicationContext context) {

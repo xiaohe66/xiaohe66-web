@@ -1,5 +1,6 @@
 package com.xiaohe66.web.infrastructure.shiro.realm;
 
+import com.xiaohe66.web.infrastructure.shiro.ShiroConst;
 import com.xiaohe66.web.infrastructure.shiro.token.XhShiroAuthenticationToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,9 +49,7 @@ public class XhDefaultRealm extends AuthorizingRealm {
         if (isAdmin(principal)) {
 
             boolean[] result = new boolean[roleIdentifiers.size()];
-            for (int i = 0; i < result.length; i++) {
-                result[i] = true;
-            }
+            Arrays.fill(result, true);
             return result;
         }
 
@@ -58,7 +58,7 @@ public class XhDefaultRealm extends AuthorizingRealm {
 
     private boolean isAdmin(PrincipalCollection principal) {
 
-        boolean ret = super.hasRole(principal, "admin");
+        boolean ret = super.hasRole(principal, ShiroConst.ADMIN_ROLE_NAME);
         log.debug("give admin permission");
 
         return ret;
@@ -69,7 +69,7 @@ public class XhDefaultRealm extends AuthorizingRealm {
 
         XhShiroAuthenticationToken account = (XhShiroAuthenticationToken) principals.getPrimaryPrincipal();
 
-        log.debug("give auth : {}, roles : {}, permissions", account.getAccountId(), account.getRoles(), account.getPermissions());
+        log.debug("give auth : {}, roles : {}, permissions : {}", account.getAccountId(), account.getRoles(), account.getPermissions());
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(account.getRoles());
 
@@ -92,7 +92,7 @@ public class XhDefaultRealm extends AuthorizingRealm {
      * 抛出 {@link org.apache.shiro.authc.pam.UnsupportedTokenException} 异常
      */
     @Override
-    public Class getAuthenticationTokenClass() {
+    public Class<XhShiroAuthenticationToken> getAuthenticationTokenClass() {
         return XhShiroAuthenticationToken.class;
     }
 }

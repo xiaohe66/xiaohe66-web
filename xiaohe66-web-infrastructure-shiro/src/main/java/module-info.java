@@ -11,6 +11,7 @@ module xiaohe.web.infrastructure.shiro {
     requires transitive shiro.web;
 
     requires spring.aop;
+    requires spring.boot.autoconfigure;
     requires spring.core;
 
     requires org.apache.tomcat.embed.core;

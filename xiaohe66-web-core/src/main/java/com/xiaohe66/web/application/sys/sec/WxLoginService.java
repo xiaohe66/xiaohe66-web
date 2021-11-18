@@ -3,13 +3,12 @@ package com.xiaohe66.web.application.sys.sec;
 import com.xiaohe66.common.api.ApiException;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
-import com.xiaohe66.web.application.sys.sec.convert.WxLoginDataConverter;
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
+import com.xiaohe66.web.application.sys.sec.convert.WxLoginDataConverter;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
-import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
@@ -82,12 +81,7 @@ public class WxLoginService {
         wxUserService.saveWxUser(wxUser);
 
         // 3.录到系统
-        try {
-            loginService.login(wxUser.getAccountId());
-
-        } catch (LoginException e) {
-            log.error("登录失败", e);
-        }
+        loginService.login(wxUser.getAccountId());
 
         log.info("wx account login success, unionId : {}", response.getUnionId());
 

@@ -6,11 +6,11 @@ import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
-import com.xiaohe66.web.domain.sys.sec.ex.LoginException;
 import com.xiaohe66.web.domain.sys.sec.repository.RoleRepository;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
-import com.xiaohe66.web.domain.sys.sec.service.SessionManager;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
+import com.xiaohe66.web.integration.ex.BusinessException;
+import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
@@ -31,22 +31,21 @@ public class LoginService {
     private final RoleRepository roleRepository;
     private final SecurityService securityService;
 
-    private final SessionManager sessionManager;
     /*
     TODO : 登录的返回值需要改变成 R<?> 吗
      */
 
-    CurrentAccount login(@NonNull AccountId accountId) throws LoginException {
+    CurrentAccount login(@NonNull AccountId accountId) {
 
         Account account = accountRepository.getById(accountId);
         if (account == null) {
-            throw new LoginException("login fail, not found account");
+            throw new BusinessException(ErrorCodeEnum.NOT_FOUND_ACCOUNT);
         }
 
         return login(account);
     }
 
-    CurrentAccount login(@NonNull Account account) throws LoginException {
+    CurrentAccount login(@NonNull Account account) {
 
         Set<RoleName> roles = account.roleIdsStream()
                 .map(id -> roleRepository.getById(id).getRoleName())
@@ -61,27 +60,25 @@ public class LoginService {
                 .build();
 
         securityService.login(currentAccount);
-
-        sessionManager.setCurrentAccount(currentAccount);
+        securityService.setCurrentAccount(currentAccount);
 
         return currentAccount;
     }
 
     public CurrentAccount login(@NonNull String accountNameValue,
-                                @NonNull String password) throws LoginException {
+                                @NonNull String password) {
 
         AccountName accountName = new AccountName(accountNameValue);
 
         AccountPassword dbPassword = accountRepository.getPasswordByName(accountName);
 
         if (dbPassword == null) {
-            throw new LoginException("account not found : " + accountNameValue);
+            throw new BusinessException(ErrorCodeEnum.NOT_FOUND_ACCOUNT);
         }
 
         // 验证密码
         if (!dbPassword.verify(password)) {
-
-            throw new LoginException("password is error : " + accountNameValue);
+            throw new BusinessException(ErrorCodeEnum.INVALID_TOKEN);
         }
 
         Account account = accountRepository.getByName(accountName);
