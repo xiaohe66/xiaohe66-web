@@ -1,6 +1,5 @@
 package com.xiaohe66.web.integration;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaohe66.web.integration.domain.Aggregate;
 import com.xiaohe66.web.integration.domain.Id;
@@ -43,13 +42,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     }
 
     public boolean isExistId(Serializable id) {
-
-        // TODO : 使用自定义sql实现
-        QueryWrapper<D> queryWrapper = new QueryWrapper<>();
-
-        queryWrapper.eq("id", id);
-
-        return baseMapper.selectCount(queryWrapper) > 0;
+        return baseMapper.isExistId(id);
     }
 
     @Override
