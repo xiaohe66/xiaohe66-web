@@ -29,7 +29,8 @@ public class TodoRepositoryImpl
 
         LambdaQueryWrapper<TodoDo> queryWrapper = new LambdaQueryWrapper<TodoDo>()
                 .eq(TodoDo::getPoolId, poolId.getValue())
-                .eq(TodoDo::getCreateId, createId.getValue());
+                .eq(TodoDo::getCreateId, createId.getValue())
+                .orderByAsc(TodoDo::getSort);
 
         List<TodoDo> list = list(queryWrapper);
 

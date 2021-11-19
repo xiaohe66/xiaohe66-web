@@ -1,6 +1,6 @@
 open module xiaohe.web.gateway.http {
 
-    requires transitive xiaohe.web.core;
+    requires transitive xiaohe.web.application;
     requires transitive java.validation;
     requires transitive com.fasterxml.classmate;
 

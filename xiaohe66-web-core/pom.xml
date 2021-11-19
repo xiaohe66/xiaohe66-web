@@ -20,6 +20,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.xiaohe66</groupId>
             <artifactId>xiaohe66-common-base</artifactId>
         </dependency>

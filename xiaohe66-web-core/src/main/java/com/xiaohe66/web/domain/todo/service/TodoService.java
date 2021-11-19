@@ -1,6 +1,5 @@
 package com.xiaohe66.web.domain.todo.service;
 
-import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.todo.agg.Todo;
 import com.xiaohe66.web.domain.todo.repository.TodoRepository;
@@ -12,6 +11,7 @@ import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,18 +56,19 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void sort(TodoPoolId poolId, List<TodoId> todoIdList) {
-
-        AccountId accountId = securityService.getCurrentAccountId();
 
         // 默认排序是0, 自定义排序会从1开始,这样新建的就会放在前面
         int sort = 1;
         for (TodoId todoId : todoIdList) {
             Todo todo = todoRepository.getById(todoId);
-            // 没有权限
-            // 池不同
-            if (!accountId.equals(todo.getCreateId()) ||
-                    !poolId.equals(todo.getPoolId())) {
+
+            // 可修改: 拥有创建者权限且待办池相同
+            boolean canSave = securityService.hasCreatorPermission(todo.getCreateId()) &&
+                    poolId.equals(todo.getPoolId());
+
+            if (!canSave) {
                 continue;
             }
 

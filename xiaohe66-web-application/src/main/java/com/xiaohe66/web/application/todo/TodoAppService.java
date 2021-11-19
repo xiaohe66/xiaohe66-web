@@ -16,6 +16,7 @@ import com.xiaohe66.web.domain.todo.repository.TodoRepository;
 import com.xiaohe66.web.domain.todo.service.TodoService;
 import com.xiaohe66.web.domain.todo.value.TodoId;
 import com.xiaohe66.web.domain.todo.value.TodoPoolId;
+import com.xiaohe66.web.application.aop.annotation.NeedLogin;
 import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,7 @@ public class TodoAppService {
     private final TodoRepository todoRepository;
     private final SecurityService securityService;
 
+    @NeedLogin
     public R<Long> save(TodoSaveBo saveBo) {
 
         AccountId accountId = securityService.getCurrentAccountId();
@@ -53,16 +55,15 @@ public class TodoAppService {
         return R.ok(saveBo.getId());
     }
 
+    @NeedLogin
     public R<Void> remove(Long id) {
-
-        // TODO : 使用注解来判断权限
-        securityService.checkLogin();
 
         TodoId todoId = new TodoId(id);
         todoService.removeById(todoId);
         return R.ok();
     }
 
+    @NeedLogin
     public R<Void> changeStatus(TodoChangePoolBo poolBo) {
 
         TodoId todoId = new TodoId(poolBo.getTodoId());
@@ -73,6 +74,7 @@ public class TodoAppService {
         return R.ok();
     }
 
+    @NeedLogin
     public R<Void> sort(TodoSortBo sortBo) {
 
         TodoPoolId poolId = new TodoPoolId(sortBo.getPoolId());
@@ -86,6 +88,7 @@ public class TodoAppService {
         return R.ok();
     }
 
+    @NeedLogin
     public R<TodoListResult> queryList() {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
@@ -108,6 +111,7 @@ public class TodoAppService {
         return R.ok(result);
     }
 
+    @NeedLogin
     public R<TodoDetailResult> queryDetail(Long id) {
 
         Todo todo = todoRepository.getById(new TodoId(id));

@@ -15,6 +15,7 @@
         <module>xiaohe66-web-infrastructure-mybatis</module>
         <module>xiaohe66-web-main</module>
         <module>xiaohe66-web-gateway-http</module>
+        <module>xiaohe66-web-application</module>
     </modules>
 
     <properties>
@@ -121,6 +122,12 @@
             <dependency>
                 <groupId>com.xiaohe66</groupId>
                 <artifactId>xiaohe66-web-core</artifactId>
+                <version>${xiaohe66-ddd.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66</groupId>
+                <artifactId>xiaohe66-web-application</artifactId>
                 <version>${xiaohe66-ddd.version}</version>
             </dependency>
 
