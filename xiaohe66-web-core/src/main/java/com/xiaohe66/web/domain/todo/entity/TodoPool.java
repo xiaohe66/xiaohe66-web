@@ -28,14 +28,14 @@ public class TodoPool implements Entity<TodoPoolId> {
 
     static {
 
-        DEFAULT_POOL_LIST = List.of(
-                genTodoPool(1, "计划池"),
-                genTodoPool(2, "准备池"),
-                genTodoPool(3, "执行池"),
-                genTodoPool(4, "验收池"),
-                genTodoPool(5, "随手池"),
-                genTodoPool(6, "完成池"),
-                genTodoPool(7, "大事池"));
+        String[] names = {"大事池", "随手池", "计划池", "准备池", "执行池", "验收池", "完成池"};
+
+        TodoPool[] arr = new TodoPool[names.length];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = genTodoPool(i, names[i]);
+        }
+
+        DEFAULT_POOL_LIST = List.of(arr);
     }
 
     public static Collection<TodoPool> defaultPool() {

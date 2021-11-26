@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface TodoRepository extends Repository<Todo, TodoId> {
 
-    List<Todo> listByPoolId(AccountId createId, TodoPoolId poolId);
+    List<Todo> listByPoolId(AccountId createId, TodoPoolId poolId, Long before, Long size);
 
 }

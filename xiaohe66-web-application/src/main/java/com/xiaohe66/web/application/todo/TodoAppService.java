@@ -2,7 +2,9 @@ package com.xiaohe66.web.application.todo;
 
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
+import com.xiaohe66.web.application.aop.annotation.NeedLogin;
 import com.xiaohe66.web.application.todo.bo.TodoChangePoolBo;
+import com.xiaohe66.web.application.todo.bo.TodoListBo;
 import com.xiaohe66.web.application.todo.bo.TodoSaveBo;
 import com.xiaohe66.web.application.todo.bo.TodoSortBo;
 import com.xiaohe66.web.application.todo.convert.TodoBoConverter;
@@ -16,7 +18,6 @@ import com.xiaohe66.web.domain.todo.repository.TodoRepository;
 import com.xiaohe66.web.domain.todo.service.TodoService;
 import com.xiaohe66.web.domain.todo.value.TodoId;
 import com.xiaohe66.web.domain.todo.value.TodoPoolId;
-import com.xiaohe66.web.application.aop.annotation.NeedLogin;
 import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
@@ -88,27 +89,36 @@ public class TodoAppService {
         return R.ok();
     }
 
+    /**
+     * 用于页面的首次获取
+     */
     @NeedLogin
-    public R<TodoListResult> queryList() {
+    public R<List<List<TodoListResult>>> queryLists() {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
-        List<TodoListResult.Pool> resultPools = TodoPool.defaultPool().stream()
+        List<List<TodoListResult>> list = TodoPool.defaultPool().stream()
                 .map(pool -> {
 
-                    List<Todo> todos = todoRepository.listByPoolId(currentAccountId, pool.getId());
-
-                    TodoListResult.Pool resultPool = new TodoListResult.Pool();
-                    converter.setPoolValue(resultPool, pool, todos);
-
-                    return resultPool;
+                    List<Todo> todos = todoRepository.listByPoolId(currentAccountId, pool.getId(), 0L, 10L);
+                    return converter.toResult(todos);
 
                 }).collect(Collectors.toList());
 
-        TodoListResult result = new TodoListResult();
-        result.setPools(resultPools);
+        return R.ok(list);
+    }
 
-        return R.ok(result);
+    @NeedLogin
+    public R<List<TodoListResult>> queryList(TodoListBo bo) {
+
+        AccountId currentAccountId = securityService.getCurrentAccountId();
+
+        TodoPoolId todoPoolId = new TodoPoolId(bo.getPoolId());
+
+        List<Todo> todos = todoRepository.listByPoolId(currentAccountId, todoPoolId, bo.getBefore(), bo.getSize());
+        List<TodoListResult> ret = converter.toResult(todos);
+
+        return R.ok(ret);
     }
 
     @NeedLogin

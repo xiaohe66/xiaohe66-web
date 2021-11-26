@@ -5,7 +5,6 @@ import com.xiaohe66.web.domain.todo.value.TodoDesc;
 import com.xiaohe66.web.domain.todo.value.TodoId;
 import com.xiaohe66.web.domain.todo.value.TodoPoolId;
 import com.xiaohe66.web.domain.todo.value.TodoSort;
-import com.xiaohe66.web.domain.todo.value.TodoSummary;
 import com.xiaohe66.web.domain.todo.value.TodoTitle;
 import com.xiaohe66.web.integration.domain.Aggregate;
 import lombok.AllArgsConstructor;
@@ -36,10 +35,9 @@ public class Todo implements Aggregate<Todo, TodoId> {
     private TodoPoolId poolId;
 
     @NonNull
-    private TodoTitle title;
+    private TodoTitle name;
 
-    private TodoDesc desc;
-    private TodoSummary summary;
+    private TodoDesc remark;
     private TodoSort sort;
 
     public void changePool(TodoPoolId poolId) {
@@ -53,10 +51,10 @@ public class Todo implements Aggregate<Todo, TodoId> {
 
     @Override
     public boolean hasSameRootAttribute(Todo other) {
-        return Objects.equals(poolId, other.poolId) &&
-                Objects.equals(title, other.title) &&
-                Objects.equals(desc, other.desc) &&
-                Objects.equals(summary, other.summary) &&
+        return other != null &&
+                Objects.equals(poolId, other.poolId) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(remark, other.remark) &&
                 Objects.equals(sort, other.sort);
     }
 

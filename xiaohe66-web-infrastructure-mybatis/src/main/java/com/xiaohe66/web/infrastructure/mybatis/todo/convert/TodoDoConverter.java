@@ -6,7 +6,6 @@ import com.xiaohe66.web.domain.todo.value.TodoDesc;
 import com.xiaohe66.web.domain.todo.value.TodoId;
 import com.xiaohe66.web.domain.todo.value.TodoPoolId;
 import com.xiaohe66.web.domain.todo.value.TodoSort;
-import com.xiaohe66.web.domain.todo.value.TodoSummary;
 import com.xiaohe66.web.domain.todo.value.TodoTitle;
 import com.xiaohe66.web.infrastructure.mybatis.todo.model.TodoDo;
 import com.xiaohe66.web.integration.DoConverter;
@@ -37,10 +36,6 @@ public interface TodoDoConverter extends DoConverter<Todo, TodoDo> {
 
     default TodoDesc newDesc(String desc) {
         return ifPresent(desc, TodoDesc::new);
-    }
-
-    default TodoSummary newSummary(String summary) {
-        return ifPresent(summary, TodoSummary::new);
     }
 
     default TodoSort newTodoSort(Integer sort) {

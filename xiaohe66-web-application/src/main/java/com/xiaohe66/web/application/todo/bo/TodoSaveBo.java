@@ -11,8 +11,7 @@ public class TodoSaveBo {
 
     private Long id;
     private Integer poolId;
-    private String title;
-    private String desc;
-    private String summary;
+    private String name;
+    private String remark;
     private Integer sort;
 }

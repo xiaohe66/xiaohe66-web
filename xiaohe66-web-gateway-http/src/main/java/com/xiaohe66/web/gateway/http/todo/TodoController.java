@@ -3,12 +3,14 @@ package com.xiaohe66.web.gateway.http.todo;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.todo.TodoAppService;
 import com.xiaohe66.web.application.todo.bo.TodoChangePoolBo;
+import com.xiaohe66.web.application.todo.bo.TodoListBo;
 import com.xiaohe66.web.application.todo.bo.TodoSaveBo;
 import com.xiaohe66.web.application.todo.bo.TodoSortBo;
 import com.xiaohe66.web.application.todo.result.TodoDetailResult;
 import com.xiaohe66.web.application.todo.result.TodoListResult;
 import com.xiaohe66.web.gateway.http.todo.convert.TodoDtoConverter;
 import com.xiaohe66.web.gateway.http.todo.dto.TodoChangePoolDto;
+import com.xiaohe66.web.gateway.http.todo.dto.TodoListDto;
 import com.xiaohe66.web.gateway.http.todo.dto.TodoSaveDto;
 import com.xiaohe66.web.gateway.http.todo.dto.TodoSortDto;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author xiaohe
@@ -64,9 +69,20 @@ public class TodoController {
         return todoAppService.sort(bo);
     }
 
+    @GetMapping("/lists")
+    public R<List<List<TodoListResult>>> lists() {
+
+        R<List<List<TodoListResult>>> list = todoAppService.queryLists();
+
+        log.info("list : {}", list.getData());
+        return list;
+    }
+
     @GetMapping
-    public R<TodoListResult> list() {
-        return todoAppService.queryList();
+    public R<List<TodoListResult>> list(@Validated TodoListDto dto) {
+
+        TodoListBo bo = dtoConverter.toBo(dto);
+        return todoAppService.queryList(bo);
     }
 
     @GetMapping("/{id}")

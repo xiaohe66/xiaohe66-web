@@ -22,11 +22,11 @@ public class TodoDo extends BaseLongInputDo {
     private Boolean deleted;
 
     private Integer poolId;
-    private String title;
 
-    @TableField("`desc`")
-    private String desc;
-    private String summary;
+    @TableField("`name`")
+    private String name;
+
+    private String remark;
     private Integer sort;
 
 }

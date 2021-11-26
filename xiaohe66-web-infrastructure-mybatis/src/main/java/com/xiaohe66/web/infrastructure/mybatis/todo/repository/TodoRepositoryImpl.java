@@ -13,7 +13,6 @@ import com.xiaohe66.web.integration.AbstractMybatisService;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author xiaohe
@@ -25,18 +24,17 @@ public class TodoRepositoryImpl
         implements TodoRepository {
 
     @Override
-    public List<Todo> listByPoolId(AccountId createId, TodoPoolId poolId) {
+    public List<Todo> listByPoolId(AccountId createId, TodoPoolId poolId, Long before, Long size) {
 
         LambdaQueryWrapper<TodoDo> queryWrapper = new LambdaQueryWrapper<TodoDo>()
                 .eq(TodoDo::getPoolId, poolId.getValue())
                 .eq(TodoDo::getCreateId, createId.getValue())
-                .orderByAsc(TodoDo::getSort);
+                .orderByAsc(TodoDo::getSort)
+                .orderByDesc(TodoDo::getId)
+                .last("limit " + before + "," + size);
 
         List<TodoDo> list = list(queryWrapper);
 
-        return list.stream()
-                .map(dataConverter::toAgg)
-                .collect(Collectors.toList());
-
+        return dataConverter.toAgg(list);
     }
 }
