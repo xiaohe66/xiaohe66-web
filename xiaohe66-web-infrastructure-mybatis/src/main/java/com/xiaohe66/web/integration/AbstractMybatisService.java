@@ -5,6 +5,7 @@ import com.xiaohe66.web.integration.domain.Aggregate;
 import com.xiaohe66.web.integration.domain.Id;
 import com.xiaohe66.web.integration.domain.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
@@ -45,6 +46,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
         return baseMapper.isExistId(id);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(A agg) {
 
@@ -85,6 +87,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
         return agg;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void removeById(I id) {
         removeByIdImpl(id);
@@ -101,7 +104,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     }
 
     protected void updateImpl(A agg, A snapshot) {
-        if (snapshot == null || agg.hasDiffRoot(snapshot)) {
+        if (snapshot == null || agg.hasDiffRootAttribute(snapshot)) {
             D d = dataConverter.toDo(agg);
             updateById(d);
         }

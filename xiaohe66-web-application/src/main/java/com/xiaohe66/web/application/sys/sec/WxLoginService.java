@@ -9,6 +9,7 @@ import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
+import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
@@ -22,6 +23,7 @@ import com.xiaohe66.web.infrastructure.acl.wx.response.WxCode2SessionResponse;
 import com.xiaohe66.web.integration.config.WxConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -63,6 +65,10 @@ public class WxLoginService {
         if (wxUser == null) {
 
             log.info("register wx account, unionId : {}", response.getUnionId());
+
+            if (StringUtils.isBlank(loginBo.getNickname())) {
+                loginBo.setNickname(IdWorker.genIdStr());
+            }
 
             Account account = registerAccount(loginBo);
 
@@ -109,10 +115,13 @@ public class WxLoginService {
         WxCode2SessionResponse response = client.execute(request);
 
         // note : 微信接口文档写了会返回 errcode，但实际上并没有返回
-        if (response == null || response.getUnionId() == null) {
+        if (response == null) {
+            throw new ApiException("wx code2session response is null");
+        }
 
-            log.error("wx code2session fail, code : {}", code);
+        if (response.getUnionId() == null) {
 
+            log.error("wx code2session unionId is null, code : {}, response : {}", code, response.getResponse());
             throw new ApiException("response.unionId is null");
         }
 
@@ -125,6 +134,7 @@ public class WxLoginService {
         Account account = Account.builder()
                 .id(new AccountId(IdWorker.genId()))
                 .name(new AccountName(loginBo.getNickname()))
+                .password(AccountPassword.EMPTY)
                 .build();
 
         accountService.register(account);

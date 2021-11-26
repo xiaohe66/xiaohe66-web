@@ -28,7 +28,8 @@ public class Role implements Aggregate<Role, RoleId> {
     }
 
     @Override
-    public boolean hasDiffRoot(Role other) {
-        return !isSameIdentity(other) || !roleName.equals(other.getRoleName());
+    public boolean hasSameRootAttribute(Role other) {
+        // note : 由于本聚合根中所有字段都是常量，因此直接返回 true
+        return true;
     }
 }

@@ -52,12 +52,12 @@ public class Todo implements Aggregate<Todo, TodoId> {
     }
 
     @Override
-    public boolean hasDiffRoot(Todo other) {
-        return !(Objects.equals(poolId, other.poolId) &&
+    public boolean hasSameRootAttribute(Todo other) {
+        return Objects.equals(poolId, other.poolId) &&
                 Objects.equals(title, other.title) &&
                 Objects.equals(desc, other.desc) &&
                 Objects.equals(summary, other.summary) &&
-                Objects.equals(sort, other.sort));
+                Objects.equals(sort, other.sort);
     }
 
     @Override

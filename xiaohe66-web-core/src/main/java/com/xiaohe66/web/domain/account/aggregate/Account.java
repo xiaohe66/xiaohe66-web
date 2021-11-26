@@ -14,6 +14,7 @@ import lombok.ToString;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -46,11 +47,10 @@ public class Account implements Aggregate<Account, AccountId> {
     }
 
     @Override
-    public boolean hasDiffRoot(Account other) {
-
-        return !isSameIdentity(other) ||
-                !name.equals(other.getName()) ||
-                !password.equals(other.getPassword());
+    public boolean hasSameRootAttribute(Account other) {
+        return other != null &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(password, other.password);
     }
 
     public void addRole(@NonNull RoleId roleId) {

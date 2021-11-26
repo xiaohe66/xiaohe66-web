@@ -57,7 +57,7 @@ public class LoginController {
     }
 
     @PostMapping("/login/wx")
-    public R<String> wxLogin(WxLoginDto request) {
+    public R<String> wxLogin(@RequestBody @Validated WxLoginDto request) {
 
         WxLoginBo bo = wxLoginDtoConverter.toBo(request);
 

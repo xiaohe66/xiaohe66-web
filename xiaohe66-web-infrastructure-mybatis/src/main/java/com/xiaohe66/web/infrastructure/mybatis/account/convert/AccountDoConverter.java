@@ -1,5 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis.account.convert;
 
+import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
@@ -55,6 +56,7 @@ public interface AccountDoConverter extends DoConverter<Account, AccountDo> {
         return account.roleIdsStream()
                 .map(roleId -> {
                     AccountRoleDo accountRoleDo = new AccountRoleDo();
+                    accountRoleDo.setId(IdWorker.genId());
                     accountRoleDo.setAccountId(accountIdValue);
                     accountRoleDo.setRoleId(roleId.getValue());
                     return accountRoleDo;

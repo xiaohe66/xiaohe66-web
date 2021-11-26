@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.util.Objects;
+
 /**
  * @author xiaohe
  * @since 2021.08.11 17:48
@@ -50,16 +52,14 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
     }
 
     @Override
-    public boolean hasDiffRoot(WxUser other) {
-        return !(isSameIdentity(other) &&
-                accountId.equals(other.getAccountId()) &&
-                unionId.equals(other.getUnionId()) &&
-                phone.equals(other.getPhone()) &&
-                sex.equals(other.getSex()) &&
-                province.equals(other.getProvince()) &&
-                city.equals(other.getCity()) &&
-                country.equals(other.getCountry()) &&
-                avatarUrl.equals(other.getAvatarUrl()) &&
-                sessionKey.equals(other.getSessionKey()));
+    public boolean hasSameRootAttribute(WxUser other) {
+        return other != null &&
+                Objects.equals(phone, other.getPhone()) &&
+                Objects.equals(sex, other.getSex()) &&
+                Objects.equals(province, other.getProvince()) &&
+                Objects.equals(city, other.getCity()) &&
+                Objects.equals(country, other.getCountry()) &&
+                Objects.equals(avatarUrl, other.getAvatarUrl()) &&
+                Objects.equals(sessionKey, other.getSessionKey());
     }
 }

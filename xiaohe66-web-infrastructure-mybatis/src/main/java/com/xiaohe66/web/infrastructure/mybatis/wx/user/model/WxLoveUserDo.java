@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("wx_user_love")
+@TableName("wx_love_user")
 public class WxLoveUserDo extends BaseLongInputDo {
 
     private String openId;
