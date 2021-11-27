@@ -24,7 +24,7 @@ public interface WxLoginDtoConverter extends DtoConverter {
             case "love":
                 return WxLoginBo.Type.LOVE;
 
-            case "todo":
+            case "task":
                 return WxLoginBo.Type.TASK;
 
             default:

@@ -59,6 +59,7 @@ module xiaohe.web.core {
 
     requires transitive spring.aop;
     requires transitive spring.boot;
+    requires transitive spring.boot.autoconfigure;
     requires transitive spring.context;
     requires transitive spring.web;
     requires transitive spring.tx;

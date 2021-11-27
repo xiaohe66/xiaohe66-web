@@ -29,33 +29,28 @@ public class DevAutoLoginExtend implements ShiroFilterIsAccessAllowedHandler.Ext
 
         if (!securityService.isLogin()) {
 
-            String uri = request.getRequestURI();
+            log.info("dev auto login");
+            try {
 
-            if (!"/sec/login/wx".equals(uri)) {
+                AccountId id = new AccountId(ShiroConst.ADMIN_ACCOUNT_ID);
+                AccountName name = new AccountName(ShiroConst.ADMIN_ACCOUNT_NAME);
+                RoleName roleName = new RoleName(ShiroConst.ADMIN_ACCOUNT_NAME);
 
-                log.info("dev auto login");
-                try {
+                CurrentAccount currentAccount = CurrentAccount.builder()
+                        .id(id)
+                        .name(name)
+                        .roleNames(Collections.singleton(roleName))
+                        .permissionNames(Collections.emptySet())
+                        .build();
 
-                    AccountId id = new AccountId(ShiroConst.ADMIN_ACCOUNT_ID);
-                    AccountName name = new AccountName(ShiroConst.ADMIN_ACCOUNT_NAME);
-                    RoleName roleName = new RoleName(ShiroConst.ADMIN_ACCOUNT_NAME);
+                securityService.login(currentAccount);
+                securityService.setCurrentAccount(currentAccount);
 
-                    CurrentAccount currentAccount = CurrentAccount.builder()
-                            .id(id)
-                            .name(name)
-                            .roleNames(Collections.singleton(roleName))
-                            .permissionNames(Collections.emptySet())
-                            .build();
+                log.info("dev auto login success, account : {}", ShiroConst.ADMIN_ACCOUNT_NAME);
 
-                    securityService.login(currentAccount);
-                    securityService.setCurrentAccount(currentAccount);
+            } catch (Exception e) {
 
-                    log.info("dev auto login success, account : {}", ShiroConst.ADMIN_ACCOUNT_NAME);
-
-                } catch (Exception e) {
-
-                    log.error("dev login error", e);
-                }
+                log.error("dev login error", e);
             }
         }
         return true;
