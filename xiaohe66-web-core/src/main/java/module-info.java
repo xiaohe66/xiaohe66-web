@@ -16,11 +16,11 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.domain.sys.sec.repository;
     exports com.xiaohe66.web.domain.sys.sec.service;
 
-    exports com.xiaohe66.web.domain.todo.agg;
-    exports com.xiaohe66.web.domain.todo.entity;
-    exports com.xiaohe66.web.domain.todo.value;
-    exports com.xiaohe66.web.domain.todo.repository;
-    exports com.xiaohe66.web.domain.todo.service;
+    exports com.xiaohe66.web.domain.task.agg;
+    exports com.xiaohe66.web.domain.task.entity;
+    exports com.xiaohe66.web.domain.task.value;
+    exports com.xiaohe66.web.domain.task.repository;
+    exports com.xiaohe66.web.domain.task.service;
 
     exports com.xiaohe66.web.integration.config;
     exports com.xiaohe66.web.integration.domain;
@@ -35,8 +35,8 @@ module xiaohe.web.core {
     opens com.xiaohe66.web.domain.account.service;
     opens com.xiaohe66.web.domain.account.repository;
 
-    opens com.xiaohe66.web.domain.todo.service;
-    opens com.xiaohe66.web.domain.todo.repository;
+    opens com.xiaohe66.web.domain.task.service;
+    opens com.xiaohe66.web.domain.task.repository;
 
     opens com.xiaohe66.web.domain.wx.user.service;
 

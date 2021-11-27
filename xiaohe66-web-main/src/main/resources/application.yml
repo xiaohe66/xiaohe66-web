@@ -37,7 +37,7 @@ logging:
 #配置性参数
 xiaohe66:
   wx:
-    todo:
+    task:
       miniProgramState: developer
       appId: appid_todo
       appSecret: secret_todo

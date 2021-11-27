@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class WxConfig {
 
-    private Prop todo;
+    private Prop task;
     private Prop love;
 
     @Data

@@ -19,12 +19,12 @@ logging:
     path: logs/
 
 xiaohe66:
-  file:
-    home: C:\\xiaohe66\\file\\
-    maxMbChunkPer: 1
-    maxMbFilePer: 8
-  registerUrl: http://localhost/sec/login/register/
   wx:
-    miniProgramState: developer
-    appId: appid
-    appSecret: secret
+    task:
+      miniProgramState: developer
+      appId: appid_todo
+      appSecret: secret_todo
+    love:
+      miniProgramState: developer
+      appId: appid_love
+      appSecret: secret_love

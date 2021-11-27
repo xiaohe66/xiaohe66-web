@@ -3,7 +3,7 @@ package com.xiaohe66.web.application.sys.sec.convert;
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
-import com.xiaohe66.web.domain.wx.user.value.WxTodoUserOpenId;
+import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -19,8 +19,8 @@ public interface WxLoginDataConverter {
     default void setOpenId(WxUser wxUser, WxLoginBo.Type type, String openId) {
 
         switch (type) {
-            case TODO:
-                wxUser.setWxTodoUserOpenId(new WxTodoUserOpenId(openId));
+            case TASK:
+                wxUser.setWxTaskUserOpenId(new WxTaskUserOpenId(openId));
                 break;
 
             case LOVE:

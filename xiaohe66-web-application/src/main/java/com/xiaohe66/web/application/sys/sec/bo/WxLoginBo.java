@@ -27,7 +27,7 @@ public class WxLoginBo {
         /**
          *
          */
-        TODO, LOVE
+        TASK, LOVE
     }
 
 }

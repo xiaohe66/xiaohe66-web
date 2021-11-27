@@ -3,16 +3,16 @@ module xiaohe.web.application {
     exports com.xiaohe66.web.application.sys.sec;
     exports com.xiaohe66.web.application.sys.sec.bo;
 
-    exports com.xiaohe66.web.application.todo;
-    exports com.xiaohe66.web.application.todo.bo;
-    exports com.xiaohe66.web.application.todo.result;
+    exports com.xiaohe66.web.application.task;
+    exports com.xiaohe66.web.application.task.bo;
+    exports com.xiaohe66.web.application.task.result;
 
     opens com.xiaohe66.web.application.aop;
     opens com.xiaohe66.web.application.aop.annotation;
     opens com.xiaohe66.web.application.sys.sec.convert;
-    opens com.xiaohe66.web.application.todo;
-    opens com.xiaohe66.web.application.todo.convert;
-    opens com.xiaohe66.web.application.todo.result;
+    opens com.xiaohe66.web.application.task;
+    opens com.xiaohe66.web.application.task.convert;
+    opens com.xiaohe66.web.application.task.result;
 
     // mapstruct
     requires static java.compiler;

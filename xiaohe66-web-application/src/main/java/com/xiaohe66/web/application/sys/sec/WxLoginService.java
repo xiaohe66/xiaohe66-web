@@ -100,8 +100,8 @@ public class WxLoginService {
 
     private WxCode2SessionResponse requestCode2Session(WxLoginBo.Type type, String code) throws ApiException {
 
-        WxConfig.Prop prop = type == WxLoginBo.Type.TODO ?
-                wxConfig.getTodo() :
+        WxConfig.Prop prop = type == WxLoginBo.Type.TASK ?
+                wxConfig.getTask() :
                 wxConfig.getLove();
 
         WxCode2SessionModel model = new WxCode2SessionModel();
