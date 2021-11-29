@@ -1,5 +1,6 @@
 package com.xiaohe66.web.domain.wx.user.repository;
 
+import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
@@ -12,5 +13,7 @@ import com.xiaohe66.web.integration.domain.Repository;
 public interface WxUserRepository extends Repository<WxUser, WxUserId> {
 
     WxUser getByUnionId(WxUnionId unionId);
+
+    WxUser getByAccountId(AccountId accountId);
 
 }

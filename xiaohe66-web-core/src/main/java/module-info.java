@@ -1,5 +1,21 @@
 module xiaohe.web.core {
 
+    opens com.xiaohe66.web.domain.account.service;
+    opens com.xiaohe66.web.domain.account.repository;
+
+    opens com.xiaohe66.web.domain.love.service;
+    opens com.xiaohe66.web.domain.love.repository;
+
+    opens com.xiaohe66.web.domain.task.service;
+    opens com.xiaohe66.web.domain.task.repository;
+
+    opens com.xiaohe66.web.domain.wx.user.service;
+
+    opens com.xiaohe66.web.infrastructure.acl.wx;
+    opens com.xiaohe66.web.infrastructure.acl.wx.request;
+
+    opens com.xiaohe66.web.integration.config;
+
     exports com.xiaohe66.web.domain.account.aggregate;
     exports com.xiaohe66.web.domain.account.value;
     exports com.xiaohe66.web.domain.account.repository;
@@ -22,6 +38,7 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.domain.task.repository;
     exports com.xiaohe66.web.domain.task.service;
 
+    exports com.xiaohe66.web.integration.cache;
     exports com.xiaohe66.web.integration.config;
     exports com.xiaohe66.web.integration.domain;
     exports com.xiaohe66.web.integration.ex;
@@ -32,18 +49,10 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.infrastructure.acl.wx.request;
     exports com.xiaohe66.web.infrastructure.acl.wx.response;
 
-    opens com.xiaohe66.web.domain.account.service;
-    opens com.xiaohe66.web.domain.account.repository;
-
-    opens com.xiaohe66.web.domain.task.service;
-    opens com.xiaohe66.web.domain.task.repository;
-
-    opens com.xiaohe66.web.domain.wx.user.service;
-
-    opens com.xiaohe66.web.infrastructure.acl.wx;
-    opens com.xiaohe66.web.infrastructure.acl.wx.request;
-
-    opens com.xiaohe66.web.integration.config;
+    exports com.xiaohe66.web.domain.love.agg;
+    exports com.xiaohe66.web.domain.love.value;
+    exports com.xiaohe66.web.domain.love.repository;
+    exports com.xiaohe66.web.domain.love.service;
 
     // mapstruct
     requires static java.compiler;
@@ -53,6 +62,8 @@ module xiaohe.web.core {
 
     requires transitive xiaohe.common.base;
     requires transitive xiaohe.common.api;
+
+    requires transitive com.google.common;
 
     requires transitive org.apache.commons.codec;
     requires transitive org.aspectj.weaver;

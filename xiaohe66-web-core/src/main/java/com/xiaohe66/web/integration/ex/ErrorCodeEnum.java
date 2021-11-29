@@ -21,6 +21,7 @@ public enum ErrorCodeEnum {
      * 原则上以 http code + 编号组成错误码
      */
     PARAM_ERROR(40000, "参数错误"),
+    ILLEGAL_OPERATE(40001, "非法操作"),
 
     /**
      * 权限 - 401
@@ -35,7 +36,7 @@ public enum ErrorCodeEnum {
     NOT_FUNCTION_PERMISSION(40110, "无操作权限"),
     NOT_DATA_PERMISSION(40120, "无操作权限"),
 
-    NOT_FOUND(40400, "操作对象不存在"),
+    NOT_FOUND(40400, "对象不存在"),
 
     ERROR(50000, "系统繁忙");
 

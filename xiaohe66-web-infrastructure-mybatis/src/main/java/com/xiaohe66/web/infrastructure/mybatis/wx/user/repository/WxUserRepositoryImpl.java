@@ -1,13 +1,16 @@
 package com.xiaohe66.web.infrastructure.mybatis.wx.user.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
+import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.convert.WxUserDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.mapper.WxUserMapper;
+import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxLoveUserDo;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxTaskUserDo;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxUserDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
@@ -28,6 +31,7 @@ public class WxUserRepositoryImpl
         implements WxUserRepository {
 
     private final WxTaskUserRepositoryImpl wxTaskUserRepository;
+    private final WxLoveUserRepositoryImpl wxLoveUserRepository;
 
     @Override
     protected void insertImpl(WxUser agg) {
@@ -36,12 +40,19 @@ public class WxUserRepositoryImpl
 
             wxTaskUserRepository.insert(agg.getId(), agg.getWxTaskUserOpenId());
         }
+        if (agg.getWxLoveUserOpenId() != null) {
+
+            wxLoveUserRepository.insert(agg.getId(), agg.getWxLoveUserOpenId());
+        }
     }
 
     @Override
     protected void removeByIdImpl(WxUserId id) {
         wxTaskUserRepository.removeById(id.getValue());
+        wxLoveUserRepository.removeById(id.getValue());
         super.removeByIdImpl(id);
+
+        removeSnapshot();
     }
 
     @Override
@@ -49,18 +60,7 @@ public class WxUserRepositoryImpl
 
         WxUser wxUser = getById(id);
 
-        if (wxUser == null) {
-            return null;
-        }
-
-        WxTaskUserDo taskUserDo = wxTaskUserRepository.getById(wxUser.getId().getValue());
-
-        // TODO : 赋值考虑使用转换器
-        if(taskUserDo != null){
-            wxUser.setWxTaskUserOpenId(new WxTaskUserOpenId(taskUserDo.getOpenId()));
-        }
-
-        // TODO : love user
+        fillOpenId(wxUser);
 
         return wxUser;
     }
@@ -75,8 +75,44 @@ public class WxUserRepositoryImpl
 
         WxUser wxUser = dataConverter.toAgg(wxUserDo);
 
-        saveSnapshot(wxUser);
+        fillOpenId(wxUser);
+
+        saveSnapshot(dataConverter.copyAgg(wxUser));
 
         return wxUser;
+    }
+
+    @Override
+    public WxUser getByAccountId(AccountId accountId) {
+
+        LambdaQueryWrapper<WxUserDo> queryWrapper = new LambdaQueryWrapper<WxUserDo>()
+                .eq(WxUserDo::getAccountId, accountId);
+
+        WxUserDo wxUserDo = getOne(queryWrapper);
+
+        WxUser wxUser = dataConverter.toAgg(wxUserDo);
+
+        fillOpenId(wxUser);
+
+        saveSnapshot(dataConverter.copyAgg(wxUser));
+
+        return wxUser;
+    }
+
+    protected void fillOpenId(WxUser wxUser){
+
+        if (wxUser == null) {
+            return;
+        }
+
+        WxTaskUserDo taskUserDo = wxTaskUserRepository.getById(wxUser.getId().getValue());
+        if (taskUserDo != null) {
+            wxUser.setWxTaskUserOpenId(new WxTaskUserOpenId(taskUserDo.getOpenId()));
+        }
+
+        WxLoveUserDo loveUserDo = wxLoveUserRepository.getById(wxUser.getId().getValue());
+        if(loveUserDo != null){
+            wxUser.setWxLoveUserOpenId(new WxLoveUserOpenId(loveUserDo.getOpenId()));
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.xiaohe66.web.cache;
+package com.xiaohe66.web.integration.cache;
 
 
 import com.google.common.cache.Cache;
@@ -7,8 +7,8 @@ import com.google.common.cache.CacheBuilder;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author xh
- * @date 18-10-18 018
+ * @author xiaohe
+ * @since 2018.10.18 018
  */
 public class CacheHelper {
 
