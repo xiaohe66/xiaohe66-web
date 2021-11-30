@@ -6,6 +6,7 @@ import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,7 +28,13 @@ public class GlobalControllerAdvice {
 
         log.error("system error", e);
 
-        return R.build(ErrorCodeEnum.ERROR.getCode(),ErrorCodeEnum.ERROR.getMsg());
+        return R.build(ErrorCodeEnum.ERROR.getCode(), ErrorCodeEnum.ERROR.getMsg());
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public R<Void> exceptionHandler(HttpRequestMethodNotSupportedException e) {
+
+        return R.build(ErrorCodeEnum.NOT_FOUND_URL.getCode(), ErrorCodeEnum.NOT_FOUND_URL.getMsg());
     }
 
     @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class, ConstraintViolationException.class})

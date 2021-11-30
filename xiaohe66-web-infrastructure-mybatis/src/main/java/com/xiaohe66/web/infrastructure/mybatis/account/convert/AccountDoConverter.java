@@ -24,10 +24,6 @@ public interface AccountDoConverter extends DoConverter<Account, AccountDo> {
     //@Mapping(source = "password", target = "passwordHash")
     //Account toEntity(AccountDo accountDo);
 
-    default AccountId newId(Long id) {
-        return ifPresent(id, AccountId::new);
-    }
-
     default Long asId(AccountId id) {
         return id == null ? null : id.getValue();
     }

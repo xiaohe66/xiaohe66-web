@@ -1,6 +1,5 @@
 package com.xiaohe66.web.infrastructure.mybatis.task.convert;
 
-import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.task.agg.Task;
 import com.xiaohe66.web.domain.task.value.TaskDesc;
 import com.xiaohe66.web.domain.task.value.TaskId;
@@ -17,10 +16,6 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring")
 public interface TaskDoConverter extends DoConverter<Task, TaskDo> {
-
-    default AccountId newCreateId(Long createId) {
-        return ifPresent(createId, AccountId::new);
-    }
 
     default TaskId newId(Long id) {
         return ifPresent(id, TaskId::new);

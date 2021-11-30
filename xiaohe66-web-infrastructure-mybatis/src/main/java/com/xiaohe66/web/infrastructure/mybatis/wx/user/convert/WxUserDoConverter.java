@@ -1,6 +1,5 @@
 package com.xiaohe66.web.infrastructure.mybatis.wx.user.convert;
 
-import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
@@ -18,10 +17,6 @@ public interface WxUserDoConverter extends DoConverter<WxUser, WxUserDo> {
 
     default WxUserId newWxUserId(Long id) {
         return ifPresent(id, WxUserId::new);
-    }
-
-    default AccountId newAccountId(Long id) {
-        return ifPresent(id, AccountId::new);
     }
 
     default WxUnionId newUnionId(String unionId) {

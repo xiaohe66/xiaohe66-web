@@ -1,5 +1,8 @@
 package com.xiaohe66.web.integration.domain;
 
+import com.xiaohe66.web.domain.account.value.AccountId;
+import com.xiaohe66.web.domain.love.value.LoverId;
+
 import java.util.function.Function;
 
 /**
@@ -30,6 +33,14 @@ public interface DataConverter {
 
     default String asString(StringValue value) {
         return ifPresent(value, StringValue::getValue);
+    }
+
+    default AccountId newAccountId(Long accountId) {
+        return ifPresent(accountId, AccountId::new);
+    }
+
+    default LoverId newLoverId(Long loverId) {
+        return ifPresent(loverId, LoverId::new);
     }
 
 }

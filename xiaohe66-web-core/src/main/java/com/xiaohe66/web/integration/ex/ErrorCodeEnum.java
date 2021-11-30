@@ -36,7 +36,14 @@ public enum ErrorCodeEnum {
     NOT_FUNCTION_PERMISSION(40110, "无操作权限"),
     NOT_DATA_PERMISSION(40120, "无操作权限"),
 
+    /**
+     * 资源未找到
+     * 404-1* = 接口不存在
+     * 404-2* = 数据不存在
+     */
     NOT_FOUND(40400, "对象不存在"),
+    NOT_FOUND_URL(40410, "接口不支持"),
+    NOT_FOUND_DATE(40420, "对象不存在"),
 
     ERROR(50000, "系统繁忙");
 
