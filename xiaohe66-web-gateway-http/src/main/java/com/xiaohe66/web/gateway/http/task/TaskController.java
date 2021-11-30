@@ -70,11 +70,7 @@ public class TaskController {
 
     @GetMapping("/lists")
     public R<List<List<TaskListResult>>> lists() {
-
-        R<List<List<TaskListResult>>> list = appService.queryLists();
-
-        log.info("list : {}", list.getData());
-        return list;
+        return appService.queryLists();
     }
 
     @GetMapping
