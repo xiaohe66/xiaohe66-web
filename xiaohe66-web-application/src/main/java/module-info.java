@@ -12,6 +12,7 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.love.result;
 
     exports com.xiaohe66.web.application.love;
+    exports com.xiaohe66.web.application.love.bo;
     exports com.xiaohe66.web.application.love.result;
 
     exports com.xiaohe66.web.application.sys.sec;

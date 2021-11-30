@@ -3,7 +3,7 @@
 <mapper namespace="com.xiaohe66.web.infrastructure.mybatis.love.mapper.LoverMapper">
 
     <select id="getByAccountId" resultType="com.xiaohe66.web.infrastructure.mybatis.love.model.LoverDo">
-        select create_id, create_time, account_id, status
+        select id,create_id, create_time, account_id, status
         from love_lover
         where (create_id = #{accountId} or account_id = #{accountId})
           and status &lt; 2

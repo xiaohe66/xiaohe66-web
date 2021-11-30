@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoverService {
 
+    public static final String CURRENT_LOVER_ID_SESSION_KEY = "currentLoverId";
+
     private final LoverRepository loverRepository;
     private final SecurityService securityService;
 
@@ -60,6 +62,40 @@ public class LoverService {
         lover.confirm();
 
         loverRepository.save(lover);
+    }
+
+
+    public LoverId getCurrentLoverId() {
+
+        LoverId loverId = securityService.getAttribute(CURRENT_LOVER_ID_SESSION_KEY);
+
+        if (loverId != null) {
+            return loverId;
+        }
+
+        AccountId currentAccountId = securityService.getCurrentAccountId();
+
+        Lover lover = loverRepository.getByAccountId(currentAccountId);
+
+        if (lover == null || !LoverStatus.NORMAL.equals(lover.getStatus())) {
+            throw new BusinessException(ErrorCodeEnum.ILLEGAL_OPERATE, "当前账户不是伴侣");
+        }
+
+        securityService.setAttribute(CURRENT_LOVER_ID_SESSION_KEY, lover.getId());
+
+        return lover.getId();
+    }
+
+    public boolean hasLoverPermission(LoverId loverId) {
+        // TODO : 管理员权限如何处理
+        LoverId currentLoverId = getCurrentLoverId();
+        return currentLoverId.equals(loverId);
+    }
+
+    public void checkLoverPermission(LoverId loverId) {
+        if (!hasLoverPermission(loverId)) {
+            throw new BusinessException(ErrorCodeEnum.NOT_DATA_PERMISSION);
+        }
     }
 
 }
