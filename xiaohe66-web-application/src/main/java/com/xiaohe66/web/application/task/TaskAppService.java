@@ -18,6 +18,7 @@ import com.xiaohe66.web.domain.task.repository.TaskRepository;
 import com.xiaohe66.web.domain.task.service.TaskService;
 import com.xiaohe66.web.domain.task.value.TaskId;
 import com.xiaohe66.web.domain.task.value.TaskPoolId;
+import com.xiaohe66.web.integration.domain.Paging;
 import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
@@ -97,10 +98,12 @@ public class TaskAppService {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
+        Paging paging = new Paging(0L, 10);
+
         List<List<TaskListResult>> list = TaskPool.defaultPool().stream()
                 .map(pool -> {
 
-                    List<Task> tasks = taskRepository.listByPoolId(currentAccountId, pool.getId(), 0L, 10L);
+                    List<Task> tasks = taskRepository.listByPoolId(currentAccountId, pool.getId(), paging);
                     return converter.toResult(tasks);
 
                 }).collect(Collectors.toList());
@@ -115,7 +118,7 @@ public class TaskAppService {
 
         TaskPoolId poolId = new TaskPoolId(bo.getPoolId());
 
-        List<Task> tasks = taskRepository.listByPoolId(currentAccountId, poolId, bo.getBefore(), bo.getSize());
+        List<Task> tasks = taskRepository.listByPoolId(currentAccountId, poolId, bo.toPaging());
         List<TaskListResult> ret = converter.toResult(tasks);
 
         return R.ok(ret);

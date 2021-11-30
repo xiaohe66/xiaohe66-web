@@ -10,6 +10,7 @@ import com.xiaohe66.web.infrastructure.mybatis.task.convert.TaskDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.task.mapper.TaskMapper;
 import com.xiaohe66.web.infrastructure.mybatis.task.model.TaskDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
+import com.xiaohe66.web.integration.domain.Paging;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class TaskRepositoryImpl
                 .eq(TaskDo::getCreateId, createId.getValue())
                 .orderByAsc(TaskDo::getSort)
                 .orderByDesc(TaskDo::getId)
-                .last("limit " + before + "," + size);
+                .last(paging.toLimit());
 
         List<TaskDo> list = list(queryWrapper);
 
