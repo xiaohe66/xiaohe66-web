@@ -28,7 +28,7 @@ public class DailyMood extends IntValue {
      * ANGER(90, "生气"),
      * SORROWFUL(100, "难过"),
      * ANGER_SORROWFUL(110, "生气难过"),
-     * BACK(120, "备用"),
+     * BACK(120, "无聊"),
      */
 
     public static final DailyMood HAPPY_A = new DailyMood(10);

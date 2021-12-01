@@ -15,6 +15,7 @@ import org.mapstruct.Mapping;
 public interface LoverBoConverter extends DataConverter {
 
     @Mapping(source = "lover.id", target = "id")
+    @Mapping(source = "lover.id", target = "createTime")
     LoverInfoResult toResult(Lover lover, WxUser loverWxUser);
 
 }

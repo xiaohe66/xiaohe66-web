@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 public class LoverDo extends BaseLongInputDo {
 
     private Long createId;
-    private LocalDateTime createTime;
     private Long accountId;
     private Integer status;
 

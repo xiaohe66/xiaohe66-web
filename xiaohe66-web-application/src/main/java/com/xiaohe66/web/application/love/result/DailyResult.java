@@ -10,6 +10,7 @@ import lombok.Data;
 public class DailyResult {
 
     private Long id;
+    private String createTime;
     private String desc;
     private Integer mood;
 

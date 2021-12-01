@@ -1,5 +1,6 @@
 package com.xiaohe66.web.integration.domain;
 
+import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.love.value.LoverId;
 
@@ -41,6 +42,10 @@ public interface DataConverter {
 
     default LoverId newLoverId(Long loverId) {
         return ifPresent(loverId, LoverId::new);
+    }
+
+    default String takeCreateTime(LongId id){
+        return IdWorker.takeDate(id.getValue());
     }
 
 }
