@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface TaskRepository extends Repository<Task, TaskId> {
 
-    List<Task> listByPoolId(AccountId createId, TaskPoolId poolId, Long before, Long size);
+    List<Task> listByPoolId(AccountId createId, TaskPoolId poolId, Paging paging);
 
 }

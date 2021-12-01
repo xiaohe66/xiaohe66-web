@@ -25,7 +25,7 @@ public class TaskRepositoryImpl
         implements TaskRepository {
 
     @Override
-    public List<Task> listByPoolId(AccountId createId, TaskPoolId poolId, Long before, Long size) {
+    public List<Task> listByPoolId(AccountId createId, TaskPoolId poolId, Paging paging) {
 
         LambdaQueryWrapper<TaskDo> queryWrapper = new LambdaQueryWrapper<TaskDo>()
                 .eq(TaskDo::getPoolId, poolId.getValue())

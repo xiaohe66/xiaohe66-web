@@ -12,7 +12,5 @@ import lombok.EqualsAndHashCode;
 @Data
 public class TaskListBo extends PagingBo {
 
-    private Long before;
-    private Long size;
     private Integer poolId;
 }

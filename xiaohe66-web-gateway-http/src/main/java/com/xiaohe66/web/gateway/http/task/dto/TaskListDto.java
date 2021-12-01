@@ -13,11 +13,11 @@ import javax.validation.constraints.Min;
 public class TaskListDto {
 
     @Min(0)
-    private Integer before;
+    private Long before;
 
     @Min(5)
     @Max(50)
-    private Long size;
+    private Integer size;
 
     @Min(0)
     @Max(6)
