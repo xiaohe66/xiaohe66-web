@@ -103,8 +103,13 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
         removeById(id.getValue());
     }
 
+    /**
+     * 真实的 update 方法实现
+     *
+     * note : 仅更新数据，不处理快照，快照由调用方处理
+     */
     protected void updateImpl(A agg, A snapshot) {
-        if (snapshot == null || agg.hasDiffRootAttribute(snapshot)) {
+        if (agg.hasDiffRootAttribute(snapshot)) {
             D d = dataConverter.toDo(agg);
             updateById(d);
         }

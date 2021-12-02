@@ -7,9 +7,12 @@ import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
 import com.xiaohe66.web.integration.domain.Aggregate;
 import com.xiaohe66.web.integration.value.MobileNo;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -17,8 +20,10 @@ import java.util.Objects;
  * @author xiaohe
  * @since 2021.08.11 17:48
  */
-@Data
 @Builder
+@Getter
+@ToString
+@AllArgsConstructor
 public class WxUser implements Aggregate<WxUser, WxUserId> {
 
     @NonNull
@@ -42,14 +47,11 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
     private String avatarUrl;
     private String sessionKey;
 
+    @Setter
     private WxTaskUserOpenId wxTaskUserOpenId;
+
+    @Setter
     private WxLoveUserOpenId wxLoveUserOpenId;
-
-
-    @Override
-    public WxUserId getId() {
-        return id;
-    }
 
     @Override
     public boolean hasSameRootAttribute(WxUser other) {

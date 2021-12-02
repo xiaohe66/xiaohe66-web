@@ -57,9 +57,4 @@ public class Task implements Aggregate<Task, TaskId> {
                 Objects.equals(remark, other.remark) &&
                 Objects.equals(sort, other.sort);
     }
-
-    @Override
-    public TaskId getId() {
-        return id;
-    }
 }

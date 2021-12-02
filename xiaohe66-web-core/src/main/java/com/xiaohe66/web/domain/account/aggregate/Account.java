@@ -42,11 +42,6 @@ public class Account implements Aggregate<Account, AccountId> {
     private Set<RoleId> roles = new HashSet<>();
 
     @Override
-    public AccountId getId() {
-        return id;
-    }
-
-    @Override
     public boolean hasSameRootAttribute(Account other) {
         return other != null &&
                 Objects.equals(name, other.name) &&

@@ -3,17 +3,20 @@ package com.xiaohe66.web.domain.sys.sec.aggregate;
 import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.integration.domain.Aggregate;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author xiaohe
  * @since 2021.10.28 17:27
  */
-@Data
-@Setter(AccessLevel.PRIVATE)
+@Builder
+@Getter
+@ToString
+@AllArgsConstructor
 public class Role implements Aggregate<Role, RoleId> {
 
     @NonNull
@@ -23,13 +26,7 @@ public class Role implements Aggregate<Role, RoleId> {
     private final RoleName roleName;
 
     @Override
-    public RoleId getId() {
-        return id;
-    }
-
-    @Override
     public boolean hasSameRootAttribute(Role other) {
-        // note : 由于本聚合根中所有字段都是常量，因此直接返回 true
-        return true;
+        return other != null;
     }
 }
