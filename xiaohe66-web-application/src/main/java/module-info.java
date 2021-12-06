@@ -3,6 +3,10 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.aop;
     opens com.xiaohe66.web.application.aop.annotation;
     opens com.xiaohe66.web.application.sys.sec.convert;
+
+    opens com.xiaohe66.web.application.file;
+    opens com.xiaohe66.web.application.file.convert;
+
     opens com.xiaohe66.web.application.task;
     opens com.xiaohe66.web.application.task.convert;
     opens com.xiaohe66.web.application.task.result;
@@ -10,6 +14,10 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.love;
     opens com.xiaohe66.web.application.love.convert;
     opens com.xiaohe66.web.application.love.result;
+
+
+    exports com.xiaohe66.web.application.file;
+    exports com.xiaohe66.web.application.file.bo;
 
     exports com.xiaohe66.web.application.love;
     exports com.xiaohe66.web.application.love.bo;
@@ -29,6 +37,7 @@ module xiaohe.web.application {
 
     requires static lombok;
 
+    requires transitive org.apache.commons.io;
     requires transitive xiaohe.web.core;
 
 }

@@ -11,6 +11,10 @@ spring:
     hikari:
       # 最小空闲时连接数
       minimum-idle: 2
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 10MB
 #-------------------------------------------
 server:
   tomcat:
@@ -36,6 +40,9 @@ logging:
 #------------- shrio ---------------------------------
 #配置性参数
 xiaohe66:
+  file:
+    pictureDirectory: C:\\xiaohe66\\file\\picture
+    imageDirectory: C:\\xiaohe66\\file\\image
   wx:
     task:
       miniProgramState: developer

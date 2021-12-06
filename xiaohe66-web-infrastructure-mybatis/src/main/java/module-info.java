@@ -1,31 +1,17 @@
 open module xiaohe.web.infrastructure.mybatis {
 
+    // 用于指定 启动类，指定 IBaseMapper
     exports com.xiaohe66.web.integration;
 
-    /*opens com.xiaohe66.web.integration;
-    opens com.xiaohe66.web.infrastructure.mybatis.account.convert;
-    opens com.xiaohe66.web.infrastructure.mybatis.account.mapper;
-    opens com.xiaohe66.web.infrastructure.mybatis.account.model;
-    opens com.xiaohe66.web.infrastructure.mybatis.account.repository;
-
-    opens com.xiaohe66.web.infrastructure.mybatis.sys.convert;
-    opens com.xiaohe66.web.infrastructure.mybatis.sys.mapper;
-    opens com.xiaohe66.web.infrastructure.mybatis.sys.model;
-    opens com.xiaohe66.web.infrastructure.mybatis.sys.repository;
-
-    opens com.xiaohe66.web.infrastructure.mybatis.wx.user.convert;
-    opens com.xiaohe66.web.infrastructure.mybatis.wx.user.mapper;
-    opens com.xiaohe66.web.infrastructure.mybatis.wx.user.model;
-    opens com.xiaohe66.web.infrastructure.mybatis.wx.user.repository;*/
-
     requires transitive xiaohe.web.core;
-    //requires transitive xiaohe.crud.core;
 
     // mapstruct
     requires static java.compiler;
     requires static org.mapstruct;
 
     requires static lombok;
+
+    requires transitive org.apache.commons.io;
 
     requires transitive java.annotation;
 

@@ -49,6 +49,11 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.infrastructure.acl.wx.request;
     exports com.xiaohe66.web.infrastructure.acl.wx.response;
 
+    exports com.xiaohe66.web.domain.file.agg;
+    exports com.xiaohe66.web.domain.file.value;
+    exports com.xiaohe66.web.domain.file.repository;
+    exports com.xiaohe66.web.domain.file.service;
+
     exports com.xiaohe66.web.domain.love.agg;
     exports com.xiaohe66.web.domain.love.value;
     exports com.xiaohe66.web.domain.love.repository;

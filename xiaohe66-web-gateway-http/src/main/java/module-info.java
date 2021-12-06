@@ -9,4 +9,5 @@ open module xiaohe.web.gateway.http {
     // mapstruct
     requires static java.compiler;
     requires static org.mapstruct;
+    requires static org.apache.tomcat.embed.core;
 }
