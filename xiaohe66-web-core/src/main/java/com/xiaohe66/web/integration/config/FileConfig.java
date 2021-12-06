@@ -14,5 +14,6 @@ import org.springframework.stereotype.Component;
 public class FileConfig {
 
     private String imageDirectory;
+    private String pictureDirectory;
 
 }

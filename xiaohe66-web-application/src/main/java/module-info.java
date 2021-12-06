@@ -6,6 +6,7 @@ module xiaohe.web.application {
 
     opens com.xiaohe66.web.application.file;
     opens com.xiaohe66.web.application.file.convert;
+    opens com.xiaohe66.web.application.file.result;
 
     opens com.xiaohe66.web.application.task;
     opens com.xiaohe66.web.application.task.convert;
@@ -18,6 +19,7 @@ module xiaohe.web.application {
 
     exports com.xiaohe66.web.application.file;
     exports com.xiaohe66.web.application.file.bo;
+    exports com.xiaohe66.web.application.file.result;
 
     exports com.xiaohe66.web.application.love;
     exports com.xiaohe66.web.application.love.bo;
