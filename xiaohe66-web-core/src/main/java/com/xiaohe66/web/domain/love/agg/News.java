@@ -1,5 +1,7 @@
 package com.xiaohe66.web.domain.love.agg;
 
+import com.xiaohe66.web.domain.account.value.AccountId;
+import com.xiaohe66.web.domain.file.value.ImageId;
 import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.love.value.NewsId;
 import com.xiaohe66.web.domain.love.value.NewsText;
@@ -24,9 +26,14 @@ public class News implements Aggregate<News, NewsId> {
     private final NewsId id;
 
     @NonNull
+    private final AccountId createId;
+
+    @NonNull
     private final LoverId loverId;
 
     private final NewsText text;
+
+    private final ImageId imageId;
 
     @Override
     public boolean hasSameRootAttribute(News other) {

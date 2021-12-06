@@ -24,4 +24,6 @@ public class NewsDo extends BaseLongInputDo {
 
     private String text;
 
+    private Long imageId;
+
 }

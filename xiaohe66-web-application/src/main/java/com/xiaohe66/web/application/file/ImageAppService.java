@@ -50,12 +50,15 @@ public class ImageAppService {
         return R.ok(id);
     }
 
-    @NeedLogin
     public void download(Long idValue, OutputStream outputStream) {
 
         ImageId id = new ImageId(idValue);
 
         Image image = imageRepository.getById(id);
+
+        if(image == null){
+            throw new BusinessException(ErrorCodeEnum.NOT_FOUND);
+        }
 
         try (InputStream inputStream = image.getInputStream()) {
 

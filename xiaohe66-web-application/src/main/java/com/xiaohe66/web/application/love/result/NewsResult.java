@@ -10,7 +10,9 @@ import lombok.Data;
 public class NewsResult {
 
     private Long id;
+    private Long createId;
     private String createTime;
     private String text;
+    private Long imageId;
 
 }

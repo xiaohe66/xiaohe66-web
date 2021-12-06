@@ -1,5 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis.love.convert;
 
+import com.xiaohe66.web.domain.file.value.ImageId;
 import com.xiaohe66.web.domain.love.agg.News;
 import com.xiaohe66.web.domain.love.value.NewsId;
 import com.xiaohe66.web.domain.love.value.NewsText;
@@ -20,6 +21,10 @@ public interface NewsDoConverter extends DoConverter<News, NewsDo> {
 
     default NewsText newText(String text) {
         return ifPresent(text, NewsText::new);
+    }
+
+    default ImageId newImageId(Long imageId) {
+        return ifPresent(imageId, ImageId::new);
     }
 
 }

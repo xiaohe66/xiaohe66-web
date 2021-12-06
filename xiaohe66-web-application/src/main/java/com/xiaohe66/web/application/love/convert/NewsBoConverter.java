@@ -2,6 +2,7 @@ package com.xiaohe66.web.application.love.convert;
 
 import com.xiaohe66.web.application.love.bo.NewsSaveBo;
 import com.xiaohe66.web.application.love.result.NewsResult;
+import com.xiaohe66.web.domain.file.value.ImageId;
 import com.xiaohe66.web.domain.love.agg.News;
 import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.love.value.NewsId;
@@ -32,6 +33,10 @@ public interface NewsBoConverter extends DataConverter {
 
     default NewsText newText(String text) {
         return ifPresent(text, NewsText::new);
+    }
+    
+    default ImageId newImageId(Long imageId) {
+        return ifPresent(imageId, ImageId::new);
     }
 
 }
