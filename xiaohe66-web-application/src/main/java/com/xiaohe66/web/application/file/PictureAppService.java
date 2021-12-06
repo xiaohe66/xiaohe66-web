@@ -1,8 +1,8 @@
 package com.xiaohe66.web.application.file;
 
+import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.aop.annotation.NeedLogin;
 import com.xiaohe66.web.application.file.result.PictureListResult;
-import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.integration.config.FileConfig;
 import com.xiaohe66.web.integration.ex.BusinessException;
@@ -32,7 +32,6 @@ public class PictureAppService {
     private final FileConfig fileConfig;
     private final SecurityService securityService;
 
-    @NeedLogin
     public void download(String path, OutputStream outputStream) {
 
         String fullPath = fileConfig.getPictureDirectory() + path;
@@ -40,9 +39,7 @@ public class PictureAppService {
         File file = new File(fullPath);
         if (!file.exists()) {
 
-            CurrentAccount currentAccount = securityService.getCurrentAccount();
-
-            log.warn("file is not exist : {}, currentAccount : {}", fullPath, currentAccount);
+            log.warn("file is not exist : {}", fullPath);
             throw new BusinessException(ErrorCodeEnum.NOT_FOUND);
         }
 
@@ -57,7 +54,7 @@ public class PictureAppService {
     }
 
     @NeedLogin
-    public List<PictureListResult> list() {
+    public R<List<PictureListResult>> list() {
 
         String directory = fileConfig.getPictureDirectory();
         File rootFile = new File(directory);
@@ -85,7 +82,7 @@ public class PictureAppService {
             }
         }
 
-        return list;
+        return R.ok(list);
     }
 
     protected PictureListResult find(File dir) {

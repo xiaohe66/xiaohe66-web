@@ -1,5 +1,6 @@
 package com.xiaohe66.web.gateway.http.file;
 
+import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.file.PictureAppService;
 import com.xiaohe66.web.application.file.result.PictureListResult;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class PictureController {
     private final PictureAppService pictureAppService;
 
     @GetMapping
-    public List<PictureListResult> list() {
+    public R<List<PictureListResult>> list() {
 
         return pictureAppService.list();
     }
