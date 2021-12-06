@@ -56,7 +56,7 @@ public class LoginService {
                 .id(account.getId())
                 .name(account.getName())
                 .roleNames(roles)
-                .roleNames(Collections.emptySet())
+                .permissionNames(Collections.emptySet())
                 .build();
 
         securityService.login(currentAccount);

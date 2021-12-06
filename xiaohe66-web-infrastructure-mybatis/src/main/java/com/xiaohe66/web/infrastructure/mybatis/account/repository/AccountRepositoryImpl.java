@@ -68,11 +68,7 @@ public class AccountRepositoryImpl
 
         Account account = dataConverter.toAgg(accountDo);
 
-        List<Role> roles = roleRepository.listByAccountId(id);
-
-        for (Role role : roles) {
-            account.addRole(role.getId());
-        }
+        fillRole(account);
 
         return account;
     }
@@ -98,9 +94,19 @@ public class AccountRepositoryImpl
 
         Account agg = dataConverter.toAgg(dbAccount);
 
+        fillRole(agg);
+
         aggregateSnapshot.save(agg);
 
         return agg;
+    }
+
+    protected void fillRole(Account account){
+        List<Role> roles = roleRepository.listByAccountId(account.getId());
+
+        for (Role role : roles) {
+            account.addRole(role.getId());
+        }
     }
 
     @Override
