@@ -12,6 +12,7 @@ import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
+import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
 import com.xiaohe66.web.domain.wx.user.service.WxUserService;
@@ -138,7 +139,7 @@ public class WxLoginService {
                 .password(AccountPassword.EMPTY)
                 .build();
 
-        account.addRole(WxUser.ROLE_ID);
+        account.addRole(RoleId.WX_ROLE_ID);
         wxLoginDataConverter.setRoleId(account, wxLoginBo.getType());
 
         accountService.register(account);

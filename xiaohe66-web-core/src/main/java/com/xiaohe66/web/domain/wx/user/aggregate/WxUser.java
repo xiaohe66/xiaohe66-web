@@ -1,7 +1,6 @@
 package com.xiaohe66.web.domain.wx.user.aggregate;
 
 import com.xiaohe66.web.domain.account.value.AccountId;
-import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
@@ -27,10 +26,6 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 public class WxUser implements Aggregate<WxUser, WxUserId> {
-
-    public static final RoleId ROLE_ID = new RoleId(2);
-    public static final RoleId LOVE_ROLE_ID = new RoleId(3);
-    public static final RoleId TASK_ROLE_ID = new RoleId(4);
 
     @NonNull
     private final WxUserId id;
