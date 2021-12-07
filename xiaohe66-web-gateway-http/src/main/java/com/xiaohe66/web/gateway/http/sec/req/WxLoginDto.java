@@ -11,13 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class WxLoginDto {
 
-    private String nickname;
-    private String province;
-    private String city;
-    private String country;
-    private String avatarUrl;
-    private String sessionKey;
-
     /**
      * 微信登录 code
      */

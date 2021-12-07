@@ -9,13 +9,6 @@ import lombok.Data;
 @Data
 public class WxLoginBo {
 
-    private String nickname;
-    private String province;
-    private String city;
-    private String country;
-    private String avatarUrl;
-    private String sessionKey;
-
     /**
      * 微信登录 code
      */
@@ -23,7 +16,7 @@ public class WxLoginBo {
 
     private Type type;
 
-    public enum Type{
+    public enum Type {
         /**
          *
          */

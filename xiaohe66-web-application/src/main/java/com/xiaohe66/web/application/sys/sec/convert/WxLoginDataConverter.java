@@ -1,6 +1,7 @@
 package com.xiaohe66.web.application.sys.sec.convert;
 
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
+import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
@@ -29,6 +30,19 @@ public interface WxLoginDataConverter {
 
             default:
         }
+    }
 
+    default void setRoleId(Account account, WxLoginBo.Type type) {
+        switch (type) {
+            case TASK:
+                account.addRole(WxUser.TASK_ROLE_ID);
+                break;
+
+            case LOVE:
+                account.addRole(WxUser.LOVE_ROLE_ID);
+                break;
+            default:
+
+        }
     }
 }

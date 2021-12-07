@@ -4,6 +4,8 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.aop.annotation;
     opens com.xiaohe66.web.application.sys.sec.convert;
 
+    opens com.xiaohe66.web.application.account;
+
     opens com.xiaohe66.web.application.file;
     opens com.xiaohe66.web.application.file.convert;
     opens com.xiaohe66.web.application.file.result;
@@ -16,6 +18,9 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.love.convert;
     opens com.xiaohe66.web.application.love.result;
 
+    exports com.xiaohe66.web.application.account;
+    exports com.xiaohe66.web.application.account.bo;
+    // exports com.xiaohe66.web.application.account.result;
 
     exports com.xiaohe66.web.application.file;
     exports com.xiaohe66.web.application.file.bo;

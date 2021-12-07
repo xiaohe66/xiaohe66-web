@@ -31,10 +31,6 @@ public class LoginService {
     private final RoleRepository roleRepository;
     private final SecurityService securityService;
 
-    /*
-    TODO : 登录的返回值需要改变成 R<?> 吗
-     */
-
     CurrentAccount login(@NonNull AccountId accountId) {
 
         Account account = accountRepository.getById(accountId);

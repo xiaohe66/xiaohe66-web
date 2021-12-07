@@ -86,7 +86,7 @@ public class WxUserRepositoryImpl
     public WxUser getByAccountId(AccountId accountId) {
 
         LambdaQueryWrapper<WxUserDo> queryWrapper = new LambdaQueryWrapper<WxUserDo>()
-                .eq(WxUserDo::getAccountId, accountId);
+                .eq(WxUserDo::getAccountId, accountId.getValue());
 
         WxUserDo wxUserDo = getOne(queryWrapper);
 

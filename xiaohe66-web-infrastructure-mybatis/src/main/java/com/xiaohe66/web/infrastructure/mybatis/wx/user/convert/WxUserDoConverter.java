@@ -2,7 +2,9 @@ package com.xiaohe66.web.infrastructure.mybatis.wx.user.convert;
 
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
+import com.xiaohe66.web.domain.wx.user.value.WxUserAvatarUrl;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
+import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxUserDo;
 import com.xiaohe66.web.integration.DoConverter;
 import com.xiaohe66.web.integration.value.MobileNo;
@@ -25,6 +27,14 @@ public interface WxUserDoConverter extends DoConverter<WxUser, WxUserDo> {
 
     default MobileNo newMobileNo(String unionId) {
         return ifPresent(unionId, MobileNo::new);
+    }
+
+    default WxUserNickname nweNickname(String str) {
+        return ifPresent(str, WxUserNickname::new);
+    }
+
+    default WxUserAvatarUrl newAvatarUrl(String str) {
+        return ifPresent(str, WxUserAvatarUrl::new);
     }
 
 }

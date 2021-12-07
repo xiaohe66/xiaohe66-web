@@ -6,6 +6,7 @@ import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
 import com.xiaohe66.web.application.sys.sec.convert.WxLoginDataConverter;
 import com.xiaohe66.web.domain.account.aggregate.Account;
+import com.xiaohe66.web.domain.account.repository.AccountRepository;
 import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
@@ -23,7 +24,6 @@ import com.xiaohe66.web.infrastructure.acl.wx.response.WxCode2SessionResponse;
 import com.xiaohe66.web.integration.config.WxConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,14 +35,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class WxLoginService {
 
-    private final LoginService loginService;
-    private final AccountService accountService;
-    private final WxUserService wxUserService;
+    private final WxLoginDataConverter wxLoginDataConverter;
     private final WxUserRepository wxUserRepository;
+    private final WxUserService wxUserService;
+
+    private final LoginService loginService;
+    private final AccountRepository accountRepository;
+    private final AccountService accountService;
     private final WxApiClient client;
 
     private final SecurityService securityService;
-    private final WxLoginDataConverter wxLoginDataConverter;
 
     private final WxConfig wxConfig;
 
@@ -66,10 +68,6 @@ public class WxLoginService {
 
             log.info("register wx account, unionId : {}", response.getUnionId());
 
-            if (StringUtils.isBlank(loginBo.getNickname())) {
-                loginBo.setNickname(IdWorker.genIdStr());
-            }
-
             Account account = registerAccount(loginBo);
 
             log.info("save wxUser, unionId : {}", response.getUnionId());
@@ -79,6 +77,11 @@ public class WxLoginService {
                     .accountId(account.getId())
                     .unionId(unionId)
                     .build();
+        } else {
+            // 多个小程序切换使用时,更新角色id
+            Account account = accountRepository.getById(wxUser.getAccountId());
+            wxLoginDataConverter.setRoleId(account, loginBo.getType());
+            accountRepository.save(account);
         }
 
         wxLoginDataConverter.copyValueToWxUser(wxUser, loginBo);
@@ -91,11 +94,7 @@ public class WxLoginService {
 
         log.info("wx account login success, unionId : {}", response.getUnionId());
 
-        // TODO : 注入session
-        //securityService.setAttribute(SESSION_KEY_WX_USER, wxUser);
-
         return R.ok(securityService.getSessionId());
-
     }
 
     private WxCode2SessionResponse requestCode2Session(WxLoginBo.Type type, String code) throws ApiException {
@@ -129,13 +128,18 @@ public class WxLoginService {
     }
 
 
-    protected Account registerAccount(WxLoginBo loginBo) {
+    protected Account registerAccount(WxLoginBo wxLoginBo) {
+
+        long id = IdWorker.genId();
 
         Account account = Account.builder()
-                .id(new AccountId(IdWorker.genId()))
-                .name(new AccountName(loginBo.getNickname()))
+                .id(new AccountId(id))
+                .name(new AccountName(String.valueOf(id)))
                 .password(AccountPassword.EMPTY)
                 .build();
+
+        account.addRole(WxUser.ROLE_ID);
+        wxLoginDataConverter.setRoleId(account, wxLoginBo.getType());
 
         accountService.register(account);
 
