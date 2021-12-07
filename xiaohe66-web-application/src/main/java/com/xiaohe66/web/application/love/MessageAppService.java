@@ -16,14 +16,12 @@ import com.xiaohe66.web.domain.love.value.MessageId;
 import com.xiaohe66.web.domain.love.value.MessageText;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
-import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author xiaohe
@@ -42,7 +40,7 @@ public class MessageAppService {
     private final SecurityService securityService;
 
     @NeedRoles({RoleName.WX_ROLE_VALUE, RoleName.LOVE_ROLE_VALUE})
-    public R<Long> save(MessageSaveBo bo) {
+    public R<MessageListResult> save(MessageSaveBo bo) {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
@@ -57,28 +55,29 @@ public class MessageAppService {
 
         messageService.save(message);
 
-        return R.ok(id);
+        MessageListResult result = boConverter.toResult(wxUserRepository, message, currentAccountId);
+
+        return R.ok(result);
+    }
+
+    @NeedRoles(RoleName.LOVE_ROLE_VALUE)
+    public R<Void> remove(Long idValue){
+
+        MessageId id = new MessageId(idValue);
+        messageService.remove(id);
+        return R.ok();
     }
 
     @NeedRoles(RoleName.LOVE_ROLE_VALUE)
     public R<List<MessageListResult>> list(MessageListBo bo) {
 
+        AccountId currentAccountId = securityService.getCurrentAccountId();
+
         LoverId loverId = new LoverId(bo.getLoverId());
 
         List<Message> messageList = messageService.list(loverId, bo.toPaging());
 
-        List<MessageListResult> list = messageList.stream().map(message -> {
-
-            MessageListResult result = boConverter.toResult(message);
-            WxUser wxUser = wxUserRepository.getByAccountId(message.getCreateId());
-            if (wxUser.getNickname() != null) {
-                result.setNickname(wxUser.getNickname().getValue());
-            }
-            if (wxUser.getAvatarUrl() != null) {
-                result.setAvatarUrl(wxUser.getAvatarUrl().getValue());
-            }
-            return result;
-        }).collect(Collectors.toList());
+        List<MessageListResult> list = boConverter.toResult(wxUserRepository, messageList, currentAccountId);
 
         return R.ok(list);
     }
