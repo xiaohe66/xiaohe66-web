@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.ServletException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class GlobalControllerAdvice {
         return R.build(ErrorCodeEnum.ERROR.getCode(), ErrorCodeEnum.ERROR.getMsg());
     }
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ExceptionHandler({HttpRequestMethodNotSupportedException.class, ServletException.class})
     public R<Void> exceptionHandler(HttpRequestMethodNotSupportedException e) {
 
         return R.build(ErrorCodeEnum.NOT_FOUND_URL.getCode(), ErrorCodeEnum.NOT_FOUND_URL.getMsg());

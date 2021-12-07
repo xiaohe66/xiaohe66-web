@@ -34,6 +34,8 @@ public class CheckRoleAop {
     @Before(value = "pointcut()")
     public void before(JoinPoint joinPoint) {
 
+        securityService.checkLogin();
+
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
         Method method = methodSignature.getMethod();
