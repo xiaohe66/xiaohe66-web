@@ -1,7 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis.love.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.integration.BaseLongInputDo;
 import lombok.Data;
@@ -18,16 +17,11 @@ import lombok.EqualsAndHashCode;
 @TableName("love_daily")
 public class DailyDo extends BaseLongInputDo {
 
-    private Long createId;
-
     private Long loverId;
 
     @TableField("`desc`")
     private String desc;
 
     private Integer mood;
-
-    @TableLogic
-    private Boolean deleted;
 
 }

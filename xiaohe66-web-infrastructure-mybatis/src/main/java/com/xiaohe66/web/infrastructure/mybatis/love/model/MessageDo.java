@@ -1,6 +1,5 @@
 package com.xiaohe66.web.infrastructure.mybatis.love.model;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.integration.BaseLongInputDo;
 import lombok.Data;
@@ -14,11 +13,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("love_message")
 public class MessageDo extends BaseLongInputDo {
-
-    private Long createId;
-
-    @TableLogic
-    private Boolean deleted;
 
     private Long loverId;
 

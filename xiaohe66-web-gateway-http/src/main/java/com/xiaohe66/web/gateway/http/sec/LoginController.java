@@ -4,6 +4,7 @@ import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.sys.sec.LoginService;
 import com.xiaohe66.web.application.sys.sec.WxLoginService;
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
+import com.xiaohe66.web.application.sys.sec.result.WxLoginResult;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.gateway.http.sec.convert.WxLoginDtoConverter;
 import com.xiaohe66.web.gateway.http.sec.req.LoginDto;
@@ -57,7 +58,7 @@ public class LoginController {
     }
 
     @PostMapping("/login/wx")
-    public R<String> wxLogin(@RequestBody @Validated WxLoginDto request) {
+    public R<WxLoginResult> wxLogin(@RequestBody @Validated WxLoginDto request) {
 
         WxLoginBo bo = wxLoginDtoConverter.toBo(request);
 

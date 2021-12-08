@@ -4,7 +4,8 @@ import com.xiaohe66.common.api.ApiException;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
-import com.xiaohe66.web.application.sys.sec.convert.WxLoginDataConverter;
+import com.xiaohe66.web.application.sys.sec.convert.WxLoginBoConverter;
+import com.xiaohe66.web.application.sys.sec.result.WxLoginResult;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.repository.AccountRepository;
 import com.xiaohe66.web.domain.account.service.AccountService;
@@ -18,6 +19,7 @@ import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
 import com.xiaohe66.web.domain.wx.user.service.WxUserService;
 import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserId;
+import com.xiaohe66.web.domain.wx.user.value.WxUserSessionKey;
 import com.xiaohe66.web.infrastructure.acl.wx.WxApiClient;
 import com.xiaohe66.web.infrastructure.acl.wx.model.WxCode2SessionModel;
 import com.xiaohe66.web.infrastructure.acl.wx.request.WxCode2SessionRequest;
@@ -26,6 +28,7 @@ import com.xiaohe66.web.integration.config.WxConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author xiaohe
@@ -36,7 +39,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class WxLoginService {
 
-    private final WxLoginDataConverter wxLoginDataConverter;
+    private final WxLoginBoConverter boConverter;
     private final WxUserRepository wxUserRepository;
     private final WxUserService wxUserService;
 
@@ -49,7 +52,8 @@ public class WxLoginService {
 
     private final WxConfig wxConfig;
 
-    public R<String> login(WxLoginBo loginBo) {
+    @Transactional(rollbackFor = Exception.class)
+    public R<WxLoginResult> login(WxLoginBo loginBo) {
 
         // 1. ACL 调用微信
         WxCode2SessionResponse response;
@@ -75,27 +79,32 @@ public class WxLoginService {
 
             wxUser = WxUser.builder()
                     .id(new WxUserId(IdWorker.genId()))
-                    .accountId(account.getId())
+                    .createId(account.getId())
                     .unionId(unionId)
+                    .sessionKey(new WxUserSessionKey(response.getSessionKey()))
                     .build();
+
+            boConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
+
         } else {
-            // 多个小程序切换使用时,更新角色id
-            Account account = accountRepository.getById(wxUser.getAccountId());
-            wxLoginDataConverter.setRoleId(account, loginBo.getType());
+            // 多个小程序切换使用时, 更新角色id
+            Account account = accountRepository.getById(wxUser.getCreateId());
+            boConverter.setRoleId(account, loginBo.getType());
             accountRepository.save(account);
+
+            // 更新微信用户
+            boConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
+            wxUser.setSessionKey(new WxUserSessionKey(response.getSessionKey()));
+            wxUserService.save(wxUser);
         }
-
-        wxLoginDataConverter.copyValueToWxUser(wxUser, loginBo);
-        wxLoginDataConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
-
-        wxUserService.saveWxUser(wxUser);
-
         // 3.录到系统
-        loginService.login(wxUser.getAccountId());
+        loginService.login(wxUser.getCreateId());
 
         log.info("wx account login success, unionId : {}", response.getUnionId());
 
-        return R.ok(securityService.getSessionId());
+        WxLoginResult result = boConverter.toResult(wxUser, securityService.getSessionId());
+
+        return R.ok(result);
     }
 
     private WxCode2SessionResponse requestCode2Session(WxLoginBo.Type type, String code) throws ApiException {
@@ -140,7 +149,7 @@ public class WxLoginService {
                 .build();
 
         account.addRole(RoleId.WX_ROLE_ID);
-        wxLoginDataConverter.setRoleId(account, wxLoginBo.getType());
+        boConverter.setRoleId(account, wxLoginBo.getType());
 
         accountService.register(account);
 

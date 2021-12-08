@@ -12,4 +12,9 @@ public class WxUserUpdateBo {
     private String nickname;
     private String avatarUrl;
 
+    private Long sex;
+    private String province;
+    private String city;
+    private String country;
+
 }

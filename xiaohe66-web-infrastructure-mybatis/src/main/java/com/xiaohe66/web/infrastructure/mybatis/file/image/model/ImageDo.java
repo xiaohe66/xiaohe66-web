@@ -1,7 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis.file.image.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.integration.BaseLongInputDo;
 import lombok.Data;
@@ -15,11 +14,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("file_image")
 public class ImageDo extends BaseLongInputDo {
-
-    private Long createId;
-
-    @TableLogic
-    private Boolean deleted;
 
     @TableField("`name`")
     private String name;

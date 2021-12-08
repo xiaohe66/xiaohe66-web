@@ -5,8 +5,6 @@ import com.xiaohe66.web.integration.BaseLongInputDo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
-
 /**
  * @author xiaohe
  * @since 2021.11.29 12:00
@@ -16,7 +14,6 @@ import java.time.LocalDateTime;
 @TableName("lover")
 public class LoverDo extends BaseLongInputDo {
 
-    private Long createId;
     private Long accountId;
     private Integer status;
 

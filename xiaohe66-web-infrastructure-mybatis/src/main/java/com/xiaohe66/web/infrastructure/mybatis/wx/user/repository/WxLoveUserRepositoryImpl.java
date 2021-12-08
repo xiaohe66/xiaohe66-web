@@ -1,10 +1,11 @@
 package com.xiaohe66.web.infrastructure.mybatis.wx.user.repository;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaohe66.common.util.IdWorker;
+import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
-import com.xiaohe66.web.domain.wx.user.value.WxUserId;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.mapper.WxLoveUserMapper;
 import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxLoveUserDo;
+import com.xiaohe66.web.integration.ServiceSupport;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,13 +14,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class WxLoveUserRepositoryImpl
-        extends ServiceImpl<WxLoveUserMapper, WxLoveUserDo> {
+        extends ServiceSupport<WxLoveUserMapper, WxLoveUserDo> {
 
-    public void insert(WxUserId wxUserId, WxLoveUserOpenId openId) {
+    public void insert(AccountId createId, WxLoveUserOpenId openId) {
 
         WxLoveUserDo userDo = new WxLoveUserDo();
         userDo.setOpenId(openId.getValue());
-        userDo.setId(wxUserId.getValue());
+        userDo.setCreateId(createId.getValue());
+        userDo.setId(IdWorker.genId());
 
         save(userDo);
     }

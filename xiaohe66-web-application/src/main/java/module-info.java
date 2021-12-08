@@ -5,6 +5,7 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.sys.sec.convert;
 
     opens com.xiaohe66.web.application.account;
+    opens com.xiaohe66.web.application.account.convert;
 
     opens com.xiaohe66.web.application.file;
     opens com.xiaohe66.web.application.file.convert;
@@ -17,6 +18,8 @@ module xiaohe.web.application {
     opens com.xiaohe66.web.application.love;
     opens com.xiaohe66.web.application.love.convert;
     opens com.xiaohe66.web.application.love.result;
+
+    opens com.xiaohe66.web.application.sys.sec;
 
     exports com.xiaohe66.web.application.account;
     exports com.xiaohe66.web.application.account.bo;
@@ -32,6 +35,7 @@ module xiaohe.web.application {
 
     exports com.xiaohe66.web.application.sys.sec;
     exports com.xiaohe66.web.application.sys.sec.bo;
+    exports com.xiaohe66.web.application.sys.sec.result;
 
     exports com.xiaohe66.web.application.task;
     exports com.xiaohe66.web.application.task.bo;

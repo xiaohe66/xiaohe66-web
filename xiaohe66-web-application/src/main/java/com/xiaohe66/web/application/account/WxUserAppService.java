@@ -2,12 +2,15 @@ package com.xiaohe66.web.application.account;
 
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.account.bo.WxUserUpdateBo;
-import com.xiaohe66.web.application.aop.annotation.NeedLogin;
+import com.xiaohe66.web.application.account.convert.WxUserBoConverter;
+import com.xiaohe66.web.application.aop.annotation.NeedRoles;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
+import com.xiaohe66.web.domain.sys.sec.value.RoleName;
+import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
+import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
 import com.xiaohe66.web.domain.wx.user.service.WxUserService;
-import com.xiaohe66.web.domain.wx.user.value.WxUserAvatarUrl;
-import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,20 +24,20 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class WxUserAppService {
 
+    private final WxUserBoConverter boConverter;
+    private final WxUserRepository wxUserRepository;
     private final WxUserService wxUserService;
     private final SecurityService securityService;
 
-    @NeedLogin
-    public R<Void> updateCurrent(WxUserUpdateBo bo) {
+    @NeedRoles(RoleName.WX_ROLE_VALUE)
+    public R<Void> updateCurrent(@NonNull WxUserUpdateBo bo) {
 
         /* TODO : 限制只能微信用户操作 */
-
         AccountId currentAccountId = securityService.getCurrentAccountId();
+        WxUser wxUser = wxUserRepository.getByAccountId(currentAccountId);
 
-        WxUserNickname nickname = bo.getNickname() == null ? null : new WxUserNickname(bo.getNickname());
-        WxUserAvatarUrl avatarUrl = bo.getAvatarUrl() == null ? null : new WxUserAvatarUrl(bo.getAvatarUrl());
-
-        wxUserService.updateUserInfoByAccountId(currentAccountId, nickname, avatarUrl);
+        boConverter.setUserInfo(wxUser,bo);
+        wxUserService.update(wxUser);
 
         return R.ok();
     }

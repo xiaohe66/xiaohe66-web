@@ -1,22 +1,25 @@
 package com.xiaohe66.web.application.sys.sec.convert;
 
 import com.xiaohe66.web.application.sys.sec.bo.WxLoginBo;
+import com.xiaohe66.web.application.sys.sec.result.WxLoginResult;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
+import com.xiaohe66.web.integration.domain.DataConverter;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.Mapping;
 
 /**
  * @author xiaohe
  * @since 2021.10.28 16:40
  */
 @Mapper(componentModel = "spring")
-public interface WxLoginDataConverter {
+public interface WxLoginBoConverter extends DataConverter {
 
-    void copyValueToWxUser(@MappingTarget WxUser wxUser, WxLoginBo wxLoginBo);
+    @Mapping(target = "needUserInfo",expression = "java(wxUser.getNickname() != null)")
+    WxLoginResult toResult(WxUser wxUser, String sessionId);
 
     default void setOpenId(WxUser wxUser, WxLoginBo.Type type, String openId) {
 

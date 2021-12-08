@@ -18,4 +18,11 @@ public class WxUserDo extends BaseLongInputDo {
     private String unionId;
     private String nickname;
     private String avatarUrl;
+
+    private Long sex;
+    private String province;
+    private String city;
+    private String country;
+
+    private String sessionKey;
 }

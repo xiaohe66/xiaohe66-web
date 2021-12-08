@@ -1,38 +1,25 @@
-package com.xiaohe66.web.infrastructure.mybatis.wx.user.convert;
+package com.xiaohe66.web.application.account.convert;
 
+import com.xiaohe66.web.application.account.bo.WxUserUpdateBo;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
-import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserAvatarUrl;
 import com.xiaohe66.web.domain.wx.user.value.WxUserCity;
 import com.xiaohe66.web.domain.wx.user.value.WxUserCountry;
-import com.xiaohe66.web.domain.wx.user.value.WxUserId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
 import com.xiaohe66.web.domain.wx.user.value.WxUserProvince;
-import com.xiaohe66.web.domain.wx.user.value.WxUserSessionKey;
 import com.xiaohe66.web.domain.wx.user.value.WxUserSex;
-import com.xiaohe66.web.infrastructure.mybatis.wx.user.model.WxUserDo;
-import com.xiaohe66.web.integration.DoConverter;
-import com.xiaohe66.web.integration.value.MobileNo;
+import com.xiaohe66.web.integration.domain.DataConverter;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 /**
  * @author xiaohe
- * @since 2021.10.29 17:28
+ * @since 2021.12.08 14:09
  */
 @Mapper(componentModel = "spring")
-public interface WxUserDoConverter extends DoConverter<WxUser, WxUserDo> {
+public interface WxUserBoConverter extends DataConverter {
 
-    default WxUserId newWxUserId(Long id) {
-        return ifPresent(id, WxUserId::new);
-    }
-
-    default WxUnionId newUnionId(String unionId) {
-        return ifPresent(unionId, WxUnionId::new);
-    }
-
-    default MobileNo newMobileNo(String unionId) {
-        return ifPresent(unionId, MobileNo::new);
-    }
+    void setUserInfo(@MappingTarget WxUser wxUser, WxUserUpdateBo bo);
 
     default WxUserNickname nweNickname(String str) {
         return ifPresent(str, WxUserNickname::new);
@@ -56,10 +43,6 @@ public interface WxUserDoConverter extends DoConverter<WxUser, WxUserDo> {
 
     default WxUserSex newSex(Integer sex) {
         return ifPresent(sex, WxUserSex::valueOf);
-    }
-
-    default WxUserSessionKey newSessionKey(String str) {
-        return ifPresent(str, WxUserSessionKey::new);
     }
 
 }

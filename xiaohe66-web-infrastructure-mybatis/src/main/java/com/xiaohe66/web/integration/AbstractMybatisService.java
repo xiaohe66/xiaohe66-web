@@ -1,6 +1,5 @@
 package com.xiaohe66.web.integration;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaohe66.web.integration.domain.Aggregate;
 import com.xiaohe66.web.integration.domain.Id;
 import com.xiaohe66.web.integration.domain.Repository;
@@ -14,7 +13,7 @@ import java.io.Serializable;
  * @since 2021.08.12 10:03
  */
 public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M extends IBaseMapper<D>, D extends IDo, A extends Aggregate<A, I>, I extends Id>
-        extends ServiceImpl<M, D>
+        extends ServiceSupport<M, D>
         implements IBaseService<D>, Repository<A, I> {
 
     @Autowired
@@ -105,7 +104,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
 
     /**
      * 真实的 update 方法实现
-     *
+     * <p>
      * note : 仅更新数据，不处理快照，快照由调用方处理
      */
     protected void updateImpl(A agg, A snapshot) {

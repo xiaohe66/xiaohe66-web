@@ -16,6 +16,7 @@ public interface LoverBoConverter extends DataConverter {
 
     @Mapping(source = "lover.id", target = "id")
     @Mapping(source = "lover.id", target = "createTime")
+    @Mapping(source = "lover.createId", target = "createId")
     LoverInfoResult toResult(Lover lover, WxUser loverWxUser);
 
 }

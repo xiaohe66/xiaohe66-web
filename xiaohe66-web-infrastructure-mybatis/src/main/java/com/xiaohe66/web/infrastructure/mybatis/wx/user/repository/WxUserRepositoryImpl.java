@@ -30,26 +30,33 @@ public class WxUserRepositoryImpl
         extends AbstractMybatisService<WxUserDoConverter, WxUserMapper, WxUserDo, WxUser, WxUserId>
         implements WxUserRepository {
 
-    private final WxTaskUserRepositoryImpl wxTaskUserRepository;
-    private final WxLoveUserRepositoryImpl wxLoveUserRepository;
+    private final WxTaskUserRepositoryImpl taskUserRepository;
+    private final WxLoveUserRepositoryImpl loveUserRepository;
 
     @Override
     protected void insertImpl(WxUser agg) {
+        
         super.insertImpl(agg);
+
         if (agg.getWxTaskUserOpenId() != null) {
 
-            wxTaskUserRepository.insert(agg.getId(), agg.getWxTaskUserOpenId());
+            taskUserRepository.insert(agg.getCreateId(), agg.getWxTaskUserOpenId());
         }
         if (agg.getWxLoveUserOpenId() != null) {
 
-            wxLoveUserRepository.insert(agg.getId(), agg.getWxLoveUserOpenId());
+            loveUserRepository.insert(agg.getCreateId(), agg.getWxLoveUserOpenId());
         }
     }
 
     @Override
     protected void removeByIdImpl(WxUserId id) {
-        wxTaskUserRepository.removeById(id.getValue());
-        wxLoveUserRepository.removeById(id.getValue());
+
+        WxUserDo wxUserDo = getById(id.getValue());
+        Long createId = wxUserDo.getCreateId();
+
+        taskUserRepository.removeByCreateId(createId);
+        loveUserRepository.removeByCreateId(createId);
+
         super.removeByIdImpl(id);
 
         removeSnapshot();
@@ -99,19 +106,19 @@ public class WxUserRepositoryImpl
         return wxUser;
     }
 
-    protected void fillOpenId(WxUser wxUser){
+    protected void fillOpenId(WxUser wxUser) {
 
         if (wxUser == null) {
             return;
         }
 
-        WxTaskUserDo taskUserDo = wxTaskUserRepository.getById(wxUser.getId().getValue());
+        WxTaskUserDo taskUserDo = taskUserRepository.getByCreateId(wxUser.getId().getValue());
         if (taskUserDo != null) {
             wxUser.setWxTaskUserOpenId(new WxTaskUserOpenId(taskUserDo.getOpenId()));
         }
 
-        WxLoveUserDo loveUserDo = wxLoveUserRepository.getById(wxUser.getId().getValue());
-        if(loveUserDo != null){
+        WxLoveUserDo loveUserDo = loveUserRepository.getByCreateId(wxUser.getId().getValue());
+        if (loveUserDo != null) {
             wxUser.setWxLoveUserOpenId(new WxLoveUserOpenId(loveUserDo.getOpenId()));
         }
     }

@@ -1,6 +1,5 @@
 package com.xiaohe66.web.infrastructure.mybatis.account.model;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiaohe66.web.integration.BaseLongInputDo;
 import lombok.Data;
@@ -17,7 +16,5 @@ public class AccountDo extends BaseLongInputDo {
 
     private String name;
     private String password;
-
-    @TableLogic
-    private Boolean deleted;
+    
 }

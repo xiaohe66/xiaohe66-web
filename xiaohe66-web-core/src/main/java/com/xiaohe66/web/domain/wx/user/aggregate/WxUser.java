@@ -1,12 +1,7 @@
 package com.xiaohe66.web.domain.wx.user.aggregate;
 
 import com.xiaohe66.web.domain.account.value.AccountId;
-import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
-import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
-import com.xiaohe66.web.domain.wx.user.value.WxUnionId;
-import com.xiaohe66.web.domain.wx.user.value.WxUserAvatarUrl;
-import com.xiaohe66.web.domain.wx.user.value.WxUserId;
-import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
+import com.xiaohe66.web.domain.wx.user.value.*;
 import com.xiaohe66.web.integration.domain.Aggregate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +18,7 @@ import java.util.Objects;
  */
 @Builder
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
 public class WxUser implements Aggregate<WxUser, WxUserId> {
@@ -31,21 +27,20 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
     private final WxUserId id;
 
     @NonNull
-    private final AccountId accountId;
+    private final AccountId createId;
 
     @NonNull
     private final WxUnionId unionId;
 
-    @Setter
     private WxUserNickname nickname;
-
-    @Setter
     private WxUserAvatarUrl avatarUrl;
+    private WxUserSex sex;
+    private WxUserProvince province;
+    private WxUserCity city;
+    private WxUserCountry country;
+    private WxUserSessionKey sessionKey;
 
-    @Setter
     private WxTaskUserOpenId wxTaskUserOpenId;
-
-    @Setter
     private WxLoveUserOpenId wxLoveUserOpenId;
 
     @Override
@@ -53,6 +48,10 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
         return other != null &&
                 Objects.equals(nickname, other.nickname) &&
                 Objects.equals(avatarUrl, other.avatarUrl) &&
-                Objects.equals(avatarUrl, other.getAvatarUrl());
+                Objects.equals(sex, other.sex) &&
+                Objects.equals(province, other.province) &&
+                Objects.equals(city, other.city) &&
+                Objects.equals(country, other.country) &&
+                Objects.equals(sessionKey, other.sessionKey);
     }
 }

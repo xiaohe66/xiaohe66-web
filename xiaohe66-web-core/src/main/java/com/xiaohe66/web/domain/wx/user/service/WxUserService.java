@@ -1,12 +1,8 @@
 package com.xiaohe66.web.domain.wx.user.service;
 
-import com.xiaohe66.web.domain.account.value.AccountId;
+import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
-import com.xiaohe66.web.domain.wx.user.value.WxUserAvatarUrl;
-import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,35 +17,22 @@ import org.springframework.stereotype.Service;
 public class WxUserService {
 
     private final WxUserRepository wxUserRepository;
+    private final SecurityService securityService;
 
-    public void saveWxUser(WxUser wxUser) {
+    public void save(WxUser wxUser) {
 
         wxUserRepository.save(wxUser);
 
         log.info("save wx user success, unionId : {}, accountId : {}",
                 wxUser.getUnionId(),
-                wxUser.getAccountId());
+                wxUser.getCreateId());
     }
 
-    public void updateUserInfoByAccountId(AccountId accountId,
-                                          WxUserNickname nickname,
-                                          WxUserAvatarUrl avatarUrl) {
+    public void update(WxUser wxUser) {
 
-        WxUser wxUser = wxUserRepository.getByAccountId(accountId);
-        if (wxUser == null) {
-            throw new BusinessException(ErrorCodeEnum.NOT_FOUND_ACCOUNT);
-        }
-
-        log.info("update wx user info, nickname : {}->{}, avatarUrl : {}->{}",
-                wxUser.getNickname(),
-                nickname,
-                wxUser.getAvatarUrl(),
-                avatarUrl);
-
-        wxUser.setNickname(nickname);
-        wxUser.setAvatarUrl(avatarUrl);
-
+        securityService.checkCreatorPermission(wxUser.getCreateId());
         wxUserRepository.save(wxUser);
+        log.info("update wxUser success, wxUser : {}", wxUser);
     }
 
 }
