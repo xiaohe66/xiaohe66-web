@@ -75,7 +75,7 @@ public class MessageAppService {
 
         LoverId loverId = new LoverId(bo.getLoverId());
 
-        List<Message> messageList = messageService.list(loverId, bo.toPaging());
+        List<Message> messageList = messageService.listDesc(loverId, bo.toPaging());
 
         List<MessageListResult> list = boConverter.toResult(wxUserRepository, messageList, currentAccountId);
 

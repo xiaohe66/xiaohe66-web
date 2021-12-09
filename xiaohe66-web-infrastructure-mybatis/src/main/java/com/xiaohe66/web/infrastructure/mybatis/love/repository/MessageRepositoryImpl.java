@@ -29,10 +29,11 @@ public class MessageRepositoryImpl
 
 
     @Override
-    public List<Message> list(LoverId loverId, Paging paging) {
+    public List<Message> listDesc(LoverId loverId, Paging paging) {
 
         LambdaQueryWrapper<MessageDo> queryWrapper = new LambdaQueryWrapper<MessageDo>()
                 .eq(MessageDo::getLoverId, loverId.getValue())
+                .orderByDesc(MessageDo::getId)
                 .last(paging.toLimit());
 
         List<MessageDo> list = list(queryWrapper);

@@ -10,9 +10,8 @@ import lombok.Data;
 public class MessageListResult {
 
     private Long id;
-    private Boolean isMe;
-    private String avatarUrl;
-    private String nickname;
+    private Long createId;
     private String createTime;
+    private String nickname;
     private String text;
 }

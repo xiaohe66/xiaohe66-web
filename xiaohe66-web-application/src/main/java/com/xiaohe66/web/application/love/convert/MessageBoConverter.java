@@ -30,14 +30,9 @@ public interface MessageBoConverter extends DataConverter {
 
         MessageListResult result = toResult(message);
 
-        result.setIsMe(message.getCreateId().equals(currentUserId));
-
         WxUser wxUser = wxUserRepository.getByAccountId(message.getCreateId());
         if (wxUser.getNickname() != null) {
             result.setNickname(wxUser.getNickname().getValue());
-        }
-        if (wxUser.getAvatarUrl() != null) {
-            result.setAvatarUrl(wxUser.getAvatarUrl().getValue());
         }
 
         return result;

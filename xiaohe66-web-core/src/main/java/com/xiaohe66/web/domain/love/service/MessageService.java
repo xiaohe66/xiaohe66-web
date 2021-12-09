@@ -38,9 +38,9 @@ public class MessageService {
         messageRepository.removeById(id);
     }
 
-    public List<Message> list(LoverId loverId, Paging paging) {
+    public List<Message> listDesc(LoverId loverId, Paging paging) {
 
-        return messageRepository.list(loverId, paging);
+        return messageRepository.listDesc(loverId, paging);
     }
 
 }

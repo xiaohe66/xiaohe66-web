@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface MessageRepository extends Repository<Message, MessageId> {
 
-    List<Message> list(LoverId loverId, Paging paging);
+    List<Message> listDesc(LoverId loverId, Paging paging);
 
 }
