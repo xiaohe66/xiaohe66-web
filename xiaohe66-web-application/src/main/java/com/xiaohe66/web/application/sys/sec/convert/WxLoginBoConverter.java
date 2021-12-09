@@ -7,7 +7,9 @@ import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
+import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
 import com.xiaohe66.web.integration.domain.DataConverter;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -18,8 +20,15 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface WxLoginBoConverter extends DataConverter {
 
-    @Mapping(target = "needUserInfo",expression = "java(wxUser.getNickname() != null)")
+    @Mapping(target = "id",source = "wxUser.createId")
+    @Mapping(target = "needUserInfo", expression = "java(getNeedUserInfo(wxUser))")
     WxLoginResult toResult(WxUser wxUser, String sessionId);
+
+    default boolean getNeedUserInfo(WxUser wxUser) {
+
+        WxUserNickname nickname = wxUser.getNickname();
+        return nickname == null || StringUtils.isEmpty(nickname.getValue());
+    }
 
     default void setOpenId(WxUser wxUser, WxLoginBo.Type type, String openId) {
 

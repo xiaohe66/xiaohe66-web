@@ -19,7 +19,7 @@ import java.util.Objects;
 @Builder
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "avatar")
 @AllArgsConstructor
 public class WxUser implements Aggregate<WxUser, WxUserId> {
 
@@ -33,7 +33,7 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
     private final WxUnionId unionId;
 
     private WxUserNickname nickname;
-    private WxUserAvatarUrl avatarUrl;
+    private WxUserAvatar avatar;
     private WxUserSex sex;
     private WxUserProvince province;
     private WxUserCity city;
@@ -47,7 +47,7 @@ public class WxUser implements Aggregate<WxUser, WxUserId> {
     public boolean hasSameRootAttribute(WxUser other) {
         return other != null &&
                 Objects.equals(nickname, other.nickname) &&
-                Objects.equals(avatarUrl, other.avatarUrl) &&
+                Objects.equals(avatar, other.avatar) &&
                 Objects.equals(sex, other.sex) &&
                 Objects.equals(province, other.province) &&
                 Objects.equals(city, other.city) &&

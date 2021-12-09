@@ -14,10 +14,8 @@ import lombok.EqualsAndHashCode;
 @TableName("wx_user")
 public class WxUserDo extends BaseLongInputDo {
 
-    private Long accountId;
     private String unionId;
     private String nickname;
-    private String avatarUrl;
 
     private Long sex;
     private String province;
