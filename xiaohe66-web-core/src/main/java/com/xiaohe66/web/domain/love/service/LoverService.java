@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 public class LoverService {
 
     public static final String CURRENT_LOVER_ID_SESSION_KEY = "currentLoverId";
-    public static final String LOVER_ROLE_NAME = "lover";
 
     private final LoverRepository loverRepository;
     private final SecurityService securityService;

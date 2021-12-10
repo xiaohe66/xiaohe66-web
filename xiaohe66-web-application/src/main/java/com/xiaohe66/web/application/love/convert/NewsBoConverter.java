@@ -2,11 +2,13 @@ package com.xiaohe66.web.application.love.convert;
 
 import com.xiaohe66.web.application.love.bo.NewsSaveBo;
 import com.xiaohe66.web.application.love.result.NewsResult;
+import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.file.value.ImageId;
 import com.xiaohe66.web.domain.love.agg.News;
 import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.love.value.NewsId;
 import com.xiaohe66.web.domain.love.value.NewsText;
+import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.integration.domain.DataConverter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,7 +22,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface NewsBoConverter extends DataConverter {
 
-    News toAgg(Long id, NewsSaveBo bo, LoverId loverId);
+    News toAgg(Long id, NewsSaveBo bo, AccountId createId, LoverId loverId);
 
     @Mapping(source = "id", target = "createTime")
     NewsResult toResult(News news);

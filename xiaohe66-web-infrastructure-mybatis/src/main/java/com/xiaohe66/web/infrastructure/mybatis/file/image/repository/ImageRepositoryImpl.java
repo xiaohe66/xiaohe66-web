@@ -1,5 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis.file.image.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.xiaohe66.web.domain.file.agg.Image;
 import com.xiaohe66.web.domain.file.repository.ImageRepository;
 import com.xiaohe66.web.domain.file.value.ImageId;
@@ -8,17 +9,16 @@ import com.xiaohe66.web.infrastructure.mybatis.file.image.mapper.ImageMapper;
 import com.xiaohe66.web.infrastructure.mybatis.file.image.model.ImageDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
 import com.xiaohe66.web.integration.config.FileConfig;
+import com.xiaohe66.web.integration.domain.Md5;
 import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -49,8 +49,8 @@ public class ImageRepositoryImpl
             throw new BusinessException(ErrorCodeEnum.ERROR);
         }
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            IOUtils.copy(agg.getInputStream(), fileOutputStream);
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+            agg.getContext().write(outputStream);
 
         } catch (IOException e) {
 
@@ -75,17 +75,25 @@ public class ImageRepositoryImpl
         }
 
         String fullPath = getFullPath(id);
+        return dataConverter.toAgg(imageDo, fullPath);
+    }
 
-        FileInputStream fileInputStream;
-        try {
-            fileInputStream = new FileInputStream(fullPath);
+    @Override
+    public Image getByMd5(@NonNull Md5 md5) {
 
-        } catch (FileNotFoundException e) {
-            log.error("cannot found file, image : {}", imageDo, e);
-            throw new BusinessException(ErrorCodeEnum.ERROR);
+        LambdaQueryWrapper<ImageDo> queryWrapper = new LambdaQueryWrapper<ImageDo>()
+                .eq(ImageDo::getMd5, md5.getValue());
+
+        ImageDo imageDo = getOne(queryWrapper);
+
+        if (imageDo == null) {
+            return null;
         }
 
-        return dataConverter.toAgg(imageDo, fileInputStream);
+        String fullPath = getFullPath(new ImageId(imageDo.getId()));
+
+        // TODO : 需要快照吗？
+        return dataConverter.toAgg(imageDo, fullPath);
     }
 
     private String getFullPath(Image image) {
@@ -95,4 +103,5 @@ public class ImageRepositoryImpl
     private String getFullPath(ImageId id) {
         return fileConfig.getImageDirectory() + id.takeAbsolutePath();
     }
+
 }

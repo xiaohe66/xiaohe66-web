@@ -2,7 +2,9 @@ package com.xiaohe66.web.gateway.http.love.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author xiaohe
@@ -13,5 +15,9 @@ public class NewsSaveDto {
 
     @NotBlank
     private String text;
+
+    @NotNull
+    @Min(0)
+    private Long imageId;
 
 }

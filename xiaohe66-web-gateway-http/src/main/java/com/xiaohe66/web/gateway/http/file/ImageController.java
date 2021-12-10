@@ -30,7 +30,6 @@ public class ImageController {
     public R<Long> upload(@RequestParam("file") MultipartFile file) throws IOException {
 
         ImageUploadBo bo = new ImageUploadBo();
-        bo.setName(file.getOriginalFilename());
         bo.setInputStream(file.getInputStream());
 
         return imageAppService.upload(bo);

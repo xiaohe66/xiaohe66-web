@@ -24,10 +24,11 @@ public class NewsRepositoryImpl
         implements NewsRepository {
 
     @Override
-    public List<News> listByLoverId(LoverId loverId, Paging paging) {
+    public List<News> listByLoverIdDesc(LoverId loverId, Paging paging) {
 
         LambdaQueryWrapper<NewsDo> queryWrapper = new LambdaQueryWrapper<NewsDo>()
                 .eq(NewsDo::getLoverId, loverId.getValue())
+                .orderByDesc(NewsDo::getId)
                 .last(paging.toLimit());
 
         List<NewsDo> list = list(queryWrapper);

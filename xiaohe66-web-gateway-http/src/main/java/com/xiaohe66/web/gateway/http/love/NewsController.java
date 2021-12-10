@@ -33,7 +33,7 @@ public class NewsController {
     private final NewsAppService newsAppService;
 
     @PostMapping
-    public R<Long> save(@Validated @RequestBody NewsSaveDto dto) {
+    public R<NewsResult> save(@Validated @RequestBody NewsSaveDto dto) {
         NewsSaveBo bo = dtoConverter.toBo(dto);
         return newsAppService.save(bo);
     }
@@ -48,7 +48,7 @@ public class NewsController {
 
         NewsListBo bo = dtoConverter.toBo(dto);
 
-        return newsAppService.listByLoverId(bo);
+        return newsAppService.listByLoverIdDesc(bo);
     }
 
 }

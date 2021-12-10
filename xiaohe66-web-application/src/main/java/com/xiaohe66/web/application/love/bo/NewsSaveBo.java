@@ -10,5 +10,6 @@ import lombok.Data;
 public class NewsSaveBo {
 
     private String text;
+    private Long imageId;
 
 }

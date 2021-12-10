@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface NewsRepository extends Repository<News, NewsId> {
 
-    List<News> listByLoverId(LoverId loverId, Paging paging);
+    List<News> listByLoverIdDesc(LoverId loverId, Paging paging);
 
 }

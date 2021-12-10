@@ -11,7 +11,6 @@ import java.io.InputStream;
 @Data
 public class ImageUploadBo {
 
-    private String name;
     private InputStream inputStream;
 
 }
