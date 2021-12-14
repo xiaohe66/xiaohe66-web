@@ -3,8 +3,8 @@ package com.xiaohe66.web.gateway.http.love.dto;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author xiaohe
@@ -13,7 +13,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class DailySaveDto {
 
-    @NotBlank
+    /**
+     * 最多 500个中文字
+     */
+    @Size(min = 1, max = 3000)
     private String desc;
 
     @NotNull

@@ -2,7 +2,9 @@ package com.xiaohe66.web.gateway.http.love.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -11,6 +13,10 @@ import javax.validation.constraints.Size;
  */
 @Data
 public class MessageSaveDto {
+
+    @NotNull
+    @Min(0)
+    private Long loverId;
 
     @NotBlank
     @Size(max = 500, message = "长度不能超过500个字符")

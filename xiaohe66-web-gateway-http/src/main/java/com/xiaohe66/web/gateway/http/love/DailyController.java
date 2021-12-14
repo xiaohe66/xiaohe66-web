@@ -33,7 +33,7 @@ public class DailyController {
     private final DailyAppService dailyAppService;
 
     @PostMapping
-    public R<Long> save(@Validated @RequestBody DailySaveDto dto) {
+    public R<DailyResult> save(@Validated @RequestBody DailySaveDto dto) {
 
         DailySaveBo bo = dtoConverter.toBo(dto);
 
@@ -43,8 +43,7 @@ public class DailyController {
     @DeleteMapping("/{id}")
     public R<Void> removeById(@PathVariable(value = "id") Long id) {
 
-        dailyAppService.removeById(id);
-        return R.ok();
+        return dailyAppService.removeById(id);
     }
 
     @GetMapping

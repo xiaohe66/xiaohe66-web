@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("lover")
+@TableName("love_lover")
 public class LoverDo extends BaseLongInputDo {
 
     private Long accountId;

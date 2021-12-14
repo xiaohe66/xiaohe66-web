@@ -12,6 +12,7 @@ import com.xiaohe66.web.domain.account.service.AccountService;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
+import com.xiaohe66.web.domain.love.service.LoverService;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
@@ -49,6 +50,7 @@ public class WxLoginService {
     private final WxApiClient client;
 
     private final SecurityService securityService;
+    private final LoverService loverService;
 
     private final WxConfig wxConfig;
 
@@ -84,7 +86,6 @@ public class WxLoginService {
                     .sessionKey(new WxUserSessionKey(response.getSessionKey()))
                     .build();
 
-            boConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
 
         } else {
             // 多个小程序切换使用时, 更新角色id
@@ -93,16 +94,18 @@ public class WxLoginService {
             accountRepository.save(account);
 
             // 更新微信用户
-            boConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
             wxUser.setSessionKey(new WxUserSessionKey(response.getSessionKey()));
-            wxUserService.save(wxUser);
         }
+
+        boConverter.setOpenId(wxUser, loginBo.getType(), response.getOpenId());
+        wxUserService.save(wxUser);
+
         // 3.录到系统
         loginService.login(wxUser.getCreateId());
 
         log.info("wx account login success, unionId : {}", response.getUnionId());
 
-        WxLoginResult result = boConverter.toResult(wxUser, securityService.getSessionId());
+        WxLoginResult result = boConverter.toWxLoginResult(wxUser);
 
         return R.ok(result);
     }

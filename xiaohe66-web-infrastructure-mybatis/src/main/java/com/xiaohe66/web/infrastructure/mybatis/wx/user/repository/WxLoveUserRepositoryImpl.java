@@ -1,5 +1,7 @@
 package com.xiaohe66.web.infrastructure.mybatis.wx.user.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
@@ -24,6 +26,25 @@ public class WxLoveUserRepositoryImpl
         userDo.setId(IdWorker.genId());
 
         save(userDo);
+    }
+
+    public void saveOpenId(AccountId createId, WxLoveUserOpenId openId) {
+
+        WxLoveUserDo query = new WxLoveUserDo();
+        query.setCreateId(createId.getValue());
+
+        WxLoveUserDo loveUserDo = getOne(new QueryWrapper<>(query));
+        if (loveUserDo == null) {
+            insert(createId, openId);
+
+        } else if(!openId.getValue().equals(loveUserDo.getOpenId())){
+
+            LambdaUpdateWrapper<WxLoveUserDo> updateWrapper = new LambdaUpdateWrapper<WxLoveUserDo>()
+                    .set(WxLoveUserDo::getOpenId, openId.getValue())
+                    .eq(WxLoveUserDo::getCreateId, createId.getValue());
+
+            update(updateWrapper);
+        }
     }
 
 }

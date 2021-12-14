@@ -42,6 +42,24 @@ public class Lover implements Aggregate<Lover, LoverId> {
         status = LoverStatus.NORMAL;
     }
 
+    public void over(){
+        if (!LoverStatus.NORMAL.equals(status)) {
+            throw new BusinessException(ErrorCodeEnum.ILLEGAL_OPERATE);
+        }
+        status = LoverStatus.OVER;
+    }
+
+    public void recover() {
+        if (!LoverStatus.OVER.equals(status)) {
+            throw new BusinessException(ErrorCodeEnum.ILLEGAL_OPERATE);
+        }
+        status = LoverStatus.NORMAL;
+    }
+
+    public AccountId getLoveAccountId(@NonNull AccountId currentAccountId){
+        return currentAccountId.equals(createId) ? accountId : createId;
+    }
+
     @Override
     public boolean hasSameRootAttribute(Lover other) {
         return other != null &&

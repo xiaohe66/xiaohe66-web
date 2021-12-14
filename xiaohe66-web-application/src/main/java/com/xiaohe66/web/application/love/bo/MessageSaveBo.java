@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class MessageSaveBo {
 
+    private Long loverId;
     private String text;
 
 }

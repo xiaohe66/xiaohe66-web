@@ -41,6 +41,8 @@ public interface SecurityService {
 
     /**
      * 是否有创建人权限（检查当前用户是否为指定值，管理员默认拥有全部权限）
+     *
+     * TODO : rename to hasCurrentAccountPermission
      */
     boolean hasCreatorPermission(AccountId createId);
 

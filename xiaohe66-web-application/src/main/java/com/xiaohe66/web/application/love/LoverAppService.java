@@ -1,7 +1,10 @@
 package com.xiaohe66.web.application.love;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.aop.annotation.NeedLogin;
+import com.xiaohe66.web.application.aop.annotation.NeedRoles;
 import com.xiaohe66.web.application.love.convert.LoverBoConverter;
 import com.xiaohe66.web.application.love.result.LoverInfoResult;
 import com.xiaohe66.web.domain.account.value.AccountId;
@@ -9,16 +12,18 @@ import com.xiaohe66.web.domain.love.agg.Lover;
 import com.xiaohe66.web.domain.love.repository.LoverRepository;
 import com.xiaohe66.web.domain.love.service.LoverService;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
-import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
+import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
-import com.xiaohe66.web.integration.cache.CacheHelper;
 import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
+import com.xiaohe66.web.integration.util.Assert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xiaohe
@@ -31,6 +36,10 @@ public class LoverAppService {
 
     public static final String SERIAL_NO_SESSION_KEY = "loverSerialNo";
 
+    private static final Cache<String, Object> serialNoCache = CacheBuilder.newBuilder()
+            .expireAfterAccess(30, TimeUnit.MINUTES)
+            .build();
+
     private final LoverBoConverter boConverter;
 
     private final LoverRepository loverRepository;
@@ -39,22 +48,23 @@ public class LoverAppService {
     private final LoverService loverService;
     private final SecurityService securityService;
 
-    @NeedLogin
+    @NeedRoles(RoleName.LOVE_ROLE_VALUE)
     public R<String> readyBind() {
-
-        String serialNo = securityService.getAttribute(SERIAL_NO_SESSION_KEY);
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
-        if (serialNo != null) {
+        Lover lover = loverRepository.getByAccountIdValid(currentAccountId);
+        if (lover != null) {
+            return R.build(ErrorCodeEnum.ILLEGAL_OPERATE.getCode(), "已存在绑定对象");
+        }
 
-            CacheHelper.put30(serialNo, currentAccountId);
+        String serialNo = securityService.getAttribute(SERIAL_NO_SESSION_KEY);
+
+        if (serialNo != null && serialNoCache.getIfPresent(serialNo) != null) {
             return R.ok(serialNo);
         }
 
-        serialNo = genSerialNo();
-
-        CacheHelper.put30(serialNo, currentAccountId);
+        serialNo = getOrGenAndCacheSerialNo(currentAccountId);
 
         securityService.setAttribute(SERIAL_NO_SESSION_KEY, serialNo);
 
@@ -63,36 +73,42 @@ public class LoverAppService {
         return R.ok(serialNo);
     }
 
-    @NeedLogin
-    public void binding(String serialNo) {
 
-        AccountId accountId = CacheHelper.get30(serialNo);
+    @NeedRoles(RoleName.LOVE_ROLE_VALUE)
+    public R<LoverInfoResult> binding(String serialNo) {
+
+        AccountId loveAccountId = (AccountId) serialNoCache.getIfPresent(serialNo);
+        Assert.notNull(loveAccountId, ErrorCodeEnum.NOT_FOUND, "识别码不存在");
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
-        if (currentAccountId.equals(accountId)) {
-            throw new BusinessException(ErrorCodeEnum.PARAM_ERROR, "不可绑定自己");
-        }
+        Lover lover = boConverter.toSaveAgg(loveAccountId);
+        loverService.bind(currentAccountId, loveAccountId);
 
-        if (accountId == null) {
-            throw new BusinessException(ErrorCodeEnum.NOT_FOUND);
-        }
+        LoverInfoResult result = boConverter.toResultFull(lover);
 
-        loverService.bind(accountId);
+        log.info("binding lover,serialNo : {}, lover : {}", serialNo, lover);
+
+        return R.ok(result);
     }
 
-    @NeedLogin
-    public void confirmBind() {
+    @NeedRoles(RoleName.LOVE_ROLE_VALUE)
+    public R<Void> confirmBind() {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
-        Lover lover = loverRepository.getByAccountId(currentAccountId);
+        loverService.confirmBind(currentAccountId);
 
-        if (lover == null) {
-            throw new BusinessException(ErrorCodeEnum.NOT_FOUND);
-        }
+        return R.ok();
+    }
 
-        loverService.confirmBind(lover);
+    @NeedRoles(RoleName.LOVER_ROLE_VALUE)
+    public R<Void> over() {
+
+        AccountId currentAccountId = securityService.getCurrentAccountId();
+        loverService.over(currentAccountId);
+
+        return R.ok();
     }
 
     @NeedLogin
@@ -100,31 +116,33 @@ public class LoverAppService {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
-        Lover lover = loverRepository.getByAccountId(currentAccountId);
-        if (lover == null) {
-            throw new BusinessException(ErrorCodeEnum.NOT_FOUND);
-        }
+        Lover lover = loverRepository.getByAccountIdValid(currentAccountId);
 
-        AccountId loverAccountId = currentAccountId.equals(lover.getCreateId()) ? lover.getAccountId() : lover.getCreateId();
-        WxUser wxUser = wxUserRepository.getByAccountId(loverAccountId);
+        Assert.notNull(lover, ErrorCodeEnum.NOT_FOUND);
 
-        LoverInfoResult result = boConverter.toResult(lover, wxUser);
+        LoverInfoResult result = boConverter.toResultFull(lover);
 
         return R.ok(result);
     }
 
-    /*public Integer getCurrentUserLoverId() {
-        Integer currentUsrId = UserHelper.getCurrentUsrId();
+    protected synchronized String getOrGenAndCacheSerialNo(AccountId accountId) {
+        // TODO : 优化可用数量
+        String serialNo;
+        int qty = 0;
+        do {
+            int no = ThreadLocalRandom.current().nextInt(100000);
+            serialNo = StringUtils.leftPad(String.valueOf(no), 5, '0');
+            qty++;
+            if (qty > 1000) {
+                log.error("while times over 1000");
+                throw new BusinessException(ErrorCodeEnum.ERROR);
+            }
 
-        Integer loverId = baseMapper.selectLoverIdByUserId(currentUsrId);
-        if (loverId == null) {
-            log.warn("用户{}的loverId为null", currentUsrId);
-        }
-        return loverId;
-    }*/
+        } while (serialNoCache.getIfPresent(serialNo) != null);
 
-    protected String genSerialNo() {
-        return UUID.randomUUID().toString().replace("-", "");
+        serialNoCache.put(serialNo, accountId);
+
+        return serialNo;
     }
 
 }

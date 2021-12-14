@@ -10,6 +10,8 @@ import com.xiaohe66.web.infrastructure.mybatis.love.model.LoverDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author xiaohe
  * @since 2021.11.29 12:07
@@ -20,10 +22,23 @@ public class LoverRepositoryImpl
         implements LoverRepository {
 
     @Override
-    public Lover getByAccountId(AccountId accountId) {
+    public Lover getByAccountIdValid(AccountId accountId) {
 
-        LoverDo loverDo = baseMapper.getByAccountId(accountId.getValue());
+        LoverDo loverDo = baseMapper.getByAccountIdValid(accountId.getValue());
 
-        return dataConverter.toAgg(loverDo);
+        Lover lover = dataConverter.toAgg(loverDo);
+
+        saveSnapshot(dataConverter.copyAgg(lover));
+
+        return lover;
+    }
+
+    @Override
+    public List<Lover> getByAccountId(AccountId accountId) {
+        List<LoverDo> loverDo = baseMapper.getByAccountId(accountId.getValue());
+
+        List<Lover> lover = dataConverter.toAgg(loverDo);
+
+        return lover;
     }
 }

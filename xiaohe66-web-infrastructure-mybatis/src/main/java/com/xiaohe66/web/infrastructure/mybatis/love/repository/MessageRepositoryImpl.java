@@ -10,6 +10,8 @@ import com.xiaohe66.web.infrastructure.mybatis.love.mapper.MessageMapper;
 import com.xiaohe66.web.infrastructure.mybatis.love.model.MessageDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
 import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
+import com.xiaohe66.web.integration.util.Assert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,25 @@ public class MessageRepositoryImpl
         extends AbstractMybatisService<MessageDoConverter, MessageMapper, MessageDo, Message, MessageId>
         implements MessageRepository {
 
+    private final LoverRepositoryImpl loverRepository;
+
+    @Override
+    protected void insertImpl(Message agg) {
+
+        boolean isExist = loverRepository.isExistId(agg.getLoverId().getValue());
+        Assert.isTrue(isExist, ErrorCodeEnum.NOT_FOUND_DATE);
+
+        super.insertImpl(agg);
+    }
+
+    @Override
+    protected void updateImpl(Message agg, Message snapshot) {
+
+        boolean isExist = loverRepository.isExistId(agg.getLoverId().getValue());
+        Assert.isTrue(isExist, ErrorCodeEnum.NOT_FOUND_DATE);
+
+        super.updateImpl(agg, snapshot);
+    }
 
     @Override
     public List<Message> listDesc(LoverId loverId, Paging paging) {

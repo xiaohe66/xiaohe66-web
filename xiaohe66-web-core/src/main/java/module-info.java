@@ -42,6 +42,7 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.integration.config;
     exports com.xiaohe66.web.integration.domain;
     exports com.xiaohe66.web.integration.ex;
+    exports com.xiaohe66.web.integration.util;
     exports com.xiaohe66.web.integration.value;
 
     exports com.xiaohe66.web.infrastructure.acl.wx;
@@ -74,6 +75,7 @@ module xiaohe.web.core {
     requires transitive org.aspectj.weaver;
 
     requires transitive spring.aop;
+    requires transitive spring.beans;
     requires transitive spring.boot;
     requires transitive spring.boot.autoconfigure;
     requires transitive spring.context;

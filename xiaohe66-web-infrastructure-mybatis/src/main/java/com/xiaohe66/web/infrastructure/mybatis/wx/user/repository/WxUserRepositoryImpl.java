@@ -70,6 +70,14 @@ public class WxUserRepositoryImpl
             saveAvatar(agg);
         }
 
+        if (agg.getWxTaskUserOpenId() != null) {
+
+            taskUserRepository.saveOpenId(agg.getCreateId(), agg.getWxTaskUserOpenId());
+        }
+        if (agg.getWxLoveUserOpenId() != null) {
+
+            loveUserRepository.saveOpenId(agg.getCreateId(), agg.getWxLoveUserOpenId());
+        }
     }
 
     @Override

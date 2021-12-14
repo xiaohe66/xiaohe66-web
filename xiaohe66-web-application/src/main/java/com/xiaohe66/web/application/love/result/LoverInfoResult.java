@@ -11,10 +11,10 @@ public class LoverInfoResult {
 
     private Long id;
     private Long createId;
+    private Long loveId;
     private String createTime;
     private Integer status;
 
-    private String nickname;
-    private String avatarUrl;
+    private String loverNickname;
 
 }

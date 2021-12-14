@@ -3,6 +3,7 @@ package com.xiaohe66.web.application.love;
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.application.aop.annotation.NeedLogin;
+import com.xiaohe66.web.application.aop.annotation.NeedRoles;
 import com.xiaohe66.web.application.love.bo.DailyListBo;
 import com.xiaohe66.web.application.love.bo.DailySaveBo;
 import com.xiaohe66.web.application.love.convert.DailyBoConverter;
@@ -16,6 +17,7 @@ import com.xiaohe66.web.domain.love.value.DailyId;
 import com.xiaohe66.web.domain.love.value.DailyMood;
 import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
+import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.integration.domain.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +40,8 @@ public class DailyAppService {
     private final DailyService dailyService;
     private final LoverService loverService;
 
-    @NeedLogin
-    public R<Long> save(DailySaveBo bo) {
+    @NeedRoles(RoleName.LOVER_ROLE_VALUE)
+    public R<DailyResult> save(DailySaveBo bo) {
 
         LoverId loverId = loverService.getCurrentLoverId();
         Long id = IdWorker.genId();
@@ -54,15 +56,19 @@ public class DailyAppService {
 
         dailyService.save(daily);
 
-        return R.ok(id);
+        DailyResult result = boConverter.toResult(daily);
+
+        return R.ok(result);
     }
 
-    @NeedLogin
-    public void removeById(Long idValue) {
+    @NeedRoles(RoleName.LOVER_ROLE_VALUE)
+    public R<Void> removeById(Long idValue) {
 
         DailyId id = new DailyId(idValue);
 
         dailyService.removeById(id);
+
+        return R.ok();
     }
 
     @NeedLogin

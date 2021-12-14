@@ -39,7 +39,7 @@ public class MessageAppService {
     private final WxUserRepository wxUserRepository;
     private final SecurityService securityService;
 
-    @NeedRoles({RoleName.WX_ROLE_VALUE, RoleName.LOVE_ROLE_VALUE})
+    @NeedRoles(RoleName.LOVE_ROLE_VALUE)
     public R<MessageListResult> save(MessageSaveBo bo) {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
@@ -49,7 +49,7 @@ public class MessageAppService {
         Message message = Message.builder()
                 .id(new MessageId(id))
                 .createId(currentAccountId)
-                .loverId(new LoverId(1L))
+                .loverId(new LoverId(bo.getLoverId()))
                 .text(new MessageText(bo.getText()))
                 .build();
 

@@ -28,19 +28,14 @@ public class LoverController {
     }
 
     @PostMapping("/{serialNo}")
-    public R<Void> binding(@PathVariable String serialNo) {
-
-        loverAppService.binding(serialNo);
-
-        return R.ok();
+    public R<LoverInfoResult> binding(@PathVariable String serialNo) {
+        return loverAppService.binding(serialNo);
     }
 
     @PostMapping("/confirm")
     public R<Void> confirm() {
 
-        loverAppService.confirmBind();
-
-        return R.ok();
+        return loverAppService.confirmBind();
     }
 
     @GetMapping("/info")

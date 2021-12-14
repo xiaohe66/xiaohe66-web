@@ -4,8 +4,8 @@ import com.xiaohe66.web.domain.love.agg.Daily;
 import com.xiaohe66.web.domain.love.repository.DailyRepository;
 import com.xiaohe66.web.domain.love.value.DailyId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
-import com.xiaohe66.web.integration.ex.BusinessException;
 import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
+import com.xiaohe66.web.integration.util.Assert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,12 @@ import org.springframework.stereotype.Service;
 public class DailyService {
 
     private final DailyRepository dailyRepository;
+
     private final LoverService loverService;
     private final SecurityService securityService;
 
     public void save(Daily daily) {
-
+        
         dailyRepository.save(daily);
     }
 
@@ -32,13 +33,9 @@ public class DailyService {
 
         Daily daily = dailyRepository.getById(id);
 
-        if(daily == null){
-            throw new BusinessException(ErrorCodeEnum.NOT_FOUND_DATE);
-        }
+        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATE);
 
-        if (!securityService.hasCreatorPermission(daily.getCreateId())) {
-            throw new BusinessException(ErrorCodeEnum.NOT_DATA_PERMISSION);
-        }
+        securityService.checkCreatorPermission(daily.getCreateId());
 
         dailyRepository.removeById(id);
     }
@@ -46,6 +43,8 @@ public class DailyService {
     public Daily getById(DailyId id) {
 
         Daily daily = dailyRepository.getById(id);
+
+        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATE);
 
         // 检查权限，是否为当前情侣
         loverService.checkLoverPermission(daily.getLoverId());
