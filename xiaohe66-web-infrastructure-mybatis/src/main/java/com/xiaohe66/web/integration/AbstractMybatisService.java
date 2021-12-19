@@ -45,6 +45,11 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
         return baseMapper.isExistId(id);
     }
 
+    @Override
+    public boolean isExist(I id) {
+        return baseMapper.isExistId(id.getValue());
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(A agg) {
