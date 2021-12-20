@@ -31,7 +31,7 @@ public class AccountRoleRepositoryImpl extends ServiceImpl<AccountRoleMapper, Ac
     public void removeByAccountId(AccountId accountId) {
 
         List<AccountRoleDo> accountRoleDos = listByAccountId(accountId);
-        log.info("remove account, id : {}, accountRole : {}", accountId.getValue(), accountRoleDos);
+        log.info("remove account role, id : {}, accountRole : {}", accountId.getValue(), accountRoleDos);
 
         AccountRoleDo accountRoleDo = new AccountRoleDo();
         accountRoleDo.setAccountId(accountId.getValue());

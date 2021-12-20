@@ -98,9 +98,11 @@ public class PictureAppService {
 
         for (File file : files) {
 
-            String path = file.getName();
+            if(file.isFile()){
+                String path = file.getName();
 
-            images.add(path);
+                images.add(path);
+            }
         }
 
         PictureListResult result = new PictureListResult();

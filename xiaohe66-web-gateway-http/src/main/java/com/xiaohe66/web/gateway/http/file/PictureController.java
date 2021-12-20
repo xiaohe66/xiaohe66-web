@@ -47,9 +47,12 @@ public class PictureController {
     @GetMapping("/download")
     public void download(@RequestParam String dir,
                          @RequestParam String name,
+                         @RequestParam(required = false, defaultValue = "true") boolean isSmall,
                          HttpServletResponse response) throws IOException {
 
-        String path = File.separator + dir + File.separator + name;
+        String path = isSmall ?
+                File.separator + dir + File.separator + "small" + File.separator + name :
+                File.separator + dir + File.separator + name;
 
         response.setContentType("image/jpg");
         pictureAppService.download(path, response.getOutputStream());
