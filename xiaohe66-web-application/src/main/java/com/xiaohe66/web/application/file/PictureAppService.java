@@ -2,7 +2,11 @@ package com.xiaohe66.web.application.file;
 
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.web.application.aop.annotation.NeedLogin;
+import com.xiaohe66.web.application.file.convert.PictureBoConverter;
 import com.xiaohe66.web.application.file.result.PictureListResult;
+import com.xiaohe66.web.domain.file.repository.PictureRepository;
+import com.xiaohe66.web.domain.file.value.PictureCategory;
+import com.xiaohe66.web.domain.file.value.PicturePath;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.integration.config.FileConfig;
 import com.xiaohe66.web.integration.ex.BusinessException;
@@ -30,6 +34,8 @@ import java.util.List;
 public class PictureAppService {
 
     private final FileConfig fileConfig;
+    private final PictureBoConverter boConverter;
+    private final PictureRepository pictureRepository;
     private final SecurityService securityService;
 
     public void download(String path, OutputStream outputStream) {
@@ -56,33 +62,25 @@ public class PictureAppService {
     @NeedLogin
     public R<List<PictureListResult>> list() {
 
-        String directory = fileConfig.getPictureDirectory();
-        File rootFile = new File(directory);
+        List<PictureListResult> list = new ArrayList<>(5);
 
-        if (!rootFile.exists()) {
-            log.error("picture directory is not exist");
-            throw new BusinessException(ErrorCodeEnum.ERROR);
-        }
-
-        File[] files = rootFile.listFiles();
-        if (files == null) {
-
-            log.error("rootFile.listFiles() result is null");
-            throw new BusinessException(ErrorCodeEnum.ERROR);
-        }
-
-        List<PictureListResult> list = new ArrayList<>(files.length);
-
-        for (File file : files) {
-            if (file.isDirectory()) {
-                PictureListResult result = find(file);
-                if (result != null) {
-                    list.add(result);
-                }
-            }
-        }
+        list.add(getResult(PictureCategory.ANCIENT, "古装,不一样的韵味"));
+        list.add(getResult(PictureCategory.BIG, "婚纱,你要的仪式感"));
+        list.add(getResult(PictureCategory.RED, "浪漫,法国味"));
+        list.add(getResult(PictureCategory.SMALL, "小清新,花美你更美"));
+        list.add(getResult(PictureCategory.STUDENT, "学生,从校服到婚纱"));
 
         return R.ok(list);
+    }
+
+    private PictureListResult getResult(PictureCategory category, String name) {
+        List<PicturePath> pathList = pictureRepository.listByCategory(category);
+
+        PictureListResult result = new PictureListResult();
+        result.setImages(boConverter.toBo(pathList));
+        result.setName(name);
+
+        return result;
     }
 
     protected PictureListResult find(File dir) {
@@ -98,7 +96,7 @@ public class PictureAppService {
 
         for (File file : files) {
 
-            if(file.isFile()){
+            if (file.isFile()) {
                 String path = file.getName();
 
                 images.add(path);
