@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -22,6 +21,7 @@ import java.util.List;
 public class TaskPool implements Entity<TaskPoolId> {
 
     private static final List<TaskPool> DEFAULT_POOL_LIST;
+    // private static final TaskPool REFRESH_POOL;
 
     private final TaskPoolId id;
     private final TaskPoolName name;
@@ -36,11 +36,17 @@ public class TaskPool implements Entity<TaskPoolId> {
         }
 
         DEFAULT_POOL_LIST = List.of(arr);
+
+        // REFRESH_POOL = genTaskPool(names.length, "完成池");
     }
 
-    public static Collection<TaskPool> defaultPool() {
+    public static List<TaskPool> defaultPool() {
         return DEFAULT_POOL_LIST;
     }
+
+    /*public static TaskPool refreshPool() {
+        return REFRESH_POOL;
+    }*/
 
     private static TaskPool genTaskPool(Integer idValue, String nameValue) {
         TaskPoolId id = new TaskPoolId(idValue);

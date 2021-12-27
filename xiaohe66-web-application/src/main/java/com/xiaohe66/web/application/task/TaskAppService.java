@@ -104,7 +104,7 @@ public class TaskAppService {
                 .map(pool -> {
 
                     List<Task> tasks = taskRepository.listByPoolId(currentAccountId, pool.getId(), paging);
-                    return converter.toResult(tasks);
+                    return converter.convert(tasks);
 
                 }).collect(Collectors.toList());
 
@@ -119,10 +119,24 @@ public class TaskAppService {
         TaskPoolId poolId = new TaskPoolId(bo.getPoolId());
 
         List<Task> tasks = taskRepository.listByPoolId(currentAccountId, poolId, bo.toPaging());
-        List<TaskListResult> ret = converter.toResult(tasks);
+        List<TaskListResult> ret = converter.convert(tasks);
 
         return R.ok(ret);
     }
+
+    /*@NeedLogin
+    public R<List<TaskFinishPoolResult>> queryFinishPool() {
+
+        AccountId currentAccountId = securityService.getCurrentAccountId();
+
+        Paging paging = new Paging(0L, 10);
+
+        List<Task> tasks = taskRepository.listByPoolId(currentAccountId, TaskPool.refreshPool().getId(), paging);
+
+        final List<TaskFinishPoolResult> result = converter.convert(tasks);
+
+        return R.ok(result);
+    }*/
 
     @NeedLogin
     public R<TaskDetailResult> queryDetail(Long id) {

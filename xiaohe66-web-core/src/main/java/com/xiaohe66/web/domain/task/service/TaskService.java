@@ -3,6 +3,7 @@ package com.xiaohe66.web.domain.task.service;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.task.agg.Task;
 import com.xiaohe66.web.domain.task.repository.TaskRepository;
+import com.xiaohe66.web.domain.task.value.TaskChangeTime;
 import com.xiaohe66.web.domain.task.value.TaskId;
 import com.xiaohe66.web.domain.task.value.TaskPoolId;
 import com.xiaohe66.web.domain.task.value.TaskSort;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,6 +31,12 @@ public class TaskService {
     private final SecurityService securityService;
 
     public void saveTask(Task task) {
+
+        Task dbTask = taskRepository.getById(task.getId());
+
+        if (dbTask != null && !dbTask.getPoolId().equals(task.getPoolId())) {
+            task.setChangeTime(new TaskChangeTime(LocalDateTime.now()));
+        }
 
         taskRepository.save(task);
     }

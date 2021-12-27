@@ -6,6 +6,8 @@ import com.xiaohe66.web.integration.BaseLongInputDo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
  * @author xiaohe
  * @since 2021.11.17 11:48
@@ -16,6 +18,8 @@ import lombok.EqualsAndHashCode;
 public class TaskDo extends BaseLongInputDo {
 
     private Integer poolId;
+
+    private LocalDateTime changeTime;
 
     @TableField("`name`")
     private String name;

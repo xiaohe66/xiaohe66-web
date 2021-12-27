@@ -51,7 +51,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public R<Void> remove(@PathVariable Long id){
+    public R<Void> remove(@PathVariable Long id) {
         return appService.remove(id);
     }
 
@@ -73,6 +73,11 @@ public class TaskController {
         return appService.queryLists();
     }
 
+    /*@GetMapping("/finish")
+    public R<List<TaskFinishPoolResult>> refresh() {
+        return appService.queryFinishPool();
+    }*/
+
     @GetMapping
     public R<List<TaskListResult>> list(@Validated TaskListDto dto) {
 
@@ -81,7 +86,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public R<TaskDetailResult> detail(@PathVariable Long id){
+    public R<TaskDetailResult> detail(@PathVariable Long id) {
         return appService.queryDetail(id);
     }
 }

@@ -30,8 +30,8 @@ public class TaskRepositoryImpl
         LambdaQueryWrapper<TaskDo> queryWrapper = new LambdaQueryWrapper<TaskDo>()
                 .eq(TaskDo::getPoolId, poolId.getValue())
                 .eq(TaskDo::getCreateId, createId.getValue())
-                .orderByAsc(TaskDo::getSort)
-                .orderByDesc(TaskDo::getId)
+                // .orderByAsc(TaskDo::getSort)
+                .orderByDesc(TaskDo::getChangeTime)
                 .last(paging.toLimit());
 
         List<TaskDo> list = list(queryWrapper);
