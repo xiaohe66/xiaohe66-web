@@ -7,21 +7,15 @@
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
-        <!--<springProfile name="prod">
+        <springProfile name="prod">
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>INFO</level>
                 <onMatch>ACCEPT</onMatch>
                 <onMismatch>DENY</onMismatch>
             </filter>
         </springProfile>
-        <springProfile name="test">
-            <filter class="ch.qos.logback.classic.filter.LevelFilter">
-                <level>INFO</level>
-                <onMatch>ACCEPT</onMatch>
-                <onMismatch>DENY</onMismatch>
-            </filter>
-        </springProfile>-->
     </appender>
+
     <!-- INFO -->
     <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 文件路径 ，注意LOG_PATH是默认值，
@@ -42,48 +36,6 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>-->
-    </appender>
-
-    <!-- DEBUG -->
-    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 文件路径 ，注意LOG_PATH是默认值，
-            它的配置对应application.properties里的logging.path值-->
-        <file>${LOG_PATH}/debug.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 文件名称 -->
-            <fileNamePattern>${LOG_PATH}debug/debug-%d{yyyyMMdd}.log</fileNamePattern>
-            <!-- 文件最大保存历史数量 -->
-            <MaxHistory>30</MaxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
-    <!-- WARN -->
-    <appender name="warnAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 文件路径 ，注意LOG_PATH是默认值，
-            它的配置对应application.properties里的logging.path值-->
-        <file>${LOG_PATH}/warn.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 文件名称 -->
-            <fileNamePattern>${LOG_PATH}warn/warn-%d{yyyyMMdd}.log
-            </fileNamePattern>
-            <!-- 文件最大保存历史数量 -->
-            <MaxHistory>30</MaxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
     </appender>
 
     <!-- ERROR -->
@@ -133,7 +85,6 @@
         <level value="INFO"/>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>
-        <appender-ref ref="warnAppender"/>
         <appender-ref ref="errorAppender"/>
     </logger>
 
@@ -143,7 +94,6 @@
         <level value="INFO"/>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>
-        <appender-ref ref="warnAppender"/>
         <appender-ref ref="errorAppender"/>
     </logger>
 
@@ -153,7 +103,6 @@
         <level value="INFO"/>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>
-        <appender-ref ref="warnAppender"/>
         <appender-ref ref="errorAppender"/>
     </logger>
 
@@ -162,7 +111,6 @@
         <level value="INFO"/>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>
-        <appender-ref ref="warnAppender"/>
         <appender-ref ref="errorAppender"/>
     </logger>
 
@@ -172,16 +120,7 @@
         </springProfile>
         <springProfile name="prod">
             <appender-ref ref="STDOUT"/>
-            <!--<appender-ref ref="debugAppender"/>-->
             <appender-ref ref="infoAppender"/>
-            <!--<appender-ref ref="warnAppender"/>-->
-            <appender-ref ref="errorAppender"/>
-        </springProfile>
-        <springProfile name="test">
-            <appender-ref ref="STDOUT"/>
-            <appender-ref ref="debugAppender"/>
-            <appender-ref ref="infoAppender"/>
-            <appender-ref ref="warnAppender"/>
             <appender-ref ref="errorAppender"/>
         </springProfile>
     </root>
