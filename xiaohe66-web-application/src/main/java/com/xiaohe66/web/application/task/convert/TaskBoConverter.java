@@ -1,8 +1,9 @@
 package com.xiaohe66.web.application.task.convert;
 
 import com.xiaohe66.web.application.task.bo.TaskSaveBo;
+import com.xiaohe66.web.application.task.result.TaskDateResult;
 import com.xiaohe66.web.application.task.result.TaskDetailResult;
-import com.xiaohe66.web.application.task.result.TaskListResult;
+import com.xiaohe66.web.application.task.result.TaskPoolResult;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.task.agg.Task;
 import com.xiaohe66.web.domain.task.value.TaskChangeTime;
@@ -28,37 +29,42 @@ import java.util.Map;
 @Mapper(componentModel = "spring")
 public abstract class TaskBoConverter implements DataConverter {
 
-    public List<TaskListResult> convert(List<Task> originList) {
+    public TaskPoolResult convert(List<Task> originList) {
 
-        Map<LocalDate, List<TaskListResult.Item>> map = new LinkedHashMap<>();
+        Map<LocalDate, List<TaskDateResult.Item>> map = new LinkedHashMap<>();
 
         for (Task task : originList) {
 
             LocalDate localDate = task.getChangeTime().getValue().toLocalDate();
 
-            List<TaskListResult.Item> list = map.computeIfAbsent(localDate, k -> new ArrayList<>());
+            List<TaskDateResult.Item> list = map.computeIfAbsent(localDate, k -> new ArrayList<>());
             list.add(toResult(task));
         }
 
-        List<TaskListResult> resultList = new ArrayList<>(map.size());
+        List<TaskDateResult> resultList = new ArrayList<>(map.size());
 
-        for (Map.Entry<LocalDate, List<TaskListResult.Item>> entry : map.entrySet()) {
+        for (Map.Entry<LocalDate, List<TaskDateResult.Item>> entry : map.entrySet()) {
 
-            final TaskListResult item = new TaskListResult();
-            item.setDate(entry.getKey());
-            item.setList(entry.getValue());
+            final TaskDateResult result = new TaskDateResult();
+            result.setDate(entry.getKey());
+            result.setList(entry.getValue());
 
-            resultList.add(item);
+            resultList.add(result);
         }
 
-        return resultList;
+        TaskPoolResult poolResult = new TaskPoolResult();
+
+        poolResult.setQty(originList.size());
+        poolResult.setDateList(resultList);
+
+        return poolResult;
     }
 
     public abstract Task toAgg(TaskSaveBo task, AccountId createId);
 
-    public abstract TaskListResult.Item toResult(Task task);
+    public abstract TaskDateResult.Item toResult(Task task);
 
-    public abstract List<TaskListResult.Item> toResult(List<Task> task);
+    public abstract List<TaskDateResult.Item> toResult(List<Task> task);
 
     public abstract TaskDetailResult toDetail(Task task);
 

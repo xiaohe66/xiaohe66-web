@@ -9,7 +9,7 @@ import com.xiaohe66.web.application.task.bo.TaskSaveBo;
 import com.xiaohe66.web.application.task.bo.TaskSortBo;
 import com.xiaohe66.web.application.task.convert.TaskBoConverter;
 import com.xiaohe66.web.application.task.result.TaskDetailResult;
-import com.xiaohe66.web.application.task.result.TaskListResult;
+import com.xiaohe66.web.application.task.result.TaskPoolResult;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.task.agg.Task;
@@ -94,49 +94,34 @@ public class TaskAppService {
      * 用于页面的首次获取
      */
     @NeedLogin
-    public R<List<List<TaskListResult>>> queryLists() {
+    public R<List<TaskPoolResult>> queryLists() {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
         Paging paging = new Paging(0L, 10);
 
-        List<List<TaskListResult>> list = TaskPool.defaultPool().stream()
-                .map(pool -> {
+        List<TaskPoolResult> list = TaskPool.defaultPool().stream().map(pool -> {
 
-                    List<Task> tasks = taskRepository.listByPoolId(currentAccountId, pool.getId(), paging);
-                    return converter.convert(tasks);
+            List<Task> tasks = taskRepository.listByPoolId(currentAccountId, pool.getId(), paging);
+            return converter.convert(tasks);
 
-                }).collect(Collectors.toList());
+        }).collect(Collectors.toList());
 
         return R.ok(list);
     }
 
     @NeedLogin
-    public R<List<TaskListResult>> queryList(TaskListBo bo) {
+    public R<TaskPoolResult> queryList(TaskListBo bo) {
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
         TaskPoolId poolId = new TaskPoolId(bo.getPoolId());
 
         List<Task> tasks = taskRepository.listByPoolId(currentAccountId, poolId, bo.toPaging());
-        List<TaskListResult> ret = converter.convert(tasks);
+        TaskPoolResult ret = converter.convert(tasks);
 
         return R.ok(ret);
     }
-
-    /*@NeedLogin
-    public R<List<TaskFinishPoolResult>> queryFinishPool() {
-
-        AccountId currentAccountId = securityService.getCurrentAccountId();
-
-        Paging paging = new Paging(0L, 10);
-
-        List<Task> tasks = taskRepository.listByPoolId(currentAccountId, TaskPool.refreshPool().getId(), paging);
-
-        final List<TaskFinishPoolResult> result = converter.convert(tasks);
-
-        return R.ok(result);
-    }*/
 
     @NeedLogin
     public R<TaskDetailResult> queryDetail(Long id) {

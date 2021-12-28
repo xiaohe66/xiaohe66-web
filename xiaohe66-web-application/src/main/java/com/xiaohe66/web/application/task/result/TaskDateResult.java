@@ -10,7 +10,7 @@ import java.util.List;
  * @since 2021.11.17 15:33
  */
 @Data
-public class TaskListResult {
+public class TaskDateResult {
 
     private LocalDate date;
     private List<Item> list;

@@ -7,7 +7,7 @@ import com.xiaohe66.web.application.task.bo.TaskListBo;
 import com.xiaohe66.web.application.task.bo.TaskSaveBo;
 import com.xiaohe66.web.application.task.bo.TaskSortBo;
 import com.xiaohe66.web.application.task.result.TaskDetailResult;
-import com.xiaohe66.web.application.task.result.TaskListResult;
+import com.xiaohe66.web.application.task.result.TaskPoolResult;
 import com.xiaohe66.web.gateway.http.task.convert.TaskDtoConverter;
 import com.xiaohe66.web.gateway.http.task.dto.TaskChangePoolDto;
 import com.xiaohe66.web.gateway.http.task.dto.TaskListDto;
@@ -69,17 +69,12 @@ public class TaskController {
     }
 
     @GetMapping("/lists")
-    public R<List<List<TaskListResult>>> lists() {
+    public R<List<TaskPoolResult>> lists() {
         return appService.queryLists();
     }
 
-    /*@GetMapping("/finish")
-    public R<List<TaskFinishPoolResult>> refresh() {
-        return appService.queryFinishPool();
-    }*/
-
     @GetMapping
-    public R<List<TaskListResult>> list(@Validated TaskListDto dto) {
+    public R<TaskPoolResult> list(@Validated TaskListDto dto) {
 
         TaskListBo bo = dtoConverter.toBo(dto);
         return appService.queryList(bo);
