@@ -1,12 +1,12 @@
 #--------------------------------------------
 spring:
-  resources:
-    # 配置静态资源路径，默认配置失效[public、static、META-INF/resource]
-    static-locations: classpath:/static
-  mvc:
-    static-path-pattern: /**
-  thymeleaf:
-    prefix: classpath:/template
+  #  resources:
+  # 配置静态资源路径，默认配置失效[public、static、META-INF/resource]
+  #    static-locations: classpath:/static
+  #  mvc:
+  #    static-path-pattern: /**
+  #  thymeleaf:
+  #    prefix: classpath:/template
   datasource:
     hikari:
       # 最小空闲时连接数
@@ -32,7 +32,7 @@ mybatis-plus:
 logging:
   config: classpath:logback-spring.xml
   pattern:
-    console: '%d{HH:mm:ss.SSS} %highlight[%-5p] [%thread] %cyan(%logger{15}) - %msg %n'
+    console: '%d{HH:mm:ss.SSS} [%-5p] [%thread] %logger{15} - %msg %n'
     file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%thread] %logger{30} - %msg %n'
   file:
     path: logs/

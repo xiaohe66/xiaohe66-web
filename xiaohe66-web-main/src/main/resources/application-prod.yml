@@ -1,24 +1,23 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/xiaohe66_web?characterEncoding=UTF-8&amp;useUnicode=true&amp;autoReconnect=true
-    username: xiaohe66_web
-    password: xiaohe66_web
+    url: jdbc:mysql://localhost:3307/xiaohe66-web?characterEncoding=UTF-8&useUnicode=true&autoReconnect=true&useSSL=false&serverTimezone=GMT
+    username: xiaohe66-web
+    password: xiaohe66-web
 
 server:
-  port: 8080
-
-logging:
-  file:
-    path: /home/xiaohe/logs/
+  port: 8081
 
 xiaohe66:
   file:
-    home: /home/xiaohe/file/
-    maxMbChunkPer: 2
-    maxMbFilePer: 64
-  registerUrl: https://xiaohe66.com/sec/login/register/
+    pictureDirectory: C:\\xiaohe66\\file\\picture
+    imageDirectory: C:\\xiaohe66\\file\\image
   wx:
-    miniProgramState: formal
-    appId: appid
-    appSecret: secret
+    task:
+      miniProgramState: developer
+      appId: appid_todo
+      appSecret: secret_todo
+    love:
+      miniProgramState: developer
+      appId: appid_love
+      appSecret: secret_love
