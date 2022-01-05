@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.ServletException;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author xiaohe
@@ -38,14 +41,25 @@ public class GlobalControllerAdvice {
         return R.build(ErrorCodeEnum.NOT_FOUND_URL.getCode(), ErrorCodeEnum.NOT_FOUND_URL.getMsg());
     }
 
-    @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class, ConstraintViolationException.class})
+    @ExceptionHandler({ConstraintViolationException.class})
+    public R<Void> bindExceptionHandler(ConstraintViolationException e) {
+        Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
+
+        String collect = constraintViolations.stream()
+                .map(item -> item.getPropertyPath() + item.getMessage())
+                .collect(joining(","));
+
+        return R.build(ErrorCodeEnum.PARAM_ERROR.getCode(), collect);
+    }
+
+    @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
     public R<Void> bindExceptionHandler(BindException e) {
 
         List<FieldError> fieldErrorList = e.getBindingResult().getFieldErrors();
 
         String msg = fieldErrorList.stream()
                 .map(fieldError -> fieldError.getField() + fieldError.getDefaultMessage())
-                .collect(Collectors.joining(","));
+                .collect(joining(","));
 
         return R.build(ErrorCodeEnum.PARAM_ERROR.getCode(), msg);
     }

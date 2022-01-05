@@ -17,6 +17,7 @@ module xiaohe.web.main {
     requires spring.boot;
     requires org.mybatis.spring;
 
+    requires static lombok;
     //requires org.mybatis;
     //requires org.mybatis.spring;
 }
