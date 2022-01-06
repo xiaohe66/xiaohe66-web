@@ -1,5 +1,7 @@
 package com.xiaohe66.web.application.sys.sec;
 
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.repository.AccountRepository;
 import com.xiaohe66.web.domain.account.value.AccountId;
@@ -9,8 +11,6 @@ import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
 import com.xiaohe66.web.domain.sys.sec.repository.RoleRepository;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;

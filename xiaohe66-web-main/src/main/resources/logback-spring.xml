@@ -88,6 +88,14 @@
         <appender-ref ref="errorAppender"/>
     </logger>
 
+    <!-- mybatis mapper 扫描器 -->
+    <logger name="org.mybatis.spring.mapper.ClassPathMapperScanner" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="infoAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>
+
     <!-- spring boot 依赖关系 -->
     <logger name="org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer"
             additivity="false">

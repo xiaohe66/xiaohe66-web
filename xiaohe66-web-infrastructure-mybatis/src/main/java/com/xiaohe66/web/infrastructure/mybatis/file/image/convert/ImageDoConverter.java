@@ -1,13 +1,13 @@
 package com.xiaohe66.web.infrastructure.mybatis.file.image.convert;
 
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.file.agg.Image;
 import com.xiaohe66.web.domain.file.value.ImageContext;
 import com.xiaohe66.web.domain.file.value.ImageId;
 import com.xiaohe66.web.domain.file.value.ImageName;
 import com.xiaohe66.web.infrastructure.mybatis.file.image.model.ImageDo;
 import com.xiaohe66.web.integration.DoConverter;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.slf4j.Logger;

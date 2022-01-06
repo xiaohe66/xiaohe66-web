@@ -1,11 +1,11 @@
 package com.xiaohe66.web.domain.love.service;
 
+import com.xiaohe66.common.util.Assert;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.love.agg.Daily;
 import com.xiaohe66.web.domain.love.repository.DailyRepository;
 import com.xiaohe66.web.domain.love.value.DailyId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
-import com.xiaohe66.web.integration.util.Assert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class DailyService {
     private final SecurityService securityService;
 
     public void save(Daily daily) {
-        
+
         dailyRepository.save(daily);
     }
 
@@ -33,7 +33,7 @@ public class DailyService {
 
         Daily daily = dailyRepository.getById(id);
 
-        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATE);
+        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATA);
 
         securityService.checkCreatorPermission(daily.getCreateId());
 
@@ -44,7 +44,7 @@ public class DailyService {
 
         Daily daily = dailyRepository.getById(id);
 
-        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATE);
+        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATA);
 
         // 检查权限，是否为当前情侣
         loverService.checkLoverPermission(daily.getLoverId());

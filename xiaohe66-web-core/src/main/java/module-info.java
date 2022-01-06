@@ -41,8 +41,6 @@ module xiaohe.web.core {
     exports com.xiaohe66.web.integration.cache;
     exports com.xiaohe66.web.integration.config;
     exports com.xiaohe66.web.integration.domain;
-    exports com.xiaohe66.web.integration.ex;
-    exports com.xiaohe66.web.integration.util;
     exports com.xiaohe66.web.integration.value;
 
     exports com.xiaohe66.web.infrastructure.acl.wx;

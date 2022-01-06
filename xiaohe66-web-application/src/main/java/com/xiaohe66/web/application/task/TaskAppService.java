@@ -2,6 +2,8 @@ package com.xiaohe66.web.application.task;
 
 import com.xiaohe66.common.dto.R;
 import com.xiaohe66.common.util.IdWorker;
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.application.aop.annotation.NeedLogin;
 import com.xiaohe66.web.application.task.bo.TaskChangePoolBo;
 import com.xiaohe66.web.application.task.bo.TaskListBo;
@@ -19,8 +21,6 @@ import com.xiaohe66.web.domain.task.service.TaskService;
 import com.xiaohe66.web.domain.task.value.TaskId;
 import com.xiaohe66.web.domain.task.value.TaskPoolId;
 import com.xiaohe66.web.integration.domain.Paging;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

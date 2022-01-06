@@ -1,6 +1,8 @@
 package com.xiaohe66.web.application.file;
 
 import com.xiaohe66.common.dto.R;
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.application.aop.annotation.NeedRoles;
 import com.xiaohe66.web.application.file.bo.ImageUploadBo;
 import com.xiaohe66.web.application.file.convert.ImageBoConverter;
@@ -10,8 +12,6 @@ import com.xiaohe66.web.domain.file.service.ImageService;
 import com.xiaohe66.web.domain.file.value.ImageContext;
 import com.xiaohe66.web.domain.file.value.ImageId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

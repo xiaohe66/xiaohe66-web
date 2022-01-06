@@ -1,5 +1,6 @@
 package com.xiaohe66.web.domain.love.service;
 
+import com.xiaohe66.common.util.Assert;
 import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.file.repository.ImageRepository;
@@ -10,7 +11,6 @@ import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.love.value.NewsBannerId;
 import com.xiaohe66.web.domain.love.value.NewsBannerSort;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
-import com.xiaohe66.web.integration.util.Assert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

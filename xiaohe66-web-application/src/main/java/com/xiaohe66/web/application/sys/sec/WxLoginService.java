@@ -133,7 +133,7 @@ public class WxLoginService {
 
         if (response.getUnionId() == null) {
 
-            log.error("wx code2session unionId is null, code : {}, response : {}", code, response.getResponse());
+            log.error("wx code2session unionId is null, code : {}, response : {}", code, response.getBody());
             throw new ApiException("response.unionId is null");
         }
 

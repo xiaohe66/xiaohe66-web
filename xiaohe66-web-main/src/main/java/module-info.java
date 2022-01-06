@@ -7,6 +7,8 @@ module xiaohe.web.main {
     requires xiaohe.web.infrastructure.mybatis;
     requires xiaohe.web.infrastructure.shiro;
 
+    requires xiaohe.common.web.boot.starter;
+
     // 解决 mybatis报 Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
     requires com.zaxxer.hikari;
 

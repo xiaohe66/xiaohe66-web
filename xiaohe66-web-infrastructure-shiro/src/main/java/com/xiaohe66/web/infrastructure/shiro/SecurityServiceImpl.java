@@ -1,13 +1,13 @@
 package com.xiaohe66.web.infrastructure.shiro;
 
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.sys.sec.entity.CurrentAccount;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.sys.sec.value.PermissionName;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.infrastructure.shiro.token.XhShiroAuthenticationToken;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

@@ -1,11 +1,11 @@
 package com.xiaohe66.web.domain.love.agg;
 
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.love.value.LoverStatus;
 import com.xiaohe66.web.integration.domain.Aggregate;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,7 +42,7 @@ public class Lover implements Aggregate<Lover, LoverId> {
         status = LoverStatus.NORMAL;
     }
 
-    public void over(){
+    public void over() {
         if (!LoverStatus.NORMAL.equals(status)) {
             throw new BusinessException(ErrorCodeEnum.ILLEGAL_OPERATE);
         }
@@ -56,7 +56,7 @@ public class Lover implements Aggregate<Lover, LoverId> {
         status = LoverStatus.NORMAL;
     }
 
-    public AccountId getLoveAccountId(@NonNull AccountId currentAccountId){
+    public AccountId getLoveAccountId(@NonNull AccountId currentAccountId) {
         return currentAccountId.equals(createId) ? accountId : createId;
     }
 

@@ -1,6 +1,8 @@
 package com.xiaohe66.web.application.file;
 
 import com.xiaohe66.common.dto.R;
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.application.aop.annotation.NeedLogin;
 import com.xiaohe66.web.application.file.convert.PictureBoConverter;
 import com.xiaohe66.web.application.file.result.PictureListResult;
@@ -9,8 +11,6 @@ import com.xiaohe66.web.domain.file.value.PictureCategory;
 import com.xiaohe66.web.domain.file.value.PicturePath;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.integration.config.FileConfig;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;

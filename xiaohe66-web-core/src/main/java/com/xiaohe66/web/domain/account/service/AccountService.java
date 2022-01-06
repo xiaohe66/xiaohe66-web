@@ -1,11 +1,11 @@
 package com.xiaohe66.web.domain.account.service;
 
+import com.xiaohe66.common.util.ex.BusinessException;
 import com.xiaohe66.web.domain.account.aggregate.Account;
 import com.xiaohe66.web.domain.account.repository.AccountRepository;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.domain.sys.sec.aggregate.Role;
 import com.xiaohe66.web.domain.sys.sec.repository.RoleRepository;
-import com.xiaohe66.web.integration.ex.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

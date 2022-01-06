@@ -1,6 +1,8 @@
 package com.xiaohe66.web.application.account;
 
 import com.xiaohe66.common.dto.R;
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.application.account.bo.WxUserUpdateBo;
 import com.xiaohe66.web.application.account.convert.WxUserBoConverter;
 import com.xiaohe66.web.application.aop.annotation.NeedRoles;
@@ -10,8 +12,6 @@ import com.xiaohe66.web.domain.sys.sec.value.RoleName;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
 import com.xiaohe66.web.domain.wx.user.service.WxUserService;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

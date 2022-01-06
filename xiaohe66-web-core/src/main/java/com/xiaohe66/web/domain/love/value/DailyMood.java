@@ -1,8 +1,8 @@
 package com.xiaohe66.web.domain.love.value;
 
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.integration.domain.IntValue;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

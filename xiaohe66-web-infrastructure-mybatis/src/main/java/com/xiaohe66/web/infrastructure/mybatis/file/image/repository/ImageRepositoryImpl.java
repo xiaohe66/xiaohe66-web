@@ -1,6 +1,8 @@
 package com.xiaohe66.web.infrastructure.mybatis.file.image.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.file.agg.Image;
 import com.xiaohe66.web.domain.file.repository.ImageRepository;
 import com.xiaohe66.web.domain.file.value.ImageId;
@@ -10,8 +12,6 @@ import com.xiaohe66.web.infrastructure.mybatis.file.image.model.ImageDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
 import com.xiaohe66.web.integration.config.FileConfig;
 import com.xiaohe66.web.integration.domain.Md5;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

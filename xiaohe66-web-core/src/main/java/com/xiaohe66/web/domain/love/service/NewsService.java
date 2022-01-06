@@ -1,10 +1,10 @@
 package com.xiaohe66.web.domain.love.service;
 
+import com.xiaohe66.common.util.ex.BusinessException;
+import com.xiaohe66.common.util.ex.ErrorCodeEnum;
 import com.xiaohe66.web.domain.love.agg.News;
 import com.xiaohe66.web.domain.love.repository.NewsRepository;
 import com.xiaohe66.web.domain.love.value.NewsId;
-import com.xiaohe66.web.integration.ex.BusinessException;
-import com.xiaohe66.web.integration.ex.ErrorCodeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
