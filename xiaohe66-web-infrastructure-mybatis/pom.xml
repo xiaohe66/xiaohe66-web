@@ -31,6 +31,11 @@
 
         <dependency>
             <groupId>com.xiaohe66</groupId>
+            <artifactId>xiaohe66-common-web-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaohe66</groupId>
             <artifactId>xiaohe66-web-core</artifactId>
         </dependency>
 

@@ -5,7 +5,6 @@ import com.xiaohe66.web.domain.account.value.AccountName;
 import com.xiaohe66.web.domain.account.value.AccountPassword;
 import com.xiaohe66.web.domain.sys.sec.value.RoleId;
 import com.xiaohe66.web.integration.domain.Aggregate;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +36,7 @@ public class Account implements Aggregate<Account, AccountId> {
     @NonNull
     private AccountPassword password;
 
-    @Getter(AccessLevel.NONE)
+    @NonNull
     @Builder.Default
     private Set<RoleId> roles = new HashSet<>();
 

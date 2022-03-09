@@ -19,6 +19,6 @@ public interface DoConverter<A extends Aggregate<A, ?>, D extends IDo> extends D
 
     List<D> toDo(List<A> agg);
 
-    A copyAgg(A account);
+    A copyAgg(A agg);
 
 }

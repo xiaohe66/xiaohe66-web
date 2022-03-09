@@ -22,5 +22,6 @@ open module xiaohe.web.infrastructure.mybatis {
     requires transitive mybatis.plus.annotation;
     requires transitive mybatis.plus.core;
     requires transitive mybatis.plus.extension;
+    requires xiaohe.common.web.boot.starter;
 
 }

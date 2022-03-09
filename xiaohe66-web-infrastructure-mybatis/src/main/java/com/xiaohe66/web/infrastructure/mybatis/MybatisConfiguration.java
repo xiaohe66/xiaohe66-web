@@ -1,6 +1,6 @@
 package com.xiaohe66.web.infrastructure.mybatis;
 
-import com.xiaohe66.web.integration.injector.MyLogicSqlInjector;
+import com.xiaohe66.common.web.mybatis.injector.MyLogicSqlInjector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

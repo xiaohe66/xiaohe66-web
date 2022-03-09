@@ -28,6 +28,7 @@
         <xiaohe66-ddd.version>0.0.1</xiaohe66-ddd.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 
+        <!-- 配合 mapstruct 使用，低版本 lombok 不兼容 -->
         <lombok.version>1.18.22</lombok.version>
 
     </properties>

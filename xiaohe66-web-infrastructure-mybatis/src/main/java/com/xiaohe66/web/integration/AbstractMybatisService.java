@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author xiaohe
  * @since 2021.08.12 10:03
  */
-public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M extends IBaseMapper<D>, D extends IDo, A extends Aggregate<A, I>, I extends Id>
+public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M extends MapperSupport<D>, D extends IDo, A extends Aggregate<A, I>, I extends Id>
         extends ServiceSupport<M, D>
         implements IBaseService<D>, Repository<A, I> {
 
