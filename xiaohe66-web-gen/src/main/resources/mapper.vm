@@ -1,0 +1,13 @@
+package $package;
+
+#if($baseClass)import $baseClassPackage.$baseClass;
+#end
+import ${entityPackage}.${entityName}Do;
+
+/**
+* @author xiaohe
+* @since $time
+*/
+public interface ${entityName}Mapper #if($baseClass)extends $baseClass<${entityName}Do> #end{
+
+}

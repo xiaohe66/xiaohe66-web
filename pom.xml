@@ -16,6 +16,7 @@
         <module>xiaohe66-web-main</module>
         <module>xiaohe66-web-gateway-http</module>
         <module>xiaohe66-web-application</module>
+        <module>xiaohe66-web-gen</module>
     </modules>
 
     <properties>

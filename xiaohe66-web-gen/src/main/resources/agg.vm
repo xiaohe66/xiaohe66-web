@@ -1,0 +1,28 @@
+package $package;
+
+import com.xiaohe66.web.domain.${packageName}.value.${entityName}Id;
+import com.xiaohe66.web.integration.domain.Aggregate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
+
+/**
+ * @author xiaohe
+ * @since $time
+ */
+@Builder
+@Getter
+@ToString
+@AllArgsConstructor
+public class ${entityName} implements Aggregate<${entityName}, ${entityName}Id> {
+
+    @NonNull
+    private final ${entityName}Id id;
+
+    @Override
+    public boolean hasSameRootAttribute(${entityName} other) {
+        return other != null;
+    }
+}

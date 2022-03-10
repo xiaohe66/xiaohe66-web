@@ -1,0 +1,18 @@
+package $package;
+
+import com.xiaohe66.web.integration.domain.LongId;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+/**
+ * @author xiaohe
+ * @since $time
+ */
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ${entityName}Id extends LongId {
+
+    public ${entityName}Id(Long value) {
+        super(value);
+    }
+}

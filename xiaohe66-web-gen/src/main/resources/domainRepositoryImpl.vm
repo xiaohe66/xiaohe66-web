@@ -1,0 +1,26 @@
+package $package;
+
+import com.xiaohe66.web.domain.${packageName}.agg.${entityName};
+import com.xiaohe66.web.domain.${packageName}.repository.${entityName}Repository;
+import com.xiaohe66.web.domain.${packageName}.value.${entityName}Id;
+import com.xiaohe66.web.infrastructure.mybatis.${packageName}.convert.${entityName}DoConverter;
+import com.xiaohe66.web.infrastructure.mybatis.${packageName}.mapper.${entityName}Mapper;
+import com.xiaohe66.web.infrastructure.mybatis.${packageName}.model.${entityName}Do;
+import com.xiaohe66.web.integration.AbstractMybatisService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
+
+/**
+* @author xiaohe
+* @since $time
+*/
+@Repository
+@Slf4j
+@RequiredArgsConstructor
+public class ${entityName}RepositoryImpl
+        extends AbstractMybatisService<${entityName}DoConverter, ${entityName}Mapper, ${entityName}Do, ${entityName}, ${entityName}Id>
+        implements ${entityName}Repository {
+
+}

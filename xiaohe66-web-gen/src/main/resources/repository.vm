@@ -1,0 +1,13 @@
+package $package;
+
+import com.xiaohe66.web.domain.${packageName}.agg.${entityName};
+import com.xiaohe66.web.domain.${packageName}.value.${entityName}Id;
+import com.xiaohe66.web.integration.domain.Repository;
+
+/**
+* @author xiaohe
+* @since $time
+*/
+public interface ${entityName}Repository extends Repository<${entityName},${entityName}Id>{
+
+}

@@ -1,0 +1,15 @@
+package $package;
+
+import com.xiaohe66.web.domain.${packageName}.agg.${entityName};
+import com.xiaohe66.web.infrastructure.mybatis.${packageName}.model.${entityName}Do;
+import com.xiaohe66.web.integration.DoConverter;
+import org.mapstruct.Mapper;
+
+/**
+ * @author xiaohe
+ * @since $time
+ */
+@Mapper(componentModel = "spring")
+public interface ${entityName}DoConverter extends DoConverter<${entityName}, ${entityName}Do> {
+
+}
