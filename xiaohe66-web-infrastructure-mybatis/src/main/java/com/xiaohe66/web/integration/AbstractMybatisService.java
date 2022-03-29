@@ -47,7 +47,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
 
     @Override
     public boolean isExist(I id) {
-        return baseMapper.isExistId(id.getValue());
+        return baseMapper.isExistId(id.getSerializable());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -63,7 +63,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
         } else {
 
             // 若在更新前未执行查询操作，若多个快照之间相互覆盖，则无法使用快照判断是否存在。这时就需要判断数据库中是否存在
-            boolean existId = isExistId(agg.getId().getValue());
+            boolean existId = isExistId(agg.getId().getSerializable());
             if (existId) {
                 updateImpl(agg, snapshot);
 
@@ -104,7 +104,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     }
 
     protected void removeByIdImpl(I id) {
-        removeById(id.getValue());
+        removeById(id.getSerializable());
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class AbstractMybatisService<C extends DoConverter<A, D>, M exte
     }
 
     protected A getByIdImpl(I id) {
-        D d = getById(id.getValue());
+        D d = getById(id.getSerializable());
         return dataConverter.toAgg(d);
     }
 }

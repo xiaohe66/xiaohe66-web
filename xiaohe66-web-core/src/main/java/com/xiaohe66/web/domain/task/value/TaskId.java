@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class TaskId extends LongId {
 
-    public TaskId(Long value) {
+    public TaskId(long value) {
         super(value);
     }
 }

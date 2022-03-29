@@ -30,9 +30,22 @@ public class GenMain {
 
     public static void main(String[] args) throws IOException {
 
-        String name = "";
-        String packageName = "";
-        String sql = "";
+        String name = "Wish";
+        String packageName = "love";
+        String sql = "CREATE TABLE `love_wish` (\n" +
+                "  `id` bigint(20) NOT NULL,\n" +
+                "  `create_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建者id',\n" +
+                "  `update_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',\n" +
+                "  `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除（0:未删除,1:删除）',\n" +
+                "  `lover_id` bigint(20) NOT NULL,\n" +
+                "  `title` varchar(255) NOT NULL COMMENT '愿望标题',\n" +
+                "  `desc` varchar(3200) NOT NULL COMMENT '愿望详情',\n" +
+                "  `finished` tinyint(1) NOT NULL COMMENT '是否完成',\n" +
+                "  `finish_date` date DEFAULT NULL,\n" +
+                "  `remark` varchar(3200) DEFAULT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  KEY `nk_lover_id` (`lover_id`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
         gen(name, packageName, sql, true);
 

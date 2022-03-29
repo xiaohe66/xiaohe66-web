@@ -12,7 +12,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class LoverId extends LongId {
 
-    public LoverId(Long value) {
+    public LoverId(long value) {
         super(value);
     }
 }

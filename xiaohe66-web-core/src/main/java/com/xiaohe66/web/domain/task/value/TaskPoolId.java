@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class TaskPoolId extends IntId {
 
-    public TaskPoolId(Integer value) {
+    public TaskPoolId(int value) {
         super(value);
     }
 }

@@ -4,6 +4,7 @@ import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.love.value.LoverId;
 
+import java.time.LocalDate;
 import java.util.function.Function;
 
 /**
@@ -16,14 +17,6 @@ public interface DataConverter {
         return object != null ? supplier.apply(object) : null;
     }
 
-    default Long asLongId(LongId longId) {
-        return ifPresent(longId, LongId::getValue);
-    }
-
-    default Integer asIntId(IntId longId) {
-        return ifPresent(longId, IntId::getValue);
-    }
-
     default long asLongValue(LongValue longValue) {
         return longValue == null ? 0 : longValue.getValue();
     }
@@ -32,8 +25,16 @@ public interface DataConverter {
         return intValue == null ? 0 : intValue.getValue();
     }
 
+    default boolean asBoolean(BooleanValue value) {
+        return ifPresent(value, BooleanValue::getValue);
+    }
+
     default String asString(StringValue value) {
         return ifPresent(value, StringValue::getValue);
+    }
+
+    default LocalDate asLocalDate(DateValue value) {
+        return ifPresent(value, DateValue::getValue);
     }
 
     default AccountId newAccountId(Long accountId) {
@@ -44,7 +45,7 @@ public interface DataConverter {
         return ifPresent(loverId, LoverId::new);
     }
 
-    default String takeCreateTime(LongId id){
+    default String takeCreateTime(LongId id) {
         return IdWorker.takeDate(id.getValue());
     }
 

@@ -12,7 +12,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class DailyId extends LongId {
 
-    public DailyId(Long value) {
+    public DailyId(long value) {
         super(value);
     }
 }

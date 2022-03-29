@@ -11,6 +11,5 @@ import java.io.Serializable;
  */
 public interface Id extends ValueObject {
 
-    Serializable getValue();
-
+    Serializable getSerializable();
 }

@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class PictureId extends IntId {
 
-    public PictureId(Integer value) {
+    public PictureId(int value) {
         super(value);
     }
 }

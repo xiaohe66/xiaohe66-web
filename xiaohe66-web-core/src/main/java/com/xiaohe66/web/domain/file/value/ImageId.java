@@ -18,7 +18,7 @@ public class ImageId extends LongId {
 
     private String absolutePath;
 
-    public ImageId(Long value) {
+    public ImageId(long value) {
         super(value);
     }
 

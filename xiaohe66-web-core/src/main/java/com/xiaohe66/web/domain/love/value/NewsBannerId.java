@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class NewsBannerId extends LongId {
 
-    public NewsBannerId(Long value) {
+    public NewsBannerId(long value) {
         super(value);
     }
 }

@@ -24,7 +24,7 @@ public class RoleId extends IntId {
     public static final long TASK_ROLE_VALUE = 4;
     public static final long LOVER_ROLE_VALUE = 5;
 
-    public RoleId(Integer value) {
+    public RoleId(int value) {
         super(value);
     }
 }
