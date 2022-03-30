@@ -20,7 +20,7 @@ import com.xiaohe66.web.domain.task.repository.TaskRepository;
 import com.xiaohe66.web.domain.task.service.TaskService;
 import com.xiaohe66.web.domain.task.value.TaskId;
 import com.xiaohe66.web.domain.task.value.TaskPoolId;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

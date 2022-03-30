@@ -1,6 +1,6 @@
 package com.xiaohe66.web.application;
 
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import lombok.Data;
 
 /**

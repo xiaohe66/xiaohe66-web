@@ -10,7 +10,7 @@ import com.xiaohe66.web.infrastructure.mybatis.task.convert.TaskDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.task.mapper.TaskMapper;
 import com.xiaohe66.web.infrastructure.mybatis.task.model.TaskDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

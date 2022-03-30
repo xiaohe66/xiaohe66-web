@@ -51,6 +51,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.xiaohe66</groupId>
+            <artifactId>xiaohe66-common-web-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>

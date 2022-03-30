@@ -18,7 +18,7 @@ import com.xiaohe66.web.domain.love.value.DailyMood;
 import com.xiaohe66.web.domain.love.value.LoverId;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.sys.sec.value.RoleName;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

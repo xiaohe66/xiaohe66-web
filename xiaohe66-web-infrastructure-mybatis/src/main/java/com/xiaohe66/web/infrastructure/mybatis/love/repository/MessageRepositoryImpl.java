@@ -11,7 +11,7 @@ import com.xiaohe66.web.infrastructure.mybatis.love.convert.MessageDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.love.mapper.MessageMapper;
 import com.xiaohe66.web.infrastructure.mybatis.love.model.MessageDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

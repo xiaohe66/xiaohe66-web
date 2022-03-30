@@ -9,7 +9,7 @@ import com.xiaohe66.web.infrastructure.mybatis.love.convert.NewsDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.love.mapper.NewsMapper;
 import com.xiaohe66.web.infrastructure.mybatis.love.model.NewsDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

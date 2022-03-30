@@ -9,7 +9,7 @@ import com.xiaohe66.web.infrastructure.mybatis.love.convert.DailyDoConverter;
 import com.xiaohe66.web.infrastructure.mybatis.love.mapper.DailyMapper;
 import com.xiaohe66.web.infrastructure.mybatis.love.model.DailyDo;
 import com.xiaohe66.web.integration.AbstractMybatisService;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

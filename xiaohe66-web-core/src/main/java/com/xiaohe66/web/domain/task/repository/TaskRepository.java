@@ -4,7 +4,7 @@ import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.task.agg.Task;
 import com.xiaohe66.web.domain.task.value.TaskId;
 import com.xiaohe66.web.domain.task.value.TaskPoolId;
-import com.xiaohe66.web.integration.domain.Paging;
+import com.xiaohe66.common.util.Paging;
 import com.xiaohe66.web.integration.domain.Repository;
 
 import java.util.List;

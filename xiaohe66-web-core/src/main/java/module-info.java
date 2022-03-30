@@ -66,6 +66,7 @@ module xiaohe.web.core {
 
     requires transitive xiaohe.common.base;
     requires transitive xiaohe.common.api;
+    requires transitive xiaohe.common.web.boot.starter;
 
     requires transitive com.google.common;
 
