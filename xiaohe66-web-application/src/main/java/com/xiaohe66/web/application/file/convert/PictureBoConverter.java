@@ -1,7 +1,7 @@
 package com.xiaohe66.web.application.file.convert;
 
 import com.xiaohe66.web.domain.file.value.PicturePath;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.domain.adapter.DataConverter;
 import org.mapstruct.Mapper;
 
 import java.util.List;

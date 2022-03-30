@@ -4,7 +4,7 @@ import com.xiaohe66.web.application.love.bo.NewsBannerListBo;
 import com.xiaohe66.web.application.love.bo.NewsBannerSaveBo;
 import com.xiaohe66.web.gateway.http.love.dto.NewsBannerListDto;
 import com.xiaohe66.web.gateway.http.love.dto.NewsBannerSaveDto;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.domain.adapter.DataConverter;
 import org.mapstruct.Mapper;
 
 /**

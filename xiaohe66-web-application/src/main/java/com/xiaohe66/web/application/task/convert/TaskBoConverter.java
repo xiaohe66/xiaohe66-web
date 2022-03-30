@@ -6,17 +6,10 @@ import com.xiaohe66.web.application.task.result.TaskDetailResult;
 import com.xiaohe66.web.application.task.result.TaskPoolResult;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.task.agg.Task;
-import com.xiaohe66.web.domain.task.value.TaskChangeTime;
-import com.xiaohe66.web.domain.task.value.TaskDesc;
-import com.xiaohe66.web.domain.task.value.TaskId;
-import com.xiaohe66.web.domain.task.value.TaskPoolId;
-import com.xiaohe66.web.domain.task.value.TaskSort;
-import com.xiaohe66.web.domain.task.value.TaskTitle;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.domain.adapter.task.TaskConverter;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,8 +19,8 @@ import java.util.Map;
  * @author xiaohe
  * @since 2021.11.17 14:45
  */
-@Mapper(componentModel = "spring")
-public abstract class TaskBoConverter implements DataConverter {
+@Mapper
+public abstract class TaskBoConverter implements TaskConverter {
 
     public TaskPoolResult convert(List<Task> originList) {
 
@@ -68,31 +61,4 @@ public abstract class TaskBoConverter implements DataConverter {
 
     public abstract TaskDetailResult toDetail(Task task);
 
-    protected TaskId newTaskId(Long id) {
-        return ifPresent(id, TaskId::new);
-    }
-
-    protected TaskPoolId newPoolId(Integer poolId) {
-        return ifPresent(poolId, TaskPoolId::new);
-    }
-
-    protected TaskTitle newTitle(String title) {
-        return ifPresent(title, TaskTitle::new);
-    }
-
-    protected TaskDesc newDesc(String desc) {
-        return ifPresent(desc, TaskDesc::new);
-    }
-
-    protected TaskSort newTaskSort(Integer sort) {
-        return ifPresent(sort, TaskSort::new);
-    }
-
-    protected LocalDateTime changeTime(TaskChangeTime changeTime) {
-        return ifPresent(changeTime, TaskChangeTime::getValue);
-    }
-
-    protected TaskChangeTime changeTime(LocalDateTime changeTime) {
-        return ifPresent(changeTime, TaskChangeTime::new);
-    }
 }

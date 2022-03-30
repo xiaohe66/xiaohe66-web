@@ -9,7 +9,7 @@ import com.xiaohe66.web.domain.love.value.LoverStatus;
 import com.xiaohe66.web.domain.sys.sec.service.SecurityService;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.domain.adapter.love.LoverConverter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author xiaohe
  * @since 2021.11.29 15:26
  */
-@Mapper(componentModel = "spring")
-public abstract class LoverBoConverter implements DataConverter {
+@Mapper
+public abstract class LoverBoConverter implements LoverConverter {
 
     protected static final LoverStatus DEFAULT_LOVER_STATUS = LoverStatus.READY;
 

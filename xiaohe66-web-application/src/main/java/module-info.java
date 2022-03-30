@@ -49,6 +49,8 @@ module xiaohe.web.application {
     requires static lombok;
 
     requires transitive org.apache.commons.io;
+    
     requires transitive xiaohe.web.core;
+    requires transitive xiaohe.web.infrastructure.domain.adapter;
 
 }

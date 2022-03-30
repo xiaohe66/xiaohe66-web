@@ -17,6 +17,7 @@
         <module>xiaohe66-web-gateway-http</module>
         <module>xiaohe66-web-application</module>
         <module>xiaohe66-web-gen</module>
+        <module>xiaohe66-web-infrastructure-domain-adapter</module>
     </modules>
 
     <properties>
@@ -72,6 +73,8 @@
                     <compilerArgs>
                         <!-- 默认生成 spring  -->
                         <arg>-Amapstruct.defaultComponentModel=spring</arg>
+                        <!-- 映射器注入类型 通过构造函数注入 -->
+                        <arg>-Amapstruct.defaultInjectionStrategy=constructor</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -140,6 +143,12 @@
             <dependency>
                 <groupId>com.xiaohe66</groupId>
                 <artifactId>xiaohe66-web-core</artifactId>
+                <version>${xiaohe66-ddd.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaohe66</groupId>
+                <artifactId>xiaohe66-web-infrastructure-domain-adapter</artifactId>
                 <version>${xiaohe66-ddd.version}</version>
             </dependency>
 

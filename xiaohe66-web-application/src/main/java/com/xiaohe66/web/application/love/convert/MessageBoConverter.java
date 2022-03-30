@@ -5,7 +5,7 @@ import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.love.agg.Message;
 import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.repository.WxUserRepository;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.domain.adapter.love.MessageConverter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
  * @author xiaohe
  * @since 2021.12.07 12:05
  */
-@Mapper(componentModel = "spring")
-public interface MessageBoConverter extends DataConverter {
+@Mapper
+public interface MessageBoConverter extends MessageConverter {
 
     default List<MessageListResult> toResult(WxUserRepository wxUserRepository, List<Message> list, AccountId currentUserId) {
 

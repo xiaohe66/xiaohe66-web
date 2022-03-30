@@ -4,6 +4,7 @@ open module xiaohe.web.infrastructure.mybatis {
     exports com.xiaohe66.web.integration;
 
     requires transitive xiaohe.web.core;
+    requires transitive xiaohe.web.infrastructure.domain.adapter;
 
     // mapstruct
     requires static java.compiler;

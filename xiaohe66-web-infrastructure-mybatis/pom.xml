@@ -39,6 +39,11 @@
             <artifactId>xiaohe66-web-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.xiaohe66</groupId>
+            <artifactId>xiaohe66-web-infrastructure-domain-adapter</artifactId>
+        </dependency>
+
         <!--<dependency>
             <groupId>com.xiaohe66</groupId>
             <artifactId>xiaohe66-crud-core</artifactId>

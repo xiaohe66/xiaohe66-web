@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>xiaohe66-web-application</artifactId>
+    <artifactId>xiaohe66-web-infrastructure-domain-adapter</artifactId>
     <version>0.0.1</version>
 
     <properties>
@@ -20,18 +20,13 @@
     <dependencies>
 
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.xiaohe66</groupId>
             <artifactId>xiaohe66-web-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xiaohe66</groupId>
-            <artifactId>xiaohe66-web-infrastructure-domain-adapter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
         </dependency>
 
         <dependency>

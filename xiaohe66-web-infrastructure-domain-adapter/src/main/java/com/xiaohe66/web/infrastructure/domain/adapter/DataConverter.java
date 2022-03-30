@@ -1,8 +1,14 @@
-package com.xiaohe66.web.integration.domain;
+package com.xiaohe66.web.infrastructure.domain.adapter;
 
 import com.xiaohe66.common.util.IdWorker;
 import com.xiaohe66.web.domain.account.value.AccountId;
 import com.xiaohe66.web.domain.love.value.LoverId;
+import com.xiaohe66.web.integration.domain.BooleanValue;
+import com.xiaohe66.web.integration.domain.DateValue;
+import com.xiaohe66.web.integration.domain.IntValue;
+import com.xiaohe66.web.integration.domain.LongId;
+import com.xiaohe66.web.integration.domain.LongValue;
+import com.xiaohe66.web.integration.domain.StringValue;
 
 import java.time.LocalDate;
 import java.util.function.Function;

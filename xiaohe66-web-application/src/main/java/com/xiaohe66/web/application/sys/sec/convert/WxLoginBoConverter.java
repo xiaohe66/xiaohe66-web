@@ -10,7 +10,7 @@ import com.xiaohe66.web.domain.wx.user.aggregate.WxUser;
 import com.xiaohe66.web.domain.wx.user.value.WxLoveUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxTaskUserOpenId;
 import com.xiaohe66.web.domain.wx.user.value.WxUserNickname;
-import com.xiaohe66.web.integration.domain.DataConverter;
+import com.xiaohe66.web.infrastructure.domain.adapter.DataConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author xiaohe
  * @since 2021.10.28 16:40
  */
-@Mapper(componentModel = "spring")
+@Mapper
 @RequiredArgsConstructor
 @Slf4j
 public abstract class WxLoginBoConverter implements DataConverter {
