@@ -78,7 +78,7 @@ public class LoverAppService {
     public R<LoverInfoResult> binding(String serialNo) {
 
         AccountId loveAccountId = (AccountId) serialNoCache.getIfPresent(serialNo);
-        Assert.notNull(loveAccountId, ErrorCodeEnum.NOT_FOUND, "识别码不存在");
+        Assert.requireNotNull(loveAccountId, ErrorCodeEnum.NOT_FOUND, "识别码不存在");
 
         AccountId currentAccountId = securityService.getCurrentAccountId();
 
@@ -118,7 +118,7 @@ public class LoverAppService {
 
         Lover lover = loverRepository.getByAccountIdValid(currentAccountId);
 
-        Assert.notNull(lover, ErrorCodeEnum.NOT_FOUND);
+        Assert.requireNotNull(lover, ErrorCodeEnum.NOT_FOUND);
 
         LoverInfoResult result = boConverter.toResultFull(lover);
 

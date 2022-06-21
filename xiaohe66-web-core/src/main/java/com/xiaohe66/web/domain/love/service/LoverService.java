@@ -38,7 +38,7 @@ public class LoverService {
         /*
             NOTE : 不支持取消绑定，因为用的人肯定很少。
          */
-        Assert.isFalse(currentAccountId.equals(loveAccountId), ErrorCodeEnum.PARAM_ERROR, "不可绑定自己");
+        Assert.requireFalse(currentAccountId.equals(loveAccountId), ErrorCodeEnum.PARAM_ERROR, "不可绑定自己");
 
         // List<Lover> loverList = loverRepository.getByAccountId(currentAccountId);
 
@@ -60,10 +60,10 @@ public class LoverService {
 
         // 保证绑定的双方都不存在第三者关系，正常会在前端控制，因此这里抛出非法操作
         Lover dbLover = loverRepository.getByAccountIdValid(currentAccountId);
-        Assert.isTrue(dbLover == null, ErrorCodeEnum.ILLEGAL_OPERATE);
+        Assert.requireTrue(dbLover == null, ErrorCodeEnum.ILLEGAL_OPERATE);
 
         dbLover = loverRepository.getByAccountIdValid(loveAccountId);
-        Assert.isTrue(dbLover == null, ErrorCodeEnum.ILLEGAL_OPERATE);
+        Assert.requireTrue(dbLover == null, ErrorCodeEnum.ILLEGAL_OPERATE);
 
         // 3. 不存在，新增绑定
         Lover lover = Lover.builder()
@@ -83,9 +83,9 @@ public class LoverService {
 
         Lover lover = loverRepository.getByAccountIdValid(currentAccountId);
 
-        Assert.notNull(lover, ErrorCodeEnum.NOT_FOUND, "当前账号不是情侣");
+        Assert.requireNotNull(lover, ErrorCodeEnum.NOT_FOUND, "当前账号不是情侣");
 
-        Assert.isFalse(currentAccountId.equals(lover.getCreateId()), ErrorCodeEnum.NOT_DATA_PERMISSION, "不可以自己同意自己的申请");
+        Assert.requireFalse(currentAccountId.equals(lover.getCreateId()), ErrorCodeEnum.NOT_DATA_PERMISSION, "不可以自己同意自己的申请");
 
         lover.confirm();
 

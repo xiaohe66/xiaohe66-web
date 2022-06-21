@@ -33,7 +33,7 @@ public class DailyService {
 
         Daily daily = dailyRepository.getById(id);
 
-        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATA);
+        Assert.requireNotNull(daily, ErrorCodeEnum.NOT_FOUND_DATA);
 
         securityService.checkCreatorPermission(daily.getCreateId());
 
@@ -44,7 +44,7 @@ public class DailyService {
 
         Daily daily = dailyRepository.getById(id);
 
-        Assert.notNull(daily, ErrorCodeEnum.NOT_FOUND_DATA);
+        Assert.requireNotNull(daily, ErrorCodeEnum.NOT_FOUND_DATA);
 
         // 检查权限，是否为当前情侣
         loverService.checkLoverPermission(daily.getLoverId());

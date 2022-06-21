@@ -26,7 +26,7 @@ public class PictureCategory extends IntValue {
     }
 
     public static PictureCategory valueOf(Integer value) {
-        Assert.notNull(value);
+        Assert.requireNotNull(value);
         switch (value) {
             case 0:
                 return ANCIENT;

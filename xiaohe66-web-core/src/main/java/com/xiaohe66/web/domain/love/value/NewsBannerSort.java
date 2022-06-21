@@ -30,7 +30,7 @@ public class NewsBannerSort extends IntValue {
 
     public static NewsBannerSort valueOf(Integer value) {
 
-        Assert.notNull(value);
+        Assert.requireNotNull(value);
 
         if (value < 0) {
             throw new BusinessException("sort cannot be less then zero");

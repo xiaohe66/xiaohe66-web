@@ -43,7 +43,7 @@ public class WishController {
     @PutMapping
     public R<?> update(@Validated @RequestBody WishSaveDto dto) {
 
-        Assert.notNull(dto.getId());
+        Assert.requireNotNull(dto.getId());
 
         WishSaveBo bo = dtoConverter.toBo(dto);
         return appService.modify(bo);

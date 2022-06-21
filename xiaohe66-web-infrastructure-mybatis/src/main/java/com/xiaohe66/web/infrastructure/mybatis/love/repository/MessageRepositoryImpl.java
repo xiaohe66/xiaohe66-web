@@ -35,7 +35,7 @@ public class MessageRepositoryImpl
     protected void insertImpl(Message agg) {
 
         boolean isExist = loverRepository.isExistId(agg.getLoverId().getValue());
-        Assert.isTrue(isExist, ErrorCodeEnum.NOT_FOUND_DATA);
+        Assert.requireTrue(isExist, ErrorCodeEnum.NOT_FOUND_DATA);
 
         super.insertImpl(agg);
     }
@@ -44,7 +44,7 @@ public class MessageRepositoryImpl
     protected void updateImpl(Message agg, Message snapshot) {
 
         boolean isExist = loverRepository.isExistId(agg.getLoverId().getValue());
-        Assert.isTrue(isExist, ErrorCodeEnum.NOT_FOUND_DATA);
+        Assert.requireTrue(isExist, ErrorCodeEnum.NOT_FOUND_DATA);
 
         super.updateImpl(agg, snapshot);
     }

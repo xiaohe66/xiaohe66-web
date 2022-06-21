@@ -55,7 +55,7 @@ public class NewsBannerService {
 
             } else {
 
-                Assert.isTrue(imageRepository.isExist(imageId));
+                Assert.requireTrue(imageRepository.isExist(imageId));
 
                 NewsBanner newBanner = NewsBanner.builder()
                         .id(new NewsBannerId(IdWorker.genId()))
